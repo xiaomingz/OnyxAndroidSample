@@ -16,16 +16,23 @@
 
 package com.onyx.latinime.latin.settings;
 
+import com.onyx.latinime.R;
 import com.onyx.latinime.latin.utils.FragmentUtils;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public final class SettingsActivity extends PreferenceActivity {
     private static final String DEFAULT_FRAGMENT = SettingsFragment.class.getName();
+
+    LinearLayout headers;
 
     @Override
     public Intent getIntent() {
@@ -47,11 +54,30 @@ public final class SettingsActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeButtonEnabled(true);
-        }
+        initToolbar();
+        adjustContentLayout();
+    }
+
+    private void initToolbar() {
+        headers = (LinearLayout) findViewById(android.R.id.list).getParent();
+        headers.setPadding(0, 0, 0, 0);
+        LinearLayout root = (LinearLayout)headers.getParent().getParent();
+        Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.settings_toolbar, root, false);
+        root.addView(bar, 0);
+        TextView toolbarTitle = bar.findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(R.string.english_ime_settings);
+        toolbarTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    private void adjustContentLayout() {
+        LinearLayout contentLayout = (LinearLayout) headers.getParent();
+        int paddingLeftRight = getResources().getDimensionPixelSize(R.dimen.content_layout_padding);
+        contentLayout.setPadding(paddingLeftRight, 0, paddingLeftRight, 0);
     }
 
     @Override

@@ -71,4 +71,7 @@
 
     <!-- Color resources for Keyboard Background-->
     <color name="keyboard_bg_color">@android:color/white</color>
+
+    <color name="bright_foreground_disabled_device_default_light">#ffb2b2b2</color>
+    <color name="bright_foreground_device_default_light">@android:color/black</color>
 </resources>
