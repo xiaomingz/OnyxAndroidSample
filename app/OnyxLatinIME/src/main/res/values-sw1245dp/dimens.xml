@@ -98,4 +98,9 @@
     <fraction name="emoji_keyboard_key_letter_size">68%p</fraction>
     <integer name="emoji_keyboard_max_key_count">30</integer>
 
+    <dimen name="title_bar_item_back_width">15dp</dimen>
+    <dimen name="title_bar_item_back_height">28dp</dimen>
+    <dimen name="preference_check_box_size">38dp</dimen>
+    <dimen name="title_bar_margin_top">50px</dimen>
+    <dimen name="content_layout_padding">53dp</dimen>
 </resources>
