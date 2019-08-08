@@ -27,7 +27,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.onyx.music.CircleImageView
             android:id="@+id/album"
             android:background="@drawable/album_border_large"
             android:layout_width="183dip"
