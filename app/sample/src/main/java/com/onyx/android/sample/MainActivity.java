@@ -85,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
         go(OpenKcbActivity.class);
     }
 
+    @OnClick(R.id.btn_open_ota)
+    public void btn_open_ota() {
+        go(OTADemoActivity.class);
+    }
+
     private void go(Class<?> activityClass){
         startActivity(new Intent(this, activityClass));
     }
