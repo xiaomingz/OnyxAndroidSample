@@ -43,4 +43,14 @@
     <style name="MusicPauseButtonStyle" parent="@android:style/MediaButton.Pause">
         <item name="android:src">@drawable/ic_music_pause</item>
     </style>
+
+    <style name="onyx_btn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:background">@drawable/imagebtn_bg</item>
+        <item name="android:minHeight">@dimen/button_minHeight</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+    </style>
 </resources>

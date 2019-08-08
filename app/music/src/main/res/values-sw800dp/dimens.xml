@@ -44,4 +44,5 @@
     <dimen name="nowplaying_layout_marginLeft">30dip</dimen>
     <dimen name="nowplaying_icon_layout_marginRight">16dip</dimen>
     <dimen name="buttonbar_TextView_paddingTop">12dip</dimen>
+    <dimen name="global_dialog_msg_min_height">174dp</dimen>
 </resources>
