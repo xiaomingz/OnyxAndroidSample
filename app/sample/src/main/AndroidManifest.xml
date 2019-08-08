@@ -58,6 +58,7 @@
         <activity android:name=".OpenSettingActivity"/>
         <activity android:name=".WebViewOptimizeActivity"/>
         <activity android:name=".OpenKcbActivity"/>
+        <activity android:name=".OTADemoActivity"/>
 
         <!-- set the app optimize of receiver-->
         <receiver
