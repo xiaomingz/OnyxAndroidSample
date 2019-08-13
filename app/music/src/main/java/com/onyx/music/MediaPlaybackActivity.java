@@ -958,16 +958,13 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
         try {
                     int shuffle = mService.getShuffleMode();
                     int mode = mService.getRepeatMode();
-            if (mode == MediaPlaybackService.REPEAT_NONE ||shuffle == MediaPlaybackService.SHUFFLE_NORMAL
-                    ||shuffle == MediaPlaybackService.SHUFFLE_AUTO) {
-                    mService.setShuffleMode(MediaPlaybackService.SHUFFLE_NONE);
-                if (mode != MediaPlaybackService.REPEAT_ALL) {
-                    mService.setRepeatMode(MediaPlaybackService.REPEAT_ALL);
-                }
+            if (mode == MediaPlaybackService.REPEAT_NONE && shuffle == MediaPlaybackService.SHUFFLE_NONE) {
+                mService.setShuffleMode(MediaPlaybackService.SHUFFLE_NONE);
+                mService.setRepeatMode(MediaPlaybackService.REPEAT_ALL);
 
                 setRepeatButtonImage();
                 showToast(R.string.repeat_all_notif);
-            } else if (mode == MediaPlaybackService.REPEAT_ALL) {
+            } else if (mode == MediaPlaybackService.REPEAT_ALL && shuffle == MediaPlaybackService.SHUFFLE_NONE) {
                 if (mService.getShuffleMode() != MediaPlaybackService.SHUFFLE_NONE) {
                     mService.setShuffleMode(MediaPlaybackService.SHUFFLE_NONE);
                 }
@@ -975,11 +972,15 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
                     setRepeatButtonImage();
                     showToast(R.string.repeat_current_notif);
 
-            } else if (mode == MediaPlaybackService.REPEAT_CURRENT){
-                    mService.setRepeatMode(MediaPlaybackService.REPEAT_ALL);
+            } else if (mode == MediaPlaybackService.REPEAT_CURRENT && shuffle == MediaPlaybackService.SHUFFLE_NONE){
+                    mService.setRepeatMode(MediaPlaybackService.REPEAT_NONE);
                     mService.setShuffleMode(MediaPlaybackService.SHUFFLE_NORMAL);
                     setShuffleButtonImage();
                     showToast(R.string.shuffle_on_notif);
+            } else if (shuffle == MediaPlaybackService.SHUFFLE_NORMAL ||shuffle == MediaPlaybackService.SHUFFLE_AUTO) {
+                mService.setShuffleMode(MediaPlaybackService.SHUFFLE_NONE);
+                mService.setRepeatMode(MediaPlaybackService.REPEAT_NONE);
+                setRepeatButtonImage();
             }
 
         } catch (RemoteException ex) {
@@ -1069,6 +1070,9 @@ public class MediaPlaybackActivity extends Activity implements MusicUtils.Defs,
                     break;
                 case MediaPlaybackService.REPEAT_CURRENT:
                     mPlayMode.setImageResource(R.drawable.ic_music_cycle_single);
+                    break;
+                case MediaPlaybackService.REPEAT_NONE:
+                    mPlayMode.setImageResource(R.drawable.ic_music_cycle_none);
                     break;
             }
         } catch (RemoteException ex) {
