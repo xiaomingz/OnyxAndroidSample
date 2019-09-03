@@ -95,7 +95,7 @@
         android:focusable="true"
         android:background="@drawable/buttonbarbackground"
         android:drawableTop="@drawable/ic_tab_playback"
-        android:text="@string/playlists_menu"
+        android:text="@string/nowplaying_title"
         android:textAppearance="@style/MusicHomeTitleTextStyle"
         android:textColor="@android:color/black"
         android:paddingTop="@dimen/buttonbar_TextView_paddingTop"
