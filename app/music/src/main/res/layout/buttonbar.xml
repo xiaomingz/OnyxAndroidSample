@@ -90,5 +90,22 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_tab_height" />
 
+    <TextView
+        android:id="@+id/nowplayingtab"
+        android:focusable="true"
+        android:background="@drawable/buttonbarbackground"
+        android:drawableTop="@drawable/ic_tab_playback"
+        android:text="@string/nowplaying_title"
+        android:textAppearance="@style/MusicHomeTitleTextStyle"
+        android:textColor="@android:color/black"
+        android:paddingTop="@dimen/buttonbar_TextView_paddingTop"
+        android:paddingBottom="2dip"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_marginLeft="-3dip"
+        android:layout_marginRight="-3dip"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_tab_height" />
+
 </TabWidget>
 
