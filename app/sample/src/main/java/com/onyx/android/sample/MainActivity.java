@@ -90,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
         go(OTADemoActivity.class);
     }
 
+    @OnClick(R.id.button_note_demo)
+    public void noteDemo() {
+        go(NoteDemoActivity.class);
+    }
+
     private void go(Class<?> activityClass){
         startActivity(new Intent(this, activityClass));
     }
