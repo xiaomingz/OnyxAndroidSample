@@ -69,6 +69,7 @@
             </intent-filter>
         </receiver>
         <activity android:name=".DictionaryActivity"/>
+        <activity android:name=".NoteDemoActivity"/>
     </application>
 
 </manifest>
