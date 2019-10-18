@@ -38,6 +38,7 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
+        exclude 'lib/armeabi-v7a/libc++_shared.so'
     }
 
     lintOptions {
@@ -88,7 +89,7 @@ dependencies {
     compile('com.onyx.android.sdk:onyxsdk-pen:1.0.8')
     compile('com.onyx.android.sdk:onyxsdk-data:1.1.4')
     compile('com.onyx.android.sdk:filedownload:1.0.0')
-    compile('com.onyx.android.sdk:onyxsdk-notedata:1.0.5')
+    compile('com.onyx.android.sdk:onyxsdk-notedata:1.0.6@aar')
 
     compile 'com.jakewharton:butterknife:7.0.1'
     testCompile 'junit:junit:4.12'
