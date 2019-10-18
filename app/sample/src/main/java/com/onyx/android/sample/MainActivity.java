@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.onyx.android.sample.note.NoteDemoActivity;
 import com.onyx.android.sample.scribble.ScribbleDemoActivity;
 import com.onyx.android.sample.test.OnyxTestActivity;
 import com.onyx.android.sdk.api.device.epd.EpdController;

@@ -69,7 +69,7 @@
             </intent-filter>
         </receiver>
         <activity android:name=".DictionaryActivity"/>
-        <activity android:name=".NoteDemoActivity"/>
+        <activity android:name=".note.NoteDemoActivity"/>
     </application>
 
 </manifest>
