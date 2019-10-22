@@ -139,4 +139,5 @@
     <dimen name="preference_fragment_padding_side">16dp</dimen>
     <dimen name="title_bar_margin_top">0dp</dimen>
     <dimen name="content_layout_padding">14dp</dimen>
+    <dimen name="key_preview_backing_default_height">300dp</dimen>
 </resources>
