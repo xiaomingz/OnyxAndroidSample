@@ -242,7 +242,7 @@ public class MediaPlaybackService extends Service {
                             if(isPlaying()) {
                                 mPausedByTransientLossOfFocus = true;
                             }
-                            pause();
+                            pause(false);
                             break;
                         case AudioManager.AUDIOFOCUS_GAIN:
                             Log.v(LOGTAG, "AudioFocus: received AUDIOFOCUS_GAIN");
@@ -1156,7 +1156,7 @@ public class MediaPlaybackService extends Service {
     public void play() {
         mWakeLock.acquire();
         mAudioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_MUSIC,
-                AudioManager.AUDIOFOCUS_GAIN);
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
         mAudioManager.registerMediaButtonEventReceiver(new ComponentName(this.getPackageName(),
                 MediaButtonIntentReceiver.class.getName()));
 
@@ -1250,6 +1250,13 @@ public class MediaPlaybackService extends Service {
      * Pauses playback (call play() to resume)
      */
     public void pause() {
+        pause(true);
+    }
+
+    /**
+     * Pauses playback (call play() to resume)
+     */
+    public void pause(boolean abandonAudioFocus) {
         synchronized(this) {
             mMediaplayerHandler.removeMessages(FADEUP);
             if (isPlaying()) {
@@ -1261,6 +1268,9 @@ public class MediaPlaybackService extends Service {
                 mIsSupposedToBePlaying = false;
                 notifyChange(PLAYSTATE_CHANGED);
                 saveBookmarkIfNeeded();
+                if (abandonAudioFocus) {
+                    mAudioManager.abandonAudioFocus(mAudioFocusListener);
+                }
             }
         }
     }
