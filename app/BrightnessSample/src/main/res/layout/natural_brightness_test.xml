@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Cold Brightness"
+            android:textSize="@dimen/item_text_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/brightness_test_layout_margin"
+            android:layout_marginTop="@dimen/brightness_test_layout_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imagebutton_cold_light_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="21dp"
+                android:background="@drawable/focus_button_background"
+                android:contentDescription="@drawable/light_down"
+                android:scaleType="fitCenter"
+                android:src="@drawable/light_down" />
+
+            <RatingBar
+                android:id="@+id/ratingbar_cold_light_settings"
+                style="@style/LightSettingsRatingBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/brightness_test_layout_margin"
+                android:stepSize="1.0" />
+
+            <ImageButton
+                android:id="@+id/imagebutton_cold_light_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp"
+                android:layout_marginRight="26dp"
+                android:background="@drawable/focus_button_background"
+                android:contentDescription="@drawable/light_add"
+                android:scaleType="fitCenter"
+                android:src="@drawable/light_add" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Warm Brightness"
+            android:textSize="@dimen/item_text_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/brightness_test_layout_margin"
+            android:layout_marginTop="@dimen/brightness_test_layout_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imagebutton_warm_light_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="21dp"
+                android:background="@drawable/focus_button_background"
+                android:contentDescription="@drawable/light_down"
+                android:scaleType="fitCenter"
+                android:src="@drawable/light_down" />
+
+            <RatingBar
+                android:id="@+id/ratingbar_warm_light_settings"
+                style="@style/LightSettingsRatingBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingTop="@dimen/brightness_test_layout_margin"
+                android:stepSize="1.0" />
+
+            <ImageButton
+                android:id="@+id/imagebutton_warm_light_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21dp"
+                android:layout_marginRight="26dp"
+                android:background="@drawable/focus_button_background"
+                android:contentDescription="@drawable/light_add"
+                android:scaleType="fitCenter"
+                android:src="@drawable/light_add" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            >
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="Cold Brightness"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/et_cold"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:inputType="number"
+                />
+
+            <Button
+                android:id="@+id/btn_cold_set"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="set"
+                android:layout_marginLeft="15dp"
+                />
+
+            <TextView
+                android:id="@+id/cold_value_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            >
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="Warm Brightness"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/et_warm"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:inputType="number"
+                />
+
+            <Button
+                android:id="@+id/btn_warm_set"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="set"
+                android:layout_marginLeft="15dp"
+                />
+
+            <TextView
+                android:id="@+id/warm_value_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
