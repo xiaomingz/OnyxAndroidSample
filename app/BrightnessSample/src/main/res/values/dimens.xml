@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="brightness_test_layout_margin">10dp</dimen>
+    <dimen name="tittle_bar_height">53dp</dimen>
+    <dimen name="item_text_size">30sp</dimen>
+</resources>
