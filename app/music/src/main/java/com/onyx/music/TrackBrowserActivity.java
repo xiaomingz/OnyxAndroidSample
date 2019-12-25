@@ -742,7 +742,7 @@ public class TrackBrowserActivity extends ListActivity
         String query = null;
 
         Intent i = new Intent();
-        i.setAction(MediaStore.INTENT_ACTION_MEDIA_SEARCH);
+        i.setAction(Constant.MEDIA_SEARCH_ACTION);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         title = mCurrentTrackName;
