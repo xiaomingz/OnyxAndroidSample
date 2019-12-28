@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         style="@style/widget_big_thin"
-        android:textColor="@color/clock_white"
+        android:textColor="@color/black"
         android:layout_gravity="center_horizontal|top"
         android:baselineAligned="true"
         android:layout_marginBottom="@dimen/bottom_text_spacing_digital"
@@ -50,7 +50,7 @@
             android:format12Hour=""
             android:format24Hour=""
             android:gravity="center"
-            android:textColor="@color/clock_white"
+            android:textColor="@color/black"
             />
         <TextView
             android:id="@+id/nextAlarm"
@@ -63,7 +63,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:singleLine="true"
-            android:textColor="@color/clock_gray"
+            android:textColor="@color/black"
             android:visibility="gone"
             />
     </LinearLayout>
