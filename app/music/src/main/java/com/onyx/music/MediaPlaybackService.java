@@ -42,6 +42,7 @@ import android.media.RemoteControlClient;
 import android.media.RemoteControlClient.MetadataEditor;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -334,8 +335,8 @@ public class MediaPlaybackService extends Service {
                 | RemoteControlClient.FLAG_KEY_MEDIA_PLAY_PAUSE
                 | RemoteControlClient.FLAG_KEY_MEDIA_STOP;
         mRemoteControlClient.setTransportControlFlags(flags);
-        
-        mPreferences = getSharedPreferences("Music", MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE);
+        mPreferences = getSharedPreferences("Music",
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? MODE_PRIVATE : (MODE_WORLD_READABLE | MODE_WORLD_WRITEABLE));
         mCardId = MusicUtils.getCardId(this);
         
         registerExternalStorageListener();
