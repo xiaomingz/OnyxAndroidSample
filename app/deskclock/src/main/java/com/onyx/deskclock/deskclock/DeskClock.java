@@ -68,11 +68,10 @@ public class DeskClock extends BaseActivity
     private static final String KEY_SELECTED_TAB = "selected_tab";
     public static final String SELECT_TAB_INTENT_EXTRA = "deskclock.select.tab";
 
-    //changed by onyx [hide the alarmPage in C68S]
-    public static final int ALARM_TAB_INDEX = -1;
-    public static final int CLOCK_TAB_INDEX = 0;
-    public static final int TIMER_TAB_INDEX = 1;
-    public static final int STOPWATCH_TAB_INDEX = 2;
+    public static final int ALARM_TAB_INDEX = 0;
+    public static final int CLOCK_TAB_INDEX = 1;
+    public static final int TIMER_TAB_INDEX = 2;
+    public static final int STOPWATCH_TAB_INDEX = 3;
 
     private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
 
@@ -111,12 +110,9 @@ public class DeskClock extends BaseActivity
     }
 
     private void createTabs() {
-        /*
-        changed by onyx
         final Tab alarmTab = mTabLayout.newTab();
         alarmTab.setIcon(R.drawable.ic_tab_alarm).setContentDescription(R.string.menu_alarm);
         mTabsAdapter.addTab(alarmTab, AlarmClockFragment.class, ALARM_TAB_INDEX);
-        */
 
         final Tab clockTab = mTabLayout.newTab();
         clockTab.setIcon(R.drawable.ic_tab_clock).setContentDescription(R.string.menu_clock);
@@ -167,9 +163,6 @@ public class DeskClock extends BaseActivity
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         mFab = (ImageView) findViewById(R.id.fab);
-
-        // 只保留时间一个 tab
-        toolbar.setVisibility(View.GONE);
 
         mLeftButton = (ImageButton) findViewById(R.id.left_button);
         mRightButton = (ImageButton) findViewById(R.id.right_button);
@@ -391,7 +384,6 @@ public class DeskClock extends BaseActivity
             // Set the page before doing the menu so that onCreateOptionsMenu knows what page it is.
             mTabLayout.getTabAt(position).select();
             notifyPageChanged(position);
-
             mSelectedTab = position;
 
             // Avoid sending events for the initial tab selection on launch and the reselecting a
