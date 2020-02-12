@@ -51,9 +51,9 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.AnimatorUtils;
 import com.onyx.deskclock.deskclock.LogUtils;
-import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.Utils;
 import com.onyx.deskclock.deskclock.events.Events;
 import com.onyx.deskclock.deskclock.provider.AlarmInstance;
@@ -211,6 +211,8 @@ public class AlarmActivity extends AppCompatActivity
         final CircleView pulseView = (CircleView) mContentView.findViewById(R.id.pulse);
 
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
+        digitalClock.setTime(mAlarmInstance.mHour, mAlarmInstance.mMinute);
+
         Utils.setTimeFormat(this, digitalClock);
 
         mCurrentHourColor = Utils.getCurrentHourColor();

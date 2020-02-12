@@ -463,6 +463,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Instance not valid anymore, so find next alarm that will fire and notify system
         updateNextAlarm(context);
+
     }
 
     /**
@@ -1002,11 +1003,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (Build.VERSION.SDK_INT >= 19){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 am.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
             } else {
                 am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
             }
+            AlarmAlertWakeLock.acquireCpuWakeLock(context);
         }
 
         @Override
@@ -1023,6 +1027,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 am.cancel(pendingIntent);
                 pendingIntent.cancel();
             }
+            AlarmAlertWakeLock.releaseCpuLock();
         }
     }
 }
