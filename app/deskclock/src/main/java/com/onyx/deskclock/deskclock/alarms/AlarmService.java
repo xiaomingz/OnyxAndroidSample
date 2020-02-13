@@ -126,7 +126,6 @@ public class AlarmService extends Service {
         }
 
         sendBroadcast(new Intent(ONYX_PM_WAKEUP_ACTION));
-        AlarmAlertWakeLock.acquireCpuWakeLock(this);
 
         mCurrentAlarm = instance;
         AlarmNotifications.showAlarmNotification(this, mCurrentAlarm);

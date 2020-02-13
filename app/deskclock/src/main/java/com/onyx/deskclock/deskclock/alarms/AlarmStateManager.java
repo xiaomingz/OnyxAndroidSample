@@ -1010,7 +1010,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
             } else {
                 am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
             }
-            AlarmAlertWakeLock.acquireCpuWakeLock(context);
         }
 
         @Override
@@ -1027,7 +1026,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 am.cancel(pendingIntent);
                 pendingIntent.cancel();
             }
-            AlarmAlertWakeLock.releaseCpuLock();
         }
     }
 }
