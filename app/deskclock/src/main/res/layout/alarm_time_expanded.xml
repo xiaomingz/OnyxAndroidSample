@@ -156,15 +156,16 @@
                 android:gravity="start|center_vertical"
                 android:scaleType="fitStart" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/arrow"
                 android:layout_width="@dimen/touch_target_min_size"
                 android:layout_height="@dimen/touch_target_min_size"
                 android:layout_gravity="center_vertical|end"
                 android:contentDescription="@string/collapse_alarm"
-                android:rotation="@integer/chevron_rotate_180"
                 android:scaleType="center"
-                android:src="@drawable/ic_expand_down" />
+                android:focusable="true"
+                android:clickable="true"
+                android:src="@drawable/ic_onyx_collapse" />
 
         </FrameLayout>
 

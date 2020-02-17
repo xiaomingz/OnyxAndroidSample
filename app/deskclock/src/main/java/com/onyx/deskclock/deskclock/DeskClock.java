@@ -29,7 +29,6 @@ import android.support.design.widget.TabLayout.Tab;
 import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -111,20 +110,20 @@ public class DeskClock extends BaseActivity
 
     private void createTabs() {
         final Tab alarmTab = mTabLayout.newTab();
-        alarmTab.setIcon(R.drawable.ic_tab_alarm).setContentDescription(R.string.menu_alarm);
+        alarmTab.setIcon(R.drawable.ic_onyx_alarm).setText(R.string.menu_alarm).setContentDescription(R.string.menu_alarm);
         mTabsAdapter.addTab(alarmTab, AlarmClockFragment.class, ALARM_TAB_INDEX);
 
         final Tab clockTab = mTabLayout.newTab();
-        clockTab.setIcon(R.drawable.ic_tab_clock).setContentDescription(R.string.menu_clock);
+        clockTab.setIcon(R.drawable.ic_onyx_world_clock).setText(R.string.menu_clock).setContentDescription(R.string.menu_clock);
         mTabsAdapter.addTab(clockTab, ClockFragment.class, CLOCK_TAB_INDEX);
 
         final Tab timerTab = mTabLayout.newTab();
-        timerTab.setIcon(R.drawable.ic_tab_timer).setContentDescription(R.string.menu_timer);
+        timerTab.setIcon(R.drawable.ic_onyx_timer).setText(R.string.menu_timer).setContentDescription(R.string.menu_timer);
         mTabsAdapter.addTab(timerTab, TimerFragment.class, TIMER_TAB_INDEX);
 
         final Tab stopwatchTab = mTabLayout.newTab();
-        stopwatchTab.setIcon(R.drawable.ic_tab_stopwatch)
-                .setContentDescription(R.string.menu_stopwatch);
+        stopwatchTab.setIcon(R.drawable.ic_onyx_stop_watch)
+                .setText(R.string.menu_stopwatch).setContentDescription(R.string.menu_stopwatch);
         mTabsAdapter.addTab(stopwatchTab, StopwatchFragment.class, STOPWATCH_TAB_INDEX);
 
         mTabLayout.getTabAt(mSelectedTab).select();
@@ -160,7 +159,6 @@ public class DeskClock extends BaseActivity
         }
 
         setContentView(R.layout.desk_clock);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         mFab = (ImageView) findViewById(R.id.fab);
 
@@ -203,10 +201,6 @@ public class DeskClock extends BaseActivity
                 .addMenuItemController(new NightModeMenuItemController(this))
                 .addMenuItemController(MenuItemControllerFactory.getInstance()
                         .buildMenuItemControllers(this));
-
-        // Inflate the menu during creation to avoid a double layout pass. Otherwise, the menu
-        // inflation occurs *after* the initial draw and a second layout pass adds in the menu.
-        onCreateOptionsMenu(toolbar.getMenu());
 
         // We need to update the system next alarm time on app startup because the
         // user might have clear our data.
