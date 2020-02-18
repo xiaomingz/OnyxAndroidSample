@@ -23,12 +23,12 @@ import android.os.PowerManager;
  * Utility class to hold wake lock in app.
  */
 public class AlarmAlertWakeLock {
-
     private static PowerManager.WakeLock sCpuWakeLock;
+    /*2 minutes*/
+    private static int WAKELOCK_TIMEOUT = 2 * 60 * 1000;
 
     public static PowerManager.WakeLock createPartialWakeLock(Context context) {
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        return pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LogUtils.LOGTAG);
+        return createOnyxDeskClockWakeLock(context);
     }
 
     public static void acquireCpuWakeLock(Context context) {
@@ -37,22 +37,27 @@ public class AlarmAlertWakeLock {
         }
 
         sCpuWakeLock = createPartialWakeLock(context);
-        sCpuWakeLock.acquire();
+        sCpuWakeLock.acquire(WAKELOCK_TIMEOUT);
     }
 
     public static void acquireScreenCpuWakeLock(Context context) {
         if (sCpuWakeLock != null) {
             return;
         }
+        sCpuWakeLock = createOnyxDeskClockWakeLock(context);
+        sCpuWakeLock.acquire(WAKELOCK_TIMEOUT);
+    }
+
+    private static PowerManager.WakeLock createOnyxDeskClockWakeLock(Context context) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        sCpuWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK
-                | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, LogUtils.LOGTAG);
-        sCpuWakeLock.acquire();
+        return pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "onyx_workLowPower");
     }
 
     public static void releaseCpuLock() {
         if (sCpuWakeLock != null) {
-            sCpuWakeLock.release();
+            if (sCpuWakeLock.isHeld()) {
+                sCpuWakeLock.release();
+            }
             sCpuWakeLock = null;
         }
     }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2009 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,101 +13,105 @@
      limitations under the License.
 -->
 
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        app:elevation="0dp">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp">
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/sliding_tabs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:tabBackground="@drawable/gridview_selector"
-                app:tabGravity="fill"
-                app:tabIndicatorColor="@android:color/transparent"
-                app:tabMode="fixed" />
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <com.onyx.deskclock.deskclock.widget.RtlViewPager
-        android:id="@+id/desk_clock_pager"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_alignParentTop="true"
+        android:background="@color/white"
+        android:layout_above="@+id/divider"
+        android:orientation="vertical">
 
-    <LinearLayout
+        <com.onyx.deskclock.deskclock.widget.RtlViewPager
+            android:id="@+id/desk_clock_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center_vertical"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/left_button"
+                    android:layout_width="@dimen/design_fab_size_normal"
+                    android:layout_height="@dimen/design_fab_size_normal"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:scaleType="center"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/fab"
+                    android:layout_width="@dimen/design_fab_size_normal"
+                    android:layout_height="@dimen/design_fab_size_normal"
+                    android:layout_gravity="center"
+                    android:focusable="true"
+                    android:background="@drawable/onyx_fab_bg"
+                    android:scaleType="center"
+                    android:clickable="true"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:contentDescription="@null" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end|center_vertical"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/right_button"
+                    android:layout_width="@dimen/design_fab_size_normal"
+                    android:layout_height="@dimen/design_fab_size_normal"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:scaleType="center"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_above="@+id/sliding_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
+        app:tabBackground="@null"
+        app:tabGravity="fill"
+        app:tabTextColor="@android:color/black"
+        app:tabIndicatorColor="@android:color/black"
+        app:tabMode="fixed" />
+</RelativeLayout>
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start|center_vertical"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/left_button"
-                android:layout_width="@dimen/design_fab_size_normal"
-                android:layout_height="@dimen/design_fab_size_normal"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                android:visibility="gone"
-                android:scaleType="center" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/fab"
-                android:layout_width="@dimen/design_fab_size_normal"
-                android:layout_height="@dimen/design_fab_size_normal"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                android:layout_margin="@dimen/fab_margin" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="end|center_vertical"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/right_button"
-                android:layout_width="@dimen/design_fab_size_normal"
-                android:layout_height="@dimen/design_fab_size_normal"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                android:visibility="gone"
-                android:scaleType="center" />
-
-        </FrameLayout>
-    </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>

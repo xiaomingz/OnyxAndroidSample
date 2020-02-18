@@ -26,11 +26,13 @@ import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
+import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.AlarmAlertWakeLock;
 import com.onyx.deskclock.deskclock.LogUtils;
-import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.events.Events;
 import com.onyx.deskclock.deskclock.provider.AlarmInstance;
+
+import static com.onyx.deskclock.DeskClockConstant.ONYX_PM_WAKEUP_ACTION;
 
 /**
  * This service is in charge of starting/stopping the alarm. It will bring up and manage the
@@ -123,7 +125,7 @@ public class AlarmService extends Service {
             stopCurrentAlarm();
         }
 
-        AlarmAlertWakeLock.acquireCpuWakeLock(this);
+        sendBroadcast(new Intent(ONYX_PM_WAKEUP_ACTION));
 
         mCurrentAlarm = instance;
         AlarmNotifications.showAlarmNotification(this, mCurrentAlarm);
@@ -131,6 +133,14 @@ public class AlarmService extends Service {
         mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
         AlarmKlaxon.start(this, mCurrentAlarm);
         sendBroadcast(new Intent(ALARM_ALERT_ACTION));
+
+        Intent fullScreenIntent = AlarmInstance.createIntent(this, AlarmActivity.class,
+                instance.mId);
+        fullScreenIntent.setAction("fullscreen_activity");
+        fullScreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+
+        startActivity(fullScreenIntent);
     }
 
     private void stopCurrentAlarm() {

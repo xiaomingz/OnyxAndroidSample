@@ -15,11 +15,13 @@
  */
 package com.onyx.deskclock.deskclock.alarms;
 
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -28,16 +30,27 @@ import com.onyx.deskclock.deskclock.AlarmUtils;
 import com.onyx.deskclock.deskclock.DeskClock;
 import com.onyx.deskclock.deskclock.LogUtils;
 import com.onyx.deskclock.R;
+import com.onyx.deskclock.deskclock.alarms.utils.NotificationUtil;
 import com.onyx.deskclock.deskclock.provider.Alarm;
 import com.onyx.deskclock.deskclock.provider.AlarmInstance;
 
 public final class AlarmNotifications {
     public static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
 
+    private static Notification.Builder generateNotificationBuilder(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            return new Notification.Builder(
+                    context.getApplicationContext());
+        } else {
+            return new Notification.Builder(
+                    context.getApplicationContext(), NotificationUtil.createNotificationChannel(context));
+        }
+    }
+
     public static void showLowPriorityNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
 
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+        Notification.Builder notification = generateNotificationBuilder(context)
                 .setContentTitle(context.getString(
                         R.string.alarm_alert_predismiss_title))
                 .setContentText(AlarmUtils.getAlarmText(context, instance,
@@ -76,7 +89,7 @@ public final class AlarmNotifications {
     public static void showHighPriorityNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying high priority notification for alarm instance: " + instance.mId);
 
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+        Notification.Builder notification = generateNotificationBuilder(context)
                 .setContentTitle(context.getString(R.string.alarm_alert_predismiss_title))
                 .setContentText(AlarmUtils.getAlarmText(context, instance,
                         true /* includeLabel */))
@@ -110,7 +123,7 @@ public final class AlarmNotifications {
     public static void showSnoozeNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying snoozed notification for alarm instance: " + instance.mId);
 
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+        Notification.Builder notification = generateNotificationBuilder(context)
                 .setContentTitle(instance.getLabelOrDefault(context))
                 .setContentText(context.getString(R.string.alarm_alert_snooze_until,
                         AlarmUtils.getFormattedTime(context, instance.getAlarmTime())))
@@ -144,7 +157,7 @@ public final class AlarmNotifications {
 
         String label = instance.mLabel;
         String alarmTime = AlarmUtils.getFormattedTime(context, instance.getAlarmTime());
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+        Notification.Builder notification = generateNotificationBuilder(context)
                 .setContentTitle(context.getString(R.string.alarm_missed_title))
                 .setContentText(instance.mLabel.isEmpty() ? alarmTime :
                         context.getString(R.string.alarm_missed_text, alarmTime, label))
@@ -178,7 +191,7 @@ public final class AlarmNotifications {
         LogUtils.v("Displaying alarm notification for alarm instance: " + instance.mId);
 
         Resources resources = service.getResources();
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(service)
+        Notification.Builder notification = generateNotificationBuilder(service.getApplicationContext())
                 .setContentTitle(instance.getLabelOrDefault(service))
                 .setContentText(AlarmUtils.getFormattedTime(service, instance.getAlarmTime()))
                 .setSmallIcon(R.drawable.stat_notify_alarm)

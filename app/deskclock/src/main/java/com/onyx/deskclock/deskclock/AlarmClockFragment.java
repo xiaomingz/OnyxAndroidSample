@@ -274,7 +274,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             return;
         }
         mFab.setVisibility(View.VISIBLE);
-        mFab.setImageResource(R.drawable.ic_add_white_24dp);
+        mFab.setImageResource(R.drawable.ic_onyx_alarm_add);
         mFab.setContentDescription(getString(R.string.button_alarms));
     }
 

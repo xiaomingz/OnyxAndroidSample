@@ -38,9 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <android.support.v7.widget.SwitchCompat
+    <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/onoff"
         android:layout_width="wrap_content"
+        android:button="@drawable/onyx_custom_switch"
         android:layout_height="@dimen/touch_target_min_size"
         android:layout_gravity="center_vertical|end"
         android:theme="@style/ControlAccentThemeOverlay" />

@@ -51,9 +51,9 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.AnimatorUtils;
 import com.onyx.deskclock.deskclock.LogUtils;
-import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.Utils;
 import com.onyx.deskclock.deskclock.events.Events;
 import com.onyx.deskclock.deskclock.provider.AlarmInstance;
@@ -211,18 +211,20 @@ public class AlarmActivity extends AppCompatActivity
         final CircleView pulseView = (CircleView) mContentView.findViewById(R.id.pulse);
 
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
+        digitalClock.setTime(mAlarmInstance.mHour, mAlarmInstance.mMinute);
+
         Utils.setTimeFormat(this, digitalClock);
 
         mCurrentHourColor = Utils.getCurrentHourColor();
-        getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
         mAlarmButton.setOnTouchListener(this);
         mSnoozeButton.setOnClickListener(this);
         mDismissButton.setOnClickListener(this);
 
         mAlarmAnimator = AnimatorUtils.getScaleAnimator(mAlarmButton, 1.0f, 0.0f);
-        mSnoozeAnimator = getButtonAnimator(mSnoozeButton, Color.WHITE);
-        mDismissAnimator = getButtonAnimator(mDismissButton, mCurrentHourColor);
+//        mSnoozeAnimator = getButtonAnimator(mSnoozeButton, Color.WHITE);
+//        mDismissAnimator = getButtonAnimator(mDismissButton, mCurrentHourColor);
         mPulseAnimator = ObjectAnimator.ofPropertyValuesHolder(pulseView,
                 PropertyValuesHolder.ofFloat(CircleView.RADIUS, 0.0f, pulseView.getRadius()),
                 PropertyValuesHolder.ofObject(CircleView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR,
@@ -396,7 +398,7 @@ public class AlarmActivity extends AppCompatActivity
                 } else {
                     if (snoozeFraction > 0.0f || dismissFraction > 0.0f) {
                         // Animate back to the initial state.
-                        AnimatorUtils.reverse(mAlarmAnimator, mSnoozeAnimator, mDismissAnimator);
+//                        AnimatorUtils.reverse(mAlarmAnimator, mSnoozeAnimator, mDismissAnimator);
                     } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()) {
                         // User touched the alarm button, hint the dismiss action
                         hintDismiss();
@@ -494,7 +496,7 @@ public class AlarmActivity extends AppCompatActivity
 
         getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null /* infoText */,
                 getString(R.string.alarm_alert_off_text) /* accessibilityText */,
-                Color.WHITE, mCurrentHourColor).start();
+                Color.WHITE, Color.WHITE).start();
 
         AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
 
@@ -528,8 +530,8 @@ public class AlarmActivity extends AppCompatActivity
     private void setAnimatedFractions(float snoozeFraction, float dismissFraction) {
         final float alarmFraction = Math.max(snoozeFraction, dismissFraction);
         AnimatorUtils.setAnimatedFraction(mAlarmAnimator, alarmFraction);
-        AnimatorUtils.setAnimatedFraction(mSnoozeAnimator, snoozeFraction);
-        AnimatorUtils.setAnimatedFraction(mDismissAnimator, dismissFraction);
+//        AnimatorUtils.setAnimatedFraction(mSnoozeAnimator, snoozeFraction);
+//        AnimatorUtils.setAnimatedFraction(mDismissAnimator, dismissFraction);
     }
 
     private float getFraction(float x0, float x1, float x) {
@@ -544,7 +546,7 @@ public class AlarmActivity extends AppCompatActivity
                 PropertyValuesHolder.ofInt(AnimatorUtils.DRAWABLE_ALPHA,
                         BUTTON_DRAWABLE_ALPHA_DEFAULT, 255),
                 PropertyValuesHolder.ofObject(AnimatorUtils.DRAWABLE_TINT,
-                        AnimatorUtils.ARGB_EVALUATOR, Color.WHITE, tintColor));
+                        AnimatorUtils.ARGB_EVALUATOR, Color.BLACK, tintColor));
     }
 
     private ValueAnimator getAlarmBounceAnimator(float translationX, final int hintResId) {
