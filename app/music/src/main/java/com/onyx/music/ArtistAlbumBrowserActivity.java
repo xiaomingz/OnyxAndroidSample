@@ -624,9 +624,6 @@ public class ArtistAlbumBrowserActivity extends ExpandableListActivity
             ImageView iv = (ImageView) v.findViewById(R.id.icon);
             ImageView PackUp = (ImageView) v.findViewById(R.id.pack_up);
             PackUp.setVisibility(View.VISIBLE);
-            ViewGroup.LayoutParams p = iv.getLayoutParams();
-            p.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            p.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             ViewHolder vh = new ViewHolder();
             vh.line1 = (TextView) v.findViewById(R.id.line1);
             vh.line2 = (TextView) v.findViewById(R.id.line2);

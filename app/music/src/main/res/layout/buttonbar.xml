@@ -22,90 +22,65 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <TextView
+    <LinearLayout
         android:id="@+id/artisttab"
-        android:focusable="true"
-        android:background="@drawable/buttonbarbackground"
-        android:drawableTop="@drawable/ic_tab_artists"
-        android:text="@string/browse_menu"
-        android:textAppearance="@style/MusicHomeTitleTextStyle"
-        android:textColor="@android:color/black"
-        android:paddingTop="@dimen/buttonbar_TextView_paddingTop"
-        android:paddingBottom="2dip"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:layout_marginLeft="-3dip"
-        android:layout_marginRight="-3dip"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height" />
+        style="@style/button_bar_layout_style">
+        <ImageView
+            android:src="@drawable/ic_tab_artists"
+            style="@style/button_bar_img_style" />
 
-    <TextView
+        <TextView
+            android:text="@string/browse_menu"
+            style="@style/button_bar_text_style" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/albumtab"
-        android:focusable="true"
-        android:background="@drawable/buttonbarbackground"
-        android:drawableTop="@drawable/ic_tab_albums"
-        android:text="@string/albums_menu"
-        android:textAppearance="@style/MusicHomeTitleTextStyle"
-        android:textColor="@android:color/black"
-        android:paddingTop="@dimen/buttonbar_TextView_paddingTop"
-        android:paddingBottom="2dip"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:layout_marginLeft="-3dip"
-        android:layout_marginRight="-3dip"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height" />
+        style="@style/button_bar_layout_style">
+        <ImageView
+            android:src="@drawable/ic_tab_albums"
+            style="@style/button_bar_img_style"/>
 
-    <TextView
+        <TextView
+            android:text="@string/albums_menu"
+            style="@style/button_bar_text_style" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/songtab"
-        android:focusable="true"
-        android:background="@drawable/buttonbarbackground"
-        android:drawableTop="@drawable/ic_tab_songs"
-        android:text="@string/tracks_menu"
-        android:textAppearance="@style/MusicHomeTitleTextStyle"
-        android:textColor="@android:color/black"
-        android:paddingTop="@dimen/buttonbar_TextView_paddingTop"
-        android:paddingBottom="2dip"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:layout_marginLeft="-3dip"
-        android:layout_marginRight="-3dip"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height" />
+        style="@style/button_bar_layout_style">
+        <ImageView
+            android:src="@drawable/ic_tab_songs"
+            style="@style/button_bar_img_style"/>
 
-    <TextView
+        <TextView
+            android:text="@string/tracks_menu"
+            style="@style/button_bar_text_style" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/playlisttab"
-        android:focusable="true"
-        android:background="@drawable/buttonbarbackground"
-        android:drawableTop="@drawable/ic_tab_playlists"
-        android:text="@string/playlists_menu"
-        android:textAppearance="@style/MusicHomeTitleTextStyle"
-        android:textColor="@android:color/black"
-        android:paddingTop="@dimen/buttonbar_TextView_paddingTop"
-        android:paddingBottom="2dip"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:layout_marginLeft="-3dip"
-        android:layout_marginRight="-3dip"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height" />
+        style="@style/button_bar_layout_style">
+        <ImageView
+            android:src="@drawable/ic_tab_playlists"
+            style="@style/button_bar_img_style"/>
 
-    <TextView
+        <TextView
+            android:text="@string/playlists_menu"
+            style="@style/button_bar_text_style" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/nowplayingtab"
-        android:focusable="true"
-        android:background="@drawable/buttonbarbackground"
-        android:drawableTop="@drawable/ic_tab_playback"
-        android:text="@string/nowplaying_title"
-        android:textAppearance="@style/MusicHomeTitleTextStyle"
-        android:textColor="@android:color/black"
-        android:paddingTop="@dimen/buttonbar_TextView_paddingTop"
-        android:paddingBottom="2dip"
-        android:gravity="center"
-        android:layout_weight="1"
-        android:layout_marginLeft="-3dip"
-        android:layout_marginRight="-3dip"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height" />
+        style="@style/button_bar_layout_style">
+        <ImageView
+            android:src="@drawable/ic_tab_playback"
+            style="@style/button_bar_img_style"/>
+
+        <TextView
+            android:text="@string/nowplaying_title"
+            style="@style/button_bar_text_style" />
+    </LinearLayout>
 
 </TabWidget>
 
