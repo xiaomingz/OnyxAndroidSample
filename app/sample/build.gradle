@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -53,7 +52,7 @@ dependencies {
     })
 
     //dependencies for sdk-data uses
-    apt "com.github.Raizlabs.DBFlow:dbflow-processor:$rootProject.dbflowVersion"
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:$rootProject.dbflowVersion"
     compile "com.github.Raizlabs.DBFlow:dbflow-core:$rootProject.dbflowVersion"
     compile "com.github.Raizlabs.DBFlow:dbflow:$rootProject.dbflowVersion"
     compile "org.apache.commons:commons-collections4:$rootProject.apachecommonsVersion"
