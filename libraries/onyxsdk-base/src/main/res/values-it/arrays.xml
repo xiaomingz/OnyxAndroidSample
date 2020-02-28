@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="wifi_signal">
+    <item>Scarso</item>
+    <item/>
+    <item>Buono</item>
+    <item/>
+    <item>Eccellente</item>
+  </string-array>
+  <string-array name="wifi_status">
+    <item/>
+    <item>Scansione in corso...</item>
+    <item>Connessione in corso\u2026</item>
+    <item/>
+    <item>Ottengo l\’indirizzo IP\u2026</item>
+    <item/>
+    <item>Sospeso</item>
+    <item>Disconnessione in corso\u2026</item>
+    <item>Disconnesso</item>
+    <item/>
+    <item>Non riuscito</item>
+  </string-array>
+  <string-array name="wifi_status_with_ssid">
+    <item/>
+    <item>Scansione in corso\u2026</item>
+    <item>Connessione in corso a <xliff:g id="network_name">%1$s</xliff:g>\u2026</item>
+    <item>Autenticazione in corso con <xliff:g id="network_name">%1$s</xliff:g>\u2026</item>
+    <item>Ottengo l\’indirizzo IP da <xliff:g id="network_name">%1$s</xliff:g>\u2026</item>
+    <item>Connesso a <xliff:g id="network_name">%1$s</xliff:g></item>
+    <item/>
+    <item>Disconnessione in corso da </item>
+    <item/>
+    <item>Non riuscito</item>
+  </string-array>
+</resources>

@@ -1,0 +1,10 @@
+<vector android:height="@dimen/menu_icon_size" android:viewportHeight="128"
+    android:viewportWidth="128" android:width="@dimen/menu_icon_size" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#00000000"
+        android:pathData="M57.4,57.3m-54.7,0a54.7,54.7 0,1 1,109.4 0a54.7,54.7 0,1 1,-109.4 0"
+        android:strokeColor="#000000" android:strokeWidth="5"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M96.3,96.3L125.5,125.5"
+        android:strokeColor="#000000" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="5"/>
+</vector>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="hour_symbol">h</string>
+  <string name="minute_symbol">m</string>
+  <string name="second_symbol">s</string>
+  <string name="wifi_connected">Připojeno</string>
+  <string name="wifi_disabled_generic">Zakázáno</string>
+  <string name="wifi_disabled_network_failure">Slabé připojení k síti již zakázané</string>
+  <string name="wifi_forget">Zapomenout</string>
+  <string name="wifi_connect">Připojit</string>
+  <string name="closed">Zavřít</string>
+  <string name="wifi_rescan">Rescan</string>
+  <string name="wifi_disabled_password_failure">Chyba ověření</string>
+  <string name="wifi_network">Síť Wi-Fi</string>
+  <string name="wifi_security_none">Žádný</string>
+  <string name="wifi_remembered">Uložené</string>
+  <string name="wifi_secured_first_item">Zabezpečeno pomocí <xliff:g id="wifi_security_short">%1$s</xliff:g></string>
+  <string name="wifi_secured_second_item">, zabezpečeno pomocí <xliff:g id="wifi_security_short">%1$s</xliff:g></string>
+  <string name="wifi_wps_available_first_item">Dostupná chráněná síť</string>
+  <string name="wifi_wps_available_second_item">\u0020 (dostupná chráněná síť)</string>
+  <string name="wifi_password">Heslo</string>
+  <string name="wifi_show_password">Zobrazit heslo</string>
+  <string name="wifi_show_advanced">Zobrazit rozšířené možnosti</string>
+  <string name="wifi_signal">Síla signálu</string>
+  <string name="wifi_security">Bezpečnostní</string>
+  <string name="wifi_speed">Rychlost spojení</string>
+  <string name="wifi_ip_address">IP adresa</string>
+  <string name="Wireless_lan">Bezdrátové připojení k internetu</string>
+  <string name="wifi_status">Stav</string>
+  <string name="open_wifi">Zapněte Wi-Fi a zkontrolujte dostupnou síť</string>
+  <string name="current_available_wifi_count">Aktuálně dostupné WiFi: %1$d</string>
+  <string name="unavailable">Není k dispozici</string>
+</resources>

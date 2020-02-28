@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_view_container"
+    class="com.android.dialer.widget.SearchEditTextLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/search_margin_horizontal"
+    android:layout_marginTop="@dimen/search_top_margin"
+    android:layout_marginRight="@dimen/search_margin_horizontal"
+    android:layout_marginBottom="@dimen/search_bottom_margin"
+    android:elevation="@dimen/search_box_elevation"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/search_box_collapsed"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/search_view_edit_text_height"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/search_margin_left"
+            android:layout_weight="1"
+            android:background="@drawable/imagebtn_press_response_bg"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="@dimen/search_view_edit_text_height"
+                android:layout_height="@dimen/search_view_edit_text_height"
+                android:padding="@dimen/phone_layout_search_icon_padding"
+                android:src="@drawable/ic_search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/phone_layout_search_icon_padding"
+                android:focusable="true"
+                android:singleLine="true"
+                android:text="@string/search"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="@dimen/search_view_edit_text_font_size" />
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/voice_search_button"
+            android:layout_width="@dimen/search_box_icon_size"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/description_start_voice_search"
+            android:scaleType="center"
+            android:src="@drawable/ic_mic_grey600"
+            android:tint="@color/searchbox_icon_tint"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/dialtacts_options_menu_button"
+            android:layout_width="@dimen/ic_more_size"
+            android:layout_height="@dimen/ic_more_size"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="@dimen/search_margin_left"
+            android:layout_marginRight="@dimen/search_margin_left"
+            android:contentDescription="@string/action_menu_overflow_description"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_tab_more" />
+    </LinearLayout>
+
+    <include layout="@layout/search_bar_expanded" />
+
+</view>

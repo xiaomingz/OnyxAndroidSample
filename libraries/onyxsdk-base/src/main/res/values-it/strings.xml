@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="wifi_network">rete Wi-Fi</string>
+  <string name="wifi_security_none">	
+Nessuna</string>
+  <string name="wifi_remembered">Già salvata</string>
+  <string name="wifi_secured_first_item">"protetto da <xliff:g id="WIFI_SECURITY_SHORT">%1$s</xliff:g>"</string>
+  <string name="wifi_wps_available_first_item">	
+Rete protetta disponibile</string>
+  <string name="wifi_password">Password</string>
+  <string name="wifi_show_advanced">Mostra opzioni avanzate</string>
+  <string name="wifi_secured_second_item">"，protetto da<xliff:g id="WIFI_SECURITY_SHORT">%1$s</xliff:g>"</string>
+  <string name="wifi_show_password">Mostra password</string>
+  <string name="wifi_signal">Potenza del segnale</string>
+  <string name="wifi_security">Sicurezza</string>
+  <string name="wifi_ip_address">Indirizzo IP</string>
+  <string name="wifi_speed">Velocità di connessione</string>
+  <string name="wifi_status">Messaggio di stato</string>
+  <string name="open_wifi">	
+Per vedere le reti disponibili, attiva il Wi-Fi</string>
+  <string name="Wireless_lan">	
+LAN senza fili</string>
+  <string name="current_available_wifi_count">Reti Wi-Fi attualmente disponibili: %1$d</string>
+  <string name="wifi_disabled_password_failure">C\'è un problema con l\'autenticazione</string>
+  <string name="wifi_disabled_generic">Disattivata</string>
+  <string name="unavailable">Non disponibile </string>
+  <string name="wifi_wps_available_second_item">"(Rete protetta disponibile)"</string>
+  <string name="wifi_disabled_network_failure">Connessione internet debole disabilitata</string>
+  <string name="second_symbol">s</string>
+  <string name="wifi_connected">Connesso</string>
+  <string name="wifi_forget">Dimentica</string>
+  <string name="closed">Chiuso</string>
+  <string name="hour_symbol">h</string>
+  <string name="minute_symbol">m</string>
+  <string name="wifi_connect">Connetti</string>
+  <string name="wifi_rescan">Scansione</string>
+  <string name="wifi_disabled_wrong_password">Per favore controlla la password e riprova</string>
+  <string name="wifi_disabled_wrong_password_tips">Connessione fallita, riprova</string>
+</resources>

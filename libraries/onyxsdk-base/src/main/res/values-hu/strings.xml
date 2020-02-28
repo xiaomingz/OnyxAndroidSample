@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="wifi_password">Jelszó</string>
+  <string name="wifi_show_password">A jelszó megjelenítése</string>
+  <string name="hour_symbol">h</string>
+  <string name="minute_symbol">m</string>
+  <string name="second_symbol">sz</string>
+  <string name="wifi_connected">Csatlakoztatva</string>
+  <string name="wifi_disabled_generic">Letiltva</string>
+  <string name="wifi_forget">Felejtsd.</string>
+  <string name="wifi_connect">Csatlakozás</string>
+  <string name="closed">Zárva</string>
+  <string name="wifi_rescan">Rescan.</string>
+  <string name="wifi_network">Wi-Fi hálózat</string>
+  <string name="wifi_security_none">Nincs</string>
+  <string name="wifi_remembered">Mentve</string>
+  <string name="wifi_show_advanced">Új opciók megjelenítése</string>
+  <string name="wifi_signal">A jel erőssége</string>
+  <string name="wifi_security">Biztonság</string>
+  <string name="wifi_speed">A kapcsolat sebessége</string>
+  <string name="wifi_ip_address">IP- cím</string>
+  <string name="Wireless_lan">Vezeték nélküli LAN</string>
+  <string name="wifi_status">Állapot</string>
+  <string name="open_wifi">Bekapcsolja a Wi-Fi-t, hogy ellenőrizze a elérhető hálózatot.</string>
+  <string name="unavailable">Nem elérhető</string>
+  <string name="wifi_wps_available_first_item">Elérhető védett hálózat</string>
+  <string name="wifi_disabled_network_failure">Avoided poor Internet connection</string>
+  <string name="wifi_secured_first_item">Secured with <xliff:g id="wifi_security_short">%1$s</xliff:g></string>
+  <string name="wifi_secured_second_item">, secured with <xliff:g id="wifi_security_short">%1$s</xliff:g></string>
+  <string name="wifi_wps_available_second_item">\u0020(protected network available)</string>
+  <string name="current_available_wifi_count">Currently available wifi: %1$d </string>
+  <string name="wifi_disabled_wrong_password">Ellenőrizze a jelszót és próbálja meg újra.</string>
+  <string name="wifi_disabled_wrong_password_tips">A kapcsolat sikertelen, kérlek próbáld meg újra.</string>
+</resources>

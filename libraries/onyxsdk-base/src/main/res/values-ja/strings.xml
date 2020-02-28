@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="wifi_network">Wi-Fi ネットワーク</string>
+  <string name="wifi_security_none">なし</string>
+  <string name="wifi_remembered">保存しました</string>
+  <string name="wifi_secured_first_item"><xliff:g id="wifi_security_short">%1$s</xliff:g>にてセキュリティが確保されています</string>
+  <string name="wifi_secured_second_item">、<xliff:g id="wifi_security_short">%1$s</xliff:g>にてセキュリティが確保されています</string>
+  <string name="wifi_wps_available_first_item">利用可能なセキュアネットワーク</string>
+  <string name="wifi_wps_available_second_item">\u0020（セキュアなネットワークが利用可能）</string>
+  <string name="wifi_password">パスワード</string>
+  <string name="wifi_show_password">パスワード表示</string>
+  <string name="wifi_show_advanced">拡張オプションを表示</string>
+  <string name="wifi_signal">信号強度</string>
+  <string name="wifi_security">セキュリティ</string>
+  <string name="wifi_speed">接続スピード</string>
+  <string name="wifi_ip_address">IPアドレス</string>
+  <string name="wifi_status">ステータス</string>
+  <string name="Wireless_lan">無線LAN</string>
+  <string name="open_wifi">Wi-Fiをオンにして利用可能なネットワークを確認</string>
+  <string name="current_available_wifi_count">利用可能なネットワーク：%1$d</string>
+  <string name="wifi_disabled_password_failure">認証エラー</string>
+  <string name="wifi_disabled_generic">無効</string>
+  <string name="wifi_disabled_network_failure">電波が弱い場合は接続しない</string>
+  <string name="hour_symbol">h</string>
+  <string name="minute_symbol">m</string>
+  <string name="second_symbol">s</string>
+  <string name="wifi_connected">接続完了</string>
+  <string name="wifi_forget">削除</string>
+  <string name="wifi_connect">接続</string>
+  <string name="closed">接続終了</string>
+  <string name="wifi_rescan">再スキャン</string>
+  <string name="unavailable">利用不可</string>
+</resources>

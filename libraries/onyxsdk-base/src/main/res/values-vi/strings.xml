@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="hour_symbol">h</string>
+  <string name="minute_symbol">m</string>
+  <string name="second_symbol">s</string>
+  <string name="wifi_connected">Đã kết nối</string>
+  <string name="wifi_disabled_generic">Tắt</string>
+  <string name="wifi_disabled_network_failure">Không kết nối với các mạng có tín hiệu kém</string>
+  <string name="wifi_forget">Quên</string>
+  <string name="wifi_connect">Kết nối</string>
+  <string name="closed">Đã đóng</string>
+  <string name="wifi_rescan">Quét lại</string>
+  <string name="wifi_disabled_password_failure">Lỗi xác thực</string>
+  <string name="wifi_network">Mạng lưới Wi-Fi</string>
+  <string name="wifi_security_none">Tróng</string>
+  <string name="wifi_remembered">Đã lưu</string>
+  <string name="wifi_secured_first_item">Đảm bảo an toàn với <xliff:g id="wifi_security_short">%1$s</xliff:g></string>
+  <string name="wifi_secured_second_item">,đảm bảo an toan với <xliff:g id="wifi_security_short">%1$s</xliff:g></string>
+  <string name="wifi_wps_available_first_item">Mạng được bảo vệ khả dụng</string>
+  <string name="wifi_wps_available_second_item">\u0020(mạng được bảo vệ)</string>
+  <string name="wifi_password">Mật khẩu</string>
+  <string name="wifi_show_password">Hiển thị mật khẩu</string>
+  <string name="wifi_show_advanced">Hiển thị các tùy chọn nâng cao</string>
+  <string name="wifi_signal">Cường độ tín hiệu</string>
+  <string name="wifi_security">An toàn</string>
+  <string name="wifi_speed">Tốc độ liên kết</string>
+  <string name="wifi_ip_address">Địa chỉ IP</string>
+  <string name="Wireless_lan">Mạng không dây</string>
+  <string name="wifi_status">Trạng thái</string>
+  <string name="unavailable">Không khả dụng</string>
+  <string name="current_available_wifi_count">Wi-Fi hiện có: %1$d</string>
+  <string name="wifi_disabled_wrong_password">Vui lòng kiểm tra mật khẩu và thử lại</string>
+  <string name="wifi_disabled_wrong_password_tips">Kết nối thất bại, vui lòng thử lại</string>
+  <string name="open_wifi">Bật Wi-Fi để kiểm tra mạng khả dụng</string>
+</resources>

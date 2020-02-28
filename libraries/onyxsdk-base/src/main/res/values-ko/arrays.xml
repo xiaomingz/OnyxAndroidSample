@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string-array name="wifi_status_with_ssid">
+    <item/>
+    <item/>
+    <item/>
+    <item/>
+    <item/>
+    <item/>
+    <item>지연됨</item>
+    <item/>
+    <item>연결 해제됨</item>
+  </string-array>
+  <string-array name="wifi_status">
+    <item/>
+    <item/>
+    <item/>
+    <item/>
+    <item/>
+    <item/>
+    <item>지연됨</item>
+    <item/>
+    <item>연결 지연됨</item>
+  </string-array>
+</resources>

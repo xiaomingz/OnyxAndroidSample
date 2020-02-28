@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        sourceSets.main {
+            aidl.srcDirs = ['src/main/java']
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../../proguard-rules.pro', 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    api project(':libraries:onyxsdk-device')
+    api "com.alibaba:fastjson:$rootProject.fastjsonVersion"
+    api "pub.devrel:easypermissions:$rootProject.easyPermissonVersion"
+    api "org.apache.commons.io:commonsIO:$rootProject.commonsioVersion"
+    api "io.reactivex.rxjava2:rxjava:$rootProject.rxjava"
+    api "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroid"
+    api "org.greenrobot:eventbus:$rootProject.eventbusVersion"
+    api "com.zhy.base:fileprovider:$rootProject.fileprovider"
+    api "com.tencent:mmkv:$rootProject.mmkvVersion"
+
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
