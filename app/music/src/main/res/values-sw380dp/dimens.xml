@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Play1 -->
+
+<resources>
+    <dimen name="home_title_text_size">16sp</dimen>
+    <dimen name="audio_player_picture_height">200dp</dimen>
+    <dimen name="audio_player_picture_width">200dp</dimen>
+    <dimen name="list_sub_title_text_size">14sp</dimen>
+    <dimen name="button_bar_img_size">36dp</dimen>
+    <dimen name="track_list_item_icon_size">64dp</dimen>
+    <dimen name="now_playing_icon_size">26dp</dimen>
+    <dimen name="audio_player_cd_info_icon_size">40dp</dimen>
+    <dimen name="track_list_item_common_SeekBar_height">30dp</dimen>
+    <dimen name="audio_player_ImageView_marginLeft">80dp</dimen>
+    <dimen name="pre_next_icon_size">60dp</dimen>
+    <dimen name="pause_icon_size">50dp</dimen>
+    <dimen name="play_mode_icon_size">42dp</dimen>
+</resources>

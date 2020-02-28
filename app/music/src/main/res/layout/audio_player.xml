@@ -48,8 +48,8 @@
                 >
                 <ImageView
                     android:layout_marginLeft="@dimen/audio_player_ImageView_marginLeft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/audio_player_cd_info_icon_size"
+                    android:layout_height="@dimen/audio_player_cd_info_icon_size"
                     android:src="@drawable/ic_music_cd_singer" />
                 <TextView android:id="@+id/artistname"
                     android:textSize="@dimen/audio_player_TextView_textSize"
@@ -71,8 +71,8 @@
                 >
                 <ImageView
                     android:layout_marginLeft="@dimen/audio_player_ImageView_marginLeft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/audio_player_cd_info_icon_size"
+                    android:layout_height="@dimen/audio_player_cd_info_icon_size"
                     android:src="@drawable/ic_music_cd_cd"
                     />
                 <TextView android:id="@+id/albumname"
@@ -94,8 +94,8 @@
                 >
                 <ImageView
                     android:layout_marginLeft="@dimen/audio_player_ImageView_marginLeft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/audio_player_cd_info_icon_size"
+                    android:layout_height="@dimen/audio_player_cd_info_icon_size"
                     android:src="@drawable/ic_music_cd_song" />
                 <TextView android:id="@+id/trackname"
                     android:textSize="@dimen/audio_player_TextView_textSize"

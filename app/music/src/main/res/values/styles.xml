@@ -53,4 +53,31 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_weight">1</item>
     </style>
+
+    <style name="button_bar_layout_style">
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/buttonbarbackground</item>
+        <item name="android:paddingTop">@dimen/buttonbar_TextView_paddingTop</item>
+        <item name="android:paddingBottom">2dip</item>
+        <item name="android:layout_marginLeft">-3dip</item>
+        <item name="android:layout_marginRight">-3dip</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/home_tab_height</item>
+    </style>
+
+    <style name="button_bar_img_style">
+        <item name="android:layout_width">@dimen/button_bar_img_size</item>
+        <item name="android:layout_height">@dimen/button_bar_img_size</item>
+    </style>
+
+    <style name="button_bar_text_style">
+        <item name="android:textAppearance">@style/MusicHomeTitleTextStyle</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

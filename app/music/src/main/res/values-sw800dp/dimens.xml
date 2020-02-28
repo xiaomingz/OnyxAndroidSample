@@ -45,4 +45,11 @@
     <dimen name="nowplaying_icon_layout_marginRight">16dip</dimen>
     <dimen name="buttonbar_TextView_paddingTop">12dip</dimen>
     <dimen name="global_dialog_msg_min_height">174dp</dimen>
+    <dimen name="button_bar_img_size">36dp</dimen>
+    <dimen name="track_list_item_icon_size">64dp</dimen>
+    <dimen name="now_playing_icon_size">26dp</dimen>
+    <dimen name="audio_player_cd_info_icon_size">40dp</dimen>
+    <dimen name="pre_next_icon_size">60dp</dimen>
+    <dimen name="pause_icon_size">60dp</dimen>
+    <dimen name="play_mode_icon_size">42dp</dimen>
 </resources>
