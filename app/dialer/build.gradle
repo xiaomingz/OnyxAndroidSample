@@ -32,6 +32,5 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:design:$rootProject.supportLibraryVersion"
     implementation "com.android.support:support-v13:$rootProject.supportLibraryVersion"
-    implementation 'com.umeng.analytics:analytics:latest.integration'
     implementation project(':libraries:onyx-phonecloud')
 }

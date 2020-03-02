@@ -549,7 +549,6 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         setSearchBoxHint();
 
         Trace.endSection();
-        StatisticsUtil.onResume(this);
         new LoadContactInfoAction().execute(null);
     }
 
@@ -573,7 +572,6 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         if (mSlideOut.hasStarted() && !mSlideOut.hasEnded()) {
             commitDialpadFragmentHide();
         }
-        StatisticsUtil.onPause(this);
         super.onPause();
     }
 

@@ -31,7 +31,6 @@ import android.widget.Toast;
 import com.android.contacts.common.compat.CompatUtils;
 import com.android.contacts.common.compat.TelephonyManagerCompat;
 import com.android.dialer.R;
-import com.android.dialer.StatisticsUtil;
 import com.android.dialer.compat.FilteredNumberCompat;
 import com.android.dialer.compat.SettingsCompat;
 import com.android.dialer.compat.UserManagerCompat;
@@ -58,13 +57,6 @@ public class DialerSettingsActivity extends AppCompatPreferenceActivity {
         if (migrationStatusOnBuildHeaders != FilteredNumberCompat.hasMigratedToNewBlocking()) {
             invalidateHeaders();
         }
-        StatisticsUtil.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        StatisticsUtil.onPause(this);
     }
 
     @Override

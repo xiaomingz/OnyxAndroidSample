@@ -35,7 +35,7 @@ public class PhoneCloudStoreManager {
 
     public RxManager getRxManager() {
         if (rxManager == null) {
-            rxManager = RxManager.Builder.newSingleThreadManager();
+            rxManager = RxManager.Builder.singleThreadManager();
         }
         return rxManager;
     }

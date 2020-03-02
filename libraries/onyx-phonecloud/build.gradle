@@ -23,5 +23,6 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
-    implementation "com.onyx.android.sdk:onyxsdk-base:1.4.3.7"
+    api "com.onyx.android.sdk:onyxsdk-base:1.4.3.7"
+    api "org.greenrobot:eventbus:$rootProject.eventbusVersion"
 }

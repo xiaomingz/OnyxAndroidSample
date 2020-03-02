@@ -27,7 +27,6 @@ import com.android.contacts.common.testing.NeededForTesting;
 import com.android.dialer.database.FilteredNumberAsyncQueryHandler;
 import com.android.dialer.filterednumber.BlockedNumbersAutoMigrator;
 import com.onyx.android.sdk.rx.RxManager;
-import com.umeng.analytics.MobclickAgent;
 
 import onyx.com.phonecloud.PhoneCloudStoreManager;
 
@@ -48,8 +47,6 @@ public class DialerApplication extends Application {
         new BlockedNumbersAutoMigrator(PreferenceManager.getDefaultSharedPreferences(this),
                 new FilteredNumberAsyncQueryHandler(getContentResolver())).autoMigrate();
         Trace.endSection();
-
-        MobclickAgent.setDebugMode(true);
         RxManager.Builder.initAppContext(this);
         PhoneCloudStoreManager.initAppContext(this);
     }
