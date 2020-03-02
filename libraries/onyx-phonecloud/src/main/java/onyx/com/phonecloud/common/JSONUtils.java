@@ -1,4 +1,4 @@
-package com.onyx.android.sdk.utils;
+package onyx.com.phonecloud.common;
 
 import android.support.annotation.NonNull;
 
@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.Feature;
+import com.onyx.android.sdk.utils.Debug;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

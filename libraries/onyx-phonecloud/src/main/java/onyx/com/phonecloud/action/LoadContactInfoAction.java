@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.onyx.android.sdk.rx.RxCallback;
-import com.onyx.android.sdk.utils.JSONUtils;
 
 import java.util.List;
 
@@ -23,8 +22,6 @@ public class LoadContactInfoAction extends BasePhoneCloudStoreAction {
             @Override
             public void onNext(@NonNull LoadContactInfoRequest loadContactInfoRequest) {
                 List<Contact> contacts = loadContactInfoRequest.getContacts();
-                String data = JSONUtils.toJson(contacts);
-                Log.e("tony", data);
             }
         });
     }
