@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import onyx.com.phonecloud.common.ContactUtils;
-import onyx.com.phonecloud.model.Contact;
+import onyx.com.phonecloud.model.ContactInfo;
 
 /**
  * Created by TonyXie on 2020-02-27
  */
 public class LoadContactInfoRequest extends RxRequest {
-    private List<Contact> contacts = new ArrayList<>();
+    private List<ContactInfo> contacts = new ArrayList<>();
 
     @Override
     public void execute() throws Exception {
@@ -34,14 +34,14 @@ public class LoadContactInfoRequest extends RxRequest {
         try {
             cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
             while (cursor.moveToNext()) {
-                Contact contactBean = new Contact();
+                ContactInfo contactBean = new ContactInfo();
                 String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                 String contactName = cursor.getString(cursor.getColumnIndex(CommonDataKinds.Phone.DISPLAY_NAME));
                 contactBean.setContactName(contactName);
 
                 orgCur = ContactUtils.getCursorByMimeType(contentResolver, contactId, CommonDataKinds.Organization.CONTENT_ITEM_TYPE);
                 if (orgCur.moveToFirst()) {
-                    String company = orgCur.getString(orgCur.getColumnIndex(CommonDataKinds.Organization.DATA));
+                    String company = orgCur.getString(orgCur.getColumnIndex(CommonDataKinds.Organization.COMPANY));
                     String workName = orgCur.getString(orgCur.getColumnIndex(CommonDataKinds.Organization.TITLE));
                     contactBean.setCompany(company);
                     contactBean.setWorkName(workName);
@@ -118,7 +118,7 @@ public class LoadContactInfoRequest extends RxRequest {
         }
     }
 
-    public List<Contact> getContacts() {
+    public List<ContactInfo> getContacts() {
         return contacts;
     }
 }

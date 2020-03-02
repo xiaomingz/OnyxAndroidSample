@@ -1,13 +1,12 @@
 package onyx.com.phonecloud.action;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.onyx.android.sdk.rx.RxCallback;
 
 import java.util.List;
 
-import onyx.com.phonecloud.model.Contact;
+import onyx.com.phonecloud.model.ContactInfo;
 import onyx.com.phonecloud.request.LoadContactInfoRequest;
 
 /**
@@ -21,7 +20,7 @@ public class LoadContactInfoAction extends BasePhoneCloudStoreAction {
         getCloudNoteManager().enqueue(loadContactInfoRequest, new RxCallback<LoadContactInfoRequest>() {
             @Override
             public void onNext(@NonNull LoadContactInfoRequest loadContactInfoRequest) {
-                List<Contact> contacts = loadContactInfoRequest.getContacts();
+                List<ContactInfo> contacts = loadContactInfoRequest.getContacts();
             }
         });
     }

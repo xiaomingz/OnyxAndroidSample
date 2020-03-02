@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by TonyXie on 2020-02-27
  */
-public class Contact {
+public class ContactInfo {
     private String contactName;
     private String sipAddress;
     private String company;

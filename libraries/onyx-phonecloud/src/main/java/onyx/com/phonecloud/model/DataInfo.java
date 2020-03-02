@@ -7,6 +7,9 @@ public class DataInfo {
     private int type;
     private String data;
 
+    public DataInfo() {
+    }
+
     public DataInfo(int type, String data) {
         this.type = type;
         this.data = data;
