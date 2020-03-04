@@ -12,7 +12,7 @@ public class CallLogInfo {
     private int type;
     private String subscriptionComponentName;
     private long subscriptionId;
-    private int isNew;
+    private int unused;
     private String name;
     private String numbertype;
     private String numberlaber;
@@ -90,14 +90,6 @@ public class CallLogInfo {
 
     public void setSubscriptionId(long subscriptionId) {
         this.subscriptionId = subscriptionId;
-    }
-
-    public int getIsNew() {
-        return isNew;
-    }
-
-    public void setIsNew(int isNew) {
-        this.isNew = isNew;
     }
 
     public String getName() {
@@ -210,5 +202,13 @@ public class CallLogInfo {
 
     public void setLastModified(long lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public int getUnused() {
+        return unused;
+    }
+
+    public void setUnused(int unused) {
+        this.unused = unused;
     }
 }

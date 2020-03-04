@@ -1,6 +1,7 @@
 package onyx.com.phonecloud.common;
 
 import android.annotation.SuppressLint;
+import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -10,6 +11,7 @@ import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
 
+import com.onyx.android.sdk.utils.CollectionUtils;
 import com.onyx.android.sdk.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -119,7 +121,7 @@ public class ContactUtils {
                 long subscription_id = cursor.getLong(cursor.getColumnIndex(CallLog.Calls.PHONE_ACCOUNT_ID));
                 callLog.setSubscriptionId(subscription_id);
                 int isNew = cursor.getInt(cursor.getColumnIndex(CallLog.Calls.NEW));
-                callLog.setIsNew(isNew);
+                callLog.setUnused(isNew);
                 String name = cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_NAME));
                 callLog.setName(name);
                 String numbertype = cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_NUMBER_TYPE));
@@ -155,101 +157,131 @@ public class ContactUtils {
     }
 
     @SuppressLint("MissingPermission")
-    public static void insetCallLog(ContentResolver resolver, CallLogInfo callLogInfo) {
-        ContentValues values = new ContentValues();
-        values.clear();
-        values.put(CallLog.Calls._ID, callLogInfo.getId());
-        values.put(CallLog.Calls.NUMBER, callLogInfo.getNumber());
-        values.put(CallLog.Calls.NUMBER_PRESENTATION, callLogInfo.getPresentation());
-        values.put(CallLog.Calls.TYPE, callLogInfo.getType());
-        values.put(CallLog.Calls.DATE, callLogInfo.getDate());
-        values.put(CallLog.Calls.DATE, callLogInfo.getDate());
-        values.put(CallLog.Calls.DURATION, callLogInfo.getDuration());
-        values.put(CallLog.Calls.TYPE, callLogInfo.getType());
-        values.put(CallLog.Calls.PHONE_ACCOUNT_COMPONENT_NAME, callLogInfo.getSubscriptionComponentName());
-        values.put(CallLog.Calls.PHONE_ACCOUNT_ID, callLogInfo.getSubscriptionId());
-        values.put(CallLog.Calls.NEW, callLogInfo.getIsNew());
-        values.put(CallLog.Calls.CACHED_NAME, callLogInfo.getName());
-        values.put(CallLog.Calls.CACHED_NUMBER_TYPE, callLogInfo.getNumbertype());
-        resolver.insert(CallLog.Calls.CONTENT_URI, values);
+    public static boolean insetCallLog(ContentResolver resolver, List<CallLogInfo> infos) {
+        if (CollectionUtils.isNullOrEmpty(infos)) {
+            return false;
+        }
+        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
+        for (CallLogInfo callLogInfo : infos) {
+            ContentValues values = new ContentValues();
+            values.clear();
+            values.put(CallLog.Calls._ID, callLogInfo.getId());
+            values.put(CallLog.Calls.NUMBER, callLogInfo.getNumber());
+            values.put(CallLog.Calls.NUMBER_PRESENTATION, callLogInfo.getPresentation());
+            values.put(CallLog.Calls.TYPE, callLogInfo.getType());
+            values.put(CallLog.Calls.DATE, callLogInfo.getDate());
+            values.put(CallLog.Calls.DATE, callLogInfo.getDate());
+            values.put(CallLog.Calls.DURATION, callLogInfo.getDuration());
+            values.put(CallLog.Calls.TYPE, callLogInfo.getType());
+            values.put(CallLog.Calls.PHONE_ACCOUNT_COMPONENT_NAME, callLogInfo.getSubscriptionComponentName());
+            values.put(CallLog.Calls.PHONE_ACCOUNT_ID, callLogInfo.getSubscriptionId());
+            values.put(CallLog.Calls.NEW, callLogInfo.getUnused());
+            values.put(CallLog.Calls.CACHED_NAME, callLogInfo.getName());
+            values.put(CallLog.Calls.CACHED_NUMBER_TYPE, callLogInfo.getNumbertype());
+            operations.add(ContentProviderOperation.
+                    newInsert(CallLog.Calls.CONTENT_URI)
+                    .withValues(values).withYieldAllowed(true).build());
+        }
+        try {
+            resolver.applyBatch(CallLog.AUTHORITY, operations);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
-    public static void insetContactInfo(ContentResolver resolver, ContactInfo info) {
-        ContentValues values = new ContentValues();
-        Uri rawContactUri = resolver.insert(ContactsContract.RawContacts.CONTENT_URI, values);
-        long contactId = ContentUris.parseId(rawContactUri);
-        insertContactData(resolver,
-                CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE,
-                contactId,
-                new ContentValue(CommonDataKinds.StructuredName.DISPLAY_NAME, info.getContactName())
-        );
-        insertContactData(resolver,
-                CommonDataKinds.Organization.CONTENT_ITEM_TYPE,
-                contactId,
-                new ContentValue(CommonDataKinds.Organization.COMPANY, info.getCompany()),
-                new ContentValue(CommonDataKinds.Organization.TITLE, info.getWorkName())
-        );
-        insertContactData(resolver,
-                CommonDataKinds.Note.CONTENT_ITEM_TYPE,
-                contactId,
-                new ContentValue(CommonDataKinds.Note.NOTE, info.getNote())
-        );
-        for (PhoneNumber phoneNumber : info.getNumbers()) {
-            insertContactData(resolver,
-                    CommonDataKinds.Phone.CONTENT_ITEM_TYPE,
-                    contactId,
-                    new ContentValue(CommonDataKinds.Phone.DATA, phoneNumber.getData()),
-                    new ContentValue(CommonDataKinds.Phone.TYPE, phoneNumber.getType())
+    public static boolean insetContactInfo(ContentResolver resolver, List<ContactInfo> infos) {
+        if (CollectionUtils.isNullOrEmpty(infos)) {
+            return false;
+        }
+        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>();
+        int rawContactInsertIndex;
+        for (ContactInfo info : infos) {
+            rawContactInsertIndex = operations.size();
+            ContentValues values = new ContentValues();
+            operations.add(ContentProviderOperation.
+                    newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                    .withValues(values).withYieldAllowed(true).build());
+            putContactData(operations,
+                    CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE,
+                    rawContactInsertIndex,
+                    new ContentValue(CommonDataKinds.StructuredName.DISPLAY_NAME, info.getContactName())
+            );
+            putContactData(operations,
+                    CommonDataKinds.Organization.CONTENT_ITEM_TYPE,
+                    rawContactInsertIndex,
+                    new ContentValue(CommonDataKinds.Organization.COMPANY, info.getCompany()),
+                    new ContentValue(CommonDataKinds.Organization.TITLE, info.getWorkName())
+            );
+            putContactData(operations,
+                    CommonDataKinds.Note.CONTENT_ITEM_TYPE,
+                    rawContactInsertIndex,
+                    new ContentValue(CommonDataKinds.Note.NOTE, info.getNote())
+            );
+            for (PhoneNumber phoneNumber : info.getNumbers()) {
+                putContactData(operations,
+                        CommonDataKinds.Phone.CONTENT_ITEM_TYPE,
+                        rawContactInsertIndex,
+                        new ContentValue(CommonDataKinds.Phone.DATA, phoneNumber.getData()),
+                        new ContentValue(CommonDataKinds.Phone.TYPE, phoneNumber.getType())
+                );
+            }
+
+            for (Email email : info.getEmails()) {
+                putContactData(operations,
+                        CommonDataKinds.Email.CONTENT_ITEM_TYPE,
+                        rawContactInsertIndex,
+                        new ContentValue(CommonDataKinds.Email.DATA, email.getData()),
+                        new ContentValue(CommonDataKinds.Email.TYPE, email.getType())
+                );
+            }
+
+            for (Address address : info.getAddresses()) {
+                putContactData(operations,
+                        CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE,
+                        rawContactInsertIndex,
+                        new ContentValue(CommonDataKinds.StructuredPostal.DATA, address.getData()),
+                        new ContentValue(CommonDataKinds.StructuredPostal.TYPE, address.getType())
+                );
+            }
+
+            for (Website webInfo : info.getWebList()) {
+                putContactData(operations,
+                        CommonDataKinds.Website.CONTENT_ITEM_TYPE,
+                        rawContactInsertIndex,
+                        new ContentValue(CommonDataKinds.Website.URL, webInfo.getData()),
+                        new ContentValue(CommonDataKinds.Website.TYPE, webInfo.getType())
+                );
+            }
+
+            for (ImInfo imInfo : info.getImInfoList()) {
+                putContactData(operations,
+                        CommonDataKinds.Im.CONTENT_ITEM_TYPE,
+                        rawContactInsertIndex,
+                        new ContentValue(CommonDataKinds.Im.DATA, imInfo.getData()),
+                        new ContentValue(CommonDataKinds.Im.TYPE, imInfo.getType())
+                );
+            }
+
+            putContactData(operations,
+                    CommonDataKinds.SipAddress.CONTENT_ITEM_TYPE,
+                    rawContactInsertIndex,
+                    new ContentValue(CommonDataKinds.SipAddress.DATA, info.getSipAddress())
             );
         }
-
-        for (Email email : info.getEmails()) {
-            insertContactData(resolver,
-                    CommonDataKinds.Email.CONTENT_ITEM_TYPE,
-                    contactId,
-                    new ContentValue(CommonDataKinds.Email.DATA, email.getData()),
-                    new ContentValue(CommonDataKinds.Email.TYPE, email.getType())
-            );
+        try {
+            resolver.applyBatch(ContactsContract.AUTHORITY, operations);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-
-        for (Address address : info.getAddresses()) {
-            insertContactData(resolver,
-                    CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE,
-                    contactId,
-                    new ContentValue(CommonDataKinds.StructuredPostal.DATA, address.getData()),
-                    new ContentValue(CommonDataKinds.StructuredPostal.TYPE, address.getType())
-            );
-        }
-
-        for (Website webInfo : info.getWebList()) {
-            insertContactData(resolver,
-                    CommonDataKinds.Website.CONTENT_ITEM_TYPE,
-                    contactId,
-                    new ContentValue(CommonDataKinds.Website.URL, webInfo.getData()),
-                    new ContentValue(CommonDataKinds.Website.TYPE, webInfo.getType())
-            );
-        }
-
-        for (ImInfo imInfo : info.getImInfoList()) {
-            insertContactData(resolver,
-                    CommonDataKinds.Im.CONTENT_ITEM_TYPE,
-                    contactId,
-                    new ContentValue(CommonDataKinds.Im.DATA, imInfo.getData()),
-                    new ContentValue(CommonDataKinds.Im.TYPE, imInfo.getType())
-            );
-        }
-
-        insertContactData(resolver,
-                CommonDataKinds.SipAddress.CONTENT_ITEM_TYPE,
-                contactId,
-                new ContentValue(CommonDataKinds.SipAddress.DATA, info.getSipAddress())
-        );
+        return true;
     }
 
-    public static void insertContactData(ContentResolver resolver, String mimeType, long contact_id, ContentValue... params) {
+    public static void putContactData(List<ContentProviderOperation> operations, String mimeType, int rawContactInsertIndex, ContentValue... params) {
         ContentValues values = new ContentValues();
         values.put("mimetype", mimeType);
-        values.put(RAW_CONTACT_ID, contact_id);
         for (ContentValue param : params) {
             if (!StringUtils.isNullOrEmpty(param.getValue())) {
                 values.put(param.getKey(), param.getValue());
@@ -259,6 +291,11 @@ public class ContactUtils {
                 values.put(param.getKey(), param.getLongValue());
             }
         }
-        resolver.insert(ContactsContract.Data.CONTENT_URI, values);
+        operations.add(ContentProviderOperation
+                .newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(
+                        ContactsContract.Data.RAW_CONTACT_ID,
+                        rawContactInsertIndex)
+                .withValues(values).withYieldAllowed(true).build());
     }
 }

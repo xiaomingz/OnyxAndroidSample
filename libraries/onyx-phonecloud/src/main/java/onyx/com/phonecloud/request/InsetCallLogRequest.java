@@ -20,11 +20,6 @@ public class InsetCallLogRequest extends RxRequest {
 
     @Override
     public void execute() throws Exception {
-        if (callLogInfos == null) {
-            return;
-        }
-        for (CallLogInfo info : callLogInfos) {
-            ContactUtils.insetCallLog(getContext().getContentResolver(), info);
-        }
+        ContactUtils.insetCallLog(getContext().getContentResolver(), callLogInfos);
     }
 }

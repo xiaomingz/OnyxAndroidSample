@@ -21,11 +21,6 @@ public class InsetContactInfoRequest extends RxRequest {
 
     @Override
     public void execute() throws Exception {
-        if (contactInfos == null) {
-            return;
-        }
-        for (ContactInfo info : contactInfos) {
-            ContactUtils.insetContactInfo(getContext().getContentResolver(), info);
-        }
+        ContactUtils.insetContactInfo(getContext().getContentResolver(), contactInfos);
     }
 }
