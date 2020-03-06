@@ -9,12 +9,12 @@ import java.util.List;
 public class SmsModelList implements Serializable {
     private static final long serialVersionUID = 1235213654984563214L;
 
-    public List<Thread> threads;
+    public List<ThreadModel> threads;
 
     public SmsModelList() {
     }
 
-    public SmsModelList(List<Thread> threads) {
+    public SmsModelList(List<ThreadModel> threads) {
         this.threads = threads;
     }
 

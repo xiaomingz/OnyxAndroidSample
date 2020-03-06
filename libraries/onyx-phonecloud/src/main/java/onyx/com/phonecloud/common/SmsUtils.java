@@ -73,7 +73,7 @@ public class SmsUtils {
         return list;
     }
 
-    public static boolean insertThreadList(Context context, ArrayList<Thread> infos) {
+    public static boolean insertThreadList(Context context, ArrayList<ThreadModel> infos) {
         if (CollectionUtils.isNullOrEmpty(infos)) {
             return false;
         }
