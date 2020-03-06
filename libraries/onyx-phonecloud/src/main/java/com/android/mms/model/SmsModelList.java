@@ -9,16 +9,16 @@ import java.util.List;
 public class SmsModelList implements Serializable {
     private static final long serialVersionUID = 1235213654984563214L;
 
-    public List<ShortMessage> smsList;
+    public List<Thread> threads;
 
     public SmsModelList() {
     }
 
-    public SmsModelList(List<ShortMessage> smsList) {
-        this.smsList = smsList;
+    public SmsModelList(List<Thread> threads) {
+        this.threads = threads;
     }
 
     public int getSize() {
-        return smsList == null ? 0 : smsList.size();
+        return threads == null ? 0 : threads.size();
     }
 }

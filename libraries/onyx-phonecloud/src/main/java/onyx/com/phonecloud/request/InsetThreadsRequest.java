@@ -5,20 +5,19 @@ import com.onyx.android.sdk.rx.RxRequest;
 import java.util.ArrayList;
 
 import onyx.com.phonecloud.common.SmsUtils;
-import com.android.mms.model.ShortMessage;
 
 /**
  * Created by TonyXie on 2020-03-03
  */
-public class InsetSmsRequest extends RxRequest {
-    private ArrayList<ShortMessage> list;
+public class InsetThreadsRequest extends RxRequest {
+    private ArrayList<Thread> list;
 
     @Override
     public void execute() throws Exception {
-        SmsUtils.insertSmsList(getContext(), list);
+        SmsUtils.insertThreadList(getContext(), list);
     }
 
-    public InsetSmsRequest setList(ArrayList<ShortMessage> list) {
+    public InsetThreadsRequest setList(ArrayList<Thread> list) {
         this.list = list;
         return this;
     }

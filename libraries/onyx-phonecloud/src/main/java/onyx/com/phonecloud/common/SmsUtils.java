@@ -73,12 +73,12 @@ public class SmsUtils {
         return list;
     }
 
-    public static boolean insertSmsList(Context context, ArrayList<ShortMessage> infos) {
+    public static boolean insertThreadList(Context context, ArrayList<Thread> infos) {
         if (CollectionUtils.isNullOrEmpty(infos)) {
             return false;
         }
         SmsModelList smsModelList = new SmsModelList();
-        smsModelList.smsList = infos;
+        smsModelList.threads = infos;
         Intent intent = new Intent();
         intent.putExtra(SMS_MODE_LIST, smsModelList);
         intent.putExtra(SERVICE_ACTION, INSERT_SMS);
