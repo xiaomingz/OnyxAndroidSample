@@ -1,13 +1,14 @@
 package com.android.mms.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by TonyXie on 2020-03-04
  */
-public class ThreadModel implements Serializable {
-    private static final long serialVersionUID = 4562136892698456984L;
+public class ThreadModel implements Parcelable {
 
     private long date;
     private int messageCount;
@@ -18,9 +19,29 @@ public class ThreadModel implements Serializable {
     private List<ShortMessage> shortMessages;
     private List<MmsModel> mmsModelList;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public ThreadModel() {
     }
+
+    protected ThreadModel(Parcel in) {
+        date = in.readLong();
+        messageCount = in.readInt();
+        snippet = in.readString();
+        snippetCharset = in.readInt();
+        read = in.readInt();
+        type = in.readInt();
+    }
+
+    public static final Creator<ThreadModel> CREATOR = new Creator<ThreadModel>() {
+        @Override
+        public ThreadModel createFromParcel(Parcel in) {
+            return new ThreadModel(in);
+        }
+
+        @Override
+        public ThreadModel[] newArray(int size) {
+            return new ThreadModel[size];
+        }
+    };
 
     public long getDate() {
         return date;
@@ -84,5 +105,21 @@ public class ThreadModel implements Serializable {
 
     public void setMmsModelList(List<MmsModel> mmsModelList) {
         this.mmsModelList = mmsModelList;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(date);
+        dest.writeInt(messageCount);
+        dest.writeString(snippet);
+        dest.writeInt(snippetCharset);
+        dest.writeInt(read);
+        dest.writeInt(type);
     }
 }

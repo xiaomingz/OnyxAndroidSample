@@ -1,13 +1,15 @@
 package com.android.mms.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by TonyXie on 2020-03-04
  */
-public class MmsModel implements Serializable {
-    private static final long serialVersionUID = 4562196324698456984L;
+public class MmsModel implements Parcelable {
+
     private int id;
     private long date;
     private int msgBox;
@@ -40,11 +42,56 @@ public class MmsModel implements Serializable {
     private String address;
     private int addressType;
 
+    public MmsModel() {
+    }
+
     private List<PartModel> partModels;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    protected MmsModel(Parcel in) {
+        id = in.readInt();
+        date = in.readLong();
+        msgBox = in.readInt();
+        read = in.readInt();
+        sub = in.readString();
+        subCharset = in.readInt();
+        contentType = in.readString();
+        contentLocation = in.readString();
+        exp = in.readLong();
+        mCls = in.readString();
+        mType = in.readInt();
+        version = in.readInt();
+        pri = in.readInt();
+        mSize = in.readInt();
+        rR = in.readInt();
+        rptA = in.readInt();
+        respSt = in.readInt();
+        status = in.readInt();
+        trId = in.readString();
+        retrSt = in.readInt();
+        retrTxt = in.readString();
+        retrTxtCs = in.readInt();
+        readStatus = in.readInt();
+        ctCls = in.readInt();
+        respTxt = in.readString();
+        dTm = in.readInt();
+        dRpt = in.readInt();
+        locked = in.readInt();
+        seen = in.readInt();
+        address = in.readString();
+        addressType = in.readInt();
     }
+
+    public static final Creator<MmsModel> CREATOR = new Creator<MmsModel>() {
+        @Override
+        public MmsModel createFromParcel(Parcel in) {
+            return new MmsModel(in);
+        }
+
+        @Override
+        public MmsModel[] newArray(int size) {
+            return new MmsModel[size];
+        }
+    };
 
     public long getDate() {
         return date;
@@ -300,5 +347,45 @@ public class MmsModel implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeLong(date);
+        dest.writeInt(msgBox);
+        dest.writeInt(read);
+        dest.writeString(sub);
+        dest.writeInt(subCharset);
+        dest.writeString(contentType);
+        dest.writeString(contentLocation);
+        dest.writeLong(exp);
+        dest.writeString(mCls);
+        dest.writeInt(mType);
+        dest.writeInt(version);
+        dest.writeInt(pri);
+        dest.writeInt(mSize);
+        dest.writeInt(rR);
+        dest.writeInt(rptA);
+        dest.writeInt(respSt);
+        dest.writeInt(status);
+        dest.writeString(trId);
+        dest.writeInt(retrSt);
+        dest.writeString(retrTxt);
+        dest.writeInt(retrTxtCs);
+        dest.writeInt(readStatus);
+        dest.writeInt(ctCls);
+        dest.writeString(respTxt);
+        dest.writeInt(dTm);
+        dest.writeInt(dRpt);
+        dest.writeInt(locked);
+        dest.writeInt(seen);
+        dest.writeString(address);
+        dest.writeInt(addressType);
     }
 }

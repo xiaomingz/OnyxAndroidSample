@@ -1,12 +1,12 @@
 package com.android.mms.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by TonyXie on 2020-03-03
  */
-public class ShortMessage implements Serializable {
-    private static final long serialVersionUID = 4562136545698456984L;
+public class ShortMessage implements Parcelable {
 
     private String id;
     private int threadId;
@@ -25,6 +25,41 @@ public class ShortMessage implements Serializable {
     private int locked;
     private int errorCode;
     private int seen;
+
+    public ShortMessage() {
+    }
+
+    protected ShortMessage(Parcel in) {
+        id = in.readString();
+        threadId = in.readInt();
+        address = in.readString();
+        person = in.readInt();
+        date = in.readLong();
+        dateSent = in.readLong();
+        protocol = in.readInt();
+        read = in.readInt();
+        status = in.readInt();
+        type = in.readInt();
+        replyPathPresent = in.readInt();
+        subject = in.readString();
+        body = in.readString();
+        serviceCenter = in.readString();
+        locked = in.readInt();
+        errorCode = in.readInt();
+        seen = in.readInt();
+    }
+
+    public static final Creator<ShortMessage> CREATOR = new Creator<ShortMessage>() {
+        @Override
+        public ShortMessage createFromParcel(Parcel in) {
+            return new ShortMessage(in);
+        }
+
+        @Override
+        public ShortMessage[] newArray(int size) {
+            return new ShortMessage[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -160,5 +195,31 @@ public class ShortMessage implements Serializable {
 
     public void setSeen(int seen) {
         this.seen = seen;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeInt(threadId);
+        dest.writeString(address);
+        dest.writeInt(person);
+        dest.writeLong(date);
+        dest.writeLong(dateSent);
+        dest.writeInt(protocol);
+        dest.writeInt(read);
+        dest.writeInt(status);
+        dest.writeInt(type);
+        dest.writeInt(replyPathPresent);
+        dest.writeString(subject);
+        dest.writeString(body);
+        dest.writeString(serviceCenter);
+        dest.writeInt(locked);
+        dest.writeInt(errorCode);
+        dest.writeInt(seen);
     }
 }

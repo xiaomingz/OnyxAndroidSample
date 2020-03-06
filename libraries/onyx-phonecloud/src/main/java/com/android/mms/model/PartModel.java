@@ -1,12 +1,12 @@
 package com.android.mms.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by TonyXie on 2020-03-04
  */
-public class PartModel implements Serializable {
-    private static final long serialVersionUID = 4562196324698456853L;
+public class PartModel implements Parcelable {
 
     private int seq;
     private String ct;
@@ -23,9 +23,37 @@ public class PartModel implements Serializable {
     private String address;
     private int addressType;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public PartModel() {
     }
+
+    protected PartModel(Parcel in) {
+        seq = in.readInt();
+        ct = in.readString();
+        name = in.readString();
+        chset = in.readInt();
+        cd = in.readString();
+        fn = in.readString();
+        cid = in.readString();
+        cl = in.readString();
+        cttS = in.readInt();
+        cttT = in.readString();
+        data = in.readString();
+        text = in.readString();
+        address = in.readString();
+        addressType = in.readInt();
+    }
+
+    public static final Creator<PartModel> CREATOR = new Creator<PartModel>() {
+        @Override
+        public PartModel createFromParcel(Parcel in) {
+            return new PartModel(in);
+        }
+
+        @Override
+        public PartModel[] newArray(int size) {
+            return new PartModel[size];
+        }
+    };
 
     public int getSeq() {
         return seq;
@@ -137,5 +165,28 @@ public class PartModel implements Serializable {
 
     public void setAddressType(int addressType) {
         this.addressType = addressType;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(seq);
+        dest.writeString(ct);
+        dest.writeString(name);
+        dest.writeInt(chset);
+        dest.writeString(cd);
+        dest.writeString(fn);
+        dest.writeString(cid);
+        dest.writeString(cl);
+        dest.writeInt(cttS);
+        dest.writeString(cttT);
+        dest.writeString(data);
+        dest.writeString(text);
+        dest.writeString(address);
+        dest.writeInt(addressType);
     }
 }
