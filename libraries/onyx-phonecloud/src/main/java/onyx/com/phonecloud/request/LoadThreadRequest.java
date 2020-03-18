@@ -44,10 +44,18 @@ public class LoadThreadRequest extends RxRequest {
                             do {
                                 MmsModel mmsModel = SmsUtils.queryMmsModel(mmsCursor);
                                 Cursor partCursor = null;
+                                Cursor addrCursor = null;
                                 try {
                                     String selectionPart = "mid=?";
                                     partCursor = getContext().getContentResolver().query(Uri.parse("content://mms/part"), null,
                                             selectionPart, new String[]{String.valueOf(mmsModel.getId())}, null);
+                                    mmsModel.setPartModels(SmsUtils.queryPartList(partCursor));
+                                    addrCursor = getContext().getContentResolver().query(Uri.parse("content://mms/addr"), null,
+                                            selectionPart, new String[]{String.valueOf(mmsModel.getId())}, null);
+                                    if (addrCursor.moveToFirst()) {
+                                        mmsModel.setAddress(addrCursor.getString(addrCursor.getColumnIndex(Telephony.Mms.Addr.ADDRESS)));
+                                        mmsModel.setAddressType(addrCursor.getInt(addrCursor.getColumnIndex(Telephony.Mms.Addr.TYPE)));
+                                    }
                                     mmsModel.setPartModels(SmsUtils.queryPartList(partCursor));
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -55,6 +63,10 @@ public class LoadThreadRequest extends RxRequest {
                                     if (partCursor != null) {
                                         partCursor.close();
                                         partCursor = null;
+                                    }
+                                    if (addrCursor != null) {
+                                        addrCursor.close();
+                                        addrCursor = null;
                                     }
                                 }
                                 mmsModels.add(mmsModel);
