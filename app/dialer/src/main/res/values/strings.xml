@@ -1083,4 +1083,11 @@
     <string name="search">search</string>
     <string name="select_all">Select all</string>
     <string name="delete">Delete</string>
+    <string name="modify_diag_mode">modify diag mode</string>
+    <string name="modify_diag_mode_message">Click OK to set Diag mode, and click restore to unset diag mode.</string>
+    <string name="confirm">Confirm</string>
+    <string name="redurction">Reduction</string>
+    <string name="cancel">Cancel</string>
+    <string name="psw_erro">Password error</string>
+    <string name="check_password">Check password</string>
 </resources>

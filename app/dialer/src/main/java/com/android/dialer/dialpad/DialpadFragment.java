@@ -16,6 +16,9 @@
 
 package com.android.dialer.dialpad;
 
+import com.android.dialer.util.ClazzUtils;
+import com.android.dialer.util.OnyxEngineeringModeUtil;
+import com.android.dialer.widget.CheckPsWDialog;
 import com.google.common.annotations.VisibleForTesting;
 
 import android.app.Activity;
@@ -61,7 +64,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -91,12 +93,8 @@ import com.android.phone.common.dialpad.DialpadView;
 import java.util.HashSet;
 import java.util.List;
 
-import android.telephony.SubscriptionManager;
-import android.telephony.SubscriptionInfo;
-import android.telecom.PhoneAccountHandle;
-import android.telecom.PhoneAccountHandle;
 import android.telecom.TelecomManager;
-import android.telecom.PhoneAccount;
+import android.widget.Toast;
 
 /**
  * Fragment that displays a twelve-key phone dialpad.
@@ -318,7 +316,8 @@ public class DialpadFragment extends Fragment
         // since some of SpecialCharSequenceMgr's behavior is too abrupt for the "touch-down"
         // behavior.
         if (!mDigitsFilledByIntent &&
-                SpecialCharSequenceMgr.handleChars(getActivity(), input.toString(), mDigits)) {
+                (handleOnyxAdnEntry(mDigits.getText().toString()))
+                || SpecialCharSequenceMgr.handleChars(getActivity(), input.toString(), mDigits)) {
             // A special sequence was entered, clear the digits
             mDigits.getText().clear();
         }
@@ -995,6 +994,52 @@ public class DialpadFragment extends Fragment
                 }
             }
         }
+    }
+
+    private boolean handleOnyxAdnEntry(String number) {
+        if (TextUtils.isEmpty(number)) {
+            return false;
+        }
+        if (number.toLowerCase().equals(OnyxEngineeringModeUtil.ENTER_DIAG_MODE.toLowerCase())) {
+            showCheckPassDialog();
+            return true;
+        }
+        return false;
+    }
+
+    private void showCheckPassDialog() {
+        final CheckPsWDialog dialog = new CheckPsWDialog(getActivity());
+        dialog.setCheckPswListener(new CheckPsWDialog.CheckPswListener() {
+            @Override
+            public void check(boolean success) {
+                if (success) {
+                    dialog.dismiss();
+                    showEntryUsbDiagModelConfirmDialog();
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.psw_erro), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    private void showEntryUsbDiagModelConfirmDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setTitle(getResources().getString(R.string.modify_diag_mode))
+                .setMessage(getResources().getString(R.string.modify_diag_mode_message))
+                .setNegativeButton(getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ClazzUtils.enterDiagMode(true);
+                    }
+                })
+                .setNeutralButton(getResources().getString(R.string.redurction), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ClazzUtils.enterDiagMode(false);
+                    }
+                }).create();
+        alertDialog.show();
     }
 
     @Override

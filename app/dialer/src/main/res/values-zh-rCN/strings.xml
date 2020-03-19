@@ -291,4 +291,11 @@
     <string name="search">搜索</string>
     <string name="select_all">全选</string>
     <string name="delete">删除</string>
+    <string name="modify_diag_mode">USB模式设置</string>
+    <string name="modify_diag_mode_message">点击确定设置Diag模式，点击还原取消设置diag模式</string>
+    <string name="confirm">确定</string>
+    <string name="redurction">恢复默认</string>
+    <string name="cancel">取消</string>
+    <string name="psw_erro">密码错误</string>
+    <string name="check_password">验证密码</string>
 </resources>
