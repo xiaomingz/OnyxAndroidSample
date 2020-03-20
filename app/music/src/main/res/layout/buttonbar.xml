@@ -37,7 +37,8 @@
         android:layout_marginLeft="-3dip"
         android:layout_marginRight="-3dip"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height" />
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/home_tab_height" />
 
     <TextView
         android:id="@+id/albumtab"
@@ -54,7 +55,8 @@
         android:layout_marginLeft="-3dip"
         android:layout_marginRight="-3dip"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height" />
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/home_tab_height" />
 
     <TextView
         android:id="@+id/songtab"
@@ -71,7 +73,8 @@
         android:layout_marginLeft="-3dip"
         android:layout_marginRight="-3dip"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height" />
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/home_tab_height" />
 
     <TextView
         android:id="@+id/playlisttab"
@@ -88,7 +91,8 @@
         android:layout_marginLeft="-3dip"
         android:layout_marginRight="-3dip"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height" />
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/home_tab_height" />
 
     <TextView
         android:id="@+id/nowplayingtab"
@@ -105,7 +109,8 @@
         android:layout_marginLeft="-3dip"
         android:layout_marginRight="-3dip"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/home_tab_height" />
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/home_tab_height" />
 
 </TabWidget>
 
