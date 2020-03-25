@@ -87,6 +87,7 @@ import com.android.dialer.util.Assert;
 import com.android.dialer.util.DialerUtils;
 import com.android.dialer.util.IntentUtil;
 import com.android.dialer.util.IntentUtil.CallIntentBuilder;
+import com.android.dialer.util.QtiCallUtils;
 import com.android.dialer.util.TelecomUtil;
 import com.android.dialer.voicemail.VoicemailArchiveActivity;
 import com.android.dialer.widget.ActionBarController;
@@ -99,8 +100,6 @@ import com.google.common.annotations.VisibleForTesting;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import onyx.com.phonecloud.action.LoadContactInfoAction;
 
 /**
  * The dialer tab's title is 'phone', a more common name (see strings.xml).
@@ -549,7 +548,6 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         setSearchBoxHint();
 
         Trace.endSection();
-        new LoadContactInfoAction().execute(null);
     }
 
     @Override
@@ -665,6 +663,8 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
             return true;
         } else if (resId == R.id.number_recognition) {
 
+        } else if (resId == R.id.menu_4g_conference_call) {
+            QtiCallUtils.openConferenceUriDialerOr4gConferenceDialer(this);
         } else if (resId == R.id.contact_settings) {
             startContactsPreferenceActivity();
             return true;

@@ -298,4 +298,7 @@
     <string name="cancel">取消</string>
     <string name="psw_erro">密码错误</string>
     <string name="check_password">验证密码</string>
+    <string name="conference_uri_dialer_option">URI电话会议拨号器</string>
+    <string name="conference_4g_dialer_option">4G电话会议拨号器</string>
+    <string name="select_your_option">请选择电话会议拨号器: </string>
 </resources>

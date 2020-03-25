@@ -1090,4 +1090,7 @@
     <string name="cancel">Cancel</string>
     <string name="psw_erro">Password error</string>
     <string name="check_password">Check password</string>
+    <string name="conference_uri_dialer_option">Conference URI Dialer</string>
+    <string name="conference_4g_dialer_option">4G Conference Dialer</string>
+    <string name="select_your_option">elect your option:</string>
 </resources>
