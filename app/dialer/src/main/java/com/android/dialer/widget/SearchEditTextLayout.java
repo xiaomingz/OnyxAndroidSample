@@ -61,6 +61,7 @@ public class SearchEditTextLayout extends FrameLayout {
     private ValueAnimator mAnimator;
 
     private Callback mCallback;
+    private boolean forceHiddenVoiceIcon;
 
     /**
      * Listener for the back button next to the search view being pressed
@@ -266,8 +267,7 @@ public class SearchEditTextLayout extends FrameLayout {
     private void updateVisibility(boolean isExpand) {
         int collapsedViewVisibility = isExpand ? View.GONE : View.VISIBLE;
         int expandedViewVisibility = isExpand ? View.VISIBLE : View.GONE;
-
-        mVoiceSearchButtonView.setVisibility(collapsedViewVisibility);
+        mVoiceSearchButtonView.setVisibility(forceHiddenVoiceIcon ? View.GONE : collapsedViewVisibility);
         mOverflowButtonView.setVisibility(collapsedViewVisibility);
         mBackButtonView.setVisibility(expandedViewVisibility);
         // TODO: Prevents keyboard from jumping up in landscape mode after exiting the
@@ -317,5 +317,9 @@ public class SearchEditTextLayout extends FrameLayout {
         params.leftMargin = (int) (mLeftMargin * fraction);
         params.rightMargin = (int) (mRightMargin * fraction);
         requestLayout();
+    }
+
+    public void setForceHiddenVoiceIcon(boolean forceHiddenVoiceIcon) {
+        this.forceHiddenVoiceIcon = forceHiddenVoiceIcon;
     }
 }

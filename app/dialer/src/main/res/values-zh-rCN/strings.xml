@@ -301,4 +301,6 @@
     <string name="conference_uri_dialer_option">URI电话会议拨号器</string>
     <string name="conference_4g_dialer_option">4G电话会议拨号器</string>
     <string name="select_your_option">请选择电话会议拨号器: </string>
+    <string name="sim_cmcc">中国移动</string>
+    <string name="sim_china">中国联通</string>
 </resources>

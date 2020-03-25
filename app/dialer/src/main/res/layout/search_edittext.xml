@@ -55,8 +55,7 @@
             android:contentDescription="@string/description_start_voice_search"
             android:scaleType="center"
             android:src="@drawable/ic_mic_grey600"
-            android:tint="@color/searchbox_icon_tint"
-            android:visibility="gone" />
+            android:tint="@color/searchbox_icon_tint"/>
 
         <ImageView
             android:id="@+id/dialtacts_options_menu_button"

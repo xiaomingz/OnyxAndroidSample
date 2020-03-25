@@ -16,6 +16,7 @@
 
 package com.android.dialer.dialpad;
 
+import com.android.contacts.common.widget.FloatingActionButtonController;
 import com.android.dialer.util.ClazzUtils;
 import com.android.dialer.util.OnyxEngineeringModeUtil;
 import com.android.dialer.widget.CheckPsWDialog;
@@ -64,6 +65,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -89,6 +91,7 @@ import com.android.phone.common.CallLogAsync;
 import com.android.phone.common.animation.AnimUtils;
 import com.android.phone.common.dialpad.DialpadKeyButton;
 import com.android.phone.common.dialpad.DialpadView;
+import com.onyx.android.sdk.utils.CollectionUtils;
 
 import java.util.HashSet;
 import java.util.List;
@@ -109,6 +112,7 @@ public class DialpadFragment extends Fragment
     private List<PhoneAccountHandle> phoneAccountHandleList;
     private static final int SIM_CARD_1_ID = 0;
     private static final int SIM_CARD_2_ID = 1;
+    private FloatingActionButtonController mFloatingActionButtonController;
 
     /**
      * LinearLayout with getter and setter methods for the translationY property using floats,
@@ -417,6 +421,14 @@ public class DialpadFragment extends Fragment
         mDialpadChooser = (ListView) fragmentView.findViewById(R.id.dialpadChooser);
         mDialpadChooser.setOnItemClickListener(this);
 
+        final View floatingActionButtonContainer =
+                fragmentView.findViewById(R.id.dialpad_floating_action_button_container);
+        final ImageButton floatingActionButton =
+                (ImageButton) fragmentView.findViewById(R.id.dialpad_floating_action_button);
+        floatingActionButton.setOnClickListener(this);
+        mFloatingActionButtonController = new FloatingActionButtonController(getActivity(),
+                floatingActionButtonContainer, floatingActionButton);
+        floatingActionButtonContainer.setVisibility(View.GONE);
         TextView tvCall1 = (TextView) fragmentView.findViewById(R.id.tv_call_1);
         TextView tvCall2 = (TextView) fragmentView.findViewById(R.id.tv_call_2);
         View buttonBack = fragmentView.findViewById(R.id.button_back);
@@ -428,18 +440,21 @@ public class DialpadFragment extends Fragment
         TelecomManager telecomManager = (TelecomManager) getActivity().getSystemService(Context.TELECOM_SERVICE);
         if (telecomManager != null) {
             phoneAccountHandleList = telecomManager.getCallCapablePhoneAccounts();
-            if (phoneAccountHandleList != null) {
+            if (!CollectionUtils.isNullOrEmpty(phoneAccountHandleList)) {
                 for (int i = 0; i < phoneAccountHandleList.size(); i++) {
                     PhoneAccount account = telecomManager.getPhoneAccount(phoneAccountHandleList.get(i));
+                    String label = DialerUtils.getLabString(getContext(), account.getLabel().toString());
                     if (i == SIM_CARD_1_ID) {
-                        tvCall1.setText(account.getLabel());
+                        tvCall1.setText(label);
                         tvCall1.setVisibility(View.VISIBLE);
                     }
                     if (i == SIM_CARD_2_ID) {
-                        tvCall2.setText(account.getLabel());
+                        tvCall2.setText(label);
                         tvCall2.setVisibility(View.VISIBLE);
                     }
                 }
+            } else {
+                floatingActionButtonContainer.setVisibility(View.VISIBLE);
             }
         }
         Trace.endSection();
@@ -940,6 +955,10 @@ public class DialpadFragment extends Fragment
     @Override
     public void onClick(View view) {
         int resId = view.getId();
+        if (resId == R.id.dialpad_floating_action_button) {
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+            handleDialButtonPressed();
+        }
         if (resId == R.id.deleteButton) {
             keyPressed(KeyEvent.KEYCODE_DEL);
         } else if (resId == R.id.digits) {

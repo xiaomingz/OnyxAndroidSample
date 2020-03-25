@@ -252,6 +252,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
      * {@link #onResume()} to populate the search box.
      */
     private String mVoiceSearchQuery;
+    private boolean forceHiddenVoiceIcon = true;
 
     protected class OptionsPopupMenu extends PopupMenu {
         public OptionsPopupMenu(Context context, View anchor) {
@@ -390,7 +391,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         SearchEditTextLayout searchEditTextLayout = (SearchEditTextLayout) actionBar
                 .getCustomView().findViewById(R.id.search_view_container);
         searchEditTextLayout.setPreImeKeyListener(mSearchEditTextLayoutListener);
-
+        searchEditTextLayout.setForceHiddenVoiceIcon(forceHiddenVoiceIcon);
         mActionBarController = new ActionBarController(this, searchEditTextLayout);
 
         mSearchView = (EditText) searchEditTextLayout.findViewById(R.id.search_view);
@@ -897,7 +898,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
 
     private void prepareVoiceSearchButton() {
         final Intent voiceIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        if (canIntentBeHandled(voiceIntent)) {
+        if (canIntentBeHandled(voiceIntent) && !forceHiddenVoiceIcon) {
             mVoiceSearchButton.setVisibility(View.VISIBLE);
             mVoiceSearchButton.setOnClickListener(this);
         } else {

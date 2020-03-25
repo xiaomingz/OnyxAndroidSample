@@ -39,6 +39,7 @@ import com.android.contacts.common.ContactsUtils;
 import com.android.contacts.common.interactions.TouchPointManager;
 import com.android.dialer.R;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -47,13 +48,15 @@ import java.util.Locale;
  * General purpose utility methods for the Dialer.
  */
 public class DialerUtils {
+    public static final String SIM_CMCC = "cmcc";
+    public static final String[] SIM_CHINA_UNICOM = new String[]{"china unicom", "china"};
 
     /**
      * Attempts to start an activity and displays a toast with the default error message if the
      * activity is not found, instead of throwing an exception.
      *
      * @param context to start the activity with.
-     * @param intent to start the activity with.
+     * @param intent  to start the activity with.
      */
     public static void startActivityWithErrorToast(Context context, Intent intent) {
         startActivityWithErrorToast(context, intent, R.string.activity_not_available);
@@ -64,14 +67,14 @@ public class DialerUtils {
      * activity is not found, instead of throwing an exception.
      *
      * @param context to start the activity with.
-     * @param intent to start the activity with.
-     * @param msgId Resource ID of the string to display in an error message if the activity is
-     *              not found.
+     * @param intent  to start the activity with.
+     * @param msgId   Resource ID of the string to display in an error message if the activity is
+     *                not found.
      */
     public static void startActivityWithErrorToast(Context context, Intent intent, int msgId) {
         try {
             if ((IntentUtil.CALL_ACTION.equals(intent.getAction())
-                            && context instanceof Activity)) {
+                    && context instanceof Activity)) {
                 // All dialer-initiated calls should pass the touch point to the InCallUI
                 Point touchPoint = TouchPointManager.getInstance().getPoint();
                 if (touchPoint.x != 0 || touchPoint.y != 0) {
@@ -144,7 +147,7 @@ public class DialerUtils {
      * localized delimiter such as ", ".
      *
      * @param resources Resources used to get list delimiter.
-     * @param list List of char sequences to join.
+     * @param list      List of char sequences to join.
      * @return Joined char sequences.
      */
     public static CharSequence join(Resources resources, Iterable<CharSequence> list) {
@@ -174,7 +177,7 @@ public class DialerUtils {
      */
     public static boolean isRtl() {
         return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) ==
-            View.LAYOUT_DIRECTION_RTL;
+                View.LAYOUT_DIRECTION_RTL;
     }
 
     public static void showInputMethod(View view) {
@@ -191,5 +194,15 @@ public class DialerUtils {
         if (imm != null) {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public static String getLabString(Context context, String lab) {
+        if (SIM_CMCC.equals(lab.toLowerCase())) {
+            return context.getResources().getString(R.string.sim_cmcc);
+        }
+        if (Arrays.asList(SIM_CHINA_UNICOM).contains(lab.toLowerCase())) {
+            return context.getResources().getString(R.string.sim_china);
+        }
+        return lab;
     }
 }

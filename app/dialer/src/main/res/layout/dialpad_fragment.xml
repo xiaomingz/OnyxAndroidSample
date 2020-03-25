@@ -50,16 +50,9 @@
 
     </LinearLayout>
 
-    <!-- Margin bottom and alignParentBottom don't work well together, so use a Space instead. -->
-    <Space
-        android:id="@+id/dialpad_floating_action_button_margin_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/floating_action_button_margin_bottom"
-        android:layout_alignParentBottom="true" />
-
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/onyx_call_button_height"
         android:layout_above="@id/dialpad_floating_action_button_margin_bottom"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal">
@@ -67,7 +60,7 @@
         <TextView
             android:id="@+id/tv_call_1"
             android:layout_width="@dimen/onyx_call_button_with"
-            android:layout_height="@dimen/onyx_call_button_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:background="@drawable/imagebtn_press_response_bg"
             android:drawableLeft="@drawable/ic_call_1"
@@ -75,13 +68,12 @@
             android:lines="1"
             android:paddingLeft="@dimen/call_button_drawable_padding_left"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/call_button_text_size"
-            android:visibility="gone" />
+            android:textSize="@dimen/call_button_text_size" />
 
         <TextView
             android:id="@+id/tv_call_2"
             android:layout_width="@dimen/onyx_call_button_with"
-            android:layout_height="@dimen/onyx_call_button_height"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/call_button_space"
             android:background="@drawable/imagebtn_press_response_bg"
@@ -90,8 +82,7 @@
             android:lines="1"
             android:paddingLeft="@dimen/call_button_drawable_padding_left"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/call_button_text_size"
-            android:visibility="gone" />
+            android:textSize="@dimen/call_button_text_size" />
     </LinearLayout>
 
     <ImageView
@@ -101,6 +92,30 @@
         android:layout_above="@id/dialpad_floating_action_button_margin_bottom"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dialpad_back_button_margin_right"
+        android:layout_marginBottom="@dimen/dialpad_back_button_margin_bottom"
         android:src="@drawable/ic_pad" />
+    <!-- Margin bottom and alignParentBottom don't work well together, so use a Space instead. -->
+    <Space
+        android:id="@+id/dialpad_floating_action_button_margin_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/floating_action_button_margin_bottom"
+        android:layout_alignParentBottom="true" />
 
+    <FrameLayout
+        android:id="@+id/dialpad_floating_action_button_container"
+        android:layout_width="@dimen/floating_action_button_width"
+        android:layout_height="@dimen/floating_action_button_height"
+        android:layout_above="@id/dialpad_floating_action_button_margin_bottom"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/fab_green">
+
+        <ImageButton
+            android:id="@+id/dialpad_floating_action_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/floating_action_button"
+            android:contentDescription="@string/description_dial_button"
+            android:src="@drawable/fab_ic_call" />
+
+    </FrameLayout>
 </view>
