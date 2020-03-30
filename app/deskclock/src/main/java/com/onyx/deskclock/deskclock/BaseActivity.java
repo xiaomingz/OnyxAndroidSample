@@ -17,7 +17,6 @@
 package com.onyx.deskclock.deskclock;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,11 +27,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * Base activity class that changes with window's background color dynamically based on the
  * current hour.
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
 
     /**
      * Key used to save/restore the current background color from the saved instance state.

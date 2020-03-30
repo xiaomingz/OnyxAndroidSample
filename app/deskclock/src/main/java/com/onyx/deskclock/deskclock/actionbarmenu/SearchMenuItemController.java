@@ -17,15 +17,15 @@
 package com.onyx.deskclock.deskclock.actionbarmenu;
 
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
 import com.onyx.deskclock.R;
+
+import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 
 /**
  * {@link MenuItemController} for search menu.
@@ -35,12 +35,12 @@ public final class SearchMenuItemController extends AbstractMenuItemController {
     private static final String KEY_SEARCH_QUERY = "search_query";
     private static final String KEY_SEARCH_MODE = "search_mode";
     private static final int SEARCH_MENU_RES_ID = R.id.menu_item_search;
-    private final OnQueryTextListener mQueryListener;
+    private final SearchView.OnQueryTextListener mQueryListener;
     private final SearchModeChangeListener mSearchModeChangeListener;
     private String mQuery = "";
     private boolean mSearchMode;
 
-    public SearchMenuItemController(OnQueryTextListener queryListener, Bundle savedState) {
+    public SearchMenuItemController(SearchView.OnQueryTextListener queryListener, Bundle savedState) {
         mSearchModeChangeListener = new SearchModeChangeListener();
         mQueryListener = queryListener;
         if (savedState != null) {

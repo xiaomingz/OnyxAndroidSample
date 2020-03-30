@@ -21,7 +21,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Property;
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -29,6 +28,8 @@ import android.widget.ImageView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import androidx.core.graphics.drawable.DrawableCompat;
 
 public class AnimatorUtils {
 

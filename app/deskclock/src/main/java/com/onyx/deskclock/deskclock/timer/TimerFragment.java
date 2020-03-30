@@ -26,8 +26,6 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +45,9 @@ import com.onyx.deskclock.deskclock.events.Events;
 
 import java.io.Serializable;
 import java.util.Arrays;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.viewpager.widget.ViewPager;
 
 import static android.view.View.ALPHA;
 import static android.view.View.GONE;

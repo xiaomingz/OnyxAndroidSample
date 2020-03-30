@@ -17,22 +17,18 @@
 package com.onyx.deskclock.deskclock;
 
 import android.app.Activity;
-import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.alarms.AlarmTimeClickHandler;
 import com.onyx.deskclock.deskclock.alarms.AlarmUpdateHandler;
@@ -46,6 +42,11 @@ import com.onyx.deskclock.deskclock.widget.toast.SnackbarManager;
 import com.onyx.deskclock.deskclock.widget.toast.ToastManager;
 
 import java.util.List;
+
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A fragment that displays a list of alarm time and allows interaction with them.
@@ -321,7 +322,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             selection = "ENABLED = 1";
         }
         ContentResolver cr = getActivity().getApplicationContext().getContentResolver();
-        List<Alarm> alarmList = Alarm.getAlarms(cr, selection, null);
+        List<Alarm> alarmList = Alarm.getAlarms(cr, selection);
 
         for(Alarm alarm: alarmList){
             alarm.enabled = enabled;

@@ -21,13 +21,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.StringRes;
 
 import com.onyx.deskclock.deskclock.Utils;
 
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+
+import androidx.annotation.StringRes;
 
 /**
  * All application-wide data is accessible through this singleton.

@@ -31,7 +31,7 @@
         android:textStyle="bold"
         android:textSize="@dimen/label_text_size"
         android:textColor="@color/black" />
-    <android.support.v7.widget.AppCompatCheckBox
+    <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/city_onoff"
         style="@style/alarm_checkbox"
         android:focusable="false"

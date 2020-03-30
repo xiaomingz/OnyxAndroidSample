@@ -17,7 +17,6 @@ package com.onyx.deskclock.deskclock.timer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.Gravity;
@@ -35,6 +34,8 @@ import com.onyx.deskclock.deskclock.data.Timer;
 import com.onyx.deskclock.deskclock.data.TimerListener;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * This activity is designed to be shown over the lock screen. As such, it displays the expired

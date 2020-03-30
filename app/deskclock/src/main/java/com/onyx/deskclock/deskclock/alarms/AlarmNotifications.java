@@ -22,8 +22,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 
 import com.onyx.deskclock.deskclock.AlarmClockFragment;
 import com.onyx.deskclock.deskclock.AlarmUtils;
@@ -33,6 +31,9 @@ import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.alarms.utils.NotificationUtil;
 import com.onyx.deskclock.deskclock.provider.Alarm;
 import com.onyx.deskclock.deskclock.provider.AlarmInstance;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 public final class AlarmNotifications {
     public static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";

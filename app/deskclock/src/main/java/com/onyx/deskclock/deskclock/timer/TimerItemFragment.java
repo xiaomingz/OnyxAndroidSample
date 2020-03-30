@@ -16,8 +16,6 @@
 
 package com.onyx.deskclock.deskclock.timer;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +26,9 @@ import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.data.DataModel;
 import com.onyx.deskclock.deskclock.data.Timer;
 import com.onyx.deskclock.deskclock.events.Events;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class TimerItemFragment extends Fragment {
 

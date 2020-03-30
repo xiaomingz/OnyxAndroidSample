@@ -20,9 +20,10 @@ import com.onyx.latinime.R;
 import com.onyx.latinime.latin.utils.ResourceUtils;
 
 import android.content.res.Resources;
-import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.viewpager.widget.ViewPager;
 
 public class EmojiLayoutParams {
     private static final int DEFAULT_KEYBOARD_ROWS = 4;

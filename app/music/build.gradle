@@ -15,11 +15,9 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    def fileName = "music-release.apk"
-                    output.outputFile = new File(outputFile.parent, fileName)
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "music-release.apk"
                 }
             }
         }
@@ -36,11 +34,11 @@ android {
     }
 }
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    testCompile 'junit:junit:4.12'
-    compile 'com.onyx.android.sdk:onyxsdk-appcompat:1.0.4'
+    testImplementation 'junit:junit:4.12'
+    implementation project(':libraries:onyxsdk-androidx')
 }

@@ -29,7 +29,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.v4.app.NotificationManagerCompat;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
@@ -48,6 +47,8 @@ import com.onyx.deskclock.deskclock.settings.SettingsActivity;
 
 import java.util.Calendar;
 import java.util.List;
+
+import androidx.core.app.NotificationManagerCompat;
 
 /**
  * This class handles all the state changes for alarm instances. You need to

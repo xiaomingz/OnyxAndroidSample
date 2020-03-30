@@ -16,8 +16,6 @@
 
 package com.onyx.deskclock.deskclock.alarms;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -34,6 +32,9 @@ import com.onyx.deskclock.deskclock.provider.Alarm;
 import com.onyx.deskclock.deskclock.provider.AlarmInstance;
 
 import java.util.Calendar;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * Click handler for an alarm time item.

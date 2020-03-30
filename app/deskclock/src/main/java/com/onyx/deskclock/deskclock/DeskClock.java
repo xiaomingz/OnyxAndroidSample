@@ -17,18 +17,11 @@
 package com.onyx.deskclock.deskclock;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.support.annotation.VisibleForTesting;
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.TabLayout.Tab;
-import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.actionbarmenu.ActionBarMenuManager;
 import com.onyx.deskclock.deskclock.actionbarmenu.MenuItemControllerFactory;
@@ -54,6 +48,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * DeskClock clock view for desk docks.
@@ -109,19 +109,19 @@ public class DeskClock extends BaseActivity
     }
 
     private void createTabs() {
-        final Tab alarmTab = mTabLayout.newTab();
+        final TabLayout.Tab alarmTab = mTabLayout.newTab();
         alarmTab.setIcon(R.drawable.ic_onyx_alarm).setText(R.string.menu_alarm).setContentDescription(R.string.menu_alarm);
         mTabsAdapter.addTab(alarmTab, AlarmClockFragment.class, ALARM_TAB_INDEX);
 
-        final Tab clockTab = mTabLayout.newTab();
+        final TabLayout.Tab clockTab = mTabLayout.newTab();
         clockTab.setIcon(R.drawable.ic_onyx_world_clock).setText(R.string.menu_clock).setContentDescription(R.string.menu_clock);
         mTabsAdapter.addTab(clockTab, ClockFragment.class, CLOCK_TAB_INDEX);
 
-        final Tab timerTab = mTabLayout.newTab();
+        final TabLayout.Tab timerTab = mTabLayout.newTab();
         timerTab.setIcon(R.drawable.ic_onyx_timer).setText(R.string.menu_timer).setContentDescription(R.string.menu_timer);
         mTabsAdapter.addTab(timerTab, TimerFragment.class, TIMER_TAB_INDEX);
 
-        final Tab stopwatchTab = mTabLayout.newTab();
+        final TabLayout.Tab stopwatchTab = mTabLayout.newTab();
         stopwatchTab.setIcon(R.drawable.ic_onyx_stop_watch)
                 .setText(R.string.menu_stopwatch).setContentDescription(R.string.menu_stopwatch);
         mTabsAdapter.addTab(stopwatchTab, StopwatchFragment.class, STOPWATCH_TAB_INDEX);
@@ -173,7 +173,7 @@ public class DeskClock extends BaseActivity
             mViewPager.setAccessibilityDelegate(null);
             mTabsAdapter = new TabsAdapter(this, mViewPager);
             createTabs();
-            mTabLayout.setOnTabSelectedListener(new ViewPagerOnTabSelectedListener(mViewPager));
+            mTabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         }
 
         mFab.setOnClickListener(new OnClickListener() {
@@ -288,7 +288,7 @@ public class DeskClock extends BaseActivity
     /**
      * Adapter for wrapping together the ActionBar's tab with the ViewPager
      */
-    private class TabsAdapter extends FragmentPagerAdapter implements OnPageChangeListener {
+    private class TabsAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
 
         private static final String KEY_TAB_POSITION = "tab_position";
 
@@ -317,8 +317,8 @@ public class DeskClock extends BaseActivity
         private final Set<String> mFragmentTags = new HashSet<>(3);
 
 
-        public TabsAdapter(Activity activity, RtlViewPager pager) {
-            super(activity.getFragmentManager());
+        public TabsAdapter(FragmentActivity activity, RtlViewPager pager) {
+            super(activity.getSupportFragmentManager());
             mContext = activity;
             mPager = pager;
             mPager.setAdapter(this);
@@ -335,7 +335,7 @@ public class DeskClock extends BaseActivity
             // Because this public method is called outside many times,
             // check if it exits first before creating a new one.
             final String name = makeFragmentName(R.id.desk_clock_pager, position);
-            Fragment fragment = getFragmentManager().findFragmentByTag(name);
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(name);
             if (fragment == null) {
                 TabInfo info = mTabs.get(position);
                 fragment = Fragment.instantiate(mContext, info.clss.getName(), info.args);
@@ -361,7 +361,7 @@ public class DeskClock extends BaseActivity
             return mTabs.size();
         }
 
-        public void addTab(Tab tab, Class<?> clss, int position) {
+        public void addTab(TabLayout.Tab tab, Class<?> clss, int position) {
             TabInfo info = new TabInfo(clss, position);
             mTabs.add(info);
             mTabLayout.addTab(tab);
@@ -417,8 +417,7 @@ public class DeskClock extends BaseActivity
 
         private void notifyPageChanged(int newPage) {
             for (String tag : mFragmentTags) {
-                final FragmentManager fm = getFragmentManager();
-                DeskClockFragment f = (DeskClockFragment) fm.findFragmentByTag(tag);
+                DeskClockFragment f = (DeskClockFragment) getSupportFragmentManager().findFragmentByTag(tag);
                 if (f != null) {
                     f.onPageChanged(newPage);
                 }
@@ -447,7 +446,7 @@ public class DeskClock extends BaseActivity
      */
     @Override
     public void onDialogLabelSet(Alarm alarm, String label, String tag) {
-        Fragment frag = getFragmentManager().findFragmentByTag(tag);
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
         if (frag instanceof AlarmClockFragment) {
             ((AlarmClockFragment) frag).setLabel(alarm, label);
         }

@@ -19,10 +19,6 @@ package com.onyx.deskclock.deskclock.alarms;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
@@ -34,6 +30,11 @@ import com.onyx.deskclock.deskclock.Utils;
 import com.onyx.deskclock.deskclock.provider.Alarm;
 
 import java.util.Calendar;
+
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * Displays and handles callback for time picker UI.
@@ -145,7 +146,7 @@ public final class TimePickerCompat {
      * @param use24hourFormat Whether or not the time picker should use 24-hour format if supported.
      */
     public static void showTimeEditDialog(Fragment targetFragment, Alarm alarm,
-            boolean use24hourFormat) {
+                                          boolean use24hourFormat) {
         // Make sure the dialog isn't already added.
         final FragmentManager manager = targetFragment.getFragmentManager();
         final FragmentTransaction ft = manager.beginTransaction();

@@ -17,7 +17,6 @@
 package com.onyx.deskclock.deskclock.alarms.dataadapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -29,6 +28,8 @@ import com.onyx.deskclock.deskclock.alarms.AlarmTimeClickHandler;
 import com.onyx.deskclock.deskclock.provider.Alarm;
 import com.onyx.deskclock.deskclock.provider.AlarmInstance;
 import com.onyx.deskclock.deskclock.widget.TextTime;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Abstract ViewHolder for alarm time items.

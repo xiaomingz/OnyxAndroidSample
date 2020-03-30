@@ -17,11 +17,13 @@
 package com.onyx.deskclock.deskclock.widget.toast;
 
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 /**
  * LinearLayout Behavior that slides up and down when snackbar appears/disappears.

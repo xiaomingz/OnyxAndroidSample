@@ -18,10 +18,6 @@ package com.onyx.latinime.accessibility;
 
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
-import android.support.v4.view.AccessibilityDelegateCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.accessibility.AccessibilityEventCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.util.SparseIntArray;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +30,11 @@ import com.onyx.latinime.keyboard.Keyboard;
 import com.onyx.latinime.keyboard.KeyboardId;
 import com.onyx.latinime.keyboard.MainKeyboardView;
 import com.onyx.latinime.keyboard.PointerTracker;
+
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityEventCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 
 public final class AccessibleKeyboardViewProxy extends AccessibilityDelegateCompat {
     private static final AccessibleKeyboardViewProxy sInstance = new AccessibleKeyboardViewProxy();
