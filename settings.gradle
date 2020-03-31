@@ -6,4 +6,5 @@ include ':app:calculator',
         ':app:simple:VoiceRecorder',
         ":app:simple:Calculator",
         ":app:simple:Music",
+        ":app:simple:Clock",
         ':libraries:onyxsdk-androidx'
