@@ -3,4 +3,5 @@ include ':app:calculator',
         ':app:music',
         ':app:deskclock',
         ':app:simple:Gallery',
+        ':app:simple:VoiceRecorder',
         ':libraries:onyxsdk-androidx'

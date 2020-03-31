@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.simplemobiletools.voicerecorder"
+    android:installLocation="auto">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
+    <uses-feature
+        android:name="android.hardware.faketouch"
+        android:required="false" />
+
+    <uses-permission
+        android:name="android.permission.USE_FINGERPRINT"
+        tools:node="remove" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_launcher_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/SplashTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".activities.MainActivity" />
+
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/settings"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <activity
+            android:name="com.simplemobiletools.commons.activities.AboutActivity"
+            android:label="@string/about"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <activity
+            android:name="com.simplemobiletools.commons.activities.LicenseActivity"
+            android:label="@string/third_party_licences"
+            android:parentActivityName="com.simplemobiletools.commons.activities.AboutActivity" />
+
+        <activity
+            android:name="com.simplemobiletools.commons.activities.CustomizationActivity"
+            android:label="@string/customize_colors"
+            android:parentActivityName=".activities.SettingsActivity" />
+
+        <activity
+            android:name="com.simplemobiletools.commons.activities.FAQActivity"
+            android:label="@string/frequently_asked_questions"
+            android:parentActivityName="com.simplemobiletools.commons.activities.AboutActivity" />
+
+        <service
+            android:name=".services.RecorderService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.simplemobiletools.voicerecorder.action.GET_RECORDER_INFO" />
+                <action android:name="com.simplemobiletools.voicerecorder.action.STOP_AMPLITUDE_UPDATE" />
+            </intent-filter>
+        </service>
+
+    </application>
+</manifest>
