@@ -28,8 +28,10 @@ android {
     }
 
     android.applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "calculator-release.apk"
+        variant.outputs.all { output ->
+            if (variant.buildType.name.equals("release")) {
+                outputFileName = "calculator-release.apk"
+            }
         }
     }
 

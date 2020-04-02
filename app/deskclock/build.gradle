@@ -27,8 +27,10 @@ android {
     }
 
     android.applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "deskclock-release.apk"
+        variant.outputs.all { output ->
+            if (variant.buildType.name.equals("release")) {
+                outputFileName = "deskclock-release.apk"
+            }
         }
     }
 
