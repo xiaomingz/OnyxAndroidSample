@@ -17,7 +17,6 @@ package com.android.contacts.common.list;
 
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.net.Uri.Builder;
@@ -47,10 +46,11 @@ import com.android.contacts.common.extensions.ExtensionsFactory;
 import com.android.contacts.common.preference.ContactsPreferences;
 import com.android.contacts.common.util.Constants;
 
-import com.google.common.collect.Lists;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.loader.content.CursorLoader;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * A cursor adapter for the {@link Phone#CONTENT_ITEM_TYPE} and

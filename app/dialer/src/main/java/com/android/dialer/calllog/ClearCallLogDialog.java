@@ -29,12 +29,13 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CallLog.Calls;
-import android.support.annotation.NonNull;
 
 import com.android.dialer.R;
 import com.android.dialer.calllog.inteface.DeleteCallHistoryListener;
 import com.android.dialer.service.CachedNumberLookupService;
 import com.android.dialerbind.ObjectFactory;
+
+import androidx.annotation.NonNull;
 
 /**
  * Dialog that clears the call log after confirming with the user

@@ -20,9 +20,10 @@ import android.os.AsyncTask;
 import android.os.Looper;
 
 import com.android.contacts.common.testing.NeededForTesting;
-import com.google.common.base.Preconditions;
 
 import java.util.concurrent.Executor;
+
+import androidx.core.util.Preconditions;
 
 /**
  * Factory methods for creating AsyncTaskExecutors.

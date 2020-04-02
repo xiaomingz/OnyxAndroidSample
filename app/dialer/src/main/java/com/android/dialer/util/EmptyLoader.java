@@ -16,13 +16,15 @@
 
 package com.android.dialer.util;
 
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
-import android.content.Loader;
 import android.os.Bundle;
 
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+
 /**
- * A {@link Loader} only used to make use of the {@link android.app.Fragment#setStartDeferred}
+ * A {@link Loader} only used to make use of the {@link Fragment#setStartDeferred}
  * feature from an old-style fragment which doesn't use {@link Loader}s to load data.
  *
  * This loader never delivers results.  A caller fragment must destroy it when deferred fragments
@@ -34,10 +36,10 @@ public class EmptyLoader extends Loader<Object> {
     }
 
     /**
-     * {@link LoaderCallbacks} which just generates {@link EmptyLoader}.  {@link #onLoadFinished}
+     * {@link LoaderManager.LoaderCallbacks} which just generates {@link EmptyLoader}.  {@link #onLoadFinished}
      * and {@link #onLoaderReset} are no-op.
      */
-    public static class Callback implements LoaderCallbacks<Object> {
+    public static class Callback implements LoaderManager.LoaderCallbacks<Object> {
         private final Context mContext;
 
         public Callback(Context context) {

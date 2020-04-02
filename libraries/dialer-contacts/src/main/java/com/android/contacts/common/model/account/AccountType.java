@@ -29,9 +29,6 @@ import android.widget.EditText;
 
 import com.android.contacts.common.R;
 import com.android.contacts.common.model.dataitem.DataKind;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -39,6 +36,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
+import androidx.test.espresso.core.internal.deps.guava.collect.Maps;
 
 /**
  * Internal structure that represents constraints and styles for a specific data

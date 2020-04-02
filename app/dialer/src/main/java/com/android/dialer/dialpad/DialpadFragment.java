@@ -20,13 +20,10 @@ import com.android.contacts.common.widget.FloatingActionButtonController;
 import com.android.dialer.util.ClazzUtils;
 import com.android.dialer.util.OnyxEngineeringModeUtil;
 import com.android.dialer.widget.CheckPsWDialog;
-import com.google.common.annotations.VisibleForTesting;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -98,6 +95,10 @@ import java.util.List;
 
 import android.telecom.TelecomManager;
 import android.widget.Toast;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 /**
  * Fragment that displays a twelve-key phone dialpad.

@@ -16,15 +16,14 @@
 
 package com.android.dialer.dialpad;
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.android.dialer.dialpad.SmartDialPrefix.PhoneNumberTokens;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.Lists;
-
 import java.util.ArrayList;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 /**
  * {@link #SmartDialNameMatcher} contains utility functions to remove accents from accented
@@ -44,7 +43,7 @@ public class SmartDialNameMatcher {
     // positives
     private static final int INITIAL_LENGTH_LIMIT = 1;
 
-    private final ArrayList<SmartDialMatchPosition> mMatchPositions = Lists.newArrayList();
+    private final ArrayList<SmartDialMatchPosition> mMatchPositions = new ArrayList<>();
 
     public static final SmartDialMap LATIN_SMART_DIAL_MAP = new LatinSmartDialMap();
 
@@ -360,8 +359,7 @@ public class SmartDialNameMatcher {
                         // this means there is at least one character left after the separator
                         if (j < nameLength - 1) {
                             final String remainder = displayName.substring(j + 1);
-                            final ArrayList<SmartDialMatchPosition> partialTemp =
-                                    Lists.newArrayList();
+                            final ArrayList<SmartDialMatchPosition> partialTemp = new ArrayList<>();
                             if (matchesCombination(
                                     remainder, query.substring(queryStart + 1), partialTemp)) {
 

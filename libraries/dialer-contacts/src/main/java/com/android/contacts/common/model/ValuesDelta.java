@@ -25,13 +25,13 @@ import android.provider.BaseColumns;
 import android.provider.ContactsContract;
 
 import com.android.contacts.common.compat.CompatUtils;
-import com.android.contacts.common.model.BuilderWrapper;
 import com.android.contacts.common.testing.NeededForTesting;
-import com.google.common.collect.Sets;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Sets;
 
 /**
  * Type of {@link android.content.ContentValues} that maintains both an original state and a
@@ -288,7 +288,7 @@ public class ValuesDelta implements Parcelable {
      * Return set of all keys defined through this object.
      */
     public Set<String> keySet() {
-        final HashSet<String> keys = Sets.newHashSet();
+        final HashSet<String> keys = new HashSet<>();
 
         if (mBefore != null) {
             for (Map.Entry<String, Object> entry : mBefore.valueSet()) {

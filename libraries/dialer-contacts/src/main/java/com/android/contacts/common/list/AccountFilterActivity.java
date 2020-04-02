@@ -38,10 +38,11 @@ import com.android.contacts.common.R;
 import com.android.contacts.common.model.AccountTypeManager;
 import com.android.contacts.common.model.account.AccountType;
 import com.android.contacts.common.model.account.AccountWithDataSet;
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * Shows a list of all available accounts, letting the user select under which account to view

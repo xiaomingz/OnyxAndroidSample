@@ -15,8 +15,6 @@
  */
 package com.android.dialer.widget;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.os.Bundle;
@@ -24,6 +22,8 @@ import android.util.Log;
 
 import com.android.dialer.DialtactsActivity;
 import com.android.phone.common.animation.AnimUtils.AnimationCallback;
+
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Controls the various animated properties of the actionBar: showing/hiding, fading/revealing,

@@ -16,14 +16,10 @@
 
 package com.android.contacts.common.format;
 
-import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
-
-import com.google.common.base.Preconditions;
 
 /**
  * Highlights the text in a text field.

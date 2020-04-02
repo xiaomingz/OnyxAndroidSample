@@ -17,7 +17,6 @@ package com.android.contacts.common.list;
 
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -27,7 +26,6 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Directory;
 import android.provider.ContactsContract.SearchSnippets;
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -38,6 +36,8 @@ import com.android.contacts.commonbind.experiments.Flags;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.loader.content.CursorLoader;
 
 /**
  * A cursor adapter for the {@link ContactsContract.Contacts#CONTENT_TYPE} content type.

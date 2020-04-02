@@ -17,9 +17,7 @@ package com.android.contacts.common.compat.telecom;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
 import android.telecom.TelecomManager;
@@ -32,6 +30,8 @@ import com.android.contacts.common.compat.CompatUtils;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Compatibility class for {@link android.telecom.TelecomManager}.
@@ -184,7 +184,11 @@ public class TelecomManagerCompat {
      * resources which can be used in a user interface.
      *
      * @param telecomManager the {@link TelecomManager} used for method calls, if possible.
+<<<<<<< HEAD
      * @param account The {@link PhoneAccountHandle}.
+=======
+     * @param accountHandle The {@link PhoneAccountHandle}.
+>>>>>>> 44c738e... refactor(dialer): upgrade to support androidx
      * @return The {@link PhoneAccount} object or null if it doesn't exist.
      */
     @Nullable

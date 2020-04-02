@@ -15,7 +15,6 @@
  */
 package com.android.dialer.filterednumber;
 
-import android.app.FragmentManager;
 import android.database.Cursor;
 import android.content.Context;
 import android.view.View;
@@ -24,6 +23,8 @@ import com.android.contacts.common.ContactPhotoManager;
 import com.android.contacts.common.GeoUtil;
 import com.android.dialer.R;
 import com.android.dialer.calllog.ContactInfoHelper;
+
+import androidx.fragment.app.FragmentManager;
 
 public class ViewNumbersToImportAdapter extends NumbersAdapter {
 

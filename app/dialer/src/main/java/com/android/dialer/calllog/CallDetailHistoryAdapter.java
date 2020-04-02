@@ -30,9 +30,10 @@ import com.android.contacts.common.CallUtil;
 import com.android.dialer.PhoneCallDetails;
 import com.android.dialer.R;
 import com.android.dialer.util.DialerUtils;
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * Adapter for a ListView containing history items from the details of a call.

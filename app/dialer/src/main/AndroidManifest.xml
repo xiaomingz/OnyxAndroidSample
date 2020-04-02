@@ -19,10 +19,6 @@
     package="com.android.dialer"
     coreApp="true">
 
-    <uses-sdk
-        android:minSdkVersion="23"
-        android:targetSdkVersion="23" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
@@ -313,7 +309,7 @@
             />
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="@string/contacts_file_provider_authority"
             tools:replace="android:authorities"
             android:grantUriPermissions="true"

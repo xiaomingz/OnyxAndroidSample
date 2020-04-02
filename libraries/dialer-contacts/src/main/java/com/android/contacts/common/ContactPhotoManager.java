@@ -46,8 +46,6 @@ import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Contacts.Photo;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Directory;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.LruCache;
@@ -62,10 +60,6 @@ import com.android.contacts.common.util.TrafficStatsTags;
 import com.android.contacts.common.util.UriUtils;
 import com.android.contacts.commonbind.util.UserAgentGenerator;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,12 +67,19 @@ import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
+import androidx.test.espresso.core.internal.deps.guava.collect.Sets;
 
 /**
  * Asynchronously loads contact photos and maintains a cache of photos.
@@ -1302,9 +1303,9 @@ class ContactPhotoManagerImpl extends ContactPhotoManager implements Callback {
 
         private final ContentResolver mResolver;
         private final StringBuilder mStringBuilder = new StringBuilder();
-        private final Set<Long> mPhotoIds = Sets.newHashSet();
-        private final Set<String> mPhotoIdsAsStrings = Sets.newHashSet();
-        private final Set<Request> mPhotoUris = Sets.newHashSet();
+        private final Set<Long> mPhotoIds = new HashSet<>();
+        private final Set<String> mPhotoIdsAsStrings = new HashSet<>();
+        private final Set<Request> mPhotoUris = new HashSet<>();
         private final List<Long> mPreloadPhotoIds = Lists.newArrayList();
 
         private Handler mLoaderThreadHandler;

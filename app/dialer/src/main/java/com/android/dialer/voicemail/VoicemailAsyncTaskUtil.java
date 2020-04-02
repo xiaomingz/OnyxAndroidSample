@@ -21,8 +21,6 @@ import com.android.dialer.calllog.CallLogQuery;
 import com.android.dialer.database.VoicemailArchiveContract;
 import com.android.dialer.util.AsyncTaskExecutor;
 import com.android.dialer.util.AsyncTaskExecutors;
-import com.google.common.base.Preconditions;
-import com.google.common.io.ByteStreams;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -33,13 +31,16 @@ import android.os.AsyncTask;
 import android.provider.CallLog;
 import android.provider.VoicemailContract;
 import android.util.Log;
-import com.android.common.io.MoreCloseables;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.annotation.Nullable;
+
+import androidx.core.util.Preconditions;
+
+import static org.apache.commons.io.IOUtils.copy;
 
 /**
  * Class containing asynchronous tasks for voicemails.
@@ -194,7 +195,7 @@ public class VoicemailAsyncTaskUtil {
                              OutputStream outputStream =
                                      mResolver.openOutputStream(insertedVoicemailUri)) {
                             if (inputStream != null && outputStream != null) {
-                                ByteStreams.copy(inputStream, outputStream);
+                                copy(inputStream, outputStream);
                                 copiedFile = true;
                                 return insertedVoicemailUri;
                             }

@@ -18,31 +18,26 @@ package com.android.dialer.list;
 import static android.Manifest.permission.CALL_PHONE;
 
 import android.app.Activity;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v13.app.FragmentCompat;
-import android.util.Log;
-import android.view.View;
 
 import com.android.contacts.common.list.ContactEntryListAdapter;
 import com.android.contacts.common.util.PermissionsUtil;
 import com.android.dialer.dialpad.SmartDialCursorLoader;
-import com.android.dialer.logging.Logger;
-import com.android.dialer.logging.ScreenEvent;
 import com.android.dialer.R;
 import com.android.dialer.widget.EmptyContentView;
 import com.android.incallui.Call.LogState;
 
-import java.util.ArrayList;
+import androidx.core.app.ActivityCompat;
+import androidx.loader.content.Loader;
 
 /**
  * Implements a fragment to load and display SmartDial search results.
  */
 public class SmartDialSearchFragment extends SearchFragment
         implements EmptyContentView.OnEmptyViewActionButtonClickedListener,
-        FragmentCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = SmartDialSearchFragment.class.getSimpleName();
 
     private static final int CALL_PHONE_PERMISSION_REQUEST_CODE = 1;
@@ -111,8 +106,7 @@ public class SmartDialSearchFragment extends SearchFragment
             return;
         }
 
-        FragmentCompat.requestPermissions(this, new String[] {CALL_PHONE},
-            CALL_PHONE_PERMISSION_REQUEST_CODE);
+        requestPermissions(new String[] {CALL_PHONE}, CALL_PHONE_PERMISSION_REQUEST_CODE);
     }
 
     @Override

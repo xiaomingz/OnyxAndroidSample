@@ -24,7 +24,7 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.RawContacts;
 import android.text.TextUtils;
 
-import com.google.common.base.Objects;
+import androidx.test.espresso.core.internal.deps.guava.base.Objects;
 
 
 /**

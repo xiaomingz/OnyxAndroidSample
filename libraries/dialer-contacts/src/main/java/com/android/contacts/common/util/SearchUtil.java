@@ -16,7 +16,7 @@
 
 package com.android.contacts.common.util;
 
-import com.google.common.annotations.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Methods related to search.

@@ -27,12 +27,12 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.RawContacts;
 import android.text.TextUtils;
 
-import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import androidx.test.espresso.core.internal.deps.guava.base.Objects;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * Wrapper for an account that includes a data set (which may be null).

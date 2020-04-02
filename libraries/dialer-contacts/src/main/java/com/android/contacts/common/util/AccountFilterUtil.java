@@ -17,7 +17,6 @@
 package com.android.contacts.common.util;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -28,6 +27,8 @@ import com.android.contacts.common.R;
 import com.android.contacts.common.list.AccountFilterActivity;
 import com.android.contacts.common.list.ContactListFilter;
 import com.android.contacts.common.list.ContactListFilterController;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * Utility class for account filter manipulation.

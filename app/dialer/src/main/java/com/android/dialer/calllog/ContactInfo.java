@@ -21,7 +21,8 @@ import android.text.TextUtils;
 
 import com.android.contacts.common.ContactsUtils.UserType;
 import com.android.contacts.common.util.UriUtils;
-import com.google.common.base.Objects;
+
+import static androidx.test.espresso.core.internal.deps.guava.base.MoreObjects.toStringHelper;
 
 /**
  * Information for a contact as needed by the Call Log.
@@ -97,7 +98,7 @@ public class ContactInfo {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("lookupUri", lookupUri).add("name", name)
+        return toStringHelper(this).add("lookupUri", lookupUri).add("name", name)
                 .add("nameAlternative", nameAlternative)
                 .add("type", type).add("label", label)
                 .add("number", number).add("formattedNumber",formattedNumber)

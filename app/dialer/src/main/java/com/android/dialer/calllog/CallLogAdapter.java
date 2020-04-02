@@ -16,10 +16,6 @@
 
 package com.android.dialer.calllog;
 
-import com.android.contacts.common.CallUtil;
-import com.android.dialer.util.DialerUtils;
-import com.google.common.annotations.VisibleForTesting;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,8 +27,6 @@ import android.os.Trace;
 import android.preference.PreferenceManager;
 import android.provider.CallLog;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.telecom.PhoneAccountHandle;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
@@ -50,7 +44,6 @@ import com.android.contacts.common.compat.CompatUtils;
 import com.android.contacts.common.compat.PhoneNumberUtilsCompat;
 import com.android.contacts.common.preference.ContactsPreferences;
 import com.android.contacts.common.util.PermissionsUtil;
-import com.android.dialer.DialtactsActivity;
 import com.android.dialer.PhoneCallDetails;
 import com.android.dialer.R;
 import com.android.dialer.calllog.calllogcache.CallLogCache;
@@ -68,7 +61,8 @@ import com.android.dialer.voicemail.VoicemailPlaybackPresenter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.android.dialer.calllog.CallLogActivity;
+import androidx.annotation.VisibleForTesting;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Adapter class to fill in data for the Call Log.
@@ -395,7 +389,7 @@ public class CallLogAdapter extends GroupingListAdapter
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_VOICEMAIL_PROMO_CARD) {
             return createVoicemailPromoCardViewHolder(parent);
         }
@@ -403,12 +397,12 @@ public class CallLogAdapter extends GroupingListAdapter
     }
 
     /**
-     * Creates a new call log entry {@link ViewHolder}.
+     * Creates a new call log entry {@link RecyclerView.ViewHolder}.
      *
      * @param parent the parent view.
-     * @return The {@link ViewHolder}.
+     * @return The {@link RecyclerView.ViewHolder}.
      */
-    private ViewHolder createCallLogEntryViewHolder(ViewGroup parent) {
+    private RecyclerView.ViewHolder createCallLogEntryViewHolder(ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.call_log_list_item, parent, false);
         CallLogListItemViewHolder viewHolder = CallLogListItemViewHolder.create(
@@ -455,7 +449,7 @@ public class CallLogAdapter extends GroupingListAdapter
      * @param position   The position of the entry.
      */
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         Trace.beginSection("onBindViewHolder: " + position);
 
         switch (getItemViewType(position)) {
@@ -475,7 +469,7 @@ public class CallLogAdapter extends GroupingListAdapter
      *
      * @param viewHolder The promo card view holder.
      */
-    protected void bindVoicemailPromoCardViewHolder(ViewHolder viewHolder) {
+    protected void bindVoicemailPromoCardViewHolder(RecyclerView.ViewHolder viewHolder) {
         PromoCardViewHolder promoCardViewHolder = (PromoCardViewHolder) viewHolder;
 
         promoCardViewHolder.getSecondaryActionView()
@@ -490,7 +484,7 @@ public class CallLogAdapter extends GroupingListAdapter
      * @param position   The position of the list item.
      */
 
-    private void bindCallLogListViewHolder(ViewHolder viewHolder, int position) {
+    private void bindCallLogListViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         Cursor c = (Cursor) getItem(position);
         if (c == null) {
             return;
@@ -926,9 +920,9 @@ public class CallLogAdapter extends GroupingListAdapter
      * Creates the view holder for the voicemail promo card.
      *
      * @param parent The parent view.
-     * @return The {@link ViewHolder}.
+     * @return The {@link RecyclerView.ViewHolder}.
      */
-    protected ViewHolder createVoicemailPromoCardViewHolder(ViewGroup parent) {
+    protected RecyclerView.ViewHolder createVoicemailPromoCardViewHolder(ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.voicemail_promo_card, parent, false);
 
@@ -968,7 +962,7 @@ public class CallLogAdapter extends GroupingListAdapter
     }
 
     @Override
-    public void onViewRecycled(ViewHolder viewHolder) {
+    public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
         if (viewHolder instanceof CallLogListItemViewHolder) {
             CallLogListItemViewHolder views = (CallLogListItemViewHolder) viewHolder;
             updateCheckMarkedStatusOfEntry(views);

@@ -15,7 +15,6 @@
  */
 package com.android.dialer.filterednumber;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.telephony.PhoneNumberUtils;
@@ -28,6 +27,8 @@ import com.android.dialer.calllog.ContactInfoHelper;
 import com.android.dialer.database.FilteredNumberContract.FilteredNumberColumns;
 import com.android.dialer.logging.InteractionEvent;
 import com.android.dialer.logging.Logger;
+
+import androidx.fragment.app.FragmentManager;
 
 public class BlockedNumbersAdapter extends NumbersAdapter {
 

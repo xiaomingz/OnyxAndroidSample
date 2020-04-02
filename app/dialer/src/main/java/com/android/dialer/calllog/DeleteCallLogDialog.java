@@ -13,7 +13,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CallLog.Calls;
-import android.support.annotation.NonNull;
 
 import com.android.dialer.R;
 import com.android.dialer.calllog.inteface.DeleteCallHistoryListener;
@@ -22,6 +21,7 @@ import com.android.dialerbind.ObjectFactory;
 
 import android.util.SparseArray;
 
+import androidx.annotation.NonNull;
 
 public class DeleteCallLogDialog extends DialogFragment {
     private SparseArray<Long> itemIds;

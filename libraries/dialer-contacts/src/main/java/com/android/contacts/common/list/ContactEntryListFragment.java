@@ -17,13 +17,8 @@
 package com.android.contacts.common.list;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,13 +48,18 @@ import com.android.contacts.common.util.ContactListViewUtils;
 
 import java.util.Locale;
 
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+
 /**
  * Common base class for various contact-related list fragments.
  */
 public abstract class ContactEntryListFragment<T extends ContactEntryListAdapter>
         extends Fragment
         implements OnItemClickListener, OnScrollListener, OnFocusChangeListener, OnTouchListener,
-                OnItemLongClickListener, LoaderCallbacks<Cursor> {
+                OnItemLongClickListener, LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "ContactEntryListFragment";
 
     // TODO: Make this protected. This should not be used from the PeopleActivity but

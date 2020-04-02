@@ -19,10 +19,9 @@ package com.android.contacts.common.testing;
 import android.content.ContentResolver;
 import android.content.SharedPreferences;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.Maps;
-
 import java.util.HashMap;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Maps;
 
 /**
  * A mechanism for providing alternative (mock) services to the application

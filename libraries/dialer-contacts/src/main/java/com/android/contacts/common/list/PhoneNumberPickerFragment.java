@@ -16,7 +16,6 @@
 package com.android.contacts.common.list;
 
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +34,8 @@ import com.android.contacts.commonbind.analytics.AnalyticsUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import androidx.loader.content.Loader;
 
 /**
  * Fragment containing a phone number list for picking.

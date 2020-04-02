@@ -16,7 +16,6 @@
 package com.android.contacts.common.list;
 
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
@@ -24,7 +23,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts;
-import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Directory;
 import android.text.TextUtils;
 import android.util.Log;
@@ -44,6 +42,8 @@ import com.android.contacts.common.compat.DirectoryCompat;
 import com.android.contacts.common.util.SearchUtil;
 
 import java.util.HashSet;
+
+import androidx.loader.content.CursorLoader;
 
 /**
  * Common base class for various contact-related lists, e.g. contact list, phone number list

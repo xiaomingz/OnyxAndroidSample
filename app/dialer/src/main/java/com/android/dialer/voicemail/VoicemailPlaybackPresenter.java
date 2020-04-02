@@ -16,7 +16,8 @@
 
 package com.android.dialer.voicemail;
 
-import com.google.common.annotations.VisibleForTesting;
+import com.android.dialer.calllog.CallLogAdapter;
+import com.android.dialer.calllog.CallLogFragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -31,7 +32,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.VoicemailContract;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.WindowManager.LayoutParams;
 
@@ -54,6 +54,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.core.content.FileProvider;
 
 /**
  * Contains the controlling logic for a voicemail playback in the call log. It is closely coupled

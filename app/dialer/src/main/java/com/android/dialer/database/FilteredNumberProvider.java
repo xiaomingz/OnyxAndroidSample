@@ -26,7 +26,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.os.Binder;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -34,9 +33,10 @@ import com.android.contacts.common.GeoUtil;
 import com.android.dialer.database.FilteredNumberContract.FilteredNumberColumns;
 import com.android.dialerbind.DatabaseHelperManager;
 import com.android.dialerbind.ObjectFactory;
-import com.google.common.annotations.VisibleForTesting;
 
 import java.util.Arrays;
+
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Filtered number content provider.

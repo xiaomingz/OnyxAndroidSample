@@ -16,7 +16,6 @@
 
 package com.android.contacts.common.format;
 
-import android.test.suitebuilder.annotation.SmallTest;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -24,7 +23,9 @@ import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
 
-import junit.framework.Assert;
+import org.junit.Assert;
+
+import androidx.test.filters.SmallTest;
 
 /**
  * Utility class to check the value of spanned text in text views.

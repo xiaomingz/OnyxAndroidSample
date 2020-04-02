@@ -30,9 +30,10 @@ import com.android.contacts.common.testing.NeededForTesting;
 import com.android.contacts.common.util.BitmapUtil;
 import com.android.dialer.R;
 import com.android.dialer.util.AppCompatConstants;
-import com.google.common.collect.Lists;
 
 import java.util.List;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * View that draws one or more symbols for different types of calls (missed calls, outgoing etc).

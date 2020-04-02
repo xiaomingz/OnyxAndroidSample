@@ -15,29 +15,16 @@
  */
 package com.android.dialer.filterednumber;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
-import android.widget.Toast;
 
-import com.android.contacts.common.GeoUtil;
-import com.android.contacts.common.dialog.IndeterminateProgressDialog;
-import com.android.contacts.common.list.OnPhoneNumberPickerActionListener;
 import com.android.dialer.R;
-import com.android.dialer.database.FilteredNumberAsyncQueryHandler;
-import com.android.dialer.list.BlockedListSearchAdapter;
-import com.android.dialer.list.OnListFragmentScrolledListener;
 import com.android.dialer.list.BlockedListSearchFragment;
 import com.android.dialer.list.SearchFragment;
 import com.android.dialer.logging.Logger;
 import com.android.dialer.logging.ScreenEvent;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class BlockedNumbersSettingsActivity extends AppCompatActivity
         implements SearchFragment.HostInterface {
@@ -61,13 +48,13 @@ public class BlockedNumbersSettingsActivity extends AppCompatActivity
      * Shows fragment with the list of currently blocked numbers and settings related to blocking.
      */
     public void showManagementUi() {
-        BlockedNumbersFragment fragment = (BlockedNumbersFragment) getFragmentManager()
+        BlockedNumbersFragment fragment = (BlockedNumbersFragment) getSupportFragmentManager()
                 .findFragmentByTag(TAG_BLOCKED_MANAGEMENT_FRAGMENT);
         if (fragment == null) {
             fragment = new BlockedNumbersFragment();
         }
 
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.blocked_numbers_activity_container, fragment,
                         TAG_BLOCKED_MANAGEMENT_FRAGMENT)
                 .commit();
@@ -79,7 +66,7 @@ public class BlockedNumbersSettingsActivity extends AppCompatActivity
      * Shows fragment with search UI for browsing/finding numbers to block.
      */
     public void showSearchUi() {
-        BlockedListSearchFragment fragment = (BlockedListSearchFragment) getFragmentManager()
+        BlockedListSearchFragment fragment = (BlockedListSearchFragment) getSupportFragmentManager()
                 .findFragmentByTag(TAG_BLOCKED_SEARCH_FRAGMENT);
         if (fragment == null) {
             fragment = new BlockedListSearchFragment();
@@ -88,7 +75,7 @@ public class BlockedNumbersSettingsActivity extends AppCompatActivity
             fragment.setDirectorySearchEnabled(false);
         }
 
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.blocked_numbers_activity_container, fragment,
                         TAG_BLOCKED_SEARCH_FRAGMENT)
                 .addToBackStack(null)
@@ -103,13 +90,13 @@ public class BlockedNumbersSettingsActivity extends AppCompatActivity
      * list.
      */
     public void showNumbersToImportPreviewUi() {
-        ViewNumbersToImportFragment fragment = (ViewNumbersToImportFragment) getFragmentManager()
+        ViewNumbersToImportFragment fragment = (ViewNumbersToImportFragment) getSupportFragmentManager()
                 .findFragmentByTag(TAG_VIEW_NUMBERS_TO_IMPORT_FRAGMENT);
         if (fragment == null) {
             fragment = new ViewNumbersToImportFragment();
         }
 
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.blocked_numbers_activity_container, fragment,
                         TAG_VIEW_NUMBERS_TO_IMPORT_FRAGMENT)
                 .addToBackStack(null)

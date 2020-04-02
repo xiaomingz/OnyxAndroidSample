@@ -44,15 +44,16 @@ import com.android.dialer.database.FilteredNumberContract.FilteredNumberColumns;
 import com.android.dialer.database.VoicemailArchiveContract.VoicemailArchive;
 import com.android.dialer.dialpad.SmartDialNameMatcher;
 import com.android.dialer.dialpad.SmartDialPrefix;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.core.util.Preconditions;
+import androidx.test.espresso.core.internal.deps.guava.base.Objects;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * Database helper for smart dial. Designed as a singleton to make sure there is

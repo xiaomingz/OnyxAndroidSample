@@ -43,10 +43,10 @@ import com.android.dialer.util.AppCompatConstants;
 import com.android.dialer.util.TelecomUtil;
 import com.android.dialer.voicemail.VoicemailStatusHelperImpl;
 
-import com.google.common.collect.Lists;
-
 import java.lang.ref.WeakReference;
 import java.util.List;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /** Handles asynchronous queries to the call log. */
 public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {

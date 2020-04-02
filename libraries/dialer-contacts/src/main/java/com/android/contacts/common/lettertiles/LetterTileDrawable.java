@@ -31,7 +31,7 @@ import android.text.TextUtils;
 
 import com.android.contacts.common.R;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 /**
  * A drawable that encapsulates all the functionality needed to display a letter tile to

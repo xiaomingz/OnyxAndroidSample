@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.os.UserManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.v4.os.BuildCompat;
 import android.telecom.TelecomManager;
 import android.telephony.TelephonyManager;
 import android.view.MenuItem;
@@ -36,6 +35,8 @@ import com.android.dialer.compat.SettingsCompat;
 import com.android.dialer.compat.UserManagerCompat;
 
 import java.util.List;
+
+import androidx.core.os.BuildCompat;
 
 public class DialerSettingsActivity extends AppCompatPreferenceActivity {
     protected SharedPreferences mPreferences;
