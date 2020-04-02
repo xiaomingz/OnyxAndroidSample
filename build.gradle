@@ -9,7 +9,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -38,10 +38,10 @@ ext {
     targetSdkVersion = 27
     compileSdkVersion = 27
     compatibleSdkVersion = 17 // for projects which can't be built with sdk 23
-    buildToolsVersion = '23.0.3'
+    buildToolsVersion = '27.0.3'
 
     guavaVersion = '16.0.1'
-    supportLibraryVersion = '23.4.0'
+    supportLibraryVersion = '27.1.1'
 
     apachecommonsVersion = '4.0'
     constraintlayoutVersion = '1.0.2'
@@ -53,4 +53,14 @@ ext {
     aliyunOssSdkVersion = '2.3.0'
     wechatSdkWithMtaVersion = '1.0.2'
     gridlayoutVersion = '23.0.0'
+
+    fastjsonVersion = '1.1.70.android'
+    easyPermissonVersion = '0.2.1'
+    commonsioVersion = '2.5.0'
+    rxandroid = '2.1.0'
+    rxjava = '2.1.13'
+    eventbusVersion = '3.0.0'
+    fileprovider = '1.0.0'
+    mmkvVersion = '1.0.15'
+    junitVersion = '4.12'
 }
