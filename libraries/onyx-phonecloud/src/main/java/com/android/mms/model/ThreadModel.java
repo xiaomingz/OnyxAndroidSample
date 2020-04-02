@@ -22,7 +22,6 @@ public class ThreadModel implements Parcelable {
     public ThreadModel() {
     }
 
-
     protected ThreadModel(Parcel in) {
         date = in.readLong();
         messageCount = in.readInt();
@@ -126,5 +125,4 @@ public class ThreadModel implements Parcelable {
     public void setMmsModelList(List<MmsModel> mmsModelList) {
         this.mmsModelList = mmsModelList;
     }
-
 }
