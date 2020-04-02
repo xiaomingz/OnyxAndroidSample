@@ -16,11 +16,13 @@
 package com.android.dialer;
 
 import android.content.Context;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 /**
  * Implements custom behavior for the movement of the FAB in response to the Snackbar.
@@ -34,7 +36,7 @@ public class FloatingActionButtonBehavior extends CoordinatorLayout.Behavior<Fra
 
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, FrameLayout child, View dependency) {
-        return dependency instanceof SnackbarLayout;
+        return dependency instanceof Snackbar.SnackbarLayout;
     }
 
     @Override

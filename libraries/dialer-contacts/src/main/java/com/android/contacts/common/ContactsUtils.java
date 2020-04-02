@@ -20,12 +20,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.ContactsContract.CommonDataKinds.Im;
-import android.support.annotation.IntDef;
-import android.support.v4.os.BuildCompat;
 import android.provider.ContactsContract.DisplayPhoto;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -40,6 +36,9 @@ import com.android.contacts.common.model.AccountTypeManager;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.List;
+
+import androidx.annotation.IntDef;
+import androidx.core.os.BuildCompat;
 
 public class ContactsUtils {
     private static final String TAG = "ContactsUtils";

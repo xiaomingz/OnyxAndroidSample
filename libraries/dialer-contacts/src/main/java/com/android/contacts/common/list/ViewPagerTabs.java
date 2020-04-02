@@ -19,8 +19,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Outline;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -35,6 +33,9 @@ import android.widget.Toast;
 
 import com.android.contacts.common.R;
 import com.android.contacts.common.compat.CompatUtils;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Lightweight implementation of ViewPager tabs. This looks similar to traditional actionBar tabs,

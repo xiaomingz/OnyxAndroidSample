@@ -19,27 +19,25 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.support.v13.app.FragmentCompat;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.android.contacts.common.list.ContactEntryListAdapter;
 import com.android.contacts.common.list.PinnedHeaderListView;
 import com.android.contacts.common.util.PermissionsUtil;
-import com.android.contacts.commonbind.analytics.AnalyticsUtil;
 import com.android.dialerbind.ObjectFactory;
 import com.android.incallui.Call.LogState;
 
 import com.android.dialer.R;
-import com.android.dialer.logging.Logger;
-import com.android.dialer.logging.ScreenEvent;
 import com.android.dialer.service.CachedNumberLookupService;
 import com.android.dialer.widget.EmptyContentView;
 import com.android.dialer.widget.EmptyContentView.OnEmptyViewActionButtonClickedListener;
 
+import androidx.core.app.ActivityCompat;
+
 public class RegularSearchFragment extends SearchFragment
         implements OnEmptyViewActionButtonClickedListener,
-        FragmentCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     public static final int PERMISSION_REQUEST_CODE = 1;
 
@@ -126,8 +124,7 @@ public class RegularSearchFragment extends SearchFragment
         }
 
         if (READ_CONTACTS.equals(mPermissionToRequest)) {
-          FragmentCompat.requestPermissions(this, new String[] {mPermissionToRequest},
-              PERMISSION_REQUEST_CODE);
+          requestPermissions(new String[] {mPermissionToRequest}, PERMISSION_REQUEST_CODE);
         }
     }
 

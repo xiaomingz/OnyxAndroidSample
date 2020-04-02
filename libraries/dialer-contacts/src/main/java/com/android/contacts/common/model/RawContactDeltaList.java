@@ -31,14 +31,12 @@ import android.provider.ContactsContract.RawContacts;
 import android.util.Log;
 
 import com.android.contacts.common.compat.CompatUtils;
-import com.android.contacts.common.model.CPOWrapper;
-import com.android.contacts.common.model.ValuesDelta;
-
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * Container for multiple {@link RawContactDelta} objects, usually when editing

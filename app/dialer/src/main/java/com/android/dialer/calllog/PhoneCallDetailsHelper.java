@@ -16,15 +16,11 @@
 
 package com.android.dialer.calllog;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.collect.Lists;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.support.v4.content.ContextCompat;
 import android.telecom.PhoneAccount;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
@@ -41,6 +37,10 @@ import com.android.dialer.util.DialerUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
+
+import androidx.core.content.ContextCompat;
+import androidx.test.espresso.core.internal.deps.guava.base.MoreObjects;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * Helper class to fill in the views in {@link PhoneCallDetailsViews}.

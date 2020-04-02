@@ -19,7 +19,8 @@ package com.android.dialer.contactinfo;
 import android.text.TextUtils;
 
 import com.android.dialer.calllog.ContactInfo;
-import com.google.common.base.Objects;
+
+import androidx.test.espresso.core.internal.deps.guava.base.Objects;
 
 /**
  * A request for contact details for the given number, used by the ContactInfoCache.

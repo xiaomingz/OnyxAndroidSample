@@ -16,8 +16,6 @@
 
 package com.android.dialer.calllog;
 
-import com.google.common.collect.Maps;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -28,8 +26,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
 import android.telephony.TelephonyManager;
@@ -49,6 +45,10 @@ import com.android.dialer.util.TelecomUtil;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
+import androidx.test.espresso.core.internal.deps.guava.collect.Maps;
 
 /**
  * Shows a voicemail notification in the status bar.

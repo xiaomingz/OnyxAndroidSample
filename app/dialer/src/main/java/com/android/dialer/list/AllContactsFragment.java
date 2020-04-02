@@ -22,13 +22,11 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.QuickContact;
-import android.support.v13.app.FragmentCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +45,15 @@ import com.android.dialer.util.IntentUtil;
 import com.android.dialer.widget.EmptyContentView;
 import com.android.dialer.widget.EmptyContentView.OnEmptyViewActionButtonClickedListener;
 
+import androidx.core.app.ActivityCompat;
+import androidx.loader.content.Loader;
+
 /**
  * Fragments to show all contacts with phone numbers.
  */
 public class AllContactsFragment extends ContactEntryListFragment<ContactEntryListAdapter>
         implements OnEmptyViewActionButtonClickedListener,
-        FragmentCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final int READ_CONTACTS_PERMISSION_REQUEST_CODE = 1;
 
@@ -176,8 +177,7 @@ public class AllContactsFragment extends ContactEntryListFragment<ContactEntryLi
         }
 
         if (!PermissionsUtil.hasPermission(activity, READ_CONTACTS)) {
-          FragmentCompat.requestPermissions(this, new String[] {READ_CONTACTS},
-              READ_CONTACTS_PERMISSION_REQUEST_CODE);
+          requestPermissions(new String[] {READ_CONTACTS}, READ_CONTACTS_PERMISSION_REQUEST_CODE);
         } else {
             // Add new contact
             DialerUtils.startActivityWithErrorToast(activity, IntentUtil.getNewContactIntent(),

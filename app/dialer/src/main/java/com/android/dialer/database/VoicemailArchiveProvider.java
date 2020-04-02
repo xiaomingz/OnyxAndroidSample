@@ -26,15 +26,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.android.dialerbind.DatabaseHelperManager;
-import com.google.common.annotations.VisibleForTesting;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 /**
  * An implementation of the Voicemail Archive content provider. This class performs

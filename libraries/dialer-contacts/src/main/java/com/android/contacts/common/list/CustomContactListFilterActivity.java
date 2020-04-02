@@ -62,12 +62,13 @@ import com.android.contacts.common.model.account.GoogleAccountType;
 import com.android.contacts.common.util.EmptyService;
 import com.android.contacts.common.util.LocalizedNameResolver;
 import com.android.contacts.common.util.WeakAsyncTask;
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * Shows a list of all available {@link Groups} available, letting the user

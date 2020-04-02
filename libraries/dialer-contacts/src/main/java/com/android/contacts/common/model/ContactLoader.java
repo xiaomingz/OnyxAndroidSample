@@ -50,11 +50,6 @@ import com.android.contacts.common.util.UriUtils;
 import com.android.contacts.common.model.dataitem.DataItem;
 import com.android.contacts.common.model.dataitem.PhoneDataItem;
 import com.android.contacts.common.model.dataitem.PhotoDataItem;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,12 +60,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.ImmutableList;
+import androidx.test.espresso.core.internal.deps.guava.collect.ImmutableMap;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * Loads a single Contact and all it constituent RawContacts.
@@ -92,7 +92,7 @@ public class ContactLoader extends AsyncTaskLoader<Contact> {
     private boolean mComputeFormattedPhoneNumber;
     private Contact mContact;
     private ForceLoadContentObserver mObserver;
-    private final Set<Long> mNotifiedRawContactIds = Sets.newHashSet();
+    private final Set<Long> mNotifiedRawContactIds = new HashSet<>();
 
     public ContactLoader(Context context, Uri lookupUri, boolean postViewNotification) {
         this(context, lookupUri, false, false, postViewNotification, false);
@@ -613,8 +613,7 @@ public class ContactLoader extends AsyncTaskLoader<Contact> {
             Map<AccountTypeWithDataSet, AccountType> invitables =
                     AccountTypeManager.getInstance(getContext()).getUsableInvitableAccountTypes();
             if (!invitables.isEmpty()) {
-                final Map<AccountTypeWithDataSet, AccountType> resultMap =
-                        Maps.newHashMap(invitables);
+                final Map<AccountTypeWithDataSet, AccountType> resultMap = new HashMap<>(invitables);
 
                 // Remove the ones that already have a raw contact in the current contact
                 for (RawContact rawContact : contactData.getRawContacts()) {
@@ -623,8 +622,11 @@ public class ContactLoader extends AsyncTaskLoader<Contact> {
                             rawContact.getDataSet());
                     resultMap.remove(type);
                 }
-
-                resultListBuilder.addAll(resultMap.values());
+                if (!resultMap.isEmpty()) {
+                    for (AccountType value : resultMap.values()) {
+                        resultListBuilder.add(value);
+                    }
+                }
             }
         }
 

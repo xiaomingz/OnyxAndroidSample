@@ -18,7 +18,6 @@ package com.android.contacts.common.vcard;
 import android.content.ComponentName;
 import android.net.Uri;
 import android.os.IBinder;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.android.contacts.common.R;
@@ -28,6 +27,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.core.content.FileProvider;
 
 /**
  * This activity connects to VCardService, creates a .vcf file in cache directory and send export

@@ -23,12 +23,12 @@ import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.Lists;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * Smart Dial utility class to find prefixes of contacts. It contains both methods to find supported

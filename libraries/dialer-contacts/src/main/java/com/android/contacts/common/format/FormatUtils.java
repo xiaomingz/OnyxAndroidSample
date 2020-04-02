@@ -20,9 +20,9 @@ import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import java.util.Arrays;
+
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Assorted utility methods related to text formatting in Contacts.

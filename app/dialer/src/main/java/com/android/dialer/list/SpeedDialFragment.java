@@ -21,17 +21,12 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Trace;
-import android.support.v13.app.FragmentCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,13 +54,20 @@ import com.android.incallui.Call.LogState;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+
 /**
  * This fragment displays the user's favorite/frequent contacts in a grid.
  */
 public class SpeedDialFragment extends Fragment implements OnItemClickListener,
         PhoneFavoritesTileAdapter.OnDataSetChangedForAnimationListener,
         EmptyContentView.OnEmptyViewActionButtonClickedListener,
-        FragmentCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final int READ_CONTACTS_PERMISSION_REQUEST_CODE = 1;
 
@@ -101,14 +103,14 @@ public class SpeedDialFragment extends Fragment implements OnItemClickListener,
         }
 
         @Override
-        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
             if (DEBUG) Log.d(TAG, "ContactTileLoaderListener#onLoadFinished");
             mContactTileAdapter.setContactCursor(data);
             setEmptyViewVisibility(mContactTileAdapter.getCount() == 0);
         }
 
         @Override
-        public void onLoaderReset(Loader<Cursor> loader) {
+        public void onLoaderReset(@NonNull Loader<Cursor> loader) {
             if (DEBUG) Log.d(TAG, "ContactTileLoaderListener#onLoaderReset. ");
         }
     }
@@ -484,7 +486,7 @@ public class SpeedDialFragment extends Fragment implements OnItemClickListener,
         }
 
         if (!PermissionsUtil.hasPermission(activity, READ_CONTACTS)) {
-          FragmentCompat.requestPermissions(this, new String[] {READ_CONTACTS},
+          requestPermissions(new String[] {READ_CONTACTS},
               READ_CONTACTS_PERMISSION_REQUEST_CODE);
         } else {
             // Switch tabs

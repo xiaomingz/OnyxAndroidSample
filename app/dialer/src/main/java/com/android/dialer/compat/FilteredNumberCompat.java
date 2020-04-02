@@ -16,10 +16,6 @@
 
 package com.android.dialer.compat;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Preconditions;
-
-import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -28,7 +24,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.UserManager;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.telecom.TelecomManager;
 import android.telephony.PhoneNumberUtils;
 import android.util.Log;
@@ -52,6 +47,11 @@ import com.android.dialerbind.ObjectFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.core.util.Preconditions;
+import androidx.fragment.app.FragmentManager;
+import androidx.test.espresso.core.internal.deps.guava.base.MoreObjects;
 
 /**
  * Compatibility class to encapsulate logic to switch between call blocking using

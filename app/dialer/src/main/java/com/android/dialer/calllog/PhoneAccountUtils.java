@@ -18,16 +18,16 @@ package com.android.dialer.calllog;
 
 import android.content.ComponentName;
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
 import android.text.TextUtils;
 
-import com.android.contacts.common.compat.CompatUtils;
 import com.android.dialer.util.TelecomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Methods to help extract {@code PhoneAccount} information from database and Telecomm sources.

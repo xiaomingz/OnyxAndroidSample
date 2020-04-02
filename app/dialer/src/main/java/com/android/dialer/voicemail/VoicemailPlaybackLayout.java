@@ -25,7 +25,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -36,7 +35,6 @@ import android.widget.Space;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.common.io.MoreCloseables;
 import com.android.dialer.PhoneCallDetails;
 import com.android.dialer.R;
 import com.android.dialer.calllog.CallLogAsyncTaskUtil;
@@ -46,10 +44,9 @@ import com.android.dialer.database.VoicemailArchiveContract.VoicemailArchive;
 import com.android.dialer.util.AsyncTaskExecutor;
 import com.android.dialer.util.AsyncTaskExecutors;
 import com.android.dialerbind.ObjectFactory;
-import com.google.common.annotations.VisibleForTesting;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ScheduledFuture;
@@ -59,6 +56,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
+
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Displays and plays a single voicemail. See {@link VoicemailPlaybackPresenter} for

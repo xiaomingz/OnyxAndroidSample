@@ -18,9 +18,9 @@ package com.android.contacts.common.util;
 
 import android.util.Log;
 
-import com.google.common.collect.Lists;
-
 import java.util.ArrayList;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * A {@link StopWatch} records start, laps and stop, and print them to logcat.

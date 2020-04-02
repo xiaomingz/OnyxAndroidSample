@@ -16,12 +16,12 @@
 package com.android.dialer.calllog;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.android.contacts.common.testing.NeededForTesting;
 import com.android.dialer.R;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Generic ViewHolder class for a promo card with a primary and secondary action.
@@ -44,7 +44,11 @@ public class PromoCardViewHolder extends RecyclerView.ViewHolder {
     private View mSecondaryActionView;
 
     /**
+<<<<<<< HEAD
      * Creates an instance of the {@link ViewHolder}.
+=======
+     * Creates an instance of the {@link RecyclerView.ViewHolder}.
+>>>>>>> 44c738e... refactor(dialer): upgrade to support androidx
      *
      * @param rootView The root view.
      */

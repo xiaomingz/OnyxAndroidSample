@@ -34,7 +34,7 @@
         android:textColor="@color/call_log_day_group_heading_color"
         android:textSize="@dimen/call_log_day_group_heading_size" />
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/call_log_row"
         style="@style/CallLogCardStyle">
 
@@ -178,6 +178,6 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

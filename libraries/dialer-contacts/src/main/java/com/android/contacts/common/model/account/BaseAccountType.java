@@ -43,8 +43,6 @@ import com.android.contacts.common.model.dataitem.DataKind;
 import com.android.contacts.common.testing.NeededForTesting;
 import com.android.contacts.common.util.CommonDateUtils;
 import com.android.contacts.common.util.ContactDisplayUtils;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -53,6 +51,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
+import androidx.test.espresso.core.internal.deps.guava.collect.Maps;
 
 public abstract class BaseAccountType extends AccountType {
     private static final String TAG = "BaseAccountType";

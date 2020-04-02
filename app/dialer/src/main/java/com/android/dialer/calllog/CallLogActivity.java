@@ -15,15 +15,10 @@
  */
 package com.android.dialer.calllog;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.provider.CallLog.Calls;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,6 +38,12 @@ import com.android.dialer.util.DialerUtils;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.CheckBox;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 public class CallLogActivity extends TransactionSafeActivity implements ViewPager.OnPageChangeListener ,DeleteCallHistoryListener {
     private ViewPager mViewPager;
@@ -151,7 +152,7 @@ public class CallLogActivity extends TransactionSafeActivity implements ViewPage
 
         mViewPager = (ViewPager) findViewById(R.id.call_log_pager);
 
-        mViewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.setOffscreenPageLimit(1);
         mViewPager.setOnPageChangeListener(this);

@@ -20,10 +20,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.provider.MediaStore;;
 import android.util.Log;
 
 import com.android.contacts.common.GeoUtil;
@@ -32,10 +29,15 @@ import com.android.dialer.R;
 import com.android.dialer.calllog.ContactInfo;
 import com.android.dialer.calllog.ContactInfoHelper;
 import com.android.dialer.util.Assert;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
 
 import java.io.IOException;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+import androidx.core.util.Preconditions;
+
 /**
  * Class to create the appropriate contact icon from a ContactInfo.
  * This class is for synchronous, blocking calls to generate bitmaps, while

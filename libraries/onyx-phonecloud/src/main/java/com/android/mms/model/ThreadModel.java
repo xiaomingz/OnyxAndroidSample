@@ -29,25 +29,6 @@ public class ThreadModel implements Parcelable {
         snippetCharset = in.readInt();
         read = in.readInt();
         type = in.readInt();
-        shortMessages = in.createTypedArrayList(ShortMessage.CREATOR);
-        mmsModelList = in.createTypedArrayList(MmsModel.CREATOR);
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(date);
-        dest.writeInt(messageCount);
-        dest.writeString(snippet);
-        dest.writeInt(snippetCharset);
-        dest.writeInt(read);
-        dest.writeInt(type);
-        dest.writeTypedList(shortMessages);
-        dest.writeTypedList(mmsModelList);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 
     public static final Creator<ThreadModel> CREATOR = new Creator<ThreadModel>() {
@@ -124,5 +105,20 @@ public class ThreadModel implements Parcelable {
 
     public void setMmsModelList(List<MmsModel> mmsModelList) {
         this.mmsModelList = mmsModelList;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(date);
+        dest.writeInt(messageCount);
+        dest.writeString(snippet);
+        dest.writeInt(snippetCharset);
+        dest.writeInt(read);
+        dest.writeInt(type);
     }
 }

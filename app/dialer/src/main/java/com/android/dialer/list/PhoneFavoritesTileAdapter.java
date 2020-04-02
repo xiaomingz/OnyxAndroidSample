@@ -15,10 +15,6 @@
  */
 package com.android.dialer.list;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Lists;
-
 import android.content.ContentProviderOperation;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -52,6 +48,9 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * Also allows for a configurable number of columns as well as a maximum row of tiled contacts.
@@ -124,10 +123,10 @@ public class PhoneFavoritesTileAdapter extends BaseAdapter implements
     final Comparator<ContactEntry> mContactEntryComparator = new Comparator<ContactEntry>() {
         @Override
         public int compare(ContactEntry lhs, ContactEntry rhs) {
-            return ComparisonChain.start()
-                    .compare(lhs.pinned, rhs.pinned)
-                    .compare(getPreferredSortName(lhs), getPreferredSortName(rhs))
-                    .result();
+            if (lhs.pinned != rhs.pinned) {
+                return lhs.pinned = rhs.pinned;
+            }
+            return getPreferredSortName(lhs).compareTo(getPreferredSortName(rhs));
         }
 
         private String getPreferredSortName(ContactEntry contactEntry) {

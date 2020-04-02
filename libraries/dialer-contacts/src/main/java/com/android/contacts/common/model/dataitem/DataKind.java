@@ -23,10 +23,11 @@ import android.provider.ContactsContract.Data;
 import com.android.contacts.common.model.account.AccountType.EditField;
 import com.android.contacts.common.model.account.AccountType.EditType;
 import com.android.contacts.common.model.account.AccountType.StringInflater;
-import com.google.common.collect.Iterators;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Iterators;
 
 /**
  * Description of a specific data type, usually marked by a unique

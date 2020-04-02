@@ -27,9 +27,10 @@ import android.util.Log;
 import com.android.contacts.common.R;
 import com.android.contacts.common.model.dataitem.DataKind;
 import com.android.contacts.common.util.CommonDateUtils;
-import com.google.common.collect.Lists;
 
 import java.util.List;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 public class GoogleAccountType extends BaseAccountType {
     private static final String TAG = "GoogleAccountType";
