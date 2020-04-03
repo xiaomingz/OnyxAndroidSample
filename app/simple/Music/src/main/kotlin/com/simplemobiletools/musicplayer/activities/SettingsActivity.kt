@@ -41,7 +41,7 @@ class SettingsActivity : SimpleActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        updateMenuItemColors(menu)
+        updateMenuItemColors(menu, baseColor = getActionbarColor())
         return super.onCreateOptionsMenu(menu)
     }
 

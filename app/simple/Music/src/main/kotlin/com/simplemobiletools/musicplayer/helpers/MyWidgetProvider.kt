@@ -12,7 +12,7 @@ import com.simplemobiletools.commons.extensions.getColoredBitmap
 import com.simplemobiletools.commons.extensions.getLaunchIntent
 import com.simplemobiletools.commons.extensions.setBackgroundColor
 import com.simplemobiletools.musicplayer.R
-import com.simplemobiletools.musicplayer.activities.SplashActivity
+import com.simplemobiletools.musicplayer.activities.MainActivity
 import com.simplemobiletools.musicplayer.extensions.config
 import com.simplemobiletools.musicplayer.extensions.sendIntent
 import com.simplemobiletools.musicplayer.models.Events
@@ -58,7 +58,7 @@ class MyWidgetProvider : AppWidgetProvider() {
     }
 
     private fun setupAppOpenIntent(views: RemoteViews, id: Int) {
-        val intent = mContext?.getLaunchIntent() ?: Intent(mContext, SplashActivity::class.java)
+        val intent = mContext?.getLaunchIntent() ?: Intent(mContext, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 0)
         views.setOnClickPendingIntent(id, pendingIntent)
     }

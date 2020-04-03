@@ -198,7 +198,7 @@ class MainActivity : SimpleActivity(), SongListListener {
             findItem(R.id.remove_playlist).isVisible = !isThirdPartyIntent
         }
 
-        updateMenuItemColors(menu)
+        updateMenuItemColors(menu, baseColor = getActionbarColor())
         return true
     }
 
