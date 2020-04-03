@@ -27,11 +27,7 @@ class SettingsActivity : SimpleActivity() {
     override fun onResume() {
         super.onResume()
 
-        setupPurchaseThankYou()
-        setupCustomizeColors()
-        setupCustomizeWidgetColors()
         setupManagePlaylists()
-        setupUseEnglish()
         setupShowAlbumCover()
         setupSwapPrevNext()
         setupEqualizer()
@@ -43,38 +39,6 @@ class SettingsActivity : SimpleActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         updateMenuItemColors(menu, baseColor = getActionbarColor())
         return super.onCreateOptionsMenu(menu)
-    }
-
-    private fun setupPurchaseThankYou() {
-        settings_purchase_thank_you_holder.beVisibleIf(!isThankYouInstalled())
-        settings_purchase_thank_you_holder.setOnClickListener {
-            launchPurchaseThankYouIntent()
-        }
-    }
-
-    private fun setupCustomizeColors() {
-        settings_customize_colors_holder.setOnClickListener {
-            startCustomizationActivity()
-        }
-    }
-
-    private fun setupCustomizeWidgetColors() {
-        settings_customize_widget_colors_holder.setOnClickListener {
-            Intent(this, WidgetConfigureActivity::class.java).apply {
-                putExtra(IS_CUSTOMIZING_COLORS, true)
-                startActivity(this)
-            }
-        }
-    }
-
-    private fun setupUseEnglish() {
-        settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
-        settings_use_english.isChecked = config.useEnglish
-        settings_use_english_holder.setOnClickListener {
-            settings_use_english.toggle()
-            config.useEnglish = settings_use_english.isChecked
-            System.exit(0)
-        }
     }
 
     private fun setupManagePlaylists() {
