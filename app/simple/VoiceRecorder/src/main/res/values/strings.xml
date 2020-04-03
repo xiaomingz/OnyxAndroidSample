@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple Voice Recorder</string>
+    <string name="app_name">Voice Recorder</string>
     <string name="app_launcher_name">Voice Recorder</string>
     <string name="recording_saved_successfully">Recording saved successfully as\n\"%s\"</string>
     <string name="recording">Recording</string>
@@ -34,6 +34,9 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
+
+    <string name="audio_recorder">Audio Recorder</string>
+    <string name="content_is_empty">content is empty</string>
 
     <!--
         Haven't found some strings? There's more at

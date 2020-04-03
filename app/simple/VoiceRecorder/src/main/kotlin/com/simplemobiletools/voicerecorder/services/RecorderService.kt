@@ -18,14 +18,14 @@ import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.helpers.isQPlus
 import com.simplemobiletools.voicerecorder.R
-import com.simplemobiletools.voicerecorder.activities.SplashActivity
+import com.simplemobiletools.voicerecorder.activities.MainActivity
 import com.simplemobiletools.voicerecorder.extensions.config
+import com.simplemobiletools.voicerecorder.extensions.getDefaultSaveFolder
 import com.simplemobiletools.voicerecorder.helpers.GET_RECORDER_INFO
 import com.simplemobiletools.voicerecorder.helpers.RECORDER_RUNNING_NOTIF_ID
 import com.simplemobiletools.voicerecorder.helpers.STOP_AMPLITUDE_UPDATE
 import com.simplemobiletools.voicerecorder.models.Events
 import org.greenrobot.eventbus.EventBus
-import java.io.File
 import java.io.IOException
 import java.util.*
 
@@ -63,7 +63,7 @@ class RecorderService : Service() {
         val baseFolder = if (isQPlus()) {
             cacheDir
         } else {
-            val defaultFolder = File("$internalStoragePath/${getString(R.string.app_name)}")
+            val defaultFolder = getDefaultSaveFolder()
             if (!defaultFolder.exists()) {
                 defaultFolder.mkdir()
             }
@@ -228,7 +228,7 @@ class RecorderService : Service() {
     }
 
     private fun getOpenAppIntent(): PendingIntent {
-        val intent = getLaunchIntent() ?: Intent(this, SplashActivity::class.java)
+        val intent = getLaunchIntent() ?: Intent(this, MainActivity::class.java)
         return PendingIntent.getActivity(this, RECORDER_RUNNING_NOTIF_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
