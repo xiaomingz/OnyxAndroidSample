@@ -233,7 +233,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         }
 
         setupSearch(menu)
-        updateMenuItemColors(menu)
+        updateMenuItemColors(menu, baseColor = getActionbarColor())
         return true
     }
 
@@ -362,7 +362,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
                     mPath == config.OTGPath -> getString(R.string.usb)
                     else -> getHumanizedFilename(mPath)
                 }
-                updateActionBarTitle(if (mShowAll) resources.getString(R.string.all_folders) else dirName)
+                updateActionBarTitle(if (mShowAll) resources.getString(R.string.all_folders) else dirName, getActionbarColor())
                 getMedia()
                 setupLayoutManager()
             } else {

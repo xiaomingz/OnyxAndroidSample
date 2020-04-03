@@ -24,11 +24,11 @@ import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FileDirItem
-import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
+import com.onyx.gallery.action.ShowWhatsNewDialogAction
 import com.onyx.gallery.adapters.DirectoryAdapter
 import com.onyx.gallery.databases.GalleryDatabase
 import com.onyx.gallery.dialogs.ChangeSortingDialog
@@ -109,7 +109,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
 
         directories_refresh_layout.setOnRefreshListener { getDirectories() }
         storeStateVariables()
-        checkWhatsNewDialog()
+        ShowWhatsNewDialogAction(true).execute(this);
 
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
         setupLatestMediaId()
@@ -284,7 +284,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
         menu.findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
         menu.findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
 
-        updateMenuItemColors(menu)
+        updateMenuItemColors(menu, baseColor = getActionbarColor())
         return true
     }
 
@@ -1303,20 +1303,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
         ensureBackgroundThread {
             storeDirectoryItems(directories)
             removeInvalidDBDirectories()
-        }
-    }
-
-    private fun checkWhatsNewDialog() {
-        arrayListOf<Release>().apply {
-            add(Release(213, R.string.release_213))
-            add(Release(217, R.string.release_217))
-            add(Release(220, R.string.release_220))
-            add(Release(221, R.string.release_221))
-            add(Release(225, R.string.release_225))
-            add(Release(258, R.string.release_258))
-            add(Release(277, R.string.release_277))
-            add(Release(295, R.string.release_295))
-            checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }
 }
