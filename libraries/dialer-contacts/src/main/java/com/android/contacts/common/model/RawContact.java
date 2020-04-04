@@ -26,15 +26,15 @@ import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.RawContacts;
 
-import com.android.contacts.common.model.AccountTypeManager;
 import com.android.contacts.common.model.account.AccountType;
 import com.android.contacts.common.model.account.AccountWithDataSet;
 import com.android.contacts.common.model.dataitem.DataItem;
-import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.test.espresso.core.internal.deps.guava.base.Objects;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * RawContact represents a single raw contact in the raw contacts database.

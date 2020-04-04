@@ -17,14 +17,10 @@
 package com.onyx.deskclock.deskclock;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -37,6 +33,11 @@ import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.data.DataModel;
 import com.onyx.deskclock.deskclock.data.Timer;
 import com.onyx.deskclock.deskclock.provider.Alarm;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.fragment.app.DialogFragment;
 
 import static android.graphics.Color.RED;
 import static android.graphics.Color.WHITE;

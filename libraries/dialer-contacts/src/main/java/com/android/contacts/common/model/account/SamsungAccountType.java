@@ -16,8 +16,6 @@
 
 package com.android.contacts.common.model.account;
 
-import com.google.common.collect.Lists;
-
 import com.android.contacts.common.R;
 import com.android.contacts.common.model.dataitem.DataKind;
 import com.android.contacts.common.util.CommonDateUtils;
@@ -32,6 +30,8 @@ import android.provider.ContactsContract.CommonDataKinds.StructuredPostal;
 import android.util.Log;
 
 import java.util.Locale;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * A writable account type that can be used to support samsung contacts. This may not perfectly

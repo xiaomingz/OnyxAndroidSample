@@ -23,10 +23,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.provider.CallLog;
 import android.provider.CallLog.Calls;
-import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.telecom.PhoneAccountHandle;
 import android.text.BidiFormatter;
 import android.text.TextDirectionHeuristics;
@@ -65,11 +62,14 @@ import com.android.dialer.util.PhoneNumberUtil;
 import com.android.dialer.voicemail.VoicemailPlaybackLayout;
 import com.android.dialer.voicemail.VoicemailPlaybackPresenter;
 import com.android.dialerbind.ObjectFactory;
-import com.google.common.collect.Lists;
 
 import java.util.List;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * This is an object containing references to views contained by the call log list item. This
@@ -384,7 +384,7 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
             FilteredNumberCompat
                     .showBlockNumberDialogFlow(mContext.getContentResolver(), blockId, number,
                             countryIso, displayNumber, R.id.floating_action_button_container,
-                            ((Activity) mContext).getFragmentManager(),
+                            ((AppCompatActivity) mContext).getSupportFragmentManager(),
                             mFilteredNumberDialogCallback);
             return true;
         } else if (resId == R.id.context_menu_copy_to_clipboard) {

@@ -23,7 +23,6 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.support.v7.app.AppCompatActivity;
 import android.text.BidiFormatter;
 import android.text.TextDirectionHeuristics;
 import android.text.TextUtils;
@@ -66,6 +65,10 @@ import com.android.dialer.util.IntentUtil.CallIntentBuilder;
 import com.android.dialer.util.PhoneNumberUtil;
 import com.android.dialer.util.TelecomUtil;
 import com.android.incallui.Call.LogState;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
  * Displays the details of a specific call log entry.
@@ -399,7 +402,7 @@ public class CallDetailActivity extends AppCompatActivity
             FilteredNumberCompat
                     .showBlockNumberDialogFlow(mContext.getContentResolver(), mBlockedNumberId,
                             mNumber, mDetails.countryIso, mDisplayNumber, R.id.call_detail,
-                            getFragmentManager(), this);
+                            getSupportFragmentManager(), this);
         } else if (resId == R.id.call_detail_action_copy) {
             ClipboardUtils.copyText(mContext, null, mNumber, true);
         } else if (resId == R.id.call_detail_action_edit_before_call) {

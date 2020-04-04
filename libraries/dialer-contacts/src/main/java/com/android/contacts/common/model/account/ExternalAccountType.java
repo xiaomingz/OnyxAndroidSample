@@ -34,7 +34,6 @@ import android.util.Xml;
 
 import com.android.contacts.common.R;
 import com.android.contacts.common.model.dataitem.DataKind;
-import com.google.common.annotations.VisibleForTesting;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -42,6 +41,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.VisibleForTesting;
 
 /**
  * A general contacts account type descriptor.

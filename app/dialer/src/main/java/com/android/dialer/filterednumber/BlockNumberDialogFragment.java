@@ -18,14 +18,11 @@ package com.android.dialer.filterednumber;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -39,6 +36,12 @@ import com.android.dialer.database.FilteredNumberAsyncQueryHandler.OnUnblockNumb
 import com.android.dialer.voicemail.VisualVoicemailEnabledChecker;
 import com.android.dialer.logging.InteractionEvent;
 import com.android.dialer.logging.Logger;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * Fragment for confirming and enacting blocking/unblocking a number. Also invokes snackbar
@@ -238,7 +241,7 @@ public class BlockNumberDialogFragment extends DialogFragment {
         final OnUnblockNumberListener onUndoListener = new OnUnblockNumberListener() {
             @Override
             public void onUnblockComplete(int rows, ContentValues values) {
-                Snackbar.make(mParentView, undoMessage, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(mParentView, undoMessage, BaseTransientBottomBar.LENGTH_LONG).show();
                 if (callback != null) {
                     callback.onChangeFilteredNumberUndo();
                 }
@@ -257,7 +260,7 @@ public class BlockNumberDialogFragment extends DialogFragment {
                     }
                 };
 
-                Snackbar.make(mParentView, message, Snackbar.LENGTH_LONG)
+                Snackbar.make(mParentView, message, BaseTransientBottomBar.LENGTH_LONG)
                         .setAction(R.string.block_number_undo, undoListener)
                         .setActionTextColor(actionTextColor)
                         .show();
@@ -287,7 +290,7 @@ public class BlockNumberDialogFragment extends DialogFragment {
         final OnBlockNumberListener onUndoListener = new OnBlockNumberListener() {
             @Override
             public void onBlockComplete(final Uri uri) {
-                Snackbar.make(mParentView, undoMessage, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(mParentView, undoMessage, BaseTransientBottomBar.LENGTH_LONG).show();
                 if (callback != null) {
                     callback.onChangeFilteredNumberUndo();
                 }
@@ -306,7 +309,7 @@ public class BlockNumberDialogFragment extends DialogFragment {
                     }
                 };
 
-                Snackbar.make(mParentView, message, Snackbar.LENGTH_LONG)
+                Snackbar.make(mParentView, message, BaseTransientBottomBar.LENGTH_LONG)
                         .setAction(R.string.block_number_undo, undoListener)
                         .setActionTextColor(actionTextColor)
                         .show();

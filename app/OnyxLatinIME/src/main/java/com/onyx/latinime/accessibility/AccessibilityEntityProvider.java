@@ -20,11 +20,6 @@ import android.graphics.Rect;
 import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.accessibility.AccessibilityEventCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeProviderCompat;
-import android.support.v4.view.accessibility.AccessibilityRecordCompat;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
@@ -39,6 +34,12 @@ import com.onyx.latinime.latin.settings.Settings;
 import com.onyx.latinime.latin.settings.SettingsValues;
 import com.onyx.latinime.latin.utils.CollectionUtils;
 import com.onyx.latinime.latin.utils.CoordinateUtils;
+
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityEventCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.core.view.accessibility.AccessibilityNodeProviderCompat;
+import androidx.core.view.accessibility.AccessibilityRecordCompat;
 
 /**
  * Exposes a virtual view sub-tree for {@link KeyboardView} and generates

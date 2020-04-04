@@ -16,8 +16,6 @@
 
 package com.android.dialer.calllog;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import android.database.Cursor;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
@@ -27,6 +25,8 @@ import com.android.contacts.common.compat.CompatUtils;
 import com.android.contacts.common.util.DateUtils;
 import com.android.contacts.common.util.PhoneNumberHelper;
 import com.android.dialer.util.AppCompatConstants;
+
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Groups together calls in the call log.  The primary grouping attempts to group together calls

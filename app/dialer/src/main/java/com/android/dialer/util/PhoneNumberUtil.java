@@ -21,23 +21,21 @@ import android.provider.CallLog;
 import android.telecom.PhoneAccountHandle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Pair;
 
 import com.android.contacts.common.util.PhoneNumberHelper;
 import com.android.contacts.common.util.TelephonyManagerUtils;
-import com.google.common.collect.Sets;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.google.i18n.phonenumbers.geocoding.PhoneNumberOfflineGeocoder;
 
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
 public class PhoneNumberUtil {
     private static final String TAG = "PhoneNumberUtil";
-    private static final Set<String> LEGACY_UNKNOWN_NUMBERS = Sets.newHashSet("-1", "-2", "-3");
+    private static final Set<String> LEGACY_UNKNOWN_NUMBERS = new HashSet<String>(Arrays.asList("-1", "-2", "-3"));
 
     /** Returns true if it is possible to place a call to the given number. */
     public static boolean canPlaceCallsTo(CharSequence number, int presentation) {

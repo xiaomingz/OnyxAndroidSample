@@ -16,8 +16,6 @@
 
 package com.android.dialer.calllog;
 
-import com.google.common.base.Strings;
-
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -26,8 +24,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract.PhoneLookup;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.util.Log;
@@ -39,6 +35,8 @@ import com.android.dialer.util.TelecomUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Helper class operating on call log notifications.
@@ -120,7 +118,7 @@ public class CallLogNotificationsHelper {
             countryIso = mCurrentCountryIso;
         }
 
-        number = Strings.nullToEmpty(number);
+        number = number == null ? "" : number;
         ContactInfo contactInfo = new ContactInfo();
         contactInfo.number = number;
         contactInfo.formattedNumber = PhoneNumberUtils.formatNumber(number, countryIso);

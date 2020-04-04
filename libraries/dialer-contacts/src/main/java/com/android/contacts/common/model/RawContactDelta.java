@@ -30,17 +30,14 @@ import android.provider.ContactsContract.RawContacts;
 import android.util.Log;
 
 import com.android.contacts.common.compat.CompatUtils;
-import com.android.contacts.common.model.AccountTypeManager;
-import com.android.contacts.common.model.BuilderWrapper;
-import com.android.contacts.common.model.CPOWrapper;
-import com.android.contacts.common.model.ValuesDelta;
 import com.android.contacts.common.model.account.AccountType;
 import com.android.contacts.common.testing.NeededForTesting;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
+import androidx.test.espresso.core.internal.deps.guava.collect.Maps;
 
 /**
  * Contains a {@link RawContact} and records any modifications separately so the

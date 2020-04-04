@@ -20,7 +20,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +30,8 @@ import com.onyx.deskclock.deskclock.alarms.AlarmTimeClickHandler;
 import com.onyx.deskclock.deskclock.alarms.ScrollHandler;
 import com.onyx.deskclock.deskclock.provider.Alarm;
 import com.onyx.deskclock.deskclock.provider.AlarmInstance;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Data adapter for alarm time items.

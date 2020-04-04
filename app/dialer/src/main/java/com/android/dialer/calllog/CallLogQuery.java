@@ -16,8 +16,6 @@
 
 package com.android.dialer.calllog;
 
-import com.google.common.collect.Lists;
-
 import android.provider.CallLog.Calls;
 
 import com.android.contacts.common.compat.CompatUtils;
@@ -25,6 +23,8 @@ import com.android.dialer.compat.CallsSdkCompat;
 import com.android.dialer.compat.DialerCompatUtils;
 
 import java.util.List;
+
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * The query for the call log table.

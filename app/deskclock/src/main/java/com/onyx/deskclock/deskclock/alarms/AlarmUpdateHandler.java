@@ -19,11 +19,11 @@ package com.onyx.deskclock.deskclock.alarms;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.onyx.deskclock.deskclock.AlarmUtils;
 import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.events.Events;

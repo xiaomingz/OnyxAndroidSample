@@ -18,13 +18,12 @@ package com.onyx.deskclock.deskclock;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.VisibleForTesting;
-import android.support.design.widget.Snackbar;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.onyx.deskclock.R;
 import com.onyx.deskclock.deskclock.provider.AlarmInstance;
 import com.onyx.deskclock.deskclock.widget.toast.SnackbarManager;
@@ -32,6 +31,8 @@ import com.onyx.deskclock.deskclock.widget.toast.ToastManager;
 
 import java.util.Calendar;
 import java.util.Locale;
+
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Static utility methods for Alarms.

@@ -16,12 +16,12 @@
 
 package com.onyx.deskclock.deskclock.events;
 
-import android.support.annotation.StringRes;
-
 import com.onyx.deskclock.R;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import androidx.annotation.StringRes;
 
 public final class Events {
 

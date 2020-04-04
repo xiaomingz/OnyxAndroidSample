@@ -54,21 +54,22 @@ import com.android.contacts.common.model.account.SamsungAccountType;
 import com.android.contacts.common.model.dataitem.DataKind;
 import com.android.contacts.common.testing.NeededForTesting;
 import com.android.contacts.common.util.Constants;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.test.espresso.core.internal.deps.guava.base.Objects;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
+import androidx.test.espresso.core.internal.deps.guava.collect.Maps;
 
 /**
  * Singleton holder for all parsed {@link AccountType} available on the
@@ -386,7 +387,7 @@ class AccountTypeManagerImpl extends AccountTypeManager
         final List<AccountWithDataSet> allAccounts = Lists.newArrayList();
         final List<AccountWithDataSet> contactWritableAccounts = Lists.newArrayList();
         final List<AccountWithDataSet> groupWritableAccounts = Lists.newArrayList();
-        final Set<String> extensionPackages = Sets.newHashSet();
+        final Set<String> extensionPackages = new HashSet<>();
 
         final AccountManager am = mAccountManager;
 

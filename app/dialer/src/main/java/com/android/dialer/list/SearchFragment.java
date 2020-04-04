@@ -19,7 +19,6 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -48,6 +47,8 @@ import com.android.dialer.util.DialerUtils;
 import com.android.dialer.util.IntentUtil;
 import com.android.dialer.widget.EmptyContentView;
 import com.android.phone.common.animation.AnimUtils;
+
+import androidx.fragment.app.DialogFragment;
 
 public class SearchFragment extends PhoneNumberPickerFragment {
     private static final String TAG  = SearchFragment.class.getSimpleName();

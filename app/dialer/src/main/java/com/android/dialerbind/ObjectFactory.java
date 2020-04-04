@@ -19,7 +19,6 @@ package com.android.dialerbind;
 import static com.android.dialer.calllog.CallLogAdapter.CallFetcher;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 
 import com.android.dialer.calllog.CallLogAdapter;
 import com.android.dialer.calllog.ContactInfoHelper;
@@ -28,6 +27,8 @@ import com.android.dialer.logging.Logger;
 import com.android.dialer.service.CachedNumberLookupService;
 import com.android.dialer.service.ExtendedBlockingButtonRenderer;
 import com.android.dialer.voicemail.VoicemailPlaybackPresenter;
+
+import androidx.annotation.Nullable;
 
 /**
  * Default static binding for various objects.

@@ -16,7 +16,6 @@
 
 package com.android.dialer.filterednumber;
 
-import com.google.common.base.Preconditions;
 
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -24,6 +23,8 @@ import android.util.Log;
 import com.android.dialer.compat.FilteredNumberCompat;
 import com.android.dialer.database.FilteredNumberAsyncQueryHandler;
 import com.android.dialer.database.FilteredNumberAsyncQueryHandler.OnHasBlockedNumbersListener;
+
+import androidx.core.util.Preconditions;
 
 /**
  * Class responsible for checking if the user can be auto-migrated to {@link

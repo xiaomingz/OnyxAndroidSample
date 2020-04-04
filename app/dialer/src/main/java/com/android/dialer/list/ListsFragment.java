@@ -15,19 +15,11 @@
  */
 package com.android.dialer.list;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Trace;
 import android.preference.PreferenceManager;
-import android.provider.CallLog.Calls;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +41,14 @@ import com.android.dialer.widget.ActionBarController;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Fragment that is used as the main screen of the Dialer.
@@ -94,8 +94,8 @@ public class ListsFragment extends Fragment
     private boolean mShowVoicemailTabAfterVoicemailStatusIsFetched;
 
     private VoicemailStatusHelper mVoicemailStatusHelper;
-    private ArrayList<OnPageChangeListener> mOnPageChangeListeners =
-            new ArrayList<OnPageChangeListener>();
+    private ArrayList<ViewPager.OnPageChangeListener> mOnPageChangeListeners =
+            new ArrayList<>();
 
     private String[] mTabTitles;
     private int[] mTabIcons;
@@ -161,7 +161,7 @@ public class ListsFragment extends Fragment
         }
 
         /**
-         * When {@link android.support.v4.view.PagerAdapter#notifyDataSetChanged} is called,
+         * When {@link PagerAdapter#notifyDataSetChanged} is called,
          * this method is called on all pages to determine whether they need to be recreated.
          * When the voicemail tab is removed, the view needs to be recreated by returning
          * POSITION_NONE. If notifyDataSetChanged is called for some other reason, the voicemail
@@ -258,7 +258,7 @@ public class ListsFragment extends Fragment
         return parentView;
     }
 
-    public void addOnPageChangeListener(OnPageChangeListener onPageChangeListener) {
+    public void addOnPageChangeListener(ViewPager.OnPageChangeListener onPageChangeListener) {
         if (!mOnPageChangeListeners.contains(onPageChangeListener)) {
             mOnPageChangeListeners.add(onPageChangeListener);
         }

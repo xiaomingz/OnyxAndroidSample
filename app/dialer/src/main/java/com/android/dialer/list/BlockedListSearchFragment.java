@@ -17,8 +17,6 @@ package com.android.dialer.list;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -40,6 +38,9 @@ import com.android.dialer.filterednumber.BlockNumberDialogFragment;
 import com.android.dialer.logging.InteractionEvent;
 import com.android.dialer.logging.Logger;
 import com.android.dialer.widget.SearchEditTextLayout;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class BlockedListSearchFragment extends RegularSearchFragment
         implements BlockNumberDialogFragment.Callback {

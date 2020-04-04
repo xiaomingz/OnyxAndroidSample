@@ -15,7 +15,6 @@
  */
 package com.android.dialer.filterednumber;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
@@ -35,6 +34,8 @@ import com.android.dialer.R;
 import com.android.dialer.calllog.ContactInfo;
 import com.android.dialer.calllog.ContactInfoHelper;
 import com.android.dialer.util.PhoneNumberUtil;
+
+import androidx.fragment.app.FragmentManager;
 
 public class NumbersAdapter extends SimpleCursorAdapter {
 

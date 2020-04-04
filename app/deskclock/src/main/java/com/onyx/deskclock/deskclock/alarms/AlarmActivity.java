@@ -37,11 +37,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v4.graphics.ColorUtils;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.animation.PathInterpolatorCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,6 +55,12 @@ import com.onyx.deskclock.deskclock.provider.AlarmInstance;
 import com.onyx.deskclock.deskclock.settings.SettingsActivity;
 import com.onyx.deskclock.deskclock.widget.CircleView;
 import com.onyx.deskclock.deskclock.widget.TextTime;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.animation.PathInterpolatorCompat;
 
 public class AlarmActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnTouchListener {

@@ -16,8 +16,6 @@
 
 package com.android.dialer.filterednumber;
 
-import com.google.common.base.Preconditions;
-
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -29,6 +27,8 @@ import com.android.dialer.database.FilteredNumberContract;
 import com.android.dialer.database.FilteredNumberContract.FilteredNumber;
 import com.android.dialer.database.FilteredNumberContract.FilteredNumberColumns;
 import com.android.incallui.Log;
+
+import androidx.core.util.Preconditions;
 
 /**
  * Class which should be used to migrate numbers from {@link FilteredNumberContract} blocking to

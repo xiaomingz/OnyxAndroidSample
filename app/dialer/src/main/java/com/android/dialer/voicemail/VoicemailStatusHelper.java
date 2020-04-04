@@ -20,10 +20,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.VoicemailContract.Status;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import java.util.List;
 
+import androidx.annotation.VisibleForTesting;
 /**
  * Interface used by the call log UI to determine what user message, if any, related to voicemail
  * source status needs to be shown. The messages are returned in the order of importance.

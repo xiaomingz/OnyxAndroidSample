@@ -15,27 +15,24 @@
  */
 package com.android.dialer.filterednumber;
 
-import android.app.ListFragment;
-import android.app.LoaderManager;
 import android.content.Context;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.provider.ContactsContract.Contacts;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.dialer.R;
-import com.android.dialer.database.FilteredNumberContract;
 import com.android.dialer.filterednumber.FilteredNumbersUtil.ImportSendToVoicemailContactsListener;
+
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.ListFragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 public class ViewNumbersToImportFragment extends ListFragment
         implements LoaderManager.LoaderCallbacks<Cursor>,
@@ -54,7 +51,7 @@ public class ViewNumbersToImportFragment extends ListFragment
 
         if (mAdapter == null) {
             mAdapter = ViewNumbersToImportAdapter.newViewNumbersToImportAdapter(
-                    getContext(), getActivity().getFragmentManager());
+                    getContext(), requireActivity().getSupportFragmentManager());
         }
         setListAdapter(mAdapter);
     }
@@ -117,7 +114,7 @@ public class ViewNumbersToImportFragment extends ListFragment
     @Override
     public void onClick(final View view) {
         if (view.getId() == R.id.import_button) {
-            FilteredNumbersUtil.importSendToVoicemailContacts(getContext(),
+            FilteredNumbersUtil.importSendToVoicemailContacts(requireContext(),
                     new ImportSendToVoicemailContactsListener() {
                         @Override
                         public void onImportComplete() {
@@ -127,7 +124,7 @@ public class ViewNumbersToImportFragment extends ListFragment
                         }
                     });
         } else if (view.getId() == R.id.cancel_button) {
-            getActivity().onBackPressed();
+            requireActivity().onBackPressed();
         }
     }
 }

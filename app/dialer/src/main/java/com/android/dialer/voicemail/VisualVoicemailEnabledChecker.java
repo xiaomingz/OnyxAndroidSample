@@ -5,9 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 
 import com.android.dialer.calllog.CallLogQueryHandler;
+
+import androidx.annotation.Nullable;
 
 /**
  * Helper class to check whether visual voicemail is enabled.

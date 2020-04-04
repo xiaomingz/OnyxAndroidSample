@@ -16,8 +16,6 @@
 
 package com.android.dialer;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -31,9 +29,6 @@ import android.os.Bundle;
 import android.os.Trace;
 import android.provider.CallLog.Calls;
 import android.speech.RecognizerIntent;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.telecom.PhoneAccount;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -55,14 +50,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.contacts.common.dialog.ClearFrequentsDialog;
-import com.android.contacts.common.interactions.ImportExportDialogFragment;
 import com.android.contacts.common.interactions.TouchPointManager;
 import com.android.contacts.common.list.OnPhoneNumberPickerActionListener;
-import com.android.contacts.common.util.PermissionsUtil;
 import com.android.contacts.common.widget.FloatingActionButtonController;
 import com.android.dialer.calllog.CallLogActivity;
 import com.android.dialer.calllog.CallLogFragment;
@@ -89,17 +80,22 @@ import com.android.dialer.util.IntentUtil;
 import com.android.dialer.util.IntentUtil.CallIntentBuilder;
 import com.android.dialer.util.QtiCallUtils;
 import com.android.dialer.util.TelecomUtil;
-import com.android.dialer.voicemail.VoicemailArchiveActivity;
 import com.android.dialer.widget.ActionBarController;
 import com.android.dialer.widget.SearchEditTextLayout;
 import com.android.dialerbind.DatabaseHelperManager;
 import com.android.dialerbind.ObjectFactory;
 import com.android.phone.common.animation.AnimUtils;
 import com.android.phone.common.animation.AnimationListenerAdapter;
-import com.google.common.annotations.VisibleForTesting;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.ActionBar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * The dialer tab's title is 'phone', a more common name (see strings.xml).
@@ -432,7 +428,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         // Add the favorites fragment but only if savedInstanceState is null. Otherwise the
         // fragment manager is responsible for recreating it.
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .add(R.id.dialtacts_frame, new ListsFragment(), TAG_FAVORITES_FRAGMENT)
                     .commit();
         } else {
@@ -591,7 +587,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         if (fragment instanceof DialpadFragment) {
             mDialpadFragment = (DialpadFragment) fragment;
             if (!mIsDialpadShown && !mShowDialpadOnResume) {
-                final FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.hide(mDialpadFragment);
                 transaction.commit();
             }
@@ -757,7 +753,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
 
         mListsFragment.setUserVisibleHint(false);
 
-        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if (mDialpadFragment == null) {
             mDialpadFragment = new DialpadFragment();
             ft.add(R.id.dialtacts_container, mDialpadFragment, TAG_DIALPAD_FRAGMENT);
@@ -849,7 +845,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
      */
     private void commitDialpadFragmentHide() {
         if (!mStateSaved && mDialpadFragment != null && !mDialpadFragment.isHidden()) {
-            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.hide(mDialpadFragment);
             ft.commit();
         }
@@ -999,6 +995,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
 
     @Override
     public void onNewIntent(Intent newIntent) {
+        super.onNewIntent(newIntent);
         setIntent(newIntent);
 
         mStateSaved = false;
@@ -1039,7 +1036,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
             Log.d(TAG, "Entering search UI - smart dial " + smartDialSearch);
         }
 
-        final FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (mInDialpadSearch && mSmartDialSearchFragment != null) {
             transaction.remove(mSmartDialSearchFragment);
         } else if (mInRegularSearch && mRegularSearchFragment != null) {
@@ -1057,7 +1054,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
 
         mFloatingActionButtonController.scaleOut();
 
-        SearchFragment fragment = (SearchFragment) getFragmentManager().findFragmentByTag(tag);
+        SearchFragment fragment = (SearchFragment) getSupportFragmentManager().findFragmentByTag(tag);
         if (animate) {
             transaction.setCustomAnimations(android.R.animator.fade_in, 0);
         } else {
@@ -1128,7 +1125,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         onPageScrolled(mListsFragment.getCurrentTabIndex(), 0 /* offset */, 0 /* pixelOffset */);
         onPageSelected(mListsFragment.getCurrentTabIndex());
 
-        final FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (mSmartDialSearchFragment != null) {
             transaction.remove(mSmartDialSearchFragment);
         }

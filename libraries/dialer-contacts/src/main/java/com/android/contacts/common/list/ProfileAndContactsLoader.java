@@ -16,7 +16,6 @@
 package com.android.contacts.common.list;
 
 import android.content.Context;
-import android.content.CursorLoader;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.MergeCursor;
@@ -24,9 +23,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.Profile;
 
-import com.google.common.collect.Lists;
-
 import java.util.List;
+
+import androidx.loader.content.CursorLoader;
+import androidx.test.espresso.core.internal.deps.guava.collect.Lists;
 
 /**
  * A loader for use in the default contact list, which will also query for the user's profile

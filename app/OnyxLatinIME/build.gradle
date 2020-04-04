@@ -53,9 +53,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard-rules.pro'
             applicationVariants.all { variant ->
                 variant.outputs.all { output ->
-                    def fileName = "OnyxLatinIME-release.apk"
                     if (variant.buildType.name.equals('release')) {
-                        outputFileName = fileName
+                        outputFileName = "OnyxLatinIME-release.apk"
                     }
                 }
             }
@@ -86,12 +85,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:preference-v14:$rootProject.supportLibraryVersion"
+    implementation 'junit:junit:4.12'
+    implementation project(':libraries:onyxsdk-androidx')
 }

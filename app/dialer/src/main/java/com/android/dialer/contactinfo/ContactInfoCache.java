@@ -23,10 +23,10 @@ import android.text.TextUtils;
 import com.android.dialer.calllog.ContactInfo;
 import com.android.dialer.calllog.ContactInfoHelper;
 import com.android.dialer.util.ExpirableCache;
-import com.google.common.annotations.VisibleForTesting;
 
 import java.util.LinkedList;
 
+import androidx.annotation.VisibleForTesting;
 /**
  * This is a cache of contact details for the phone numbers in the c all log. The key is the
  * phone number with the country in which teh call was placed or received. The content of the

@@ -1,0 +1,107 @@
+<resources>
+    <string name="app_name">Simple Music Player</string>
+    <string name="app_launcher_name">Musikspelare</string>
+    <string name="playlist_empty">Din spellista är tom</string>
+    <string name="rename_song">Byt namn på låt</string>
+    <string name="rename_song_error">Ett fel uppstod under namnbytet</string>
+    <string name="rename_song_empty">Du måste fylla i alla fält</string>
+    <string name="enable_song_repetition">Repetera nuvarande låt</string>
+    <string name="disable_song_repetition">Sluta repetera nuvarande låt</string>
+    <string name="song_repetition_enabled">Repetering av nuvarande låt är aktiverad</string>
+    <string name="song_repetition_disabled">Repetering av nuvarande låt är inaktiverad</string>
+    <string name="enable_shuffle">Aktivera blanda</string>
+    <string name="disable_shuffle">Inaktivera blanda</string>
+    <string name="shuffle_enabled">Blanda är nu aktiverad</string>
+    <string name="shuffle_disabled">Blanda är nu inaktiverad</string>
+    <string name="enable_autoplay">Aktivera automatisk uppspelning</string>
+    <string name="disable_autoplay">Inaktivera automatisk uppspelning</string>
+    <string name="autoplay_enabled">Automatisk uppspelning har aktiverats</string>
+    <string name="autoplay_disabled">Automatisk uppspelning har inaktiverats</string>
+    <string name="sleep_timer">Vilotimer</string>
+
+    <string name="previous">Föregående</string>
+    <string name="playpause">Spela / Pausa</string>
+    <string name="next">Nästa</string>
+
+    <!-- Playlists -->
+    <string name="add_file_to_playlist">Lägg till fil i spellista</string>
+    <string name="add_folder_to_playlist">Lägg till mapp i spellista</string>
+    <string name="manage_playlists">Hantera spellistor</string>
+    <string name="playlists">Spellistor</string>
+    <string name="create_playlist">Skapa spellista</string>
+    <string name="rename_playlist">Byt namn på spellista</string>
+    <string name="playlist_name_exists">Det finns redan en spellista med samma namn</string>
+    <string name="remove_playlist">Ta bort spellista</string>
+    <string name="remove_playlist_description">Detta tar bara bort de valda spellistorna, inte själva filerna.</string>
+    <string name="remove_playlist_description_placeholder">Detta tar bara bort spellistan \"%s\", inte själva filerna.</string>
+    <string name="remove_from_playlist">Ta bort från spellista</string>
+    <string name="remove_from_playlist_description">Detta tar bara bort objekten från spellistan \"%s\", själva filerna tas inte bort.</string>
+    <string name="delete_the_files_too">Ta även bort filerna</string>
+    <string name="open_playlist">Öppna spellista</string>
+    <string name="all_songs_cannot_be_deleted">Spellistan \'Alla låtar\' kan inte tas bort</string>
+    <string name="empty_playlist">Den aktuella spellistan är tom</string>
+    <string name="fetching_songs">Hämtar låtar…</string>
+    <string name="all_songs">Alla låtar</string>
+    <string name="create_playlist_from_folder">Skapa ny spellista från mapp</string>
+    <string name="folder_contains_no_audio">Den valda mappen innehåller inga ljudfiler</string>
+    <string name="delete_current_song">Ta bort aktuell låt</string>
+    <string name="remove_current_song">Ta bort aktuell låt från spellista</string>
+    <string name="show_filename">Ersätt låttitel med filnamn</string>
+    <string name="title_is_not_available">Om titeln inte är tillgänglig</string>
+    <string name="show_album_cover">Visa skivomslag i huvudvyn</string>
+
+    <!-- Settings -->
+    <string name="equalizer">Equalizer</string>
+    <string name="swap_prev_next">Växla hörlurars föregående- och nästaknappar</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">How can I fast-forward songs?</string>
+    <string name="faq_1_text">You can click on the current or max duration texts near the seekbar, that will move the song either backward, or forward.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple Music Player - A cool player for your songs</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">A clean music player with a customizable widget, stylish interface and no ads.</string>
+    <string name="app_long_description">
+        A simple music player easily controllable from the status bar, home screen widget or by hardware buttons on your headset. It provides all expected functions like sorting in various ways as well as changing the Equalizer.  Listen to your favorite mp3, other songs or podcasts with this free beautiful music player.
+
+        It offers exclusive extras like Search and showing Album Art, a sleep timer and many other settings. This elegant music player allows you creating and managing handy playlists as you desire.
+
+        Playlists are fully supported. You can add either individual files, or whole folders. If you won\'t like a file, you can either just remove it from a playlist, or delete the actual file altogether.
+
+        Comes with a handy sleep timer so that you can reliably delay the time of the app shutting down.
+
+        Supports both shuffle and repeating a particular song, as well as skipping and fast forwarding.
+
+        Available in many different languages, offers multiple different equalizers.
+
+        Easily check a file properties like the size, duration, last modified etc.
+
+        Modify file EXIF data like the song title and artist.
+
+        Quickly share files with your friends on social networks, emails, or anywhere you would like.
+
+        This stylish music player contains a widget with customizable text color, alpha and the color of the background for easy access and control.
+
+        It properly handles third party intents too for playing individual audio files so it can help at setting ringtones too.
+
+        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+
+        Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
+
+        <b>Check out the full suite of Simple Tools here:</b>
+        https://www.simplemobiletools.com
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>

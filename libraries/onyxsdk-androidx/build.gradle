@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName '1.0'
+
+        sourceSets.main {
+            aidl.srcDirs = ['src/main/java']
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), '../../proguard-rules.pro', 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    api 'androidx.appcompat:appcompat:1.1.0'
+    api 'androidx.preference:preference:1.1.0'
+    api 'androidx.core:core:1.2.0'
+    api 'androidx.fragment:fragment:1.2.3'
+    api 'androidx.cardview:cardview:1.0.0'
+    api 'androidx.gridlayout:gridlayout:1.0.0'
+    api 'com.google.android.material:material:1.1.0'
+}
+

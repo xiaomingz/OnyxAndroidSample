@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <android.support.v7.widget.AppCompatCheckBox
+    <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/onoff"
         android:layout_width="wrap_content"
         android:button="@drawable/onyx_custom_switch"

@@ -17,7 +17,6 @@
 package com.android.dialer.calllog;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.KeyguardManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -30,10 +29,6 @@ import android.os.Message;
 import android.provider.CallLog;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract;
-import android.support.annotation.Nullable;
-import android.support.v13.app.FragmentCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +44,12 @@ import com.android.dialer.widget.EmptyContentView;
 import com.android.dialer.widget.EmptyContentView.OnEmptyViewActionButtonClickedListener;
 import com.android.dialerbind.ObjectFactory;
 
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import static android.Manifest.permission.READ_CALL_LOG;
 
 /**
@@ -57,7 +58,7 @@ import static android.Manifest.permission.READ_CALL_LOG;
  */
 public class CallLogFragment extends Fragment implements CallLogQueryHandler.Listener,
         CallLogAdapter.CallFetcher, OnEmptyViewActionButtonClickedListener,
-        FragmentCompat.OnRequestPermissionsResultCallback {
+        ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = "CallLogFragment";
 
     /**
@@ -500,8 +501,7 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
         }
 
         if (!PermissionsUtil.hasPermission(activity, READ_CALL_LOG)) {
-            FragmentCompat.requestPermissions(this, new String[]{READ_CALL_LOG},
-                    READ_CALL_LOG_PERMISSION_REQUEST_CODE);
+            requestPermissions(new String[]{READ_CALL_LOG}, READ_CALL_LOG_PERMISSION_REQUEST_CODE);
         } else if (!mIsCallLogActivity) {
             // Show dialpad if we are not in the call log activity.
             ((HostInterface) activity).showDialpad();

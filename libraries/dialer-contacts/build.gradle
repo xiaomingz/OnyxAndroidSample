@@ -5,8 +5,8 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 24
+        minSdkVersion 23
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -23,8 +23,11 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
-    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation 'junit:junit:4.12'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    implementation 'androidx.test:runner:1.2.0'
+    implementation 'androidx.test.espresso:espresso-core:3.2.0'
     api project(':libraries:dialer-common')
     api project(':libraries:dialer-phone')
 }

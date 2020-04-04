@@ -28,12 +28,11 @@ import com.android.contacts.common.GroupMetaData;
 import com.android.contacts.common.model.account.AccountType;
 import com.android.contacts.common.util.DataStatus;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-
 import java.util.ArrayList;
-import java.util.Collections;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.test.espresso.core.internal.deps.guava.collect.ImmutableList;
+import androidx.test.espresso.core.internal.deps.guava.collect.ImmutableMap;
 
 /**
  * A Contact represents a single person or logical entity as perceived by the user.  The information

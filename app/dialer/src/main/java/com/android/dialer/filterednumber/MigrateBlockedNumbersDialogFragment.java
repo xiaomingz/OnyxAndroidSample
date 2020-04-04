@@ -16,17 +16,17 @@
 
 package com.android.dialer.filterednumber;
 
-import com.google.common.base.Preconditions;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
 import android.os.Bundle;
 import android.view.View;
 import com.android.dialer.R;
 import com.android.dialer.filterednumber.BlockedNumbersMigrator.Listener;
+
+import androidx.core.util.Preconditions;
+import androidx.fragment.app.DialogFragment;
 
 /**
  * Dialog fragment shown to users when they need to migrate to use

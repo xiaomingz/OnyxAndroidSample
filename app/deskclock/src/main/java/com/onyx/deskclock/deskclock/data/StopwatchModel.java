@@ -25,10 +25,6 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.SystemClock;
-import android.support.annotation.IdRes;
-import android.support.annotation.StringRes;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.widget.RemoteViews;
 
 import com.onyx.deskclock.deskclock.HandleDeskClockApiCalls;
@@ -37,6 +33,11 @@ import com.onyx.deskclock.deskclock.stopwatch.StopwatchService;
 
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.StringRes;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.view.View.GONE;

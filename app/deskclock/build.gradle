@@ -29,8 +29,7 @@ android {
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
             if (variant.buildType.name.equals("release")) {
-                def newName = "deskclock-release.apk"
-                outputFileName = newName
+                outputFileName = "deskclock-release.apk"
             }
         }
     }
@@ -52,6 +51,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.onyx.android.sdk:onyxsdk-appcompat:1.0.4'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':libraries:onyxsdk-androidx')
 }

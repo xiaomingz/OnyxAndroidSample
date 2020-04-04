@@ -23,7 +23,7 @@
     android:fitsSystemWindows="true">
    <!--  API >= 17 android:layoutDirection="ltr"-->
 
-    <android.support.v7.widget.GridLayout
+    <androidx.gridlayout.widget.GridLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -142,7 +142,7 @@
             ex:layout_columnSpan="3"
             ex:layout_gravity="bottom|center_horizontal" />
 
-    </android.support.v7.widget.GridLayout>
+    </androidx.gridlayout.widget.GridLayout>
 
     <LinearLayout
         android:id="@+id/alert"

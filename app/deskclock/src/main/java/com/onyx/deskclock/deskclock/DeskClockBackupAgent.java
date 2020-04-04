@@ -30,7 +30,6 @@ import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 
 import com.onyx.deskclock.deskclock.alarms.AlarmStateManager;
 import com.onyx.deskclock.deskclock.provider.Alarm;
@@ -40,6 +39,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public class DeskClockBackupAgent extends BackupAgent {
 
@@ -60,7 +61,7 @@ public class DeskClockBackupAgent extends BackupAgent {
 
     @Override
     public void onRestoreFile(@NonNull ParcelFileDescriptor data, long size, File destination,
-            int type, long mode, long mtime) throws IOException {
+                              int type, long mode, long mtime) throws IOException {
         // The preference file on the backup device may not be the same on the restore device.
         // Massage the file name here before writing it.
         if (destination.getName().endsWith("_preferences.xml")) {

@@ -19,9 +19,6 @@ package com.android.dialer.voicemail;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -34,6 +31,10 @@ import com.android.dialer.calllog.CallLogQueryHandler;
 import com.android.dialer.calllog.ContactInfoHelper;
 import com.android.dialer.widget.EmptyContentView;
 import com.android.dialerbind.ObjectFactory;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * This activity manages all the voicemails archived by the user.

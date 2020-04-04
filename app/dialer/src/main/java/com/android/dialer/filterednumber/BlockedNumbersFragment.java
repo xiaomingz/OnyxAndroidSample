@@ -15,19 +15,11 @@
  */
 package com.android.dialer.filterednumber;
 
-import com.google.common.base.MoreObjects;
 
-import android.app.ListFragment;
-import android.app.LoaderManager;
 import android.content.Context;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +35,15 @@ import com.android.dialer.filterednumber.BlockedNumbersMigrator.Listener;
 import com.android.dialer.filterednumber.FilteredNumbersUtil.CheckForSendToVoicemailContactListener;
 import com.android.dialer.filterednumber.FilteredNumbersUtil.ImportSendToVoicemailContactsListener;
 import com.android.dialer.voicemail.VisualVoicemailEnabledChecker;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.ListFragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.test.espresso.core.internal.deps.guava.base.MoreObjects;
 
 public class BlockedNumbersFragment extends ListFragment
         implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener,
@@ -83,7 +84,7 @@ public class BlockedNumbersFragment extends ListFragment
 
         if (mAdapter == null) {
             mAdapter = BlockedNumbersAdapter.newBlockedNumbersAdapter(
-                    getContext(), getActivity().getFragmentManager());
+                    getContext(), getActivity().getSupportFragmentManager());
         }
         setListAdapter(mAdapter);
 

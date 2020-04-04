@@ -1071,6 +1071,7 @@
     <string name="intercept_harassing_calls">Intercept harassing calls</string>
     <string name="number_recognition">Number recognition</string>
     <string name="contact_settings">Contact Settings</string>
+    <string name="settings">Settings</string>
     <string name="import_and_export">Import and export</string>
     <string name="editing">Editing</string>
     <string name="no_selected">no selected</string>
