@@ -47,8 +47,6 @@ public class SmartDialCursorLoader extends AsyncTaskLoader<Cursor> {
     private String mQuery;
     private SmartDialNameMatcher mNameMatcher;
 
-    private ForceLoadContentObserver mObserver;
-
     public SmartDialCursorLoader(Context context) {
         super(context);
         mContext = context;
@@ -120,15 +118,10 @@ public class SmartDialCursorLoader extends AsyncTaskLoader<Cursor> {
             return;
         }
 
+
         /** Hold a reference to the old data so it doesn't get garbage collected. */
         Cursor oldCursor = mCursor;
         mCursor = cursor;
-
-        if (mObserver == null) {
-            mObserver = new ForceLoadContentObserver();
-            mContext.getContentResolver().registerContentObserver(
-                    DialerDatabaseHelper.SMART_DIAL_UPDATED_URI, true, mObserver);
-        }
 
         if (isStarted()) {
             /** If the Loader is in a started state, deliver the results to the client. */
@@ -164,10 +157,6 @@ public class SmartDialCursorLoader extends AsyncTaskLoader<Cursor> {
         /** Ensure the loader has been stopped. */
         onStopLoading();
 
-        if (mObserver != null) {
-            mContext.getContentResolver().unregisterContentObserver(mObserver);
-            mObserver = null;
-        }
 
         /** Release all previously saved query results. */
         if (mCursor != null) {
@@ -179,11 +168,6 @@ public class SmartDialCursorLoader extends AsyncTaskLoader<Cursor> {
     @Override
     public void onCanceled(Cursor cursor) {
         super.onCanceled(cursor);
-
-        if (mObserver != null) {
-            mContext.getContentResolver().unregisterContentObserver(mObserver);
-            mObserver = null;
-        }
 
         /** The load has been canceled, so we should release the resources associated with 'data'.*/
         releaseResources(cursor);

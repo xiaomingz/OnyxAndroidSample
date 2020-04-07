@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color_primary">@android:color/black</color>
+    <color name="color_primary_dark">@color/color_primary</color>
+    <color name="color_accent">@color/color_primary</color>
+    <color name="default_text_color">@color/color_primary</color>
+    <color name="default_background_color">@color/background_white</color>
+
     <color name="actionbar_menu_icon">#454545</color>
     <color name="crop_image_view_background">#BB000000</color>
     <color name="circle_black_background">#66000000</color>

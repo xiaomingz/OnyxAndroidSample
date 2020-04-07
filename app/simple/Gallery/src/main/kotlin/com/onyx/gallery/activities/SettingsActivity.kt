@@ -37,8 +37,6 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupSettingItems() {
-        setupCustomizeColors()
-        setupUseEnglish()
         setupChangeDateTimeFormat()
         setupFileLoadingPriority()
         setupManageIncludedFolders()
@@ -93,7 +91,7 @@ class SettingsActivity : SimpleActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        updateMenuItemColors(menu)
+        updateMenuItemColors(menu, baseColor = getActionbarColor())
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -111,22 +109,6 @@ class SettingsActivity : SimpleActivity() {
                 file_operations_label, deep_zoomable_images_label, extended_details_label, bottom_actions_label, recycle_bin_label,
                 migrating_label).forEach {
             it.setTextColor(adjustedPrimaryColor)
-        }
-    }
-
-    private fun setupCustomizeColors() {
-        settings_customize_colors_holder.setOnClickListener {
-            startCustomizationActivity()
-        }
-    }
-
-    private fun setupUseEnglish() {
-        settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
-        settings_use_english.isChecked = config.useEnglish
-        settings_use_english_holder.setOnClickListener {
-            settings_use_english.toggle()
-            config.useEnglish = settings_use_english.isChecked
-            System.exit(0)
         }
     }
 

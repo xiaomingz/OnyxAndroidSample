@@ -1,6 +1,5 @@
 package com.simplemobiletools.clock.activities
 
-import android.content.Intent
 import android.os.Bundle
 import com.simplemobiletools.clock.R
 import com.simplemobiletools.clock.extensions.config
@@ -8,10 +7,8 @@ import com.simplemobiletools.clock.extensions.updateWidgets
 import com.simplemobiletools.clock.helpers.DEFAULT_MAX_ALARM_REMINDER_SECS
 import com.simplemobiletools.clock.helpers.DEFAULT_MAX_TIMER_REMINDER_SECS
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.IS_CUSTOMIZING_COLORS
 import com.simplemobiletools.commons.helpers.MINUTE_SECONDS
 import kotlinx.android.synthetic.main.activity_settings.*
-import java.util.*
 
 class SettingsActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,9 +19,6 @@ class SettingsActivity : SimpleActivity() {
     override fun onResume() {
         super.onResume()
 
-        setupPurchaseThankYou()
-        setupCustomizeColors()
-        setupUseEnglish()
         setupPreventPhoneFromSleeping()
         setupHourFormat()
         setupSundayFirst()
@@ -36,7 +30,6 @@ class SettingsActivity : SimpleActivity() {
         setupTimerMaxReminder()
         setupIncreaseVolumeGradually()
         setupUseTextShadow()
-        setupCustomizeWidgetColors()
         updateTextColors(settings_holder)
         setupSectionColors()
     }
@@ -45,29 +38,6 @@ class SettingsActivity : SimpleActivity() {
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
         arrayListOf(clock_tab_label, alarm_tab_label, stopwatch_tab_label, timer_tab_label, widgets_label).forEach {
             it.setTextColor(adjustedPrimaryColor)
-        }
-    }
-
-    private fun setupPurchaseThankYou() {
-        settings_purchase_thank_you_holder.beVisibleIf(!isThankYouInstalled())
-        settings_purchase_thank_you_holder.setOnClickListener {
-            launchPurchaseThankYouIntent()
-        }
-    }
-
-    private fun setupCustomizeColors() {
-        settings_customize_colors_holder.setOnClickListener {
-            startCustomizationActivity()
-        }
-    }
-
-    private fun setupUseEnglish() {
-        settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
-        settings_use_english.isChecked = config.useEnglish
-        settings_use_english_holder.setOnClickListener {
-            settings_use_english.toggle()
-            config.useEnglish = settings_use_english.isChecked
-            System.exit(0)
         }
     }
 
@@ -179,14 +149,5 @@ class SettingsActivity : SimpleActivity() {
 
     private fun updateTimerMaxReminderText() {
         settings_timer_max_reminder.text = formatSecondsToTimeString(config.timerMaxReminderSecs)
-    }
-
-    private fun setupCustomizeWidgetColors() {
-        settings_customize_widget_colors_holder.setOnClickListener {
-            Intent(this, WidgetDateTimeConfigureActivity::class.java).apply {
-                putExtra(IS_CUSTOMIZING_COLORS, true)
-                startActivity(this)
-            }
-        }
     }
 }

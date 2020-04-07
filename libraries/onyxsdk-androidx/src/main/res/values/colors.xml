@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color_primary">@android:color/black</color>
+    <color name="color_primary_dark">@color/color_primary</color>
+    <color name="color_accent">@color/color_primary</color>
+    <color name="default_text_color">@color/color_primary</color>
+    <color name="default_background_color">@color/background_white</color>
+
     <color name="title_background">#FFE9E9E9</color>
     <color name="search_view_background">#55FFFFFF</color>
     <color name="read_menu_item_background_color">@android:color/white</color>

@@ -220,7 +220,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
 
             findItem(R.id.folder_view).isVisible = mShowAll
             findItem(R.id.open_camera).isVisible = mShowAll
-            findItem(R.id.about).isVisible = mShowAll
             findItem(R.id.create_new_folder).isVisible = !mShowAll && mPath != RECYCLE_BIN && mPath != FAVORITES
 
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
@@ -233,7 +232,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         }
 
         setupSearch(menu)
-        updateMenuItemColors(menu)
+        updateMenuItemColors(menu, baseColor = getActionbarColor())
         return true
     }
 
@@ -259,7 +258,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             R.id.reduce_column_count -> reduceColumnCount()
             R.id.slideshow -> startSlideshow()
             R.id.settings -> launchSettings()
-            R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -362,7 +360,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
                     mPath == config.OTGPath -> getString(R.string.usb)
                     else -> getHumanizedFilename(mPath)
                 }
-                updateActionBarTitle(if (mShowAll) resources.getString(R.string.all_folders) else dirName)
+                updateActionBarTitle(if (mShowAll) resources.getString(R.string.all_folders) else dirName, getActionbarColor())
                 getMedia()
                 setupLayoutManager()
             } else {

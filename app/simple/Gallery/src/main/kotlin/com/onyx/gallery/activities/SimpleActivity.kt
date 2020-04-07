@@ -3,6 +3,7 @@ package com.onyx.gallery.activities
 import android.annotation.SuppressLint
 import android.database.ContentObserver
 import android.net.Uri
+import android.os.Bundle
 import android.provider.MediaStore
 import android.view.WindowManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
@@ -16,8 +17,27 @@ import com.onyx.gallery.R
 import com.onyx.gallery.extensions.addPathToDB
 import com.onyx.gallery.extensions.config
 import com.onyx.gallery.extensions.updateDirectoryPath
+import com.simplemobiletools.commons.extensions.baseConfig
 
+@SuppressLint("Registered")
 open class SimpleActivity : BaseSimpleActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        useDynamicTheme = false
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!useDynamicTheme) {
+            updateActionbarColor(getActionbarColor())
+        }
+    }
+
+    open fun getActionbarColor(): Int {
+        return baseConfig.backgroundColor
+    }
+
     val observer = object : ContentObserver(null) {
         override fun onChange(selfChange: Boolean, uri: Uri) {
             super.onChange(selfChange, uri)

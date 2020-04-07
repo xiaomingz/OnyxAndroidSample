@@ -44,4 +44,17 @@
         android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_microphone_vector" />
 
+    <ImageView
+        android:id="@+id/recorder_list_button"
+        android:layout_width="@dimen/toggle_recording_button_size"
+        android:layout_height="@dimen/toggle_recording_button_size"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/big_margin"
+        android:layout_marginRight="@dimen/big_margin"
+        android:background="@drawable/circle_background"
+        android:elevation="@dimen/medium_margin"
+        android:padding="@dimen/normal_margin"
+        android:src="@drawable/ic_file_vector" />
+
 </RelativeLayout>

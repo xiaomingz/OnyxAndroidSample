@@ -18,6 +18,7 @@ package com.android.dialer.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -64,7 +65,8 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "DialerDatabaseHelper";
     private static final boolean DEBUG = false;
     private boolean mIsTestInstance = false;
-
+    public static final String ACTION_SMART_DIAL_UPDATED =
+            "com.android.dialer.database.ACTION_SMART_DIAL_UPDATED";
     private static DialerDatabaseHelper sSingleton = null;
 
     private static final Object mLock = new Object();
@@ -101,9 +103,6 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
         /** Database properties for internal use */
         static final String PROPERTIES = "properties";
     }
-
-    public static final Uri SMART_DIAL_UPDATED_URI =
-            Uri.parse("content://com.android.dialer/smart_dial_updated");
 
     public interface SmartDialDbColumns {
         static final String _ID = "id";
@@ -1066,7 +1065,9 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
             editor.commit();
 
             // Notify content observers that smart dial database has been updated.
-            mContext.getContentResolver().notifyChange(SMART_DIAL_UPDATED_URI, null, false);
+            Intent intent = new Intent(ACTION_SMART_DIAL_UPDATED);
+            intent.setPackage(mContext.getPackageName());
+            mContext.sendBroadcast(intent);
         }
     }
 
