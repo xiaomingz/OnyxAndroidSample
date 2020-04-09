@@ -184,11 +184,7 @@ public class TelecomManagerCompat {
      * resources which can be used in a user interface.
      *
      * @param telecomManager the {@link TelecomManager} used for method calls, if possible.
-<<<<<<< HEAD
-     * @param account The {@link PhoneAccountHandle}.
-=======
      * @param accountHandle The {@link PhoneAccountHandle}.
->>>>>>> 44c738e... refactor(dialer): upgrade to support androidx
      * @return The {@link PhoneAccount} object or null if it doesn't exist.
      */
     @Nullable
