@@ -7,6 +7,7 @@
         <item name="colorControlNormal">@color/color_primary</item>
         <!--Remove 1px shadow between status bar and window content-->
         <item name="android:windowContentOverlay">@android:color/transparent</item>
+        <item name="android:dropDownListViewStyle">@style/OnyxAppCompat.PopupMenuListView</item>
         <item name="popupMenuStyle">@style/OnyxAppCompat.ToolBar.Popup</item>
         <item name="android:textColorPrimary">@color/primary_text_device_default_light</item>
         <item name="android:textAppearance">@style/OnyxAppCompat.TextAppearance.Light</item>
@@ -39,7 +40,6 @@
         <!--Disable OverFlown Button(3-dot button)-->
         <item name="actionOverflowButtonStyle">@null</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:dropDownListViewStyle">@style/OnyxAppCompat.PopupMenuListView</item>
     </style>
 
     <style name="OnyxAppCompat.PreferenceFragment.Material" parent="PreferenceFragment.Material">
