@@ -44,11 +44,7 @@ public class PromoCardViewHolder extends RecyclerView.ViewHolder {
     private View mSecondaryActionView;
 
     /**
-<<<<<<< HEAD
-     * Creates an instance of the {@link ViewHolder}.
-=======
      * Creates an instance of the {@link RecyclerView.ViewHolder}.
->>>>>>> 44c738e... refactor(dialer): upgrade to support androidx
      *
      * @param rootView The root view.
      */
