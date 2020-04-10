@@ -22,12 +22,13 @@ import com.onyx.latinime.latin.utils.FragmentUtils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
 
 public final class SettingsActivity extends PreferenceActivity {
     private static final String DEFAULT_FRAGMENT = SettingsFragment.class.getName();

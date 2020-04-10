@@ -16,7 +16,8 @@
 
 package com.onyx.deskclock.deskclock.events;
 
-import android.support.annotation.StringRes;
+
+import androidx.annotation.StringRes;
 
 public interface EventTracker {
     /**

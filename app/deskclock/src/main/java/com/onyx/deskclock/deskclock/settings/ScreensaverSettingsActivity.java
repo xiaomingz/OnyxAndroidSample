@@ -20,10 +20,11 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.onyx.deskclock.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Settings for Clock Daydream

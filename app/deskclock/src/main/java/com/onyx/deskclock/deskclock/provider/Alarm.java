@@ -20,7 +20,6 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.RingtoneManager;
@@ -34,6 +33,8 @@ import com.onyx.deskclock.deskclock.data.DataModel;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+
+import androidx.loader.content.CursorLoader;
 
 public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     /**

@@ -21,10 +21,6 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.text.TextUtilsCompat;
-import android.support.v7.widget.AppCompatCheckBox;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
@@ -64,6 +60,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
+
+import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.text.TextUtilsCompat;
 
 /**
  * This activity allows the user to alter the cities selected for display.

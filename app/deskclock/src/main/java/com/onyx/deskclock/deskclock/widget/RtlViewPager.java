@@ -18,14 +18,15 @@ package com.onyx.deskclock.deskclock.widget;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v4.text.TextUtilsCompat;
-import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.Locale;
+
+import androidx.core.text.TextUtilsCompat;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * A {@link ViewPager} that's aware of RTL changes when used with FragmentPagerAdapter.
@@ -118,7 +119,7 @@ public final class RtlViewPager extends ViewPager {
     /**
      * Sets a {@link OnPageChangeListener}. The listener will be called when a page is selected.
      */
-    public void setOnRTLPageChangeListener(OnPageChangeListener listener) {
+    public void setOnRTLPageChangeListener(ViewPager.OnPageChangeListener listener) {
         mListener = listener;
     }
 }

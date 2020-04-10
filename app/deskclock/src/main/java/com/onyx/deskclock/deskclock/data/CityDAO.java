@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import com.onyx.deskclock.R;
@@ -34,6 +33,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.annotation.VisibleForTesting;
 
 /**
  * This class encapsulates the transfer of data between {@link City} domain objects and their

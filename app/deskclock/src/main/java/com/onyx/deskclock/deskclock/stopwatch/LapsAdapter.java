@@ -17,8 +17,6 @@
 package com.onyx.deskclock.deskclock.stopwatch;
 
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
-import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +30,9 @@ import com.onyx.deskclock.deskclock.data.Stopwatch;
 
 import java.text.DecimalFormatSymbols;
 import java.util.List;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Displays a list of lap times in reverse order. That is, the newest lap is at the top, the oldest

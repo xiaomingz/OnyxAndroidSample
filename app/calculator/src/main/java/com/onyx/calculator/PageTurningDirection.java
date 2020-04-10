@@ -1,9 +1,9 @@
 package com.onyx.calculator;
 
-import android.support.annotation.IntDef;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * Created by Joy on 14-2-21.

@@ -17,19 +17,23 @@
 package com.onyx.deskclock.deskclock;
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Base activity class that changes with window's background color dynamically based on the
  * current hour.
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
 
     /**
      * Key used to save/restore the current background color from the saved instance state.
@@ -59,6 +63,7 @@ public class BaseActivity extends Activity {
         final int backgroundColor = savedInstanceState == null ? currentColor
                 : savedInstanceState.getInt(KEY_BACKGROUND_COLOR, currentColor);
         setBackgroundColor(backgroundColor, false /* animate */);
+        configBarColor();
     }
 
     @Override
@@ -124,6 +129,15 @@ public class BaseActivity extends Activity {
             } else {
                 mBackground.setColor(color);
             }
+        }
+    }
+
+    private void configBarColor(){
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O_MR1){
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+            getWindow().setStatusBarColor(Color.WHITE);
+            getWindow().setNavigationBarColor(Color.WHITE);
         }
     }
 }

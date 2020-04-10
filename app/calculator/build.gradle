@@ -28,11 +28,9 @@ android {
     }
 
     android.applicationVariants.all { variant ->
-        variant.outputs.each { output ->
+        variant.outputs.all { output ->
             if (variant.buildType.name.equals("release")) {
-                def file = output.outputFile
-                def newName = "calculator-release.apk"
-                output.outputFile = new File(file.parent, newName)
+                outputFileName = "calculator-release.apk"
             }
         }
     }
@@ -54,9 +52,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.onyx.android.sdk:onyxsdk-appcompat:1.0.1'
-    compile "com.google.guava:guava:$rootProject.guavaVersion"
-    compile files('libs/arity-2.1.2.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation project(':libraries:onyxsdk-androidx')
+    implementation "com.google.guava:guava:$rootProject.guavaVersion"
+    implementation files('libs/arity-2.1.2.jar')
 }

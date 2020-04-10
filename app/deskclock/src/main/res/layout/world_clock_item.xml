@@ -38,6 +38,7 @@
             app:format12Hour="@string/world_clock_12_hours_format"
             app:format24Hour="@string/clock_24_hours_format"
             android:singleLine="true"
+            android:fontFamily="sans-serif-thin"
             android:textColor="@color/black"
             style="@style/medium_light" />
 <!--    API >= 17  <TextClock

@@ -23,7 +23,6 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +41,8 @@ import com.onyx.deskclock.deskclock.provider.AlarmInstance;
 import com.onyx.deskclock.deskclock.provider.DaysOfWeek;
 
 import java.util.HashSet;
+
+import androidx.appcompat.widget.AppCompatCheckBox;
 
 /**
  * A ViewHolder containing views for an alarm item in expanded stated.

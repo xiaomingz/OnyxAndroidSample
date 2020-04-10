@@ -19,10 +19,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.preference.RingtonePreference;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
 import com.onyx.deskclock.deskclock.data.DataModel;
+
+import androidx.annotation.NonNull;
 
 /**
  * A custom RingtonePreference that presents the application's default timer ringtone as the value

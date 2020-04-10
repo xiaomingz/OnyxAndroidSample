@@ -53,6 +53,7 @@
             android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="@dimen/main_clock_font_size"
+            android:fontFamily="sans-serif-thin"
             app:format12Hour="@string/alarm_time_12_hours_format"
             app:format24Hour="@string/clock_24_hours_format"/>
        <!-- API 17<TextClock

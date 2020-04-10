@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.NumberPicker;
@@ -14,6 +13,8 @@ import android.widget.TextView;
 
 import com.onyx.deskclock.deskclock.NumberPickerCompat;
 import com.onyx.deskclock.R;
+
+import androidx.annotation.NonNull;
 
 /**
  * A dialog preference that shows a number picker for selecting crescendo length
