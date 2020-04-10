@@ -94,10 +94,12 @@
 
     <style name="OnyxAppCompat.TextAppearance.Light.PopupMenu.Large" parent="TextAppearance.AppCompat.Light.Widget.PopupMenu.Large">
         <item name="android:textColor">@color/primary_text_device_default_light</item>
+        <item name="android:textSize">@dimen/menu_text_size_large</item>
     </style>
 
     <style name="OnyxAppCompat.TextAppearance.Light.PopupMenu.Small" parent="TextAppearance.AppCompat.Light.Widget.PopupMenu.Small">
         <item name="android:textColor">@color/primary_text_device_default_light</item>
+        <item name="android:textSize">@dimen/menu_text_size_small</item>
     </style>
 
     <style name="OnyxAppCompat.PopupMenuListView" parent="@style/Widget.AppCompat.ListView.DropDown">
