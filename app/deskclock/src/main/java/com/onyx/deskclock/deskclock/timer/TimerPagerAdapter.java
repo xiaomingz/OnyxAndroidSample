@@ -16,11 +16,6 @@
 
 package com.onyx.deskclock.deskclock.timer;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.support.v13.app.FragmentCompat;
-import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +26,11 @@ import com.onyx.deskclock.deskclock.data.TimerListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
 
 /**
  * This adapter produces a {@link TimerItemFragment} for each timer.
@@ -178,7 +178,7 @@ class TimerPagerAdapter extends PagerAdapter implements TimerListener {
     }
 
     private static void setItemVisible(Fragment item, boolean visible) {
-        FragmentCompat.setMenuVisibility(item, visible);
-        FragmentCompat.setUserVisibleHint(item, visible);
+        item.setMenuVisibility(visible);
+        item.setUserVisibleHint(visible);
     }
 }

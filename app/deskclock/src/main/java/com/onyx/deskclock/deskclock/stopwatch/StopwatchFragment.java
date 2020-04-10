@@ -23,9 +23,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.SystemClock;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +37,10 @@ import com.onyx.deskclock.deskclock.data.Lap;
 import com.onyx.deskclock.deskclock.data.Stopwatch;
 import com.onyx.deskclock.deskclock.events.Events;
 import com.onyx.deskclock.deskclock.timer.CountingTimerView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static android.content.Context.POWER_SERVICE;

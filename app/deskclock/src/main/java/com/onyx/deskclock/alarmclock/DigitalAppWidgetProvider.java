@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -42,6 +41,8 @@ import com.onyx.deskclock.deskclock.data.DataModel;
 import com.onyx.deskclock.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "DigAppWidgetProvider";

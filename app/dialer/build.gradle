@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.android.dialer"
+        minSdkVersion 24
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            variant.outputs.all { output ->
+                if (variant.buildType.name.equals("release")) {
+                    outputFileName = "dialer-release.apk"
+                }
+            }
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation project(':libraries:dialer-phone')
+    implementation project(':libraries:dialer-contacts')
+    implementation project(':libraries:onyx-phonecloud')
+
+    implementation 'androidx.core:core:1.2.0'
+    implementation 'androidx.fragment:fragment:1.2.3'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
+
+    implementation 'androidx.test:runner:1.2.0'
+    implementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

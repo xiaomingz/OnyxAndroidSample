@@ -29,7 +29,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.v4.app.NotificationManagerCompat;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
@@ -48,6 +47,8 @@ import com.onyx.deskclock.deskclock.settings.SettingsActivity;
 
 import java.util.Calendar;
 import java.util.List;
+
+import androidx.core.app.NotificationManagerCompat;
 
 /**
  * This class handles all the state changes for alarm instances. You need to
@@ -463,6 +464,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Instance not valid anymore, so find next alarm that will fire and notify system
         updateNextAlarm(context);
+
     }
 
     /**
@@ -1002,7 +1004,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (Build.VERSION.SDK_INT >= 19){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 am.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
             } else {
                 am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);

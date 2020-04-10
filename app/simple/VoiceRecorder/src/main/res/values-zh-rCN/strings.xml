@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_launcher_name">录音机</string>
+    <string name="audio_recorder">录音记录</string>
+    <string name="content_is_empty">内容为空</string>
+</resources>

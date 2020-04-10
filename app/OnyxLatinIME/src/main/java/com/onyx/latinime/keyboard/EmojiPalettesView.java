@@ -26,8 +26,6 @@ import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -58,6 +56,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * View class to implement Emoji palettes.
@@ -450,6 +451,7 @@ public final class EmojiPalettesView extends LinearLayout implements OnTabChange
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         mTabHost = (TabHost)findViewById(R.id.emoji_category_tabhost);
         mTabHost.setup();
         for (final CategoryProperties properties : mEmojiCategory.getShownCategories()) {

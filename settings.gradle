@@ -1,1 +1,15 @@
-include ':app:sample', ':app:calculator', ':app:OnyxLatinIME', ':app:music', ':app:deskclock'
+include ':app:calculator',
+        ':app:OnyxLatinIME',
+        ':app:music',
+        ':app:deskclock',
+        ':app:dialer',
+        ':app:simple:Gallery',
+        ':app:simple:VoiceRecorder',
+        ":app:simple:Calculator",
+        ":app:simple:Music",
+        ":app:simple:Clock",
+        ':libraries:onyxsdk-androidx',
+        ':libraries:dialer-phone',
+        ':libraries:dialer-common',
+        ':libraries:onyx-phonecloud',
+        ':libraries:dialer-contacts'

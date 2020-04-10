@@ -16,9 +16,10 @@
 package com.onyx.deskclock.deskclock.events;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
 
 import com.onyx.deskclock.deskclock.LogUtils;
+
+import androidx.annotation.StringRes;
 
 public final class LogEventTracker implements EventTracker {
 

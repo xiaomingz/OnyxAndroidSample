@@ -15,7 +15,7 @@
   ~ limitations under the License
   -->
 
-<android.support.v7.widget.AppCompatCheckBox
+<androidx.appcompat.widget.AppCompatCheckBox
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="0dp"
     android:layout_height="48dp"

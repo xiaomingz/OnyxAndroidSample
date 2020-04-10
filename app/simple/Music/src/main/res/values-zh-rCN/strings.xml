@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">简易音乐</string>
+    <string name="app_launcher_name">简易音乐</string>
+    <string name="playlist_empty">你的播放列表是空白的</string>
+    <string name="rename_song">重新命名歌曲</string>
+    <string name="rename_song_error">重新命名时发生错误</string>
+    <string name="rename_song_empty">请填入全部字段</string>
+    <string name="enable_song_repetition">回放当前歌曲</string>
+    <string name="disable_song_repetition">停止回放当前歌曲</string>
+    <string name="song_repetition_enabled">当前歌曲回放已启用</string>
+    <string name="song_repetition_disabled">当前歌曲回放已停用</string>
+    <string name="enable_shuffle">启用随机</string>
+    <string name="disable_shuffle">停用随机</string>
+    <string name="shuffle_enabled">随机已启用</string>
+    <string name="shuffle_disabled">随机已停用</string>
+    <string name="enable_autoplay">启用自动播放</string>
+    <string name="disable_autoplay">停用自动播放</string>
+    <string name="autoplay_enabled">自动播放已启用</string>
+    <string name="autoplay_disabled">自动播放已停用</string>
+    <string name="sleep_timer">睡眠定时器</string>
+
+    <string name="previous">上一首</string>
+    <string name="playpause">播放 / 暂停</string>
+    <string name="next">下一首</string>
+
+    <!-- Playlists -->
+    <string name="add_file_to_playlist">添加档案到播放列表</string>
+    <string name="add_folder_to_playlist">添加文件夹到播放列表</string>
+    <string name="manage_playlists">管理播放列表</string>
+    <string name="playlists">播放列表</string>
+    <string name="create_playlist">建立播放列表</string>
+    <string name="rename_playlist">重新命名播放列表</string>
+    <string name="playlist_name_exists">已经存在这名称的播放列表</string>
+    <string name="remove_playlist">移除播放列表</string>
+    <string name="remove_playlist_description">这只会移除选择的播放列表，而不是实际档案。</string>
+    <string name="remove_playlist_description_placeholder">这只会移除播放列表\"%s\"，而不是实际档案。</string>
+    <string name="remove_from_playlist">从播放列表移除</string>
+    <string name="remove_from_playlist_description">这只会从播放列表\"%s\"移除项目，实际档案并不会被删除。</string>
+    <string name="delete_the_files_too">也删除档案</string>
+    <string name="open_playlist">开启播放列表</string>
+    <string name="all_songs_cannot_be_deleted">播放列表\'全部歌曲\'不能被删除</string>
+    <string name="empty_playlist">当前播放列表是空白的</string>
+    <string name="fetching_songs">正在获取歌曲…</string>
+    <string name="all_songs">全部歌曲</string>
+    <string name="create_playlist_from_folder">从文件夹建立新的播放列表</string>
+    <string name="folder_contains_no_audio">所选文件夹不包含音讯档案</string>
+    <string name="delete_current_song">删除当前歌曲</string>
+    <string name="remove_current_song">从播放列表移除当前歌曲</string>
+    <string name="show_filename">显示档案名称作为歌名</string>
+    <string name="title_is_not_available">如果标题不可用</string>
+    <string name="show_album_cover">在主画面显示专辑封面</string>
+
+    <!-- Settings -->
+    <string name="equalizer">等化器</string>
+    <string name="swap_prev_next">交换耳机按钮的 上一首/下一首</string>
+
+    <!-- FAQ -->
+    <string name="faq_1_title">我如何快转歌曲?</string>
+    <string name="faq_1_text">你可以点击进度条附近的当前或总时长文字，歌曲就会快进或倒退。</string>
+</resources>

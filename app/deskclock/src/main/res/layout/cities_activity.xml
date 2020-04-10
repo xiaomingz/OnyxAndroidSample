@@ -19,7 +19,7 @@
     android:layout_height="match_parent"
     android:layout_width="wrap_content">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/alarm_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -39,7 +39,7 @@
                 android:layout_toRightOf="@+id/imageView_back"
                 android:text="@string/menu_clock" />
         </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
 
     <ListView

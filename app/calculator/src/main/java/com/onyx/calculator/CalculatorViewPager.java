@@ -17,8 +17,9 @@
 package com.onyx.calculator;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+
+import androidx.viewpager.widget.ViewPager;
 
 public class CalculatorViewPager extends ViewPager {
     public CalculatorViewPager(Context context) {

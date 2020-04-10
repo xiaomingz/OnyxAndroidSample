@@ -22,18 +22,18 @@
         <ImageView android:id="@+id/icon"
             android:layout_centerInParent="true"
             android:layout_alignParentLeft="true"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/track_list_item_icon_size"
+            android:layout_height="@dimen/track_list_item_icon_size"
             android:background="@android:color/white"
-            android:layout_height="wrap_content"
             android:src="@drawable/ic_music_singer_cd" />
 
         <ImageView android:id="@+id/pack_up"
             android:layout_toRightOf ="@id/icon"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/track_list_item_common_ImageView_packup_marginBottom"
-            android:layout_width="wrap_content"
             android:background="@android:color/white"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:src="@drawable/ic_music_pack_up"
             android:visibility="gone" />
 
@@ -41,9 +41,9 @@
             android:layout_toRightOf ="@id/icon"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/track_list_item_common_ImageView_packup_marginBottom"
-            android:layout_width="wrap_content"
             android:background="@android:color/white"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:src="@drawable/ic_music_unfold"
             android:visibility="gone" />
 
@@ -98,13 +98,7 @@
             android:layout_below="@id/duration"
             android:layout_marginTop="10dip"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/now_playing_icon_size"
+            android:layout_height="@dimen/now_playing_icon_size"
             android:layout_marginRight="@dimen/track_list_item_common_play_indicator_layout_marginRight"/>
-
-
-
-
-
-
 </merge>

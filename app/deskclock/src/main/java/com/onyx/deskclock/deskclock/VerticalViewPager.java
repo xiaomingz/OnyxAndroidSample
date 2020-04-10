@@ -17,13 +17,14 @@
 package com.onyx.deskclock.deskclock;
 
 import android.content.Context;
-import android.support.v4.view.ViewConfigurationCompat;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewParent;
+
+import androidx.core.view.ViewConfigurationCompat;
+import androidx.viewpager.widget.ViewPager;
 
 public class VerticalViewPager extends ViewPager {
     // TODO Remove the hack of using a parent view pager
@@ -35,7 +36,7 @@ public class VerticalViewPager extends ViewPager {
     private boolean mHorizontalDrag;
 
     // Vertical transit page transformer
-    private final PageTransformer mPageTransformer = new PageTransformer() {
+    private final ViewPager.PageTransformer mPageTransformer = new PageTransformer() {
         @Override
         public void transformPage(View view, float position) {
             final int pageWidth = view.getWidth();

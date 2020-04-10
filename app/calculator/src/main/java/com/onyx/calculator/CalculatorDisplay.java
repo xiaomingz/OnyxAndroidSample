@@ -19,7 +19,6 @@ package com.onyx.calculator;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.annotation.IntDef;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spanned;
@@ -32,6 +31,8 @@ import android.widget.ViewSwitcher;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 
 /**
  * Provides vertical scrolling for the input/result EditText.
