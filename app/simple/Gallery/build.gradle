@@ -54,8 +54,7 @@ android {
 }
 
 dependencies {
-    implementation project(':libraries:onyxsdk-androidx')
-    implementation 'com.simplemobiletools:commons:5.24.5'
+    implementation project(':libraries:simple-commons')
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'it.sephiroth.android.exif:library:1.0.1'
