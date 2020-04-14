@@ -1,16 +1,6 @@
 <resources>
 
     <style name="AppTheme.Base" parent="@style/OnyxAppCompat.ActionBar">
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="colorAccent">@color/color_accent</item>
-        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
-        <item name="spinnerDropDownItemStyle">@style/SpinnerItem.DropDownItem</item>
-        <item name="android:spinnerDropDownItemStyle">@style/SpinnerItem.DropDownItem</item>
-        <item name="buttonStyle">@style/MyTransparentButton</item>
-        <item name="android:buttonStyle">@style/MyTransparentButton</item>
-        <item name="android:itemBackground">@color/default_background_color</item>
-        <item name="android:textColor">@color/default_text_color</item>
     </style>
 
     <style name="SplashTheme" parent="@style/OnyxAppCompat">
