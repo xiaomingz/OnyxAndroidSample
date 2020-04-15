@@ -44,8 +44,7 @@ android {
 }
 
 dependencies {
-    implementation project(':libraries:onyxsdk-androidx')
-    implementation 'com.simplemobiletools:commons:5.24.5'
+    implementation project(':libraries:simple-commons')
     implementation 'com.squareup:otto:1.3.8'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.media:media:1.1.0'
