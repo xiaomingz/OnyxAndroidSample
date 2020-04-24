@@ -1,5 +1,5 @@
 <resources>
-    <dimen name="alarm_day_size">38dp</dimen>
+    <dimen name="alarm_day_size">37dp</dimen>
     <dimen name="stopwatch_button_small_size">60dp</dimen>
     <dimen name="stopwatch_button_size">64dp</dimen>
     <dimen name="reminder_background_min_size">70dp</dimen>
