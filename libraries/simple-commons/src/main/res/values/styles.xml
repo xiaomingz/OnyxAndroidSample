@@ -35,16 +35,10 @@
         <item name="android:background">@drawable/transparent_button</item>
     </style>
 
-    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/color_primary</item>
-        <item name="android:windowBackground">@color/theme_light_background_color</item>
-        <item name="android:textColor">@color/theme_light_text_color</item>
-    </style>
+    <style name="MyDialogTheme" parent="@style/OnyxAppCompat.AlertDialog" />
 
-    <style name="MyDialogTheme.Dark" parent="@style/OnyxAppCompat.AlertDialog">
+    <style name="MyDialogTheme.Dark" parent="@style/MyDialogTheme">
         <item name="colorAccent">@color/color_primary</item>
-        <item name="android:windowBackground">@color/theme_dark_background_color</item>
-        <item name="android:textColor">@color/theme_dark_text_color</item>
     </style>
 
     <style name="Theme.Transparent" parent="@style/OnyxAppCompat">

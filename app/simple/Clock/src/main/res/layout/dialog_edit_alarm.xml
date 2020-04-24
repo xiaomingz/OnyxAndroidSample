@@ -27,6 +27,8 @@
             android:layout_below="@+id/edit_alarm_time"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_marginBottom="@dimen/medium_margin"
+            android:showDividers="middle"
+            android:divider="@drawable/linearlayout_space_divider"
             android:orientation="horizontal"/>
 
         <RelativeLayout
