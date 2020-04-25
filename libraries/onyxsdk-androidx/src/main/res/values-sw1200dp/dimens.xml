@@ -2,4 +2,7 @@
 <resources>
     <dimen name="global_activities_back_btn_category_tittle_max_width">645dp</dimen>
     <dimen name="settings_title_text_size">25sp</dimen>
+    <dimen name="material_toolbar_title_text_size_title">26sp</dimen>
+    <dimen name="menu_text_size_large">32sp</dimen>
+    <dimen name="menu_text_size_small">28sp</dimen>
 </resources>
