@@ -2,4 +2,12 @@
 
     <style name="AppTheme" parent="@style/OnyxAppCompat.ActionBar"/>
 
+    <style name="CompatRadioButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/medium_margin</item>
+        <item name="android:paddingBottom">@dimen/medium_margin</item>
+        <item name="android:textSize">@dimen/normal_text_size</item>
+    </style>
+
 </resources>
