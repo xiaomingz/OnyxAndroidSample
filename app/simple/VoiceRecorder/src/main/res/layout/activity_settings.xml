@@ -30,6 +30,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/try_hiding_notification"
+                android:textSize="@dimen/smaller_text_size"
                 app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>

@@ -133,14 +133,14 @@ class MainActivity : SimpleActivity() {
 
         val tabToOpen = intent.getIntExtra(OPEN_TAB, config.lastUsedViewPagerPage)
         intent.removeExtra(OPEN_TAB)
-        view_pager.currentItem = tabToOpen
+        view_pager.setCurrentItem(tabToOpen, false)
         view_pager.offscreenPageLimit = TABS_COUNT - 1
         main_tabs_holder.onTabSelectionChanged(
                 tabUnselectedAction = {
                     it.icon?.applyColorFilter(config.textColor)
                 },
                 tabSelectedAction = {
-                    view_pager.currentItem = it.position
+                    view_pager.setCurrentItem(it.position, false)
                     it.icon?.applyColorFilter(getAdjustedPrimaryColor())
                 }
         )

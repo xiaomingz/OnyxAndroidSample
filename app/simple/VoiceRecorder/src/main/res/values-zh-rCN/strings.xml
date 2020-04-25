@@ -2,4 +2,8 @@
     <string name="app_launcher_name">录音机</string>
     <string name="audio_recorder">录音记录</string>
     <string name="content_is_empty">内容为空</string>
+
+    <!-- Settings -->
+    <string name="try_hiding_notification">尝试关闭状态栏录音通知</string>
+    <string name="recording_saved_successfully">录音成功保存到\n\"%s\"</string>
 </resources>

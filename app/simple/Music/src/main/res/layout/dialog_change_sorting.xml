@@ -21,34 +21,22 @@
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingTop="@dimen/medium_margin"
+                style="@style/CompatRadioButtonStyle"
                 android:text="@string/title"/>
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_artist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingTop="@dimen/medium_margin"
+                style="@style/CompatRadioButtonStyle"
                 android:text="@string/artist"/>
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_path"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingTop="@dimen/medium_margin"
-                android:text="@string/path"/>
+                style="@style/CompatRadioButtonStyle"
+                android:text="@string/path" />
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_duration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingTop="@dimen/medium_margin"
+                style="@style/CompatRadioButtonStyle"
                 android:text="@string/duration"/>
         </RadioGroup>
 
@@ -66,19 +54,13 @@
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_ascending"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingTop="@dimen/medium_margin"
-                android:text="@string/ascending"/>
+                style="@style/CompatRadioButtonStyle"
+                android:text="@string/ascending" />
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_descending"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
-                android:paddingTop="@dimen/medium_margin"
-                android:text="@string/descending"/>
+                style="@style/CompatRadioButtonStyle"
+                android:text="@string/descending" />
         </RadioGroup>
     </LinearLayout>
 </ScrollView>

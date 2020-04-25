@@ -41,7 +41,7 @@
             android:icon="@drawable/ic_timer"/>
     </com.google.android.material.tabs.TabLayout>
 
-    <com.duolingo.open.rtlviewpager.RtlViewPager
+    <com.onyx.android.appcompat.common.view.PageViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
