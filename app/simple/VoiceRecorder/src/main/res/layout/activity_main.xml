@@ -15,12 +15,12 @@
         android:layout_marginEnd="@dimen/activity_margin"
         android:layout_marginBottom="@dimen/activity_margin"
         app:chunkAlignTo="center"
-        app:chunkMaxHeight="200dp"
-        app:chunkMinHeight="2dp"
+        app:chunkMaxHeight="@dimen/chunk_max_height"
+        app:chunkMinHeight="@dimen/chunk_min_height"
         app:chunkRoundedCorners="true"
         app:chunkSoftTransition="true"
-        app:chunkSpace="1dp"
-        app:chunkWidth="3dp" />
+        app:chunkSpace="@dimen/chunk_space"
+        app:chunkWidth="@dimen/chunk_width" />
 
     <TextView
         android:id="@+id/recording_duration"

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="toggle_recording_button_size">64dp</dimen>
+    <dimen name="chunk_max_height">200dp</dimen>
+    <dimen name="chunk_min_height">2dp</dimen>
+    <dimen name="chunk_space">1dp</dimen>
+    <dimen name="chunk_width">3dp</dimen>
 </resources>
