@@ -33,6 +33,7 @@
         <item name="buttonStyle">@style/OnyxAppCompat.ButtonStyle</item>
         <item name="dialogTheme">@style/OnyxAppCompat.Light.Dialog</item>
         <item name="actionBarStyle">@style/OnyxActionBarStyle</item>
+        <item name="colorControlHighlight">@android:color/transparent</item>
     </style>
 
     <style name="OnyxAppCompat" parent="OnyxAppCompat.ActionBar">
