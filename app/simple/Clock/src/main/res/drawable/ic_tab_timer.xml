@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/tab_item_icon_size"
+    android:height="@dimen/tab_item_icon_size"
+    android:viewportWidth="70"
+    android:viewportHeight="70">
+
+    <path
+        android:fillColor="#000000"
+        android:pathData="M9.2,0 L60.9,0 C61.7,0,62.4,0.7,62.4,1.5 L62.4,1.5 C62.4,2.3,61.7,3,60.9,3 L9.2,3 C8.3,3,7.7,2.3,7.7,1.5 L7.7,1.5 C7.7,0.7,8.3,0,9.2,0 Z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M9.2,67 L60.9,67 C61.7,67,62.4,67.7,62.4,68.5 L62.4,68.5 C62.4,69.3,61.7,70,60.9,70 L9.2,70 C8.4,70,7.7,69.3,7.7,68.5 L7.7,68.5 C7.7,67.7,8.3,67,9.2,67 Z" />
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="3"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M55,2.1 C55,20.3,46,35,35,35 S15,20.3,15,2.1" />
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="3"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M14.9,67.9 C14.9,49.7,23.9,35,34.9,35 S54.9,49.7,54.9,67.9" />
+</vector>
