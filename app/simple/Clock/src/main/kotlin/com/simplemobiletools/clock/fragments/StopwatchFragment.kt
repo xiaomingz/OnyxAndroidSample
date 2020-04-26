@@ -26,7 +26,7 @@ import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import kotlinx.android.synthetic.main.fragment_stopwatch.view.*
 
 class StopwatchFragment : Fragment() {
-    private val UPDATE_INTERVAL = 10L
+    private var UPDATE_INTERVAL = 10L
     private val WAS_RUNNING = "was_running"
     private val TOTAL_TICKS = "total_ticks"
     private val CURRENT_TICKS = "current_ticks"
@@ -49,6 +49,11 @@ class StopwatchFragment : Fragment() {
 
     lateinit var stopwatchAdapter: StopwatchAdapter
     lateinit var view: ViewGroup
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        UPDATE_INTERVAL = requireContext().getInteger(R.integer.tick_update_interval).toLong()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         storeStateVariables()
