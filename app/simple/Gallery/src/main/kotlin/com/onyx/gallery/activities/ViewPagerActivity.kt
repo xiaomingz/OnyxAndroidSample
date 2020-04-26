@@ -412,7 +412,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
             view_pager.apply {
                 adapter = pagerAdapter
                 pagerAdapter.shouldInitFragment = true
-                currentItem = mPos
+                setCurrentItem(mPos, false)
                 removeOnPageChangeListener(this@ViewPagerActivity)
                 addOnPageChangeListener(this@ViewPagerActivity)
             }
