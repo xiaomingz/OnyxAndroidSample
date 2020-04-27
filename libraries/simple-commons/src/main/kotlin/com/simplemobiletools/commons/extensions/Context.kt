@@ -737,3 +737,5 @@ val Context.realScreenSize: Point
         windowManager.defaultDisplay.getRealSize(size)
         return size
     }
+
+fun Context.getInteger(resId: Int) = resources.getInteger(resId)

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/tab_item_icon_size"
+    android:height="@dimen/tab_item_icon_size"
+    android:viewportWidth="70"
+    android:viewportHeight="70">
+
+  <path
+      android:fillColor="#000000"
+      android:pathData="M24.4,0 L45.6,0 C46.4,0,47.1,0.7,47.1,1.5 L47.1,1.5 C47.1,2.3,46.4,3,45.6,3 L24.4,3 C23.6,3,22.9,2.3,22.9,1.5 L22.9,1.5 C22.9,0.7,23.6,0,24.4,0 Z" />
+  <path
+      android:fillColor="#000000"
+      android:pathData="M33.5,1.8 L36.5,1.8 L36.5,10.2 L33.5,10.2 L33.5,1.8 Z" />
+  <path
+      android:fillColor="#000000"
+      android:pathData="M35,11.5 C50.3,11.5,62.7,23.9,62.7,39.2 S50.3,67,35,67 S7.3,54.6,7.3,39.3 C7.3,24,19.7,11.6,35,11.5 M35,8.5 C18,8.5,4.3,22.3,4.3,39.3 S18,70,35,70 S65.7,56.2,65.7,39.3 S52,8.5,35,8.5 L35,8.5 Z" />
+  <path
+      android:strokeColor="#000000"
+      android:strokeWidth="3"
+      android:strokeLineJoin="round"
+      android:strokeLineCap="round"
+      android:pathData="M35,24.1 L35,40.3" />
+  <path
+      android:strokeColor="#000000"
+      android:strokeWidth="3"
+      android:strokeLineJoin="round"
+      android:strokeLineCap="round"
+      android:pathData="M50.5,40.6 L35,40.6" />
+</vector>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/tab_item_icon_size"
+    android:height="@dimen/tab_item_icon_size"
+    android:viewportHeight="70"
+    android:viewportWidth="70">
+
+    <path
+        android:pathData="M35.2,14.9 L35.2,32.2"
+        android:strokeColor="#000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3" />
+    <path
+        android:pathData="M35.2,35 L44.8,44.7"
+        android:strokeColor="#000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M35.2,31.7 C37.0225,31.7,38.5,33.1775,38.5,35 C38.5,36.8225,37.0225,38.3,35.2,38.3 C33.3775,38.3,31.9,36.8225,31.9,35 C31.9,33.1775,33.3775,31.7,35.2,31.7 Z"
+        android:strokeColor="#000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="2" />
+    <path
+        android:pathData="M35.2,1.5 C53.7015,1.5,68.7,16.4985,68.7,35 C68.7,53.5015,53.7015,68.5,35.2,68.5 C16.6985,68.5,1.7,53.5015,1.7,35 C1.7,16.4985,16.6985,1.5,35.2,1.5 Z"
+        android:strokeColor="#000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="3" />
+</vector>
