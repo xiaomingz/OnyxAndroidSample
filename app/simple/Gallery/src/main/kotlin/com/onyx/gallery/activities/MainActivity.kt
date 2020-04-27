@@ -109,16 +109,9 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
 
         directories_refresh_layout.setOnRefreshListener { getDirectories() }
         storeStateVariables()
-        ShowWhatsNewDialogAction(true).execute(this);
 
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
         setupLatestMediaId()
-
-        // notify some users about the Clock app
-        /*if (System.currentTimeMillis() < 1523750400000 && !config.wasNewAppShown && config.appRunCount > 100 && config.appRunCount % 50 != 0 && !isPackageInstalled(NEW_APP_PACKAGE)) {
-            config.wasNewAppShown = true
-            NewAppDialog(this, NEW_APP_PACKAGE, "Simple Clock")
-        }*/
 
         if (!config.wereFavoritesPinned) {
             config.addPinnedFolders(hashSetOf(FAVORITES))
