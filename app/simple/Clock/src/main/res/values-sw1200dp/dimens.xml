@@ -21,4 +21,5 @@
     <dimen name="reminder_activity_text_size">26sp</dimen>
     <dimen name="tab_layout_height">118dp</dimen>
     <dimen name="tab_item_icon_size">56dp</dimen>
+    <dimen name="time_zone_layout_height">960dp</dimen>
 </resources>

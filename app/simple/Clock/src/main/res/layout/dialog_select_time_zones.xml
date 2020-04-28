@@ -9,9 +9,9 @@
     <com.simplemobiletools.commons.views.MyRecyclerView
         android:id="@+id/select_time_zones_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/time_zone_layout_height"
         android:clipToPadding="false"
         android:scrollbars="vertical"
-        app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager"/>
+        app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
 
 </RelativeLayout>

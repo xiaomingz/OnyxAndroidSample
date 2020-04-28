@@ -817,9 +817,9 @@ fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0,
         view.setColors(baseConfig.textColor, getAdjustedPrimaryColor(), baseConfig.backgroundColor)
     }
 
-    var title: TextView? = null
+    var title: ViewGroup? = null
     if (titleId != 0 || titleText.isNotEmpty()) {
-        title = layoutInflater.inflate(R.layout.dialog_title, null) as TextView
+        title = layoutInflater.inflate(R.layout.dialog_title, null) as ViewGroup
         title.dialog_title_textview.apply {
             if (titleText.isNotEmpty()) {
                 text = titleText
@@ -827,6 +827,9 @@ fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0,
                 setText(titleId)
             }
             setTextColor(baseConfig.textColor)
+        }
+        title.close.setOnClickListener {
+            dialog.dismiss()
         }
     }
 
