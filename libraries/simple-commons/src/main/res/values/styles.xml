@@ -1620,4 +1620,19 @@
         <item name="android:textColorPrimary">@color/theme_light_background_color</item>
     </style>
 
+    <style name="FloatingBtnStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">@dimen/activity_margin</item>
+        <item name="android:src">@drawable/ic_plus_vector</item>
+        <item name="elevation">0dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="borderWidth">0dp</item>
+        <item name="pressedTranslationZ">0dp</item>
+        <item name="fabCustomSize">@dimen/fb_size</item>
+        <item name="maxImageSize">@dimen/fb_size</item>
+    </style>
+
 </resources>
