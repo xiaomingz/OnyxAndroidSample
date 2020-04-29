@@ -1624,7 +1624,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">bottom|end</item>
-        <item name="android:layout_margin">@dimen/activity_margin</item>
+        <item name="android:layout_margin">@dimen/fb_margin</item>
         <item name="android:src">@drawable/ic_plus_vector</item>
         <item name="elevation">0dp</item>
         <item name="backgroundTint">@android:color/transparent</item>
