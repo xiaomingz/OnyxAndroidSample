@@ -43,7 +43,8 @@
     <dimen name="big_text_size">18sp</dimen>
     <dimen name="actionbar_text_size">20sp</dimen>
     <dimen name="extra_big_text_size">22sp</dimen>
-    <dimen name="fb_size">24dp</dimen>
+    <dimen name="vector_icon_size">24dp</dimen>
+    <dimen name="fb_size">@dimen/vector_icon_size</dimen>
     <dimen name="fb_margin">@dimen/activity_margin</dimen>
     <dimen name="dialog_title_padding">15dp</dimen>
     <dimen name="dialog_min_width">300dp</dimen>

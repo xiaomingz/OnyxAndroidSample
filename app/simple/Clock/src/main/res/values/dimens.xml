@@ -28,4 +28,8 @@
     <dimen name="analog_clock_minutes_stoke_width">4dp</dimen>
     <dimen name="analog_clock_second_stoke_width">2dp</dimen>
     <dimen name="analog_clock_text_width">@dimen/normal_text_size</dimen>
+    <dimen name="stopwatch_layout_size">220dp</dimen>
+    <dimen name="stopwatch_stoke">2dp</dimen>
+    <dimen name="stopwatch_circle">3dp</dimen>
+    <dimen name="stopwatch_point_radius">15dp</dimen>
 </resources>

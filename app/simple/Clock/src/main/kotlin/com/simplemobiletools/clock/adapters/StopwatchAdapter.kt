@@ -73,7 +73,7 @@ class StopwatchAdapter(activity: SimpleActivity, var laps: ArrayList<Lap>, recyc
                 itemClick(SORT_BY_LAP)
             }
 
-            lap_lap_time.text = lap.lapTime.formatStopwatchTime(false)
+            lap_lap_time.text = "+${lap.lapTime.formatStopwatchTime(false)}"
             lap_lap_time.setTextColor(textColor)
             lap_lap_time.setOnClickListener {
                 itemClick(SORT_BY_LAP_TIME)

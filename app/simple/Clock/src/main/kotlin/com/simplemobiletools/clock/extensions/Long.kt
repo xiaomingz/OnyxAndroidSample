@@ -24,7 +24,7 @@ fun Long.formatStopwatchTime(useLongerMSFormat: Boolean): String {
             String.format(format, minutes, seconds, ms)
         }
         else -> {
-            val format = "%d.$MSFormat"
+            val format = "%02d.$MSFormat"
             String.format(format, seconds, ms)
         }
     }
