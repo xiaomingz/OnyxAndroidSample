@@ -118,4 +118,9 @@ class StopwatchView : View {
     fun resume() {
         running()
     }
+
+    fun update(value: Float) {
+        progressValue = value
+        invalidate()
+    }
 }
