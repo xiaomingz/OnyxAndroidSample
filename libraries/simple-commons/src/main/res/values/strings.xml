@@ -429,6 +429,7 @@
     <string name="dismiss">Dismiss</string>
     <string name="no_reminder">No reminder</string>
     <string name="at_start">At start</string>
+    <string name="select_alarm_sound">Select alarm sound</string>
     <string name="system_sounds">System sounds</string>
     <string name="your_sounds">Your sounds</string>
     <string name="add_new_sound">Add a new sound</string>

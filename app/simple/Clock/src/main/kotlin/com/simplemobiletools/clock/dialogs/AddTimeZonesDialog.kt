@@ -14,12 +14,11 @@ class AddTimeZonesDialog(val activity: SimpleActivity, private val callback: () 
 
     init {
         view.select_time_zones_list.adapter = SelectTimeZonesAdapter(activity, getAllTimeZones())
-
         AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-                    activity.setupDialogStuff(view, this)
+                    activity.setupDialogStuff(view, this, R.string.select_time_zone)
                 }
     }
 

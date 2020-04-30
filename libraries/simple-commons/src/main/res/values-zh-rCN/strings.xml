@@ -397,6 +397,7 @@
     <string name="dismiss">关闭</string>
     <string name="no_reminder">不再提醒</string>
     <string name="at_start">开始时</string>
+    <string name="select_alarm_sound">选择铃音</string>
     <string name="system_sounds">系统铃声</string>
     <string name="your_sounds">你的铃声</string>
     <string name="add_new_sound">添加新的铃声</string>
