@@ -6,12 +6,14 @@ import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.onyx.android.sdk.device.Device
 import com.simplemobiletools.clock.R
 import com.simplemobiletools.clock.activities.SimpleActivity
 import com.simplemobiletools.clock.adapters.StopwatchAdapter
@@ -23,6 +25,7 @@ import com.simplemobiletools.clock.helpers.SORT_BY_TOTAL_TIME
 import com.simplemobiletools.clock.models.Lap
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
+import kotlinx.android.synthetic.main.fragment_stopwatch.*
 import kotlinx.android.synthetic.main.fragment_stopwatch.view.*
 
 class StopwatchFragment : Fragment() {
@@ -188,10 +191,9 @@ class StopwatchFragment : Fragment() {
     }
 
     private fun setupViews() {
-        val adjustedPrimaryColor = context!!.getAdjustedPrimaryColor()
         view.apply {
             context!!.updateTextColors(stopwatch_fragment)
-            stopwatch_play_pause.background = resources.getColoredDrawableWithColor(R.drawable.circle_background_filled, adjustedPrimaryColor)
+            stopwatch_play_pause.applyColorFilter(context!!.config.textColor)
             stopwatch_reset.applyColorFilter(context!!.config.textColor)
         }
 
@@ -201,13 +203,18 @@ class StopwatchFragment : Fragment() {
 
     private fun updateIcons() {
         val drawableId = if (isRunning) R.drawable.ic_pause_vector else R.drawable.ic_play_vector
-        val iconColor = if (context!!.getAdjustedPrimaryColor() == Color.WHITE) Color.BLACK else Color.WHITE
-        view.stopwatch_play_pause.setImageDrawable(resources.getColoredDrawableWithColor(drawableId, iconColor))
+        view.stopwatch_play_pause.setImageResource(drawableId)
     }
 
     private fun togglePlayPause() {
         isRunning = !isRunning
         updateStopwatchState(true)
+        Device.currentDevice().applyApplicationFastMode(context?.packageName, isRunning, false)
+        if (isRunning) {
+            stopwatch_running.resume()
+        } else {
+            stopwatch_running.pause()
+        }
     }
 
     private fun updateStopwatchState(setUptimeAtStart: Boolean) {
@@ -247,6 +254,8 @@ class StopwatchFragment : Fragment() {
         laps.clear()
         updateIcons()
         stopwatchAdapter.updateItems(laps)
+        stopwatch_running.stop()
+        Device.currentDevice.applyApplicationFastMode(context?.packageName, false, false)
 
         view.apply {
             stopwatch_reset.beGone()
