@@ -43,8 +43,6 @@ class MainActivity : SimpleActivity() {
             setImageDrawable(getToggleButtonIcon())
             background.applyColorFilter(adjustedPrimaryColor)
         }
-
-        visualizer.chunkColor = adjustedPrimaryColor
     }
 
     override fun onDestroy() {
@@ -85,7 +83,6 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun initVoiceRecorder() {
-        visualizer.recreate()
         bus = EventBus.getDefault()
         bus!!.register(this)
 
@@ -140,14 +137,17 @@ class MainActivity : SimpleActivity() {
         isRecording = event.isRecording
         toggle_recording_button.setImageDrawable(getToggleButtonIcon())
         if (isRecording) {
-            visualizer.recreate()
+            recording_status.setText(R.string.recording)
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun gotAmplitudeEvent(event: Events.RecordingAmplitude) {
-        val amplitude = event.amplitude
-        visualizer.update(amplitude)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRecordingDoneEvent(event: Events.RecordingDone) {
+        recording_status.setText(resources.getString(R.string.recording_saved_successfully, event.path))
     }
 
     private fun getToggleButtonIcon(): Drawable {

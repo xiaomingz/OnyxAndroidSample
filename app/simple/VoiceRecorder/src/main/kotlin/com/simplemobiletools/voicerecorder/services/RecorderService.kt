@@ -11,7 +11,6 @@ import android.media.MediaScannerConnection
 import android.os.Build
 import android.os.IBinder
 import android.provider.MediaStore
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
@@ -156,9 +155,7 @@ class RecorderService : Service() {
     }
 
     private fun recordingSavedSuccessfully(showFilenameOnly: Boolean) {
-        val title = if (showFilenameOnly) currFilePath.getFilenameFromPath() else currFilePath
-        val msg = String.format(getString(R.string.recording_saved_successfully), title)
-        toast(msg, Toast.LENGTH_LONG)
+        broadcastRecordingDone(currFilePath)
     }
 
     private fun getDurationUpdateTask() = object : TimerTask() {
@@ -230,5 +227,9 @@ class RecorderService : Service() {
 
     private fun broadcastStatus() {
         EventBus.getDefault().post(Events.RecordingStatus(isRecording))
+    }
+
+    private fun broadcastRecordingDone(path: String) {
+        EventBus.getDefault().post(Events.RecordingDone(path))
     }
 }

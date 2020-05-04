@@ -6,31 +6,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.visualizer.amplitude.AudioRecordView
-        android:id="@+id/visualizer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/recording_duration"
-        android:layout_marginTop="@dimen/activity_margin"
-        android:layout_marginEnd="@dimen/activity_margin"
-        android:layout_marginBottom="@dimen/activity_margin"
-        app:chunkAlignTo="center"
-        app:chunkMaxHeight="@dimen/chunk_max_height"
-        app:chunkMinHeight="@dimen/chunk_min_height"
-        app:chunkRoundedCorners="true"
-        app:chunkSoftTransition="true"
-        app:chunkSpace="@dimen/chunk_space"
-        app:chunkWidth="@dimen/chunk_width" />
+    <LinearLayout
+        android:id="@+id/recorder_layout"
+        android:layout_width="@dimen/main_page_logo_layout_size"
+        android:layout_height="@dimen/main_page_logo_layout_size"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_circle"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/activity_margin">
+
+        <ImageView
+            android:id="@+id/recorder_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/microphone_logo" />
+
+        <TextView
+            android:id="@+id/recording_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:textSize="@dimen/extra_big_text_size"
+            tools:text="00:00" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/recording_duration"
+        android:id="@+id/recording_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/toggle_recording_button"
+        android:layout_below="@+id/recorder_layout"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/bigger_margin"
-        android:textSize="@dimen/extra_big_text_size"
-        tools:text="00:00" />
+        android:layout_marginTop="@dimen/activity_margin"
+        android:gravity="center"
+        android:textSize="@dimen/normal_text_size" />
 
     <ImageView
         android:id="@+id/toggle_recording_button"
