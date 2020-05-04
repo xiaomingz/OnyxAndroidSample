@@ -481,6 +481,8 @@
     <string name="startup">Startup</string>
     <string name="text">Text</string>
     <string name="migrating">Migrating</string>
+    <string name="select_duration">Select duration</string>
+
 
     <!-- Recycle Bin -->
     <string name="restore_this_file">Restore this file</string>
