@@ -449,6 +449,7 @@
     <string name="startup">启动</string>
     <string name="text">文本</string>
     <string name="migrating">转移</string>
+    <string name="select_duration">选择时长</string>
 
     <!-- Recycle Bin -->
     <string name="restore_this_file">恢复此文件</string>

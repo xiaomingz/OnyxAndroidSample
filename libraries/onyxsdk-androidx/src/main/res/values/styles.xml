@@ -34,6 +34,12 @@
         <item name="dialogTheme">@style/OnyxAppCompat.Light.Dialog</item>
         <item name="actionBarStyle">@style/OnyxActionBarStyle</item>
         <item name="colorControlHighlight">@android:color/transparent</item>
+        <item name="actionModeStyle">@style/OnyxActionModeStyle</item>
+
+    </style>
+
+    <style name="OnyxActionModeStyle" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">@color/background_white</item>
     </style>
 
     <style name="OnyxAppCompat" parent="OnyxAppCompat.ActionBar">

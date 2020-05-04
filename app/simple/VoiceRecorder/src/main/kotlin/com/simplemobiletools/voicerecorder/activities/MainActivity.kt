@@ -5,11 +5,14 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.voicerecorder.BuildConfig
 import com.simplemobiletools.voicerecorder.R
 import com.simplemobiletools.voicerecorder.helpers.GET_RECORDER_INFO
+import com.simplemobiletools.voicerecorder.helpers.PAUSE_RECORDER
+import com.simplemobiletools.voicerecorder.helpers.RESUME_RECORDER
 import com.simplemobiletools.voicerecorder.helpers.STOP_AMPLITUDE_UPDATE
 import com.simplemobiletools.voicerecorder.models.Events
 import com.simplemobiletools.voicerecorder.services.RecorderService
@@ -19,8 +22,12 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : SimpleActivity() {
-    private var isRecording = false
+    private val STATUS_STOP = 0
+    private val STATUS_RECORDING = 1
+    private val STATUS_PAUSE = 2
+
     private var bus: EventBus? = null
+    private var status = STATUS_STOP
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +50,6 @@ class MainActivity : SimpleActivity() {
             setImageDrawable(getToggleButtonIcon())
             background.applyColorFilter(adjustedPrimaryColor)
         }
-
-        visualizer.chunkColor = adjustedPrimaryColor
     }
 
     override fun onDestroy() {
@@ -85,7 +90,6 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun initVoiceRecorder() {
-        visualizer.recreate()
         bus = EventBus.getDefault()
         bus!!.register(this)
 
@@ -96,6 +100,9 @@ class MainActivity : SimpleActivity() {
         recorder_list_button.setOnClickListener {
             startActivity(Intent(this, RecorderListActivity::class.java));
         }
+        stop_recording_button.setOnClickListener {
+            stopRecording()
+        }
 
         Intent(this@MainActivity, RecorderService::class.java).apply {
             action = GET_RECORDER_INFO
@@ -104,14 +111,18 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun toggleRecording() {
-        isRecording = !isRecording
-        toggle_recording_button.setImageDrawable(getToggleButtonIcon())
-
-        if (isRecording) {
+        if (isStopStatus()) {
             startRecording()
-        } else {
-            stopRecording()
+            return
         }
+        if (isRecording()) {
+            pauseRecording()
+            status = STATUS_PAUSE
+        } else {
+            resumeRecording()
+            status = STATUS_RECORDING
+        }
+        updateRecordingButton()
     }
 
     private fun updateRecordingDuration(duration: Int) {
@@ -119,14 +130,32 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun startRecording() {
-        Intent(this@MainActivity, RecorderService::class.java).apply {
-            startService(this)
-        }
+        status = STATUS_RECORDING
+        stop_recording_button.visibility = View.VISIBLE
+        startRecorderService(null)
     }
 
     private fun stopRecording() {
         Intent(this@MainActivity, RecorderService::class.java).apply {
             stopService(this)
+        }
+        status = STATUS_STOP
+        stop_recording_button.visibility = View.GONE
+        updateRecordingButton()
+    }
+
+    private fun pauseRecording() {
+        startRecorderService(PAUSE_RECORDER)
+    }
+
+    private fun resumeRecording() {
+        startRecorderService(RESUME_RECORDER)
+    }
+
+    private fun startRecorderService(setAction: String?) {
+        Intent(this@MainActivity, RecorderService::class.java).apply {
+            action = setAction
+            startService(this)
         }
     }
 
@@ -137,25 +166,43 @@ class MainActivity : SimpleActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun gotStatusEvent(event: Events.RecordingStatus) {
-        isRecording = event.isRecording
-        toggle_recording_button.setImageDrawable(getToggleButtonIcon())
-        if (isRecording) {
-            visualizer.recreate()
+        status = if(event.isRecording) STATUS_RECORDING else STATUS_STOP
+        updateRecordingButton()
+        if (isRecording()) {
+            recording_status.setText(R.string.recording)
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun gotAmplitudeEvent(event: Events.RecordingAmplitude) {
-        val amplitude = event.amplitude
-        visualizer.update(amplitude)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRecordingDoneEvent(event: Events.RecordingDone) {
+        recording_status.setText(resources.getString(R.string.recording_saved_successfully, event.path))
     }
 
     private fun getToggleButtonIcon(): Drawable {
-        val drawable = if (isRecording) R.drawable.ic_stop_vector else R.drawable.ic_microphone_vector
+        var drawable = R.drawable.ic_microphone_vector
+        if(isRecording()) {
+            drawable  = R.drawable.ic_pause_vector
+        }
         return resources.getColoredDrawableWithColor(drawable, getFABIconColor())
     }
 
     private fun launchSettings() {
         startActivity(Intent(applicationContext, SettingsActivity::class.java))
+    }
+
+    private fun updateRecordingButton() {
+        toggle_recording_button.setImageDrawable(getToggleButtonIcon())
+    }
+
+    private fun isStopStatus() : Boolean {
+        return status == STATUS_STOP
+    }
+
+    private fun isRecording(): Boolean {
+        return status == STATUS_RECORDING
     }
 }

@@ -885,7 +885,7 @@ fun Activity.showPickSecondsDialog(curSeconds: Int, isSnoozePicker: Boolean = fa
 
     items.add(RadioItem(-2, getString(R.string.custom)))
 
-    RadioGroupDialog(this, items, selectedIndex, showOKButton = isSnoozePicker, cancelCallback = cancelCallback) {
+    RadioGroupDialog(this, items, selectedIndex, titleId = R.string.select_duration, showOKButton = isSnoozePicker, cancelCallback = cancelCallback) {
         if (it == -2) {
             CustomIntervalPickerDialog(this, showSeconds = showSecondsAtCustomDialog) {
                 callback(it)
