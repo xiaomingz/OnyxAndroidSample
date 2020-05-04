@@ -115,14 +115,14 @@ class MainActivity : SimpleActivity() {
             startRecording()
             return
         }
-        status = if (isRecording()) STATUS_PAUSE else STATUS_RECORDING
-        updateRecordingButton()
-
         if (isRecording()) {
-            resumeRecording()
-        } else {
             pauseRecording()
+            status = STATUS_PAUSE
+        } else {
+            resumeRecording()
+            status = STATUS_RECORDING
         }
+        updateRecordingButton()
     }
 
     private fun updateRecordingDuration(duration: Int) {
