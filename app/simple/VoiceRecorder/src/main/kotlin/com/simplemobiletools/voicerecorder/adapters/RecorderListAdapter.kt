@@ -4,11 +4,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.dialogs.RenameItemsDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.DATE_FORMAT_FOUR
 import com.simplemobiletools.commons.helpers.TIME_FORMAT_24
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.voicerecorder.R
+import com.simplemobiletools.voicerecorder.actions.FilesLoadAction
 import kotlinx.android.synthetic.main.item_recorder.view.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -21,7 +23,10 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
     private val itemList = ArrayList<File>()
     private val dateFormat = SimpleDateFormat(DATE_FORMAT_FOUR + " " + TIME_FORMAT_24, Locale.getDefault());
 
-    fun addItems(files: List<File>) {
+    fun addItems(files: List<File>, clear: Boolean = false) {
+        if (clear) {
+            itemList.clear()
+        }
         itemList.addAll(files)
         notifyDataSetChanged()
     }
@@ -50,6 +55,7 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
             R.id.cab_select_all -> selectAll()
             R.id.cab_delete -> deleteFiles()
             R.id.cab_share -> shareFiles()
+            R.id.cab_rename -> renameFiles()
         }
     }
 
@@ -100,6 +106,19 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
             0 -> activity.toast(R.string.no_files_selected)
             1 -> if (selectedKeys.first() != -1) activity.sharePathIntent(getFirstSelectedItemPath()!!, activity.packageName)
             else -> activity.sharePathsIntent((getSelectedPaths()), activity.packageName)
+        }
+    }
+
+    private fun renameFiles() {
+        when (selectedKeys.size) {
+            0 -> activity.toast(R.string.no_files_selected)
+            else -> {
+                RenameItemsDialog(activity, getSelectedPaths()) {
+                    FilesLoadAction().execute(activity) {
+                        addItems(it, true)
+                    }
+                }
+            }
         }
     }
 }
