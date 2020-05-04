@@ -20,9 +20,7 @@ import com.simplemobiletools.voicerecorder.R
 import com.simplemobiletools.voicerecorder.activities.MainActivity
 import com.simplemobiletools.voicerecorder.extensions.config
 import com.simplemobiletools.voicerecorder.extensions.getDefaultSaveFolder
-import com.simplemobiletools.voicerecorder.helpers.GET_RECORDER_INFO
-import com.simplemobiletools.voicerecorder.helpers.RECORDER_RUNNING_NOTIF_ID
-import com.simplemobiletools.voicerecorder.helpers.STOP_AMPLITUDE_UPDATE
+import com.simplemobiletools.voicerecorder.helpers.*
 import com.simplemobiletools.voicerecorder.models.Events
 import org.greenrobot.eventbus.EventBus
 import java.io.IOException
@@ -46,6 +44,8 @@ class RecorderService : Service() {
         when (intent.action) {
             GET_RECORDER_INFO -> broadcastRecorderInfo()
             STOP_AMPLITUDE_UPDATE -> amplitudeTimer.cancel()
+            PAUSE_RECORDER -> pauseRecorder()
+            RESUME_RECORDER -> resumeRecorder()
             else -> startRecording()
         }
 
@@ -122,6 +122,21 @@ class RecorderService : Service() {
         amplitudeTimer.scheduleAtFixedRate(getAmplitudeUpdateTask(), 0, AMPLITUDE_UPDATE_MS)
     }
 
+    @TargetApi(Build.VERSION_CODES.N)
+    private fun pauseRecorder() {
+        if(!isRecording) {
+            return
+        }
+        recorder?.pause()
+        isRecording = false
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private fun resumeRecorder() {
+        recorder?.resume()
+        isRecording = true
+    }
+
     @SuppressLint("InlinedApi")
     private fun addFileInNewMediaStore() {
         //MediaStore.VOLUME_EXTERNAL_PRIMARY
@@ -160,6 +175,9 @@ class RecorderService : Service() {
 
     private fun getDurationUpdateTask() = object : TimerTask() {
         override fun run() {
+            if(!isRecording) {
+                return
+            }
             duration++
             broadcastDuration()
         }
