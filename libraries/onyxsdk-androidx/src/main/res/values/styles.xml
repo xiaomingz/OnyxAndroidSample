@@ -35,7 +35,7 @@
         <item name="actionBarStyle">@style/OnyxActionBarStyle</item>
         <item name="colorControlHighlight">@android:color/transparent</item>
         <item name="actionModeStyle">@style/OnyxActionModeStyle</item>
-
+        <item name="android:overScrollMode">never</item>
     </style>
 
     <style name="OnyxActionModeStyle" parent="@style/Widget.AppCompat.ActionMode">
