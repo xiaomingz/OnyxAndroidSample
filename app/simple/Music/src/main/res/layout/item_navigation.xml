@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/medium_margin"
-    android:paddingRight="@dimen/medium_margin"
-    android:paddingBottom="@dimen/medium_margin">
+    android:paddingRight="@dimen/medium_margin">
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/song_info_title"
