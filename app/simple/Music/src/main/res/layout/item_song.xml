@@ -43,11 +43,11 @@
 
         <ImageView
             android:id="@+id/song_note_image"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_music_note_vector"
+            android:src="@drawable/ic_play_vector"
             android:visibility="invisible"/>
 
     </RelativeLayout>
