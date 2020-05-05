@@ -13,6 +13,9 @@ class MySeekBar : SeekBar {
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
     fun setColors(textColor: Int, accentColor: Int, backgroundColor: Int) {
+    }
+
+    private fun applyColorFilter(accentColor: Int) {
         progressDrawable.applyColorFilter(accentColor)
         thumb.applyColorFilter(accentColor)
     }
