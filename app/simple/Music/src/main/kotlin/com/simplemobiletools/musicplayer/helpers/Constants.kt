@@ -43,7 +43,7 @@ const val SWAP_PREV_NEXT = "swap_prev_next"
 const val LAST_SLEEP_TIMER_SECONDS = "last_sleep_timer_seconds"
 const val SLEEP_IN_TS = "sleep_in_ts"
 
-const val LIST_HEADERS_COUNT = 2
+const val LIST_HEADERS_COUNT = 0
 const val LOWER_ALPHA = 0.5f
 
 const val SHOW_FILENAME_NEVER = 1

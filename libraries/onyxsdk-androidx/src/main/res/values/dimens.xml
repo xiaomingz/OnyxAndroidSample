@@ -51,4 +51,7 @@
     <dimen name="material_toolbar_title_text_size_title">@dimen/menu_text_size_small</dimen>
     <dimen name="menu_text_size_large">18sp</dimen>
     <dimen name="menu_text_size_small">16sp</dimen>
+
+    <dimen name="seekbar_progress_height">8dp</dimen>
+    <dimen name="seekbar_thumb_drawable_size">20dp</dimen>
 </resources>
