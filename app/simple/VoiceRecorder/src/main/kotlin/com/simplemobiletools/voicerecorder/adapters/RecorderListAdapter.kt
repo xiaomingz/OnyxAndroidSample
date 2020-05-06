@@ -31,6 +31,18 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
         notifyDataSetChanged()
     }
 
+    fun getPrevItem(file: File): File? {
+        return itemList.getOrElse(itemList.indexOf(file) - 1) {
+            itemList.firstOrNull()
+        };
+    }
+
+    fun getNextItem(file: File): File? {
+        return itemList.getOrElse(itemList.indexOf(file) + 1) {
+            itemList.lastOrNull()
+        };
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return createViewHolder(R.layout.item_recorder, parent)
     }

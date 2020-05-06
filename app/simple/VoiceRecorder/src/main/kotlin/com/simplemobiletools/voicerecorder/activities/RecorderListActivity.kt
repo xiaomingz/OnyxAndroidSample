@@ -7,8 +7,11 @@ import com.simplemobiletools.voicerecorder.R
 import com.simplemobiletools.voicerecorder.actions.FilesLoadAction
 import com.simplemobiletools.voicerecorder.adapters.RecorderListAdapter
 import com.simplemobiletools.voicerecorder.databinding.ActivityRecorderListBinding
+import com.simplemobiletools.voicerecorder.dialogs.DialogMediaPlayer
 import com.simplemobiletools.voicerecorder.helpers.MediaPlayerManager
+import kotlinx.android.synthetic.main.dialog_media_player.*
 import java.io.File
+import com.simplemobiletools.voicerecorder.dialogs.DialogMediaPlayer.PlayListener as PlayListener
 
 class RecorderListActivity : SimpleActivity() {
 
@@ -36,8 +39,19 @@ class RecorderListActivity : SimpleActivity() {
         }
     }
 
-    private fun play(file: File) {
-        MediaPlayerManager.INSTANCE.startPlay(file.absolutePath)
+    private fun play(targetFile: File) {
+        DialogMediaPlayer(this, targetFile).apply {
+            listener = object : PlayListener {
+                override fun prev() {
+                    play(adapter?.getPrevItem(file))
+                }
+
+                override fun next() {
+                    play(adapter?.getNextItem(file))
+                }
+            }
+            show()
+        }
     }
 
     private fun updateContentView(list: List<File>) {
