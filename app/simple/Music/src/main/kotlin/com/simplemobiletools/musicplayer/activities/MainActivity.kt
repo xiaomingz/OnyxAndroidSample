@@ -651,7 +651,7 @@ class MainActivity : SimpleActivity(), SongListListener {
         }
 
         val coverToUse = if (MusicService.mCurrSongCover?.isRecycled == true) {
-            resources.getColoredBitmap(R.drawable.ic_headset, config.textColor)
+            resources.getColoredBitmap(R.drawable.ic_music_disc, config.textColor)
         } else {
             MusicService.mCurrSongCover
         }
