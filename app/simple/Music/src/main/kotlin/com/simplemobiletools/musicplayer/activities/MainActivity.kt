@@ -580,10 +580,11 @@ class MainActivity : SimpleActivity(), SongListListener {
         }
         markCurrentSong()
 
-        songs_list.beVisibleIf(songs.isNotEmpty())
-        art_holder.beVisibleIf(songs_list.isVisible())
         songs_playlist_empty.beVisibleIf(songs.isEmpty())
         songs_playlist_empty_add_folder.beVisibleIf(songs.isEmpty())
+        art_holder.beVisibleIf(songs.isNotEmpty())
+        top_navigation.beVisibleIf(songs.isNotEmpty())
+        songs_list.beVisibleIf(songs.isNotEmpty())
     }
 
     private fun getSongIndex(song: Song) = songs.indexOfFirstOrNull { it == song } ?: 0
