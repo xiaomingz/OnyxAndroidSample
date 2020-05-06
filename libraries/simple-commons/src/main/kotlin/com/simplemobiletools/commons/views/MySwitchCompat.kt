@@ -17,6 +17,9 @@ class MySwitchCompat : SwitchCompat {
 
     fun setColors(textColor: Int, accentColor: Int, backgroundColor: Int) {
         setTextColor(textColor)
+    }
+
+    private fun applyTintStates(accentColor: Int) {
         val states = arrayOf(intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked))
         val thumbColors = intArrayOf(resources.getColor(R.color.thumb_deactivated), accentColor)
         val trackColors = intArrayOf(resources.getColor(R.color.track_deactivated), accentColor)

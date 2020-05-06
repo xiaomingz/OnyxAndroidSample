@@ -48,7 +48,7 @@ class MainActivity : SimpleActivity() {
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
         toggle_recording_button.apply {
             setImageDrawable(getToggleButtonIcon())
-            background.applyColorFilter(adjustedPrimaryColor)
+            background?.applyColorFilter(adjustedPrimaryColor)
         }
     }
 
@@ -183,11 +183,11 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun getToggleButtonIcon(): Drawable {
-        var drawable = R.drawable.ic_microphone_vector
+        var drawable = R.drawable.ic_start_vector
         if(isRecording()) {
             drawable  = R.drawable.ic_pause_vector
         }
-        return resources.getColoredDrawableWithColor(drawable, getFABIconColor())
+        return resources.getDrawable(drawable)
     }
 
     private fun launchSettings() {

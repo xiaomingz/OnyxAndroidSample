@@ -7,4 +7,5 @@
     <dimen name="chunk_width">3dp</dimen>
     <dimen name="main_page_logo_icon_size">108dp</dimen>
     <dimen name="main_page_logo_layout_size">350dp</dimen>
+    <dimen name="dialog_media_player_padding">20dp</dimen>
 </resources>

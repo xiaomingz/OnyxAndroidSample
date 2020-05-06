@@ -53,8 +53,6 @@
             android:id="@+id/stop_recording_button"
             android:layout_width="@dimen/toggle_recording_button_size"
             android:layout_height="@dimen/toggle_recording_button_size"
-            android:background="@drawable/circle_background"
-            android:padding="@dimen/normal_margin"
             android:src="@drawable/ic_stop_vector"
             android:layout_centerInParent="true"
             android:visibility="gone" />
@@ -68,9 +66,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/big_margin"
-        android:background="@drawable/circle_background"
-        android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_microphone_vector" />
+        android:src="@drawable/ic_start_vector" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -85,9 +81,7 @@
             android:layout_width="@dimen/toggle_recording_button_size"
             android:layout_height="@dimen/toggle_recording_button_size"
             android:layout_centerInParent="true"
-            android:background="@drawable/circle_background"
-            android:padding="@dimen/normal_margin"
-            android:src="@drawable/ic_file_vector" />
+            android:src="@drawable/ic_file_list_vector" />
 
     </RelativeLayout>
 

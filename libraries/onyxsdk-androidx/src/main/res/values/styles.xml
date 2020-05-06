@@ -36,6 +36,7 @@
         <item name="colorControlHighlight">@android:color/transparent</item>
         <item name="actionModeStyle">@style/OnyxActionModeStyle</item>
         <item name="android:overScrollMode">never</item>
+        <item name="switchStyle">@style/OnyxSwitchStyle</item>
     </style>
 
     <style name="OnyxActionModeStyle" parent="@style/Widget.AppCompat.ActionMode">
@@ -159,6 +160,13 @@
 
     <style name="OnyxAppCompat.TextAppearance.AppCompat.Title" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="OnyxSwitchStyle" parent="@style/Widget.AppCompat.CompoundButton.Switch">
+        <item name="track">@drawable/onyx_switch_track</item>
+        <item name="android:thumb">@drawable/onyx_switch_thumb</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@null</item>
     </style>
 
     <style name="time_label">

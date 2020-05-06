@@ -10,14 +10,16 @@
     <RelativeLayout
         android:id="@+id/art_holder"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/top_art_height">
+        android:layout_height="@dimen/top_art_height"
+        android:layout_margin="@dimen/medium_margin"
+        android:visibility="invisible">
 
         <ImageView
             android:id="@+id/art_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:src="@drawable/ic_headset"/>
+            android:src="@drawable/ic_music_disc" />
 
     </RelativeLayout>
 
@@ -28,7 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/art_holder"
         android:clickable="true"
-        android:focusable="true" />
+        android:focusable="true"
+        android:visibility="invisible" />
 
     <com.simplemobiletools.commons.views.MyRecyclerView
         android:id="@+id/songs_list"
