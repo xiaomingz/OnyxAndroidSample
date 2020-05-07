@@ -45,9 +45,8 @@
 
     <TextView
         android:id="@+id/video_duration"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/medium_thumbnail"
         android:layout_alignEnd="@+id/medium_thumbnail"
         android:background="@color/background_black"
         android:ellipsize="end"
