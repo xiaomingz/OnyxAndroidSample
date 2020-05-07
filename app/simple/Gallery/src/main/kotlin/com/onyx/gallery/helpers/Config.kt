@@ -183,7 +183,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(openVideosOnSeparateScreen) = prefs.edit().putBoolean(OPEN_VIDEOS_ON_SEPARATE_SCREEN, openVideosOnSeparateScreen).apply()
 
     var displayFileNames: Boolean
-        get() = prefs.getBoolean(DISPLAY_FILE_NAMES, false)
+        get() = prefs.getBoolean(DISPLAY_FILE_NAMES, true)
         set(display) = prefs.edit().putBoolean(DISPLAY_FILE_NAMES, display).apply()
 
     var blackBackground: Boolean
