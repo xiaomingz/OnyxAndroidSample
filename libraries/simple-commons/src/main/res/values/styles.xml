@@ -1635,4 +1635,12 @@
         <item name="maxImageSize">@dimen/fb_size</item>
     </style>
 
+    <style name="NormalRadioButtonStyle">
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/normal_margin</item>
+        <item name="android:paddingBottom">@dimen/normal_margin</item>
+    </style>
+
 </resources>
