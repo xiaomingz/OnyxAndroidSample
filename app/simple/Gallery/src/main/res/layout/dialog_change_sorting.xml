@@ -22,50 +22,32 @@
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
-                android:text="@string/name"/>
+                style="@style/RadioButtonStyle"
+                android:text="@string/name" />
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_path"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
+                style="@style/RadioButtonStyle"
                 android:text="@string/path"/>
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_size"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
+                style="@style/RadioButtonStyle"
                 android:text="@string/size"/>
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_last_modified"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
+                style="@style/RadioButtonStyle"
                 android:text="@string/last_modified"/>
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_date_taken"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
+                style="@style/RadioButtonStyle"
                 android:text="@string/date_taken"/>
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_random"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
+                style="@style/RadioButtonStyle"
                 android:text="@string/random"/>
 
         </RadioGroup>
@@ -82,18 +64,12 @@
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_ascending"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
+                style="@style/RadioButtonStyle"
                 android:text="@string/ascending"/>
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_descending"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_margin"
-                android:paddingBottom="@dimen/medium_margin"
+                style="@style/RadioButtonStyle"
                 android:text="@string/descending"/>
         </RadioGroup>
 
@@ -107,7 +83,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/activity_margin"
             android:paddingBottom="@dimen/activity_margin"
-            android:text="@string/sort_numeric_parts"/>
+            android:text="@string/sort_numeric_parts"
+            android:textSize="@dimen/small_text_size" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/sorting_dialog_use_for_this_folder"
@@ -115,7 +92,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/activity_margin"
             android:paddingBottom="@dimen/activity_margin"
-            android:text="@string/use_for_this_folder"/>
+            android:text="@string/use_for_this_folder"
+            android:textSize="@dimen/small_text_size" />
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/sorting_dialog_bottom_note"
