@@ -66,7 +66,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
     private var mLastMediaHandler = Handler()
     private var mTempShowHiddenHandler = Handler()
     private var mCurrAsyncTask: GetMediaAsynctask? = null
-    private var mZoomListener: MyRecyclerView.MyZoomListener? = null
     private var mSearchMenuItem: MenuItem? = null
 
     private var mStoredAnimateGifs = true
@@ -226,8 +225,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
 
             val viewType = config.getFolderViewType(if (mShowAll) SHOW_ALL else mPath)
-            findItem(R.id.increase_column_count).isVisible = viewType == VIEW_TYPE_GRID && config.mediaColumnCnt < MAX_COLUMN_COUNT
-            findItem(R.id.reduce_column_count).isVisible = viewType == VIEW_TYPE_GRID && config.mediaColumnCnt > 1
             findItem(R.id.toggle_filename).isVisible = viewType == VIEW_TYPE_GRID
         }
 
@@ -254,8 +251,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             R.id.create_new_folder -> createNewFolder()
             R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
             R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.increase_column_count -> increaseColumnCount()
-            R.id.reduce_column_count -> reduceColumnCount()
             R.id.slideshow -> startSlideshow()
             R.id.settings -> launchSettings()
             else -> return super.onOptionsItemSelected(item)
@@ -379,7 +374,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
 
         val currAdapter = media_grid.adapter
         if (currAdapter == null) {
-            initZoomListener()
             val fastscroller = if (config.scrollHorizontally) media_horizontal_fastscroller else media_vertical_fastscroller
             MediaAdapter(this, mMedia.clone() as ArrayList<ThumbnailItem>, this, mIsGetImageIntent || mIsGetVideoIntent || mIsGetAnyIntent,
                     mAllowPickingMultiple, mPath, media_grid, fastscroller) {
@@ -387,7 +381,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
                     itemClicked(it.path)
                 }
             }.apply {
-                setupZoomListener(mZoomListener)
                 media_grid.adapter = this
             }
             setupLayoutManager()
@@ -749,30 +742,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         media_vertical_fastscroller.setScrollToY(media_grid.computeVerticalScrollOffset())
     }
 
-    private fun initZoomListener() {
-        val viewType = config.getFolderViewType(if (mShowAll) SHOW_ALL else mPath)
-        if (viewType == VIEW_TYPE_GRID) {
-            val layoutManager = media_grid.layoutManager as MyGridLayoutManager
-            mZoomListener = object : MyRecyclerView.MyZoomListener {
-                override fun zoomIn() {
-                    if (layoutManager.spanCount > 1) {
-                        reduceColumnCount()
-                        getMediaAdapter()?.finishActMode()
-                    }
-                }
-
-                override fun zoomOut() {
-                    if (layoutManager.spanCount < MAX_COLUMN_COUNT) {
-                        increaseColumnCount()
-                        getMediaAdapter()?.finishActMode()
-                    }
-                }
-            }
-        } else {
-            mZoomListener = null
-        }
-    }
-
     private fun setupListLayoutManager() {
         val layoutManager = media_grid.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = 1
@@ -784,8 +753,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             topMargin = smallMargin
             bottomMargin = smallMargin
         }
-
-        mZoomListener = null
     }
 
     private fun increaseColumnCount() {
