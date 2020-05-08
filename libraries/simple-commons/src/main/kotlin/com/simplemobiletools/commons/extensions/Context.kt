@@ -739,3 +739,11 @@ val Context.realScreenSize: Point
     }
 
 fun Context.getInteger(resId: Int) = resources.getInteger(resId)
+
+fun <T> Context.objectFromRawResource(name: String?, classOfT: Class<T>): T? {
+    val resId = resources.getIdentifier(
+            name?.replace("-", "_")?.toLowerCase(Locale.getDefault()) ?: "",
+            "raw", packageName)
+    val content: String? = resources.contentOfRawResource(resId)
+    return Gson().fromJson(content, classOfT)
+}

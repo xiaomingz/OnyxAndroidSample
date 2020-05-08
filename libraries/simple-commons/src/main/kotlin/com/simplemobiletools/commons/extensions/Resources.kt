@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
+import java.io.InputStream
 
 fun Resources.getColoredBitmap(resourceId: Int, newColor: Int): Bitmap {
     val drawable = getDrawable(resourceId)
@@ -37,4 +38,19 @@ fun Resources.getNavBarHeight(): Int {
         getDimensionPixelSize(id)
     } else
         0
+}
+
+fun Resources.contentOfRawResource(rawResourceId: Int): String? {
+    var inputStream: InputStream? = null
+    try {
+        inputStream = openRawResource(rawResourceId)
+        return String(inputStream.readBytes())
+    } catch (e: Exception) {
+        if (rawResourceId > 0) {
+            e.printStackTrace()
+        }
+        return null
+    } finally {
+        inputStream?.close()
+    }
 }

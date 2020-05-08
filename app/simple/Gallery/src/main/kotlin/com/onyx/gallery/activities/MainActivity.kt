@@ -267,6 +267,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             menu.apply {
                 findItem(R.id.hide_the_recycle_bin).isVisible = useBin && config.showRecycleBinAtFolders
                 findItem(R.id.show_the_recycle_bin).isVisible = useBin && !config.showRecycleBinAtFolders
+                findItem(R.id.open_camera).isVisible = config.hasCamera
                 setupSearch(this)
             }
         }

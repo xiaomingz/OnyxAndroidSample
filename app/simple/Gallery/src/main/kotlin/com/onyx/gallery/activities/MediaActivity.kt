@@ -218,7 +218,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             findItem(R.id.restore_all_files).isVisible = mPath == RECYCLE_BIN
 
             findItem(R.id.folder_view).isVisible = mShowAll
-            findItem(R.id.open_camera).isVisible = mShowAll
+            findItem(R.id.open_camera).isVisible = mShowAll && config.hasCamera
             findItem(R.id.create_new_folder).isVisible = !mShowAll && mPath != RECYCLE_BIN && mPath != FAVORITES
 
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
