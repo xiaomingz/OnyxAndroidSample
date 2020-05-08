@@ -223,9 +223,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
 
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
-
-            val viewType = config.getFolderViewType(if (mShowAll) SHOW_ALL else mPath)
-            findItem(R.id.toggle_filename).isVisible = viewType == VIEW_TYPE_GRID
         }
 
         setupSearch(menu)
@@ -240,7 +237,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             R.id.empty_recycle_bin -> emptyRecycleBin()
             R.id.empty_disable_recycle_bin -> emptyAndDisableRecycleBin()
             R.id.restore_all_files -> restoreAllFiles()
-            R.id.toggle_filename -> toggleFilenameVisibility()
             R.id.open_camera -> launchCamera()
             R.id.folder_view -> switchToFolderView()
             R.id.change_view_type -> changeViewType()
@@ -491,11 +487,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             }
             finish()
         }
-    }
-
-    private fun toggleFilenameVisibility() {
-        config.displayFileNames = !config.displayFileNames
-        getMediaAdapter()?.updateDisplayFilenames(config.displayFileNames)
     }
 
     private fun switchToFolderView() {

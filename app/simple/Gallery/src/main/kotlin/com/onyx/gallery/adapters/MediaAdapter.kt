@@ -149,9 +149,6 @@ class MediaAdapter(activity: BaseSimpleActivity, var media: MutableList<Thumbnai
             R.id.cab_remove_from_favorites -> toggleFavorites(false)
             R.id.cab_restore_recycle_bin_files -> restoreFiles()
             R.id.cab_share -> shareMedia()
-            R.id.cab_rotate_right -> rotateSelection(90)
-            R.id.cab_rotate_left -> rotateSelection(270)
-            R.id.cab_rotate_one_eighty -> rotateSelection(180)
             R.id.cab_copy_to -> copyMoveTo(true)
             R.id.cab_move_to -> moveFilesTo()
             R.id.cab_create_shortcut -> createShortcut()
@@ -289,27 +286,6 @@ class MediaAdapter(activity: BaseSimpleActivity, var media: MutableList<Thumbnai
             activity.shareMediumPath(getSelectedItems().first().path)
         } else if (selectedKeys.size > 1) {
             activity.shareMediaPaths(getSelectedPaths())
-        }
-    }
-
-    private fun rotateSelection(degrees: Int) {
-        activity.toast(R.string.saving)
-        ensureBackgroundThread {
-            val paths = getSelectedPaths().filter { it.isImageFast() }
-            var fileCnt = paths.size
-            rotatedImagePaths.clear()
-            paths.forEach {
-                rotatedImagePaths.add(it)
-                activity.saveRotatedImageToFile(it, it, degrees, true) {
-                    fileCnt--
-                    if (fileCnt == 0) {
-                        activity.runOnUiThread {
-                            listener?.refreshItems()
-                            finishActMode()
-                        }
-                    }
-                }
-            }
         }
     }
 
