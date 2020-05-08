@@ -159,7 +159,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(cropThumbnails) = prefs.edit().putBoolean(CROP_THUMBNAILS, cropThumbnails).apply()
 
     var showThumbnailVideoDuration: Boolean
-        get() = prefs.getBoolean(SHOW_THUMBNAIL_VIDEO_DURATION, false)
+        get() = prefs.getBoolean(SHOW_THUMBNAIL_VIDEO_DURATION, true)
         set(showThumbnailVideoDuration) = prefs.edit().putBoolean(SHOW_THUMBNAIL_VIDEO_DURATION, showThumbnailVideoDuration).apply()
 
     var showThumbnailFileTypes: Boolean
@@ -183,7 +183,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(openVideosOnSeparateScreen) = prefs.edit().putBoolean(OPEN_VIDEOS_ON_SEPARATE_SCREEN, openVideosOnSeparateScreen).apply()
 
     var displayFileNames: Boolean
-        get() = prefs.getBoolean(DISPLAY_FILE_NAMES, false)
+        get() = prefs.getBoolean(DISPLAY_FILE_NAMES, true)
         set(display) = prefs.edit().putBoolean(DISPLAY_FILE_NAMES, display).apply()
 
     var blackBackground: Boolean
@@ -320,7 +320,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(showExtendedDetails) = prefs.edit().putBoolean(SHOW_EXTENDED_DETAILS, showExtendedDetails).apply()
 
     var hideExtendedDetails: Boolean
-        get() = prefs.getBoolean(HIDE_EXTENDED_DETAILS, false)
+        get() = prefs.getBoolean(HIDE_EXTENDED_DETAILS, true)
         set(hideExtendedDetails) = prefs.edit().putBoolean(HIDE_EXTENDED_DETAILS, hideExtendedDetails).apply()
 
     var extendedDetails: Int
@@ -420,7 +420,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(lastBinCheck) = prefs.edit().putLong(LAST_BIN_CHECK, lastBinCheck).apply()
 
     var showHighestQuality: Boolean
-        get() = prefs.getBoolean(SHOW_HIGHEST_QUALITY, false)
+        get() = prefs.getBoolean(SHOW_HIGHEST_QUALITY, true)
         set(showHighestQuality) = prefs.edit().putBoolean(SHOW_HIGHEST_QUALITY, showHighestQuality).apply()
 
     var showRecycleBinLast: Boolean
@@ -428,7 +428,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(showRecycleBinLast) = prefs.edit().putBoolean(SHOW_RECYCLE_BIN_LAST, showRecycleBinLast).apply()
 
     var allowDownGesture: Boolean
-        get() = prefs.getBoolean(ALLOW_DOWN_GESTURE, true)
+        get() = prefs.getBoolean(ALLOW_DOWN_GESTURE, false)
         set(allowDownGesture) = prefs.edit().putBoolean(ALLOW_DOWN_GESTURE, allowDownGesture).apply()
 
     var lastEditorCropAspectRatio: Int
@@ -452,7 +452,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(showWidgetFolderName) = prefs.edit().putBoolean(SHOW_WIDGET_FOLDER_NAME, showWidgetFolderName).apply()
 
     var allowOneToOneZoom: Boolean
-        get() = prefs.getBoolean(ALLOW_ONE_TO_ONE_ZOOM, false)
+        get() = prefs.getBoolean(ALLOW_ONE_TO_ONE_ZOOM, true)
         set(allowOneToOneZoom) = prefs.edit().putBoolean(ALLOW_ONE_TO_ONE_ZOOM, allowOneToOneZoom).apply()
 
     var allowRotatingWithGestures: Boolean

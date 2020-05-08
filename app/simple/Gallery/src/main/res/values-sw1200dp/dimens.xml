@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_view_folder_thumbnail_width">86dp</dimen>
+    <dimen name="list_view_folder_thumbnail_height">116dp</dimen>
+    <dimen name="directory_item_grid_thumb_width">300dp</dimen>
+    <dimen name="directory_item_grid_thumb_height">410dp</dimen>
+    <dimen name="directory_item_grid_margin_top_bottom">30dp</dimen>
+    <dimen name="directory_item_grid_margin_left_right">25dp</dimen>
+    <dimen name="play_outline_icon_size">48dp</dimen>
+</resources>
