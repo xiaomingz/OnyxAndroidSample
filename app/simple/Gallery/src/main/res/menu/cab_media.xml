@@ -7,14 +7,14 @@
         android:title="@string/confirm_selection"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/cab_delete"
-        android:icon="@drawable/ic_delete_vector"
-        android:title="@string/delete"
-        app:showAsAction="ifRoom"/>
-    <item
         android:id="@+id/cab_share"
         android:icon="@drawable/ic_share_vector"
         android:title="@string/share"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/cab_rename"
+        android:icon="@drawable/ic_edit_vector"
+        android:title="@string/rename"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cab_properties"
@@ -22,9 +22,9 @@
         android:title="@string/properties"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/cab_rename"
-        android:icon="@drawable/ic_edit_vector"
-        android:title="@string/rename"
+        android:id="@+id/cab_delete"
+        android:icon="@drawable/ic_delete_vector"
+        android:title="@string/delete"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cab_hide"
