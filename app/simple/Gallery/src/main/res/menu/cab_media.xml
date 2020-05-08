@@ -35,12 +35,12 @@
     </item>
     <item
         android:id="@+id/cab_properties"
-        android:icon="@drawable/ic_info"
+        android:icon="@drawable/ic_info_vector"
         android:title="@string/properties"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cab_rename"
-        android:icon="@drawable/ic_rename_new"
+        android:icon="@drawable/ic_edit_vector"
         android:title="@string/rename"
         app:showAsAction="ifRoom"/>
     <item
