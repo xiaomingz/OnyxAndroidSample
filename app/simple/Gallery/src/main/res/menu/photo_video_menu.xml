@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_properties"
-        android:icon="@drawable/ic_info"
+        android:icon="@drawable/ic_info_vector"
         android:title="@string/properties"
         app:showAsAction="ifRoom"/>
     <item

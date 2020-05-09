@@ -2,6 +2,7 @@ package com.onyx.gallery.helpers
 
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Environment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -10,11 +11,25 @@ import com.simplemobiletools.commons.helpers.SORT_BY_DATE_MODIFIED
 import com.simplemobiletools.commons.helpers.SORT_DESCENDING
 import com.onyx.gallery.R
 import com.onyx.gallery.models.AlbumCover
+import com.simplemobiletools.commons.extensions.objectFromRawResource
 import java.util.*
 
 class Config(context: Context) : BaseConfig(context) {
+
+    inner class DeviceConfig {
+        var hasCamera: Boolean = false
+    }
+
+    init {
+        if (deviceConfig == null) {
+            deviceConfig = context.objectFromRawResource(Build.MODEL, DeviceConfig::class.java)
+                    ?: DeviceConfig()
+        }
+    }
+
     companion object {
         fun newInstance(context: Context) = Config(context)
+        var deviceConfig: DeviceConfig? = null
     }
 
     var directorySorting: Int
@@ -490,4 +505,8 @@ class Config(context: Context) : BaseConfig(context) {
     var wereFavoritesMigrated: Boolean
         get() = prefs.getBoolean(WERE_FAVORITES_MIGRATED, false)
         set(wereFavoritesMigrated) = prefs.edit().putBoolean(WERE_FAVORITES_MIGRATED, wereFavoritesMigrated).apply()
+
+
+    val hasCamera: Boolean
+        get():Boolean = deviceConfig?.hasCamera ?: false
 }
