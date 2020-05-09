@@ -31,6 +31,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.loader.content.CursorLoader
+import com.alibaba.fastjson.JSON
 import com.github.ajalt.reprint.core.Reprint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -745,5 +746,5 @@ fun <T> Context.objectFromRawResource(name: String?, classOfT: Class<T>): T? {
             name?.replace("-", "_")?.toLowerCase(Locale.getDefault()) ?: "",
             "raw", packageName)
     val content: String? = resources.contentOfRawResource(resId)
-    return Gson().fromJson(content, classOfT)
+    return JSONParseUtils.parseObjectSafely(content, classOfT)
 }
