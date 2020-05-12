@@ -16,10 +16,6 @@ import java.util.*
 
 class Config(context: Context) : BaseConfig(context) {
 
-    inner class DeviceConfig {
-        var hasCamera: Boolean = false
-    }
-
     init {
         if (deviceConfig == null) {
             deviceConfig = context.objectFromRawResource(Build.MODEL, DeviceConfig::class.java)
