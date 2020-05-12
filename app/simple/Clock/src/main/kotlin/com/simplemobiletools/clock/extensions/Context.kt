@@ -10,7 +10,6 @@ import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.AudioManager.STREAM_ALARM
 import android.net.Uri
-import android.os.Build
 import android.os.PowerManager
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
@@ -66,13 +65,16 @@ fun Context.getAllTimeZonesModified(): ArrayList<MyTimeZone> {
         if (editedTitlesMap.keys.contains(it.id)) {
             it.title = editedTitlesMap[it.id]!!
         } else {
-            it.title = it.title.substring(it.title.indexOf(' ')).trim()
+            val index = it.title.indexOf(' ')
+            if (index >= 0) {
+                it.title = it.title.substring(index).trim()
+            }
         }
     }
     return timeZones
 }
 
-fun Context.getModifiedTimeZoneTitle(id: Int) = getAllTimeZonesModified().firstOrNull { it.id == id }?.title ?: getDefaultTimeZoneTitle(id)
+fun Context.getModifiedTimeZoneTitle(id: Int) = getAllTimeZonesModified().firstOrNull { it.id == id }?.title ?: getDefaultTimeZoneTitle(this, id)
 
 fun Context.createNewAlarm(timeInMinutes: Int, weekDays: Int): Alarm {
     val defaultAlarmSound = getDefaultAlarmSound(ALARM_SOUND_TYPE_ALARM)
@@ -391,4 +393,36 @@ fun Context.checkAlarmsWithDeletedSoundUri(uri: String) {
         it.soundUri = defaultAlarmSound.uri
         dbHelper.updateAlarm(it)
     }
+}
+
+fun Context.getAllTimeZones(): ArrayList<MyTimeZone> {
+    val ids = resources.getStringArray(R.array.cities_id)
+    val names = resources.getStringArray(R.array.cities_names)
+    val timezones = resources.getStringArray(R.array.cities_tz)
+    if (ids.size != names.size) {
+        val format = "id count (%d) != name count (%d) for locale %s"
+        val message = String.format(format, ids.size, names.size, Locale.getDefault().toString())
+        throw IllegalStateException(message)
+    }
+    if (ids.size != timezones.size) {
+        val format = "id count (%d) != timezone count (%d) for locale %s"
+        val message = String.format(format, ids.size, timezones.size, Locale.getDefault().toString())
+        throw IllegalStateException(message)
+    }
+    val cities = ArrayList<MyTimeZone>();
+    for (i in ids.indices) {
+        val id = ids[i]
+        if ("C0" == id) {
+            continue
+        }
+        cities.add(createMyTimeZone(id.replace("C", ""), names[i], timezones[i]))
+    }
+    return cities
+}
+
+private fun createMyTimeZone(id: String, formattedName: String, timeZoneId: String): MyTimeZone {
+    val parts = formattedName.split(Regex("[=:]")).toTypedArray()
+    val name = parts[1]
+    val indexString = if (parts[0].isEmpty()) name[0].toString() else parts[0]
+    return MyTimeZone(id.toInt(), name, timeZoneId, indexString)
 }
