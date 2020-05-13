@@ -693,7 +693,7 @@ class DirectoryAdapter(activity: BaseSimpleActivity, var dirs: ArrayList<Directo
                 dir_lock.applyColorFilter(config.backgroundColor.getContrastColor())
             } else {
                 dir_lock.beGone()
-                activity.loadImage(thumbnailType, directory.tmb, dir_thumbnail, scrollHorizontally, animateGifs, cropThumbnails)
+                activity.loadDirImage(directory, dir_thumbnail, cropThumbnails)
             }
 
             dir_pin.beVisibleIf(pinnedFolders.contains(directory.path))
