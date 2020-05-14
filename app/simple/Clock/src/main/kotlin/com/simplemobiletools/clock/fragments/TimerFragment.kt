@@ -86,6 +86,7 @@ class TimerFragment : Fragment() {
                 }
             }
 
+            timer_vibrate_holder.beGoneIf(!requireContext().hasVibrator())
             timer_vibrate_holder.setOnClickListener {
                 timer_vibrate.toggle()
                 config.timerVibrate = timer_vibrate.isChecked

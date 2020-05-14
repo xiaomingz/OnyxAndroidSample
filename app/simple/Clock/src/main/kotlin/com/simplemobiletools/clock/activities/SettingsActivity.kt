@@ -105,6 +105,8 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupVibrate() {
+        stopwatch_tab_label.beGoneIf(!hasVibrator())
+        settings_vibrate_holder.beGoneIf(!hasVibrator())
         settings_vibrate.isChecked = config.vibrateOnButtonPress
         settings_vibrate_holder.setOnClickListener {
             settings_vibrate.toggle()
