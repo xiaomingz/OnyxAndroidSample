@@ -39,6 +39,7 @@
         <item name="android:overScrollMode">never</item>
         <item name="switchStyle">@style/OnyxSwitchStyle</item>
         <item name="actionOverflowButtonStyle">@style/OnyxActionOverflowStyle</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_title_bar_back_selector</item>
     </style>
 
     <style name="OnyxActionModeStyle" parent="@style/Widget.AppCompat.ActionMode">

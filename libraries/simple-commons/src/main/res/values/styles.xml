@@ -66,7 +66,7 @@
         <item name="height">?attr/actionBarSize</item>
         <item name="titleTextStyle">@style/TextAppearance.AppCompat.Widget.ActionMode.Title</item>
         <item name="subtitleTextStyle">@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle</item>
-        <item name="closeItemLayout">@layout/abc_action_mode_close_item_material</item>
+        <item name="closeItemLayout">@layout/action_mode_close_item_layout</item>
     </style>
 
     <style name="LightActionBarItems" parent="ThemeOverlay.AppCompat.ActionBar">
