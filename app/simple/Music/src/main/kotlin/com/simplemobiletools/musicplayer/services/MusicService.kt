@@ -484,6 +484,8 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         Handler(Looper.getMainLooper()).postDelayed({
             if (!getIsPlaying()) {
                 stopForeground(false)
+            } else {
+                notify(notification.build())
             }
         }, 200L)
 
@@ -494,6 +496,11 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                     .build())
         } catch (ignored: IllegalStateException) {
         }
+    }
+
+    private fun notify(notification: Notification) {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+        notificationManager?.notify(NOTIFICATION_ID, notification)
     }
 
     private fun getContentIntent(): PendingIntent {

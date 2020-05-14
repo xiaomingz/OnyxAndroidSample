@@ -163,6 +163,7 @@ class TimerFragment : Fragment() {
     }
 
     fun updateAlarmSound(alarmSound: AlarmSound) {
+        requiredActivity.config.timerChannelId = null
         requiredActivity.config.timerSoundTitle = alarmSound.title
         requiredActivity.config.timerSoundUri = alarmSound.uri
         view.timer_sound.text = alarmSound.title
