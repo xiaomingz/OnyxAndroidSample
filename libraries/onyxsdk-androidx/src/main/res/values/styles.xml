@@ -6,6 +6,7 @@
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorControlNormal">@color/color_primary</item>
         <!--Remove 1px shadow between status bar and window content-->
+        <item name="android:homeAsUpIndicator">@drawable/ic_title_bar_back_selector</item>
         <item name="android:windowContentOverlay">@android:color/transparent</item>
         <item name="android:dropDownListViewStyle">@style/OnyxAppCompat.PopupMenuListView</item>
         <item name="popupMenuStyle">@style/OnyxAppCompat.ToolBar.Popup</item>
