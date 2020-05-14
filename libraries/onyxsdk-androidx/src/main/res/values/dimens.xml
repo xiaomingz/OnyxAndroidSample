@@ -56,4 +56,8 @@
     <dimen name="seekbar_thumb_drawable_size">20dp</dimen>
     <dimen name="switch_btn_width">35dp</dimen>
     <dimen name="switch_btn_height">20dp</dimen>
+
+    <dimen name="dash_Line_length">2dp</dimen>
+    <dimen name="dash_space_length">2dp</dimen>
+    <dimen name="dash_line_width">1px</dimen>
 </resources>
