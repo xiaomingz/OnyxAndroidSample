@@ -45,7 +45,7 @@ class EditAlarmDialog(val activity: SimpleActivity, val alarm: Alarm, val callba
                     activity.checkAlarmsWithDeletedSoundUri(it.uri)
                 })
             }
-
+            edit_alarm_vibrate_holder.beGoneIf(!context.hasVibrator())
             edit_alarm_vibrate.colorLeftDrawable(textColor)
             edit_alarm_vibrate.isChecked = alarm.vibrate
             edit_alarm_vibrate_holder.setOnClickListener {

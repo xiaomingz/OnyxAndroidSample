@@ -2,6 +2,7 @@ package com.simplemobiletools.commons.extensions
 
 import android.Manifest
 import android.app.Activity
+import android.app.Service
 import android.content.ComponentName
 import android.content.ContentUris
 import android.content.Context
@@ -15,10 +16,7 @@ import android.media.ExifInterface
 import android.media.MediaMetadataRetriever
 import android.media.RingtoneManager
 import android.net.Uri
-import android.os.Build
-import android.os.Environment
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.provider.BaseColumns
 import android.provider.DocumentsContract
 import android.provider.MediaStore
@@ -31,7 +29,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.loader.content.CursorLoader
-import com.alibaba.fastjson.JSON
 import com.github.ajalt.reprint.core.Reprint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -747,4 +744,9 @@ fun <T> Context.objectFromRawResource(name: String?, classOfT: Class<T>): T? {
             "raw", packageName)
     val content: String? = resources.contentOfRawResource(resId)
     return JSONParseUtils.parseObjectSafely(content, classOfT)
+}
+
+fun Context.hasVibrator(): Boolean {
+    val vibrator = getSystemService(Service.VIBRATOR_SERVICE) as? Vibrator
+    return vibrator?.hasVibrator() ?: false
 }

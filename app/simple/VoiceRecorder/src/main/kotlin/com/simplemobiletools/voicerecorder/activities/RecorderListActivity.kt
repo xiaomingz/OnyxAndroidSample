@@ -3,13 +3,13 @@ package com.simplemobiletools.voicerecorder.activities
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.simplemobiletools.commons.views.DashLineItemDivider
 import com.simplemobiletools.voicerecorder.R
 import com.simplemobiletools.voicerecorder.actions.FilesLoadAction
 import com.simplemobiletools.voicerecorder.adapters.RecorderListAdapter
 import com.simplemobiletools.voicerecorder.databinding.ActivityRecorderListBinding
 import com.simplemobiletools.voicerecorder.dialogs.DialogMediaPlayer
 import com.simplemobiletools.voicerecorder.helpers.MediaPlayerManager
-import kotlinx.android.synthetic.main.dialog_media_player.*
 import java.io.File
 import com.simplemobiletools.voicerecorder.dialogs.DialogMediaPlayer.PlayListener as PlayListener
 
@@ -27,6 +27,7 @@ class RecorderListActivity : SimpleActivity() {
 
     private fun initView() {
         binding.contentView.layoutManager = LinearLayoutManager(this)
+        binding.contentView.addItemDecoration(DashLineItemDivider(this))
         adapter = RecorderListAdapter(this, binding.contentView) {
             play(it as File)
         }
