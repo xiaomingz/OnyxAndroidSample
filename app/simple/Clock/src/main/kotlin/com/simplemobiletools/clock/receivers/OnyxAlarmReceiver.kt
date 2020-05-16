@@ -17,7 +17,7 @@ import com.simplemobiletools.clock.helpers.ALARM_ID
 import com.simplemobiletools.clock.helpers.ALARM_NOTIF_ID
 import com.simplemobiletools.commons.helpers.isOreoPlus
 
-class AlarmReceiver : BroadcastReceiver() {
+class OnyxAlarmReceiver : BroadcastReceiver() {
 
     @SuppressLint("NewApi")
     override fun onReceive(context: Context, intent: Intent) {

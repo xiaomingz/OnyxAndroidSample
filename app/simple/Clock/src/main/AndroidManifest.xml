@@ -91,7 +91,7 @@
         <service android:name=".services.SnoozeService"/>
         <service android:name=".services.TimerService" />
 
-        <receiver android:name=".receivers.AlarmReceiver"/>
+        <receiver android:name=".receivers.OnyxAlarmReceiver"/>
 
         <receiver android:name=".receivers.HideTimerReceiver"/>
 
