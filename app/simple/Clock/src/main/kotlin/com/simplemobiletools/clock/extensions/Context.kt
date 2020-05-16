@@ -23,7 +23,7 @@ import com.simplemobiletools.clock.activities.SplashActivity
 import com.simplemobiletools.clock.helpers.*
 import com.simplemobiletools.clock.models.Alarm
 import com.simplemobiletools.clock.models.MyTimeZone
-import com.simplemobiletools.clock.receivers.AlarmReceiver
+import com.simplemobiletools.clock.receivers.OnyxAlarmReceiver
 import com.simplemobiletools.clock.receivers.DateTimeWidgetUpdateReceiver
 import com.simplemobiletools.clock.receivers.HideAlarmReceiver
 import com.simplemobiletools.clock.receivers.HideTimerReceiver
@@ -126,7 +126,7 @@ fun Context.getOpenTimerTabIntent(): PendingIntent {
 }
 
 fun Context.getAlarmIntent(alarm: Alarm): PendingIntent {
-    val intent = Intent(this, AlarmReceiver::class.java)
+    val intent = Intent(this, OnyxAlarmReceiver::class.java)
     intent.putExtra(ALARM_ID, alarm.id)
     return PendingIntent.getBroadcast(this, alarm.id, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 }
