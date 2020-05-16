@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import androidx.core.app.NotificationCompat
+import com.onyx.android.appcompat.common.utils.BroadcastHelper
 import com.simplemobiletools.clock.R
 import com.simplemobiletools.clock.activities.ReminderActivity
 import com.simplemobiletools.clock.extensions.*
@@ -29,8 +30,9 @@ class AlarmReceiver : BroadcastReceiver() {
                 context.hideNotification(id)
             }, context.config.alarmMaxReminderSecs * 1000L)
         } else {
+            BroadcastHelper.sendWakeupIntent(context)
             if (isOreoPlus()) {
-                val notificationManager = context.getSystemService(NotificationManager::class.java)
+                val notificationManager = context.getSystemService(NotificationManager::class.java) as NotificationManager
                 if (notificationManager.getNotificationChannel("Alarm") == null) {
                     val channel = NotificationChannel("Alarm", "Alarm", NotificationManager.IMPORTANCE_HIGH)
                     channel.setBypassDnd(true)
