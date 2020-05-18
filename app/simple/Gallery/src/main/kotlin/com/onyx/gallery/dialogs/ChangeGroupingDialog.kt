@@ -2,7 +2,7 @@ package com.onyx.gallery.dialogs
 
 import android.content.DialogInterface
 import android.view.View
-import androidx.appcompat.app.AlertDialog
+import android.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.setupDialogStuff

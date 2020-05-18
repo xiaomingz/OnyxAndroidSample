@@ -1,7 +1,7 @@
 package com.simplemobiletools.commons.dialogs
 
 import android.app.Activity
-import androidx.appcompat.app.AlertDialog
+import android.app.AlertDialog
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.extensions.*
 import kotlinx.android.synthetic.main.dialog_rate_stars.view.*

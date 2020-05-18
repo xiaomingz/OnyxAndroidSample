@@ -1,7 +1,7 @@
 package com.onyx.gallery.dialogs
 
 import android.app.Activity
-import androidx.appcompat.app.AlertDialog
+import android.app.AlertDialog
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.onyx.gallery.R
 import kotlinx.android.synthetic.main.dialog_confirm_delete_folder.view.*

@@ -1,11 +1,11 @@
 package com.simplemobiletools.commons.dialogs
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.view.ViewGroup
 import android.widget.RadioGroup
-import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.simplemobiletools.commons.R

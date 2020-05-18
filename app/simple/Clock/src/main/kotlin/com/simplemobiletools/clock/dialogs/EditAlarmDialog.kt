@@ -4,7 +4,7 @@ import android.app.TimePickerDialog
 import android.graphics.drawable.Drawable
 import android.media.AudioManager
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
+import android.app.AlertDialog
 import com.simplemobiletools.clock.R
 import com.simplemobiletools.clock.activities.SimpleActivity
 import com.simplemobiletools.clock.extensions.*
