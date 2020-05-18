@@ -1,8 +1,8 @@
 package com.simplemobiletools.commons.dialogs
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.DAY_SECONDS

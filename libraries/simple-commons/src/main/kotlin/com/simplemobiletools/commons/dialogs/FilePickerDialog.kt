@@ -1,9 +1,9 @@
 package com.simplemobiletools.commons.dialogs
 
+import android.app.AlertDialog
 import android.os.Environment
 import android.os.Parcelable
 import android.view.KeyEvent
-import androidx.appcompat.app.AlertDialog
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.simplemobiletools.commons.R

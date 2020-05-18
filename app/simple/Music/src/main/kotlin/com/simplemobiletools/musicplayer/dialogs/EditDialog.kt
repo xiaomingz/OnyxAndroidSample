@@ -1,9 +1,9 @@
 package com.simplemobiletools.musicplayer.dialogs
 
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Context
 import android.provider.MediaStore
-import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread

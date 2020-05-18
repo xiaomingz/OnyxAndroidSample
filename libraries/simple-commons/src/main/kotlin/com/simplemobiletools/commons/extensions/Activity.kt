@@ -1,6 +1,7 @@
 package com.simplemobiletools.commons.extensions
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.*
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
@@ -17,7 +18,6 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import com.simplemobiletools.commons.R

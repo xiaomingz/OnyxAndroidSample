@@ -1,9 +1,9 @@
 package com.simplemobiletools.commons.dialogs
 
+import android.app.AlertDialog
 import android.view.Menu
 import android.view.View
 import android.view.WindowManager
-import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*

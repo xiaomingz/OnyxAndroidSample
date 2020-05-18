@@ -1,8 +1,8 @@
 package com.simplemobiletools.voicerecorder.adapters
 
+import android.app.AlertDialog
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RenameItemsDialog
 import com.simplemobiletools.commons.extensions.*
