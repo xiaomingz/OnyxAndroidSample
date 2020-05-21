@@ -43,4 +43,10 @@
     <dimen name="big_text_size">18sp</dimen>
     <dimen name="actionbar_text_size">20sp</dimen>
     <dimen name="extra_big_text_size">22sp</dimen>
+
+
+    <dimen name="reader_main_menu_bottom_image_width">70px</dimen>
+
+    <dimen name="image_btn_rect_radius">20dp</dimen>
+
 </resources>
