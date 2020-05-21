@@ -5,4 +5,5 @@
     <integer name="media_columns_horizontal_scroll">4</integer>
 
     <integer name="default_sorting">33794</integer>
+    <integer name="move_distance_threshold">5</integer>
 </resources>

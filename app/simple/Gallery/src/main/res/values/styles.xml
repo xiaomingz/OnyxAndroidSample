@@ -2,10 +2,72 @@
 
     <style name="AppTheme" parent="@style/OnyxAppCompat.ActionBar"/>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
     <style name="FullScreenTheme.Base" parent="AppTheme">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="FullScreenTheme" parent="FullScreenTheme.Base"/>
+
+
+    <style name="main_menu_bottom_progress_light_layout">
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/reader_menu_progress_and_light_bg</item>
+    </style>
+
+    <style name="main_menu_bottom_iv_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:padding">@dimen/ic_read_progress_padding_top</item>
+    </style>
+
+
+    <style name="main_menu_bottom_progress_light_text">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:gravity">center|top</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:lines">2</item>
+        <item name="android:textSize">@dimen/common_large_text_size</item>
+    </style>
+
+    <style name="dialog_format_parent_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/dialog_parent_layout_padding_left</item>
+        <item name="android:layout_marginRight">@dimen/dialog_parent_layout_padding_left</item>
+        <item name="android:layout_marginTop">@dimen/dialog_text_style_layout_margin_top</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="dialog_text_style_radio_button">
+        <item name="android:background">@drawable/common_bg_selector</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/font_face_name_height</item>
+        <item name="android:paddingTop">@dimen/radio_button_padding_top</item>
+        <item name="android:paddingBottom">@dimen/radio_button_padding_top</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">@dimen/text_size_middle_mode</item>
+    </style>
+
+    <style name="text_style_spacing_style_name">
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">@dimen/seekbar_with_text_view_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textSize">@dimen/text_size_large_mode</item>
+        <item name="android:textColor">@color/normal_black</item>
+    </style>
+
 </resources>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.onyx.gallery.viewmodel.EditMenuViewModel" />
+
+        <variable
+            name="itemMenuStyle"
+            type="com.onyx.gallery.viewmodel.EditMenuViewModel.MenuStyle" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/main_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background_black"
+            android:paddingTop="10dp" />
+
+        <FrameLayout
+            android:id="@+id/item_sub_menu_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background_black"
+            android:paddingTop="10dp" />
+
+        <LinearLayout
+            android:id="@+id/layout_grid_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/reader_main_menu_bottom_height"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                style="@style/main_menu_bottom_progress_light_layout"
+                setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.SHARE}"
+                android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.SHARE)}">
+
+                <ImageView
+                    style="@style/main_menu_bottom_iv_style"
+                    setHint="@{com.onyx.gallery.R.drawable.ic_read_share}" />
+
+                <TextView
+                    style="@style/main_menu_bottom_progress_light_text"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/share" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/main_menu_bottom_progress_light_layout"
+                setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.GRAFFITI}"
+                android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.GRAFFITI)}">
+
+                <ImageView
+                    style="@style/main_menu_bottom_iv_style"
+                    setHint="@{com.onyx.gallery.R.drawable.s_main_menu_writing}" />
+
+                <TextView
+                    style="@style/main_menu_bottom_progress_light_text"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/graffiti" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/main_menu_bottom_progress_light_layout"
+                setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.TEXT}"
+                android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.TEXT)}">
+
+                <ImageView
+                    style="@style/main_menu_bottom_iv_style"
+                    setHint="@{com.onyx.gallery.R.drawable.s_format_setting}" />
+
+                <TextView
+                    style="@style/main_menu_bottom_progress_light_text"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/text" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                style="@style/main_menu_bottom_progress_light_layout"
+                setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.CROP}"
+                android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.CROP)}">
+
+                <ImageView
+                    style="@style/main_menu_bottom_iv_style"
+                    setHint="@{com.onyx.gallery.R.drawable.ic_crop}" />
+
+                <TextView
+                    style="@style/main_menu_bottom_progress_light_text"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/cropMenu" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/main_menu_bottom_progress_light_layout"
+                setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.MOSAIC}"
+                android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.MOSAIC)}">
+
+                <ImageView
+                    style="@style/main_menu_bottom_iv_style"
+                    setHint="@{com.onyx.gallery.R.drawable.ic_mosaic}" />
+
+                <TextView
+                    style="@style/main_menu_bottom_progress_light_text"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/mosaic" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

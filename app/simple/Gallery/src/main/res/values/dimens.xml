@@ -23,4 +23,31 @@
     <dimen name="widget_initial_size">110dp</dimen>
     <dimen name="full_brush_size">40dp</dimen>
     <dimen name="lock_padding">40dp</dimen>
+
+    <dimen name="reader_main_menu_bottom_height">88px</dimen>
+    <dimen name="ic_read_progress_padding_top">10px</dimen>
+    <dimen name="common_large_text_size">22px</dimen>
+
+    <dimen name="reader_main_menu_top_image_width_1">38px</dimen>
+    <dimen name="reader_main_menu_top_image_height_1">38px</dimen>
+
+    <dimen name="dialog_parent_layout_padding_left">44dp</dimen>
+    <dimen name="dialog_text_style_layout_margin_top">47dp</dimen>
+
+    <dimen name="font_face_name_height">37dp</dimen>
+    <dimen name="radio_button_padding_top">5dp</dimen>
+    <dimen name="text_size_middle_mode">30px</dimen>
+    <dimen name="note_res_size">44px</dimen>
+    <dimen name="menu_icon_size">34dp</dimen>
+
+    <dimen name="reader_main_menu_back_height">32px</dimen>
+    <dimen name="reader_main_menu_back_width">18px</dimen>
+
+    <dimen name="seekbar_with_text_view_width">112dp</dimen>
+    <dimen name="text_size_large_mode">24px</dimen>
+    <dimen name="fragment_edit_content_margin_top">10dp</dimen>
+    <dimen name="fragment_edit_content_margin_bottom">10dp</dimen>
+    <dimen name="zoom_preview_view_width">225dp</dimen>
+    <dimen name="gesture_page_threshold_value">300dp</dimen>
+
 </resources>

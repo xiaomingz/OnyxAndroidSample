@@ -16,22 +16,24 @@ import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
-import com.simplemobiletools.commons.models.FAQItem
-import com.simplemobiletools.commons.models.FileDirItem
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
-import com.onyx.gallery.activities.SimpleActivity
 import com.onyx.gallery.dialogs.PickDirectoryDialog
 import com.onyx.gallery.helpers.RECYCLE_BIN
 import com.onyx.gallery.models.DateTaken
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.NOMEDIA
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.isNougatPlus
+import com.simplemobiletools.commons.models.FileDirItem
 import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.FileOutputStream
@@ -39,6 +41,13 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+
+
+fun FragmentActivity.replaceLoadFragment(replaceId: Int, fragment: Fragment) {
+    supportFragmentManager.beginTransaction()
+            .replace(replaceId, fragment)
+            .commitNow()
+}
 
 fun Activity.sharePath(path: String) {
     sharePathIntent(path, BuildConfig.APPLICATION_ID)

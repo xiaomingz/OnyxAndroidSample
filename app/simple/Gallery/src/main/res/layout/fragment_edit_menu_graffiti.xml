@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.onyx.gallery.viewmodel.GraffitiMenuViewModel" />
+
+        <import type="com.onyx.gallery.models.MenuAction" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/dialog_format_parent_layout"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
+
+            <TextView
+                style="@style/text_style_spacing_style_name"
+                android:text="@string/color" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectColorAction == MenuAction.NOTE_COLOR_BLACK}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NOTE_COLOR_BLACK)}"
+                app:srcCompat="@drawable/s_note_color_black" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectColorAction == MenuAction.NOTE_COLOR_DARK_GREY}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NOTE_COLOR_DARK_GREY)}"
+                app:srcCompat="@drawable/s_note_color_dark_grey" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectColorAction == MenuAction.NOTE_COLOR_MEDIUM_GREY}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NOTE_COLOR_MEDIUM_GREY)}"
+                app:srcCompat="@drawable/s_note_color_medium_grey" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectColorAction == MenuAction.NOTE_COLOR_LIGHT_GREY}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NOTE_COLOR_LIGHT_GREY)}"
+                app:srcCompat="@drawable/s_note_color_light_grey" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectColorAction == MenuAction.NOTE_COLOR_WHITE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NOTE_COLOR_WHITE)}"
+                app:srcCompat="@drawable/s_note_color_white" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectColorAction == MenuAction.NOTE_COLOR_RED}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NOTE_COLOR_RED)}"
+                app:srcCompat="@drawable/s_note_color_red" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectColorAction == MenuAction.NOTE_COLOR_GREEN}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NOTE_COLOR_GREEN)}"
+                app:srcCompat="@drawable/s_note_color_green" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectColorAction == MenuAction.NOTE_COLOR_BLUE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NOTE_COLOR_BLUE)}"
+                app:srcCompat="@drawable/s_note_color_blue" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/dialog_format_parent_layout"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1">
+
+            <TextView
+                style="@style/text_style_spacing_style_name"
+                android:text="@string/brush" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_BRUSH}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_BRUSH)}"
+                app:srcCompat="@drawable/s_main_menu_writing" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_CIRCLE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_CIRCLE)}"
+                app:srcCompat="@drawable/ic_note_shape_circle" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_RECTANGLE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_RECTANGLE)}"
+                app:srcCompat="@drawable/ic_note_shape_square" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_TRIANGLE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_TRIANGLE)}"
+                app:srcCompat="@drawable/ic_note_shape_triangle" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_ARROW}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_ARROW)}"
+                app:srcCompat="@drawable/ic_arrow" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_LINE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_LINE)}"
+                app:srcCompat="@drawable/ic_note_shape_line" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_DOTTED_LINE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_DOTTED_LINE)}"
+                app:srcCompat="@drawable/ic_dotted_line" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_WAVY_LINE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_WAVY_LINE)}"
+                app:srcCompat="@drawable/ic_wave" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>
