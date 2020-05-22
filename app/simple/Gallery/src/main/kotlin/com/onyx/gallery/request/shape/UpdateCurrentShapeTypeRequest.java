@@ -30,9 +30,11 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
             case ShapeFactory.SHAPE_RECTANGLE:
             case ShapeFactory.SHAPE_TRIANGLE:
             case ShapeFactory.SHAPE_LINE:
+                noteManager.setRawDrawingRenderEnabled(false);
                 eventHandlerType = EventHandlerManager.EventHandlerType.NORMAL_SHAPE_EVENT;
                 break;
             default:
+                noteManager.setRawDrawingRenderEnabled(true);
                 eventHandlerType = EventHandlerManager.EventHandlerType.PEN_EVENT;
                 break;
         }

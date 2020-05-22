@@ -23,6 +23,8 @@ class PenEventHandler(globalEditBundle: GlobalEditBundle) : BaseEventHandler(glo
     private fun createEraseShape(touchPointList: TouchPointList): Shape {
         val shape = ShapeFactory.createShape(globalEditBundle.currShapeType)
         shape.layoutType = LayoutType.FREE.ordinal
+        shape.strokeWidth = noteManager.strokeWidth
+        shape.color = noteManager.strokeColor
         shape.addPoints(touchPointList)
         return shape
     }
@@ -30,7 +32,7 @@ class PenEventHandler(globalEditBundle: GlobalEditBundle) : BaseEventHandler(glo
     private fun getNormalTouchPoint(touchPointList: TouchPointList): TouchPointList {
         val normalizedMatrix = Matrix()
         noteManager.renderContext.matrix.invert(normalizedMatrix)
-        var newTouchPointList = TouchPointList()
+        val newTouchPointList = TouchPointList()
         touchPointList.points.forEach {
             val normalPoint = ShapeUtils.matrixTouchPoint(it, normalizedMatrix)
             newTouchPointList.add(normalPoint)

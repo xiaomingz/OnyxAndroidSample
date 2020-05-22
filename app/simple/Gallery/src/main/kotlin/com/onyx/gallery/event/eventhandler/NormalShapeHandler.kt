@@ -2,7 +2,6 @@ package com.onyx.gallery.event.eventhandler
 
 import android.graphics.Matrix
 import com.onyx.android.sdk.pen.data.TouchPoint
-import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.rx.SingleThreadScheduler
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
@@ -10,7 +9,6 @@ import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.action.shape.AddShapesAction
 import com.onyx.gallery.action.shape.RenderVarietyShapeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
-import com.onyx.gallery.common.BaseRequest
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.disposables.Disposable
@@ -49,47 +47,43 @@ class NormalShapeHandler(globalEditBundle: GlobalEditBundle) : BaseEventHandler(
     }
 
     override fun onRawDrawingPointsMoveReceived(point: TouchPoint) {
-        if (drawEmitter != null) {
-            drawEmitter!!.onNext(point)
-        }
+        drawEmitter?.run { onNext(point) }
     }
 
     override fun onEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint) {
-        if (disposable != null) {
-            disposable!!.dispose()
-        }
-        drawEmitter!!.onNext(point)
+        disposable?.run { dispose() }
+        drawEmitter?.onNext(point)
+
+        normalMatrixMapPoint(downPoint!!, point)
+
         val renderShape = createShape(downPoint)
         renderShape.onUp(point, point)
         disposeAction()
         addShape(renderShape)
     }
 
-    private fun addShape(renderShape: Shape) {
+    private fun normalMatrixMapPoint(downPoint: TouchPoint, upPoint: TouchPoint) {
         val normalizedMatrix = Matrix()
         noteManager.renderContext.matrix.invert(normalizedMatrix)
-        for (point in renderShape.points) {
-            point.set(ShapeUtils.matrixTouchPoint(point, normalizedMatrix))
-        }
+        downPoint.set(ShapeUtils.matrixTouchPoint(downPoint, normalizedMatrix))
+        upPoint.set(ShapeUtils.matrixTouchPoint(upPoint, normalizedMatrix))
+    }
+
+    private fun addShape(renderShape: Shape) {
         AddShapesAction().setShape(renderShape).execute(null)
     }
 
     private fun createShape(downTouchPoint: TouchPoint?): Shape {
         val shape: Shape = ShapeFactory.createShape(globalEditBundle.currShapeType)
         shape.layoutType = ShapeFactory.LayoutType.FREE.ordinal
+        shape.strokeWidth = noteManager.strokeWidth
+        shape.color = noteManager.strokeColor
         shape.onDown(downTouchPoint, downTouchPoint)
         return shape
     }
 
     private fun renderVarietyShape(shape: Shape) {
-        RenderVarietyShapeAction().addShape(shape).setDisposableList(actionDisposables).execute(object : RxCallback<BaseRequest>() {
-            override fun onSubscribe(d: Disposable) {
-                actionDisposables.add(d)
-            }
-
-            override fun onNext(p0: BaseRequest) {
-            }
-        })
+        RenderVarietyShapeAction().addShape(shape).setDisposableList(actionDisposables).execute(null)
     }
 
     private fun disposeAction() {

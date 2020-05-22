@@ -23,10 +23,10 @@ abstract class BaseRequest : RxRequest() {
     var renderShapesToBitmap = false
 
     @Volatile
-    var pauseRawDrawingRender = true
+    var pauseRawDrawingRender = false
 
     @Volatile
-    var pauseRawInputReader = true
+    var pauseRawInputReader = false
 
     @WorkerThread
     @Throws(Exception::class)
@@ -47,9 +47,6 @@ abstract class BaseRequest : RxRequest() {
         if (renderToScreen) {
             noteManager.renderToScreen()
         }
-        setPauseRawDraw(false)
-        noteManager.setRawDrawingRenderEnabled(true)
-        noteManager.setRawInputReaderEnable(true)
     }
 
     @WorkerThread

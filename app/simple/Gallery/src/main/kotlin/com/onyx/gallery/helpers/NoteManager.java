@@ -1,6 +1,7 @@
 package com.onyx.gallery.helpers;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.SurfaceView;
@@ -18,7 +19,6 @@ import com.onyx.android.sdk.scribble.command.CommandManager;
 import com.onyx.android.sdk.scribble.shape.ImageShape;
 import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.android.sdk.scribble.shape.Shape;
-import com.onyx.android.sdk.scribble.shape.ShapeFactory;
 import com.onyx.gallery.event.raw.BeginRawDrawEvent;
 import com.onyx.gallery.event.raw.BeginRawErasingEvent;
 import com.onyx.gallery.event.raw.EndRawDrawingEvent;
@@ -32,6 +32,7 @@ import com.onyx.gallery.event.raw.RawErasingPointsReceived;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -54,6 +55,10 @@ public class NoteManager {
 
     private CommandManager commandManager;
 
+    private float strokeWidth = 20f;
+    private int strokeColor = Color.BLACK;
+
+    private Rect limitRect = new Rect();
 
     public NoteManager(Context context, EventBus eventBus) {
         this.eventBus = eventBus;
@@ -85,9 +90,10 @@ public class NoteManager {
         } else {
             touchHelper.bindHostView(view, getRawInputCallback());
         }
-
         touchHelper.openRawDrawing();
         touchHelper.setRawDrawingEnabled(false);
+        setStrokeStyle(TouchHelper.STROKE_STYLE_PENCIL);
+        setStrokeWidth(10);
         getRendererHelper().createRendererBitmap(new Rect(0, 0, view.getWidth(), view.getHeight()));
     }
 
@@ -100,6 +106,16 @@ public class NoteManager {
 
     public <T extends RxRequest> void enqueue(final T request, final RxCallback<T> callback) {
         getRxManager().enqueue(request, callback);
+    }
+
+    public void updateLimitRect(Rect rect) {
+        if (getTouchHelper() == null) {
+            return;
+        }
+        touchHelper.closeRawDrawing();
+        limitRect.set(rect);
+        getTouchHelper().setLimitRect(Collections.singletonList(limitRect));
+        touchHelper.openRawDrawing();
     }
 
     public RendererHelper getRendererHelper() {
@@ -255,7 +271,12 @@ public class NoteManager {
         if (getTouchHelper() == null) {
             return;
         }
+        strokeColor = color;
         getTouchHelper().setStrokeColor(color);
+    }
+
+    public int getStrokeColor() {
+        return strokeColor;
     }
 
     public void renderToBitmap(Shape shape) {
@@ -277,7 +298,12 @@ public class NoteManager {
     }
 
     public void setStrokeWidth(float penWidth) {
+        strokeWidth = penWidth;
         getTouchHelper().setStrokeWidth(penWidth);
+    }
+
+    public float getStrokeWidth() {
+        return strokeWidth;
     }
 
     public RenderContext getRenderContext() {
@@ -311,5 +337,7 @@ public class NoteManager {
         return shapeList;
     }
 
-
+    public Rect getLimitRect() {
+        return limitRect;
+    }
 }

@@ -49,5 +49,7 @@
     <dimen name="fragment_edit_content_margin_bottom">10dp</dimen>
     <dimen name="zoom_preview_view_width">225dp</dimen>
     <dimen name="gesture_page_threshold_value">300dp</dimen>
+    <dimen name="kcb_item_title_text_size">16sp</dimen>
+    <dimen name="edit_menu_graffiti_height_content">130dp</dimen>
 
 </resources>

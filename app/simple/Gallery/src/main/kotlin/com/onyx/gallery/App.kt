@@ -1,5 +1,6 @@
 package com.onyx.gallery
 
+import android.content.Context
 import androidx.multidex.MultiDexApplication
 import com.github.ajalt.reprint.core.Reprint
 import com.onyx.android.sdk.utils.ResManager
@@ -8,7 +9,8 @@ import com.simplemobiletools.commons.extensions.checkUseEnglish
 class App : MultiDexApplication() {
 
     companion object {
-        lateinit var instance: App
+        lateinit var instance: Context
+            private set
     }
 
     override fun onCreate() {

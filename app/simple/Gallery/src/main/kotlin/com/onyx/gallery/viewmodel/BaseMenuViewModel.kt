@@ -20,7 +20,7 @@ open class BaseMenuViewModel : BaseViewModel() {
 
     open fun onHandleMenu(action: MenuAction): Boolean = true
 
-    open fun defaultShape(): Int = ShapeFactory.SHAPE_BRUSH_SCRIBBLE
+    open fun defaultShape(): Int = ShapeFactory.SHAPE_PENCIL_SCRIBBLE
 
     open fun defaultStrokeColor(): Int = Color.BLACK
 

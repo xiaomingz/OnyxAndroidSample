@@ -6,7 +6,6 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.view.SurfaceHolder
-import android.view.SurfaceView
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.onyx.android.sdk.api.device.epd.EpdController
@@ -31,6 +30,13 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding>() {
     private var uri: Uri? = null
     private var inFastMode = false
     private var surfaceCallback: SurfaceHolder.Callback? = null
+        get() {
+            if (field == null) {
+                field = initSurfaceCallback()
+            }
+            return field
+        }
+
     private lateinit var viewModel: EditContentViewModel
 
     private val TAG: String = EditContentFragment::class.java.getSimpleName()
@@ -55,7 +61,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding>() {
     }
 
     override fun onInitView(binding: FragmentEditContentBinding, contentView: View) {
-        initSurfaceView(binding.surfaceView)
+        initSurfaceView()
         val scribbleTouchDistributor = ScribbleTouchDistributor()
         binding.surfaceView.setOnTouchListener { _, event ->
             scribbleTouchDistributor.onTouchEvent(event)
@@ -77,25 +83,24 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding>() {
         binding.surfaceView.holder.removeCallback(surfaceCallback)
     }
 
-    private fun initSurfaceView(surfaceView: SurfaceView) {
-        if (surfaceCallback == null) {
-            surfaceCallback = object : SurfaceHolder.Callback {
-                override fun surfaceCreated(holder: SurfaceHolder) {
-                    Debug.d(javaClass, "surfaceCreated")
-                    attachHostView()
-                }
-
-                override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
-                    Debug.d(javaClass, "surfaceChanged")
-                    onScribbleLayoutChange()
-                }
-
-                override fun surfaceDestroyed(holder: SurfaceHolder) {}
-            }
-        }
-        val surfaceHolder: SurfaceHolder = surfaceView.holder
+    private fun initSurfaceView() {
+        val surfaceHolder: SurfaceHolder = binding.surfaceView.holder
         surfaceHolder.setFormat(PixelFormat.TRANSLUCENT)
         surfaceHolder.addCallback(surfaceCallback)
+    }
+
+    private fun initSurfaceCallback(): SurfaceHolder.Callback = object : SurfaceHolder.Callback {
+        override fun surfaceCreated(holder: SurfaceHolder) {
+            Debug.d(javaClass, "surfaceCreated")
+            attachHostView()
+        }
+
+        override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+            Debug.d(javaClass, "surfaceChanged")
+            onScribbleLayoutChange()
+        }
+
+        override fun surfaceDestroyed(holder: SurfaceHolder) {}
     }
 
     private fun attachHostView() {

@@ -22,18 +22,6 @@
             android:layout_marginTop="@dimen/fragment_edit_content_margin_top"
             android:layout_marginBottom="@dimen/fragment_edit_content_margin_bottom" />
 
-        <Button
-            android:id="@+id/btn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="裁剪" />
-
-        <Button
-            android:id="@+id/btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn2"
-            android:text="开启/关闭手写" />
     </RelativeLayout>
 
 </layout>

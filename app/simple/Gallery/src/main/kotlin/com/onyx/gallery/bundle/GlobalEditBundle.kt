@@ -3,6 +3,7 @@ package com.onyx.gallery.bundle
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.provider.MediaStore
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
@@ -22,6 +23,7 @@ import java.io.File
 class GlobalEditBundle private constructor(context: Context) : BaseBundle(context) {
 
     var canFingerTouch = true
+    var supportZoom = true
     var uri: Uri? = null
     var filePath: String? = null
     private var saveUri: Uri? = null
@@ -30,7 +32,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     var initDy = 0f
     var initScaleFactor = 0f
 
-    var currShapeType = ShapeFactory.SHAPE_BRUSH_SCRIBBLE
+    var currShapeType = defaultShape()
         set(value) {
             if (field == value) {
                 return
@@ -39,7 +41,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
             field = value
         }
 
-    private var lastShapeType = ShapeFactory.SHAPE_BRUSH_SCRIBBLE
+    private var lastShapeType = currShapeType
 
     val noteManager: NoteManager = NoteManager(context, eventBus)
     val eventHandlerManager: EventHandlerManager = EventHandlerManager(this)
@@ -50,6 +52,10 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
         }
     }
 
+    fun defaultShape(): Int = ShapeFactory.SHAPE_PENCIL_SCRIBBLE
+
+    fun defaultStrokeColor(): Int = Color.BLACK
+
     fun parseIntent(host: Activity) {
         uri = parseImageUri(host)
         saveUri = parseSaveUri(host.intent)
@@ -57,6 +63,9 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
 
     private fun parseImageUri(host: Activity): Uri? {
         val intent = host.intent
+        if (intent == null) {
+            host.finish()
+        }
         if (intent.data == null) {
             host.toast(R.string.invalid_image_path)
             host.finish()

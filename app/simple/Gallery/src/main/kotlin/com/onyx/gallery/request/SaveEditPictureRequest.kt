@@ -40,17 +40,12 @@ class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
     private fun createShapeBitmap(opts: BitmapFactory.Options): Bitmap {
         val renderContext = createRenderContext(opts.outWidth, opts.outHeight)
         val handwritingShape = noteManager.handwritingShape
-        var matrix = Matrix()
+        val matrix = Matrix()
         val normalizedMatrix = Matrix()
         matrix.postScale(globalEditBundle.initScaleFactor, globalEditBundle.initScaleFactor)
         matrix.postTranslate(globalEditBundle.initDx, globalEditBundle.initDy)
         matrix.invert(normalizedMatrix)
-        handwritingShape.forEach {
-            for (point in it.points) {
-                val normalPoint = ShapeUtils.matrixTouchPoint(point, normalizedMatrix)
-                point.set(normalPoint)
-            }
-        }
+        handwritingShape.forEach { it.postConcat(normalizedMatrix) }
         ShapeUtils.renderShapes(handwritingShape, renderContext, true)
         return renderContext.getBitmap()
     }
