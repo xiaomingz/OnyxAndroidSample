@@ -1,6 +1,7 @@
 package com.simplemobiletools.commons.extensions
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.*
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
@@ -17,7 +18,6 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import com.simplemobiletools.commons.R
@@ -817,9 +817,9 @@ fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0,
         view.setColors(baseConfig.textColor, getAdjustedPrimaryColor(), baseConfig.backgroundColor)
     }
 
-    var title: TextView? = null
+    var title: ViewGroup? = null
     if (titleId != 0 || titleText.isNotEmpty()) {
-        title = layoutInflater.inflate(R.layout.dialog_title, null) as TextView
+        title = layoutInflater.inflate(R.layout.dialog_title, null) as ViewGroup
         title.dialog_title_textview.apply {
             if (titleText.isNotEmpty()) {
                 text = titleText
@@ -827,6 +827,9 @@ fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0,
                 setText(titleId)
             }
             setTextColor(baseConfig.textColor)
+        }
+        title.close.setOnClickListener {
+            dialog.dismiss()
         }
     }
 
@@ -882,7 +885,7 @@ fun Activity.showPickSecondsDialog(curSeconds: Int, isSnoozePicker: Boolean = fa
 
     items.add(RadioItem(-2, getString(R.string.custom)))
 
-    RadioGroupDialog(this, items, selectedIndex, showOKButton = isSnoozePicker, cancelCallback = cancelCallback) {
+    RadioGroupDialog(this, items, selectedIndex, titleId = R.string.select_duration, showOKButton = isSnoozePicker, cancelCallback = cancelCallback) {
         if (it == -2) {
             CustomIntervalPickerDialog(this, showSeconds = showSecondsAtCustomDialog) {
                 callback(it)

@@ -5,12 +5,14 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.graphics.drawable.PictureDrawable
 import android.media.AudioManager
 import android.provider.MediaStore
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
+import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -389,8 +391,9 @@ fun Context.getFolderNameFromPath(path: String): String {
     }
 }
 
-fun Context.loadImage(type: Int, path: String, target: MySquareImageView, horizontalScroll: Boolean, animateGifs: Boolean, cropThumbnails: Boolean,
-                      skipMemoryCacheAtPaths: ArrayList<String>? = null) {
+fun Context.loadImage(type: Int, path: String, target: MySquareImageView,
+                      horizontalScroll: Boolean, animateGifs: Boolean, cropThumbnails: Boolean,
+                      skipMemoryCacheAtPaths: ArrayList<String>? = null, dir: String? = null) {
     target.isHorizontalScrolling = horizontalScroll
     if (type == TYPE_IMAGES || type == TYPE_VIDEOS || type == TYPE_RAWS || type == TYPE_PORTRAITS) {
         if (type == TYPE_IMAGES && path.isPng()) {
@@ -441,52 +444,50 @@ fun Context.getPathLocation(path: String): Int {
     }
 }
 
-fun Context.loadPng(path: String, target: MySquareImageView, cropThumbnails: Boolean, skipMemoryCacheAtPaths: ArrayList<String>? = null) {
+fun Context.getImageRequestBuilder(path: String, skipMemoryCacheAtPaths: ArrayList<String>? = null): Pair<RequestOptions,RequestBuilder<Bitmap>> {
     val options = RequestOptions()
             .signature(path.getFileSignature())
             .skipMemoryCache(skipMemoryCacheAtPaths?.contains(path) == true)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .priority(Priority.LOW)
-            .format(DecodeFormat.PREFER_ARGB_8888)
-
-    val builder = Glide.with(applicationContext)
+    return Pair(options, Glide.with(applicationContext)
             .asBitmap()
-            .load(path)
+            .apply(options))
+}
 
-    if (cropThumbnails) options.centerCrop() else options.fitCenter()
-    builder.apply(options).into(target)
+fun Context.loadImageBitmap(path: String, skipMemoryCacheAtPaths: ArrayList<String>? = null): Bitmap? {
+    return getImageRequestBuilder(path, skipMemoryCacheAtPaths).second.load(path).submit().get()
+}
+
+fun Context.loadDirImage(directory: Directory, target: MySquareImageView, cropThumbnails: Boolean) {
+    getImageRequestBuilder(directory.path).apply {
+        if (cropThumbnails) first.centerCrop() else first.fitCenter()
+        first.priority(Priority.LOW)
+        second.apply(first).load(directory).into(target)
+    }
+}
+
+fun Context.loadPng(path: String, target: MySquareImageView, cropThumbnails: Boolean, skipMemoryCacheAtPaths: ArrayList<String>? = null) {
+    getImageRequestBuilder(path, skipMemoryCacheAtPaths).apply {
+        if (cropThumbnails) first.centerCrop() else first.fitCenter()
+        first.priority(Priority.LOW).format(DecodeFormat.PREFER_ARGB_8888)
+        second.apply(first).load(path).into(target)
+    }
 }
 
 fun Context.loadJpg(path: String, target: MySquareImageView, cropThumbnails: Boolean, skipMemoryCacheAtPaths: ArrayList<String>? = null) {
-    val options = RequestOptions()
-            .signature(path.getFileSignature())
-            .skipMemoryCache(skipMemoryCacheAtPaths?.contains(path) == true)
-            .priority(Priority.LOW)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-
-    val builder = Glide.with(applicationContext)
-            .load(path)
-
-    if (cropThumbnails) options.centerCrop() else options.fitCenter()
-    builder.apply(options)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(target)
+    getImageRequestBuilder(path, skipMemoryCacheAtPaths).apply {
+        if (cropThumbnails) first.centerCrop() else first.fitCenter()
+        first.priority(Priority.LOW)
+        second.apply(first).load(path).into(target)
+    }
 }
 
 fun Context.loadStaticGIF(path: String, target: MySquareImageView, cropThumbnails: Boolean, skipMemoryCacheAtPaths: ArrayList<String>? = null) {
-    val options = RequestOptions()
-            .signature(path.getFileSignature())
-            .skipMemoryCache(skipMemoryCacheAtPaths?.contains(path) == true)
-            .priority(Priority.LOW)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-
-    val builder = Glide.with(applicationContext)
-            .asBitmap() // make sure the GIF wont animate
-            .load(path)
-
-    if (cropThumbnails) options.centerCrop() else options.fitCenter()
-    builder.apply(options)
-            .into(target)
+    getImageRequestBuilder(path, skipMemoryCacheAtPaths).apply {
+        if (cropThumbnails) first.centerCrop() else first.fitCenter()
+        first.priority(Priority.LOW)
+        second.apply(first).load(path).into(target)
+    }
 }
 
 fun Context.loadSVG(path: String, target: MySquareImageView, cropThumbnails: Boolean) {

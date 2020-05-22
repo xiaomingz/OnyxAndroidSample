@@ -19,19 +19,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/timer_time"
+            <FrameLayout
+                android:id="@+id/timer_time_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal_margin"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_horizontal"
-                android:padding="@dimen/small_margin"
-                android:textSize="@dimen/stopwatch_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="00:00" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.simplemobiletools.clock.views.StopwatchView
+                    android:id="@+id/time_running"
+                    android:layout_width="@dimen/stopwatch_layout_size"
+                    android:layout_height="@dimen/stopwatch_layout_size"
+                    android:layout_gravity="center" />
+
+                <com.simplemobiletools.commons.views.MyTextView
+                    android:id="@+id/timer_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/small_margin"
+                    android:textSize="@dimen/stopwatch_text_size"
+                    tools:text="00:00" />
+
+            </FrameLayout>
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/timer_initial_time"
@@ -43,7 +57,7 @@
                 android:drawablePadding="@dimen/normal_margin"
                 android:padding="@dimen/activity_margin"
                 android:textSize="@dimen/bigger_text_size"
-                app:layout_constraintTop_toBottomOf="@+id/timer_time"
+                app:layout_constraintTop_toBottomOf="@+id/timer_time_layout"
                 tools:text="05:00" />
 
             <RelativeLayout
@@ -120,7 +134,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/big_margin"
-        android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_play_vector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,8 +143,6 @@
         android:id="@+id/timer_reset"
         android:layout_width="@dimen/stopwatch_button_small_size"
         android:layout_height="@dimen/stopwatch_button_small_size"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="@dimen/normal_margin"
         android:src="@drawable/ic_reset_vector"
         android:visibility="gone"
         tools:visibility="visible"

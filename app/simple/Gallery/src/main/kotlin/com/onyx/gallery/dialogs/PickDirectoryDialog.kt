@@ -1,7 +1,7 @@
 package com.onyx.gallery.dialogs
 
 import android.view.KeyEvent
-import androidx.appcompat.app.AlertDialog
+import android.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.FilePickerDialog

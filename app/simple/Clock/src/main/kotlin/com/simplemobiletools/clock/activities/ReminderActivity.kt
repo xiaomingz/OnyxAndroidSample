@@ -11,6 +11,8 @@ import android.os.Handler
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.onyx.android.appcompat.common.utils.BroadcastHelper.ONYX_WAKELOCK_TAG
+import com.onyx.android.sdk.common.request.WakeLockHolder
 import com.simplemobiletools.clock.R
 import com.simplemobiletools.clock.extensions.*
 import com.simplemobiletools.clock.helpers.ALARM_ID
@@ -33,9 +35,11 @@ class ReminderActivity : SimpleActivity() {
     private var mediaPlayer: MediaPlayer? = null
     private var lastVolumeValue = 0.1f
     private var dragDownX = 0f
+    private val wakeLockHolder = WakeLockHolder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        wakeLockHolder.acquireWakeLock(this, ONYX_WAKELOCK_TAG)
         setContentView(R.layout.activity_reminder)
         showOverLockscreen()
         updateTextColors(reminder_holder as ViewGroup)
@@ -195,6 +199,7 @@ class ReminderActivity : SimpleActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        wakeLockHolder.forceReleaseWakeLock()
         increaseVolumeHandler.removeCallbacksAndMessages(null)
         maxReminderDurationHandler.removeCallbacksAndMessages(null)
         swipeGuideFadeHandler.removeCallbacksAndMessages(null)

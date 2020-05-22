@@ -43,45 +43,23 @@ class SettingsActivity : SimpleActivity() {
         setupManageExcludedFolders()
         setupManageHiddenFolders()
         setupShowHiddenItems()
-        setupAutoplayVideos()
         setupRememberLastVideo()
-        setupLoopVideos()
-        setupOpenVideosOnSeparateScreen()
-        setupAnimateGifs()
-        setupMaxBrightness()
         setupCropThumbnails()
-        setupDarkBackground()
-        setupScrollHorizontally()
         setupScreenRotation()
-        setupHideSystemUI()
         setupHiddenItemPasswordProtection()
         setupAppPasswordProtection()
         setupFileDeletionPasswordProtection()
-        setupDeleteEmptyFolders()
         setupAllowPhotoGestures()
         setupAllowVideoGestures()
-        setupAllowDownGesture()
-        setupAllowRotatingWithGestures()
-        setupShowNotch()
-        setupBottomActions()
-        setupThumbnailVideoDuration()
-        setupThumbnailFileTypes()
-        setupShowMediaCount()
         setupKeepLastModified()
         setupShowInfoBubble()
         setupEnablePullToRefresh()
-        setupAllowZoomingImages()
-        setupShowHighestQuality()
-        setupAllowOneToOneZoom()
         setupAllowInstantChange()
         setupShowExtendedDetails()
-        setupHideExtendedDetails()
         setupManageExtendedDetails()
-        setupSkipDeleteConfirmation()
         setupManageBottomActions()
         setupUseRecycleBin()
         setupShowRecycleBin()
-        setupShowRecycleBinLast()
         setupEmptyRecycleBin()
         updateTextColors(settings_holder)
         setupSectionColors()
@@ -106,7 +84,7 @@ class SettingsActivity : SimpleActivity() {
     private fun setupSectionColors() {
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
         arrayListOf(visibility_label, videos_label, thumbnails_label, scrolling_label, fullscreen_media_label, security_label,
-                file_operations_label, deep_zoomable_images_label, extended_details_label, bottom_actions_label, recycle_bin_label,
+                file_operations_label, extended_details_label, bottom_actions_label, recycle_bin_label,
                 migrating_label).forEach {
             it.setTextColor(adjustedPrimaryColor)
         }
@@ -178,14 +156,6 @@ class SettingsActivity : SimpleActivity() {
         config.showHiddenMedia = settings_show_hidden_items.isChecked
     }
 
-    private fun setupAutoplayVideos() {
-        settings_autoplay_videos.isChecked = config.autoplayVideos
-        settings_autoplay_videos_holder.setOnClickListener {
-            settings_autoplay_videos.toggle()
-            config.autoplayVideos = settings_autoplay_videos.isChecked
-        }
-    }
-
     private fun setupRememberLastVideo() {
         settings_remember_last_video_position.isChecked = config.rememberLastVideoPosition
         settings_remember_last_video_position_holder.setOnClickListener {
@@ -194,88 +164,11 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupLoopVideos() {
-        settings_loop_videos.isChecked = config.loopVideos
-        settings_loop_videos_holder.setOnClickListener {
-            settings_loop_videos.toggle()
-            config.loopVideos = settings_loop_videos.isChecked
-        }
-    }
-
-    private fun setupOpenVideosOnSeparateScreen() {
-        settings_open_videos_on_separate_screen.isChecked = config.openVideosOnSeparateScreen
-        settings_open_videos_on_separate_screen_holder.setOnClickListener {
-            settings_open_videos_on_separate_screen.toggle()
-            config.openVideosOnSeparateScreen = settings_open_videos_on_separate_screen.isChecked
-        }
-    }
-
-    private fun setupAnimateGifs() {
-        settings_animate_gifs.isChecked = config.animateGifs
-        settings_animate_gifs_holder.setOnClickListener {
-            settings_animate_gifs.toggle()
-            config.animateGifs = settings_animate_gifs.isChecked
-        }
-    }
-
-    private fun setupMaxBrightness() {
-        settings_max_brightness.isChecked = config.maxBrightness
-        settings_max_brightness_holder.setOnClickListener {
-            settings_max_brightness.toggle()
-            config.maxBrightness = settings_max_brightness.isChecked
-        }
-    }
-
     private fun setupCropThumbnails() {
         settings_crop_thumbnails.isChecked = config.cropThumbnails
         settings_crop_thumbnails_holder.setOnClickListener {
             settings_crop_thumbnails.toggle()
             config.cropThumbnails = settings_crop_thumbnails.isChecked
-        }
-    }
-
-    private fun setupThumbnailVideoDuration() {
-        settings_show_thumbnail_video_duration.isChecked = config.showThumbnailVideoDuration
-        settings_show_thumbnail_video_duration_holder.setOnClickListener {
-            settings_show_thumbnail_video_duration.toggle()
-            config.showThumbnailVideoDuration = settings_show_thumbnail_video_duration.isChecked
-        }
-    }
-
-    private fun setupThumbnailFileTypes() {
-        settings_show_thumbnail_file_types.isChecked = config.showThumbnailFileTypes
-        settings_show_thumbnail_file_types_holder.setOnClickListener {
-            settings_show_thumbnail_file_types.toggle()
-            config.showThumbnailFileTypes = settings_show_thumbnail_file_types.isChecked
-        }
-    }
-
-    private fun setupDarkBackground() {
-        settings_black_background.isChecked = config.blackBackground
-        settings_black_background_holder.setOnClickListener {
-            settings_black_background.toggle()
-            config.blackBackground = settings_black_background.isChecked
-        }
-    }
-
-    private fun setupScrollHorizontally() {
-        settings_scroll_horizontally.isChecked = config.scrollHorizontally
-        settings_scroll_horizontally_holder.setOnClickListener {
-            settings_scroll_horizontally.toggle()
-            config.scrollHorizontally = settings_scroll_horizontally.isChecked
-
-            if (config.scrollHorizontally) {
-                config.enablePullToRefresh = false
-                settings_enable_pull_to_refresh.isChecked = false
-            }
-        }
-    }
-
-    private fun setupHideSystemUI() {
-        settings_hide_system_ui.isChecked = config.hideSystemUI
-        settings_hide_system_ui_holder.setOnClickListener {
-            settings_hide_system_ui.toggle()
-            config.hideSystemUI = settings_hide_system_ui.isChecked
         }
     }
 
@@ -345,14 +238,6 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupDeleteEmptyFolders() {
-        settings_delete_empty_folders.isChecked = config.deleteEmptyFolders
-        settings_delete_empty_folders_holder.setOnClickListener {
-            settings_delete_empty_folders.toggle()
-            config.deleteEmptyFolders = settings_delete_empty_folders.isChecked
-        }
-    }
-
     private fun setupAllowPhotoGestures() {
         settings_allow_photo_gestures.isChecked = config.allowPhotoGestures
         settings_allow_photo_gestures_holder.setOnClickListener {
@@ -366,39 +251,6 @@ class SettingsActivity : SimpleActivity() {
         settings_allow_video_gestures_holder.setOnClickListener {
             settings_allow_video_gestures.toggle()
             config.allowVideoGestures = settings_allow_video_gestures.isChecked
-        }
-    }
-
-    private fun setupAllowDownGesture() {
-        settings_allow_down_gesture.isChecked = config.allowDownGesture
-        settings_allow_down_gesture_holder.setOnClickListener {
-            settings_allow_down_gesture.toggle()
-            config.allowDownGesture = settings_allow_down_gesture.isChecked
-        }
-    }
-
-    private fun setupAllowRotatingWithGestures() {
-        settings_allow_rotating_with_gestures.isChecked = config.allowRotatingWithGestures
-        settings_allow_rotating_with_gestures_holder.setOnClickListener {
-            settings_allow_rotating_with_gestures.toggle()
-            config.allowRotatingWithGestures = settings_allow_rotating_with_gestures.isChecked
-        }
-    }
-
-    private fun setupShowNotch() {
-        settings_show_notch_holder.beVisibleIf(isPiePlus())
-        settings_show_notch.isChecked = config.showNotch
-        settings_show_notch_holder.setOnClickListener {
-            settings_show_notch.toggle()
-            config.showNotch = settings_show_notch.isChecked
-        }
-    }
-
-    private fun setupShowMediaCount() {
-        settings_show_media_count.isChecked = config.showMediaCount
-        settings_show_media_count_holder.setOnClickListener {
-            settings_show_media_count.toggle()
-            config.showMediaCount = settings_show_media_count.isChecked
         }
     }
 
@@ -426,38 +278,6 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupAllowZoomingImages() {
-        settings_allow_zooming_images.isChecked = config.allowZoomingImages
-        updateDeepZoomToggleButtons()
-        settings_allow_zooming_images_holder.setOnClickListener {
-            settings_allow_zooming_images.toggle()
-            config.allowZoomingImages = settings_allow_zooming_images.isChecked
-            updateDeepZoomToggleButtons()
-        }
-    }
-
-    private fun updateDeepZoomToggleButtons() {
-        settings_allow_rotating_with_gestures_holder.beVisibleIf(config.allowZoomingImages)
-        settings_show_highest_quality_holder.beVisibleIf(config.allowZoomingImages)
-        settings_allow_one_to_one_zoom_holder.beVisibleIf(config.allowZoomingImages)
-    }
-
-    private fun setupShowHighestQuality() {
-        settings_show_highest_quality.isChecked = config.showHighestQuality
-        settings_show_highest_quality_holder.setOnClickListener {
-            settings_show_highest_quality.toggle()
-            config.showHighestQuality = settings_show_highest_quality.isChecked
-        }
-    }
-
-    private fun setupAllowOneToOneZoom() {
-        settings_allow_one_to_one_zoom.isChecked = config.allowOneToOneZoom
-        settings_allow_one_to_one_zoom_holder.setOnClickListener {
-            settings_allow_one_to_one_zoom.toggle()
-            config.allowOneToOneZoom = settings_allow_one_to_one_zoom.isChecked
-        }
-    }
-
     private fun setupAllowInstantChange() {
         settings_allow_instant_change.isChecked = config.allowInstantChange
         settings_allow_instant_change_holder.setOnClickListener {
@@ -472,16 +292,6 @@ class SettingsActivity : SimpleActivity() {
             settings_show_extended_details.toggle()
             config.showExtendedDetails = settings_show_extended_details.isChecked
             settings_manage_extended_details_holder.beVisibleIf(config.showExtendedDetails)
-            settings_hide_extended_details_holder.beVisibleIf(config.showExtendedDetails)
-        }
-    }
-
-    private fun setupHideExtendedDetails() {
-        settings_hide_extended_details_holder.beVisibleIf(config.showExtendedDetails)
-        settings_hide_extended_details.isChecked = config.hideExtendedDetails
-        settings_hide_extended_details_holder.setOnClickListener {
-            settings_hide_extended_details.toggle()
-            config.hideExtendedDetails = settings_hide_extended_details.isChecked
         }
     }
 
@@ -493,14 +303,6 @@ class SettingsActivity : SimpleActivity() {
                     settings_show_extended_details_holder.callOnClick()
                 }
             }
-        }
-    }
-
-    private fun setupSkipDeleteConfirmation() {
-        settings_skip_delete_confirmation.isChecked = config.skipDeleteConfirmation
-        settings_skip_delete_confirmation_holder.setOnClickListener {
-            settings_skip_delete_confirmation.toggle()
-            config.skipDeleteConfirmation = settings_skip_delete_confirmation.isChecked
         }
     }
 
@@ -525,21 +327,11 @@ class SettingsActivity : SimpleActivity() {
         else -> R.string.screen_rotation_aspect_ratio
     })
 
-    private fun setupBottomActions() {
-        settings_bottom_actions.isChecked = config.bottomActions
-        settings_bottom_actions_holder.setOnClickListener {
-            settings_bottom_actions.toggle()
-            config.bottomActions = settings_bottom_actions.isChecked
-            settings_manage_bottom_actions_holder.beVisibleIf(config.bottomActions)
-        }
-    }
-
     private fun setupManageBottomActions() {
         settings_manage_bottom_actions_holder.beVisibleIf(config.bottomActions)
         settings_manage_bottom_actions_holder.setOnClickListener {
             ManageBottomActionsDialog(this) {
                 if (config.visibleBottomActions == 0) {
-                    settings_bottom_actions_holder.callOnClick()
                     config.bottomActions = false
                     config.visibleBottomActions = DEFAULT_BOTTOM_ACTIONS
                 }
@@ -550,14 +342,12 @@ class SettingsActivity : SimpleActivity() {
     private fun setupUseRecycleBin() {
         settings_empty_recycle_bin_holder.beVisibleIf(config.useRecycleBin)
         settings_show_recycle_bin_holder.beVisibleIf(config.useRecycleBin)
-        settings_show_recycle_bin_last_holder.beVisibleIf(config.useRecycleBin && config.showRecycleBinAtFolders)
         settings_use_recycle_bin.isChecked = config.useRecycleBin
         settings_use_recycle_bin_holder.setOnClickListener {
             settings_use_recycle_bin.toggle()
             config.useRecycleBin = settings_use_recycle_bin.isChecked
             settings_empty_recycle_bin_holder.beVisibleIf(config.useRecycleBin)
             settings_show_recycle_bin_holder.beVisibleIf(config.useRecycleBin)
-            settings_show_recycle_bin_last_holder.beVisibleIf(config.useRecycleBin && config.showRecycleBinAtFolders)
         }
     }
 
@@ -566,18 +356,6 @@ class SettingsActivity : SimpleActivity() {
         settings_show_recycle_bin_holder.setOnClickListener {
             settings_show_recycle_bin.toggle()
             config.showRecycleBinAtFolders = settings_show_recycle_bin.isChecked
-            settings_show_recycle_bin_last_holder.beVisibleIf(config.useRecycleBin && config.showRecycleBinAtFolders)
-        }
-    }
-
-    private fun setupShowRecycleBinLast() {
-        settings_show_recycle_bin_last.isChecked = config.showRecycleBinLast
-        settings_show_recycle_bin_last_holder.setOnClickListener {
-            settings_show_recycle_bin_last.toggle()
-            config.showRecycleBinLast = settings_show_recycle_bin_last.isChecked
-            if (config.showRecycleBinLast) {
-                config.removePinnedFolders(setOf(RECYCLE_BIN))
-            }
         }
     }
 

@@ -9,7 +9,7 @@ import com.simplemobiletools.voicerecorder.R
 @SuppressLint("Registered")
 open class SimpleActivity : BaseSimpleActivity() {
     override fun getAppIconIDs() = arrayListOf(
-        R.mipmap.ic_launcher
+        R.drawable.ic_launcher
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

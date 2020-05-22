@@ -6,31 +6,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.visualizer.amplitude.AudioRecordView
-        android:id="@+id/visualizer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/recording_duration"
-        android:layout_marginTop="@dimen/activity_margin"
-        android:layout_marginEnd="@dimen/activity_margin"
-        android:layout_marginBottom="@dimen/activity_margin"
-        app:chunkAlignTo="center"
-        app:chunkMaxHeight="@dimen/chunk_max_height"
-        app:chunkMinHeight="@dimen/chunk_min_height"
-        app:chunkRoundedCorners="true"
-        app:chunkSoftTransition="true"
-        app:chunkSpace="@dimen/chunk_space"
-        app:chunkWidth="@dimen/chunk_width" />
+    <LinearLayout
+        android:id="@+id/recorder_layout"
+        android:layout_width="@dimen/main_page_logo_layout_size"
+        android:layout_height="@dimen/main_page_logo_layout_size"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_circle"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/activity_margin">
+
+        <ImageView
+            android:id="@+id/recorder_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/microphone_logo" />
+
+        <TextView
+            android:id="@+id/recording_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:textSize="@dimen/extra_big_text_size"
+            tools:text="00:00" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/recording_duration"
+        android:id="@+id/recording_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/toggle_recording_button"
+        android:layout_below="@+id/recorder_layout"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/bigger_margin"
-        android:textSize="@dimen/extra_big_text_size"
-        tools:text="00:00" />
+        android:layout_marginTop="@dimen/activity_margin"
+        android:gravity="center"
+        android:textSize="@dimen/normal_text_size" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/big_margin"
+        android:layout_toLeftOf="@+id/toggle_recording_button">
+
+        <ImageView
+            android:id="@+id/stop_recording_button"
+            android:layout_width="@dimen/toggle_recording_button_size"
+            android:layout_height="@dimen/toggle_recording_button_size"
+            android:src="@drawable/ic_stop_vector"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/toggle_recording_button"
@@ -39,22 +66,23 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/big_margin"
-        android:background="@drawable/circle_background"
-        android:elevation="@dimen/medium_margin"
-        android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_microphone_vector" />
+        android:src="@drawable/ic_start_vector" />
 
-    <ImageView
-        android:id="@+id/recorder_list_button"
-        android:layout_width="@dimen/toggle_recording_button_size"
-        android:layout_height="@dimen/toggle_recording_button_size"
-        android:layout_alignParentBottom="true"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/big_margin"
-        android:layout_marginRight="@dimen/big_margin"
-        android:background="@drawable/circle_background"
-        android:elevation="@dimen/medium_margin"
-        android:padding="@dimen/normal_margin"
-        android:src="@drawable/ic_file_vector" />
+        android:layout_toRightOf="@+id/toggle_recording_button">
+
+        <ImageView
+            android:id="@+id/recorder_list_button"
+            android:layout_width="@dimen/toggle_recording_button_size"
+            android:layout_height="@dimen/toggle_recording_button_size"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_file_list_vector" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

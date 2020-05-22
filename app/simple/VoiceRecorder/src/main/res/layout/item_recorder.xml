@@ -5,8 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_margin="@dimen/normal_margin"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true">
@@ -16,14 +15,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:background="@drawable/circle_background"
             android:src="@drawable/ic_play_vector" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/medium_margin"
             android:layout_toRightOf="@+id/play"
             android:layout_toLeftOf="@+id/select_check"
             android:orientation="vertical">
@@ -33,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textSize="@dimen/bigger_text_size" />
+                android:textSize="@dimen/big_text_size" />
 
             <TextView
                 android:id="@+id/timestamp"

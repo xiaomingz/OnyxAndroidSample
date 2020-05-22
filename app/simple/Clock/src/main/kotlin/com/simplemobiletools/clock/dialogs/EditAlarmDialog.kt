@@ -4,7 +4,7 @@ import android.app.TimePickerDialog
 import android.graphics.drawable.Drawable
 import android.media.AudioManager
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
+import android.app.AlertDialog
 import com.simplemobiletools.clock.R
 import com.simplemobiletools.clock.activities.SimpleActivity
 import com.simplemobiletools.clock.extensions.*
@@ -45,7 +45,7 @@ class EditAlarmDialog(val activity: SimpleActivity, val alarm: Alarm, val callba
                     activity.checkAlarmsWithDeletedSoundUri(it.uri)
                 })
             }
-
+            edit_alarm_vibrate_holder.beGoneIf(!context.hasVibrator())
             edit_alarm_vibrate.colorLeftDrawable(textColor)
             edit_alarm_vibrate.isChecked = alarm.vibrate
             edit_alarm_vibrate_holder.setOnClickListener {

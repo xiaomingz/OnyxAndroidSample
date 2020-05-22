@@ -8,13 +8,15 @@
     android:clickable="true"
     android:focusable="true"
     android:paddingStart="@dimen/medium_margin"
-    android:paddingTop="@dimen/small_margin"
-    android:paddingBottom="@dimen/small_margin">
+    android:paddingTop="@dimen/smaller_margin"
+    android:paddingBottom="@dimen/smaller_margin">
 
     <com.onyx.gallery.views.MySquareImageView
         android:id="@+id/dir_thumbnail"
-        android:layout_width="@dimen/list_view_folder_thumbnail_size"
-        android:layout_height="@dimen/list_view_folder_thumbnail_size"/>
+        android:layout_width="@dimen/list_view_folder_thumbnail_width"
+        android:layout_height="@dimen/list_view_folder_thumbnail_height"
+        android:background="@drawable/image_border"
+        android:padding="1dp" />
 
     <ImageView
         android:id="@+id/dir_lock"
@@ -52,25 +54,23 @@
         android:layout_toEndOf="@+id/dir_thumbnail"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingStart="@dimen/medium_margin"
         android:paddingEnd="@dimen/medium_margin"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/bigger_text_size"/>
+        android:paddingStart="@dimen/medium_margin"
+        android:textSize="@dimen/bigger_text_size" />
 
     <TextView
         android:id="@+id/dir_path"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dir_name"
+        android:layout_alignBottom="@+id/dir_thumbnail"
         android:layout_alignStart="@+id/dir_name"
+        android:layout_marginBottom="@dimen/small_margin"
         android:layout_marginEnd="@dimen/activity_margin"
-        android:alpha="0.4"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingStart="@dimen/medium_margin"
         android:paddingEnd="@dimen/medium_margin"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/smaller_text_size"/>
+        android:paddingStart="@dimen/medium_margin"
+        android:textSize="@dimen/smaller_text_size" />
 
     <TextView
         android:id="@+id/photo_cnt"
@@ -78,8 +78,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/dir_name"
         android:layout_toEndOf="@+id/dir_name"
-        android:alpha="0.4"
-        android:textColor="@android:color/white"
         android:textSize="@dimen/smaller_text_size"/>
 
     <LinearLayout

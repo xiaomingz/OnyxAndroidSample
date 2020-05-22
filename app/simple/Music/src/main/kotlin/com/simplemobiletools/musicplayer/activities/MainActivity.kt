@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
@@ -21,8 +20,6 @@ import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
-import com.simplemobiletools.commons.interfaces.RecyclerScrollCallback
-import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
@@ -58,10 +55,6 @@ class MainActivity : SimpleActivity(), SongListListener {
     private var isSearchOpen = false
     private var wasInitialPlaylistSet = false
     private var lastFilePickerPath = ""
-    private var artView: ViewGroup? = null
-
-    private var actionbarSize = 0
-    private var topArtHeight = 0
 
     private var storedTextColor = 0
     private var storedShowAlbumCover = true
@@ -77,11 +70,6 @@ class MainActivity : SimpleActivity(), SongListListener {
         bus = BusProvider.instance
         bus.register(this)
         initSeekbarChangeListener()
-
-        actionbarSize = getActionBarHeight()
-        artView = layoutInflater.inflate(R.layout.item_transparent, null) as ViewGroup
-        setTopArtHeight()
-        songs_fastscroller.measureItemIndex = LIST_HEADERS_COUNT
 
         handlePermission(PERMISSION_WRITE_STORAGE) {
             if (it) {
@@ -105,15 +93,6 @@ class MainActivity : SimpleActivity(), SongListListener {
         checkWhatsNewDialog()
         storeStateVariables()
 
-        songs_list.recyclerScrollCallback = object : RecyclerScrollCallback {
-            override fun onScrolled(scrollY: Int) {
-                top_navigation.beVisibleIf(scrollY > topArtHeight && !isSearchOpen)
-                val minOverlayTransitionY = actionbarSize - topArtHeight
-                art_holder.translationY = Math.min(0, Math.max(minOverlayTransitionY, -scrollY / 2)).toFloat()
-                song_list_background.translationY = Math.max(0, -scrollY + topArtHeight).toFloat()
-            }
-        }
-
         if (savedInstanceState != null) {
             songs_list.onGlobalLayout {
                 songs_list.scrollToPosition(0)
@@ -130,7 +109,6 @@ class MainActivity : SimpleActivity(), SongListListener {
         }
 
         if (storedShowAlbumCover != config.showAlbumCover) {
-            setTopArtHeight()
             songs_list.adapter?.notifyDataSetChanged()
             if (config.showAlbumCover) {
                 updateAlbumCover()
@@ -150,10 +128,7 @@ class MainActivity : SimpleActivity(), SongListListener {
         songs_playlist_empty_add_folder.setTextColor(getAdjustedPrimaryColor())
         songs_playlist_empty_add_folder.paintFlags = songs_playlist_empty_add_folder.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
-        songs_fastscroller.allowBubbleDisplay = true
-        songs_fastscroller.updateBubbleColors()
-
-        arrayListOf(art_holder, song_list_background, top_navigation, sleep_timer_holder).forEach {
+        arrayListOf(art_holder, top_navigation, sleep_timer_holder).forEach {
             it.background = ColorDrawable(config.backgroundColor)
         }
 
@@ -244,11 +219,6 @@ class MainActivity : SimpleActivity(), SongListListener {
         }
     }
 
-    private fun setTopArtHeight() {
-        topArtHeight = if (config.showAlbumCover) resources.getDimensionPixelSize(R.dimen.top_art_height) else 0
-        artView!!.setPadding(0, topArtHeight, 0, 0)
-    }
-
     private fun setupSearch(menu: Menu) {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchMenuItem = menu.findItem(R.id.search)
@@ -282,12 +252,12 @@ class MainActivity : SimpleActivity(), SongListListener {
                 songs_playlist_empty.text = getString(R.string.playlist_empty)
                 songs_playlist_empty_add_folder.beVisibleIf(songs.isEmpty())
                 art_holder.beVisibleIf(songs.isNotEmpty())
+                top_navigation.beVisibleIf(songs.isNotEmpty())
                 if (isSearchOpen) {
                     searchQueryChanged("")
                     getSongsAdapter()?.searchClosed()
                     markCurrentSong()
                     (songs_list.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).scrollToPositionWithOffset(0, 0)
-                    songs_fastscroller?.setScrollToY(0)
                 }
                 isSearchOpen = false
                 return true
@@ -311,7 +281,6 @@ class MainActivity : SimpleActivity(), SongListListener {
         shuffle_btn.applyColorFilter(if (isShuffleEnabled) getAdjustedPrimaryColor() else config.textColor)
         shuffle_btn.alpha = if (isShuffleEnabled) 1f else LOWER_ALPHA
         shuffle_btn.contentDescription = getString(if (isShuffleEnabled) R.string.disable_shuffle else R.string.enable_shuffle)
-        getSongsAdapter()?.updateShuffle(isShuffleEnabled)
         toast(if (isShuffleEnabled) R.string.shuffle_enabled else R.string.shuffle_disabled)
     }
 
@@ -321,7 +290,6 @@ class MainActivity : SimpleActivity(), SongListListener {
         repeat_btn.applyColorFilter(if (repeatSong) getAdjustedPrimaryColor() else config.textColor)
         repeat_btn.alpha = if (repeatSong) 1f else LOWER_ALPHA
         repeat_btn.contentDescription = getString(if (repeatSong) R.string.disable_song_repetition else R.string.enable_song_repetition)
-        getSongsAdapter()?.updateRepeatSong(repeatSong)
         toast(if (repeatSong) R.string.song_repetition_enabled else R.string.song_repetition_disabled)
     }
 
@@ -562,7 +530,6 @@ class MainActivity : SimpleActivity(), SongListListener {
         repeat_btn.alpha = if (config.repeatSong) 1f else LOWER_ALPHA
 
         getSongsAdapter()?.updateTextColor(textColor)
-        songs_fastscroller.updatePrimaryColor()
     }
 
     private fun setupIconDescriptions() {
@@ -595,13 +562,9 @@ class MainActivity : SimpleActivity(), SongListListener {
     private fun fillSongsListView(songs: ArrayList<Song>) {
         this.songs = songs
         val currAdapter = songs_list.adapter
-        songs_fastscroller.setViews(songs_list) {
-            val item = getSongsAdapter()?.songs?.getOrNull(it)
-            songs_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
-        }
 
         if (currAdapter == null) {
-            SongAdapter(this@MainActivity, songs, this, artView!!, songs_list, songs_fastscroller) {
+            SongAdapter(this@MainActivity, songs, this, songs_list, null) {
                 songPicked(getSongIndex(it as Song))
             }.apply {
                 isThirdPartyIntent = this@MainActivity.isThirdPartyIntent
@@ -617,10 +580,11 @@ class MainActivity : SimpleActivity(), SongListListener {
         }
         markCurrentSong()
 
-        songs_list.beVisibleIf(songs.isNotEmpty())
-        art_holder.beVisibleIf(songs_list.isVisible())
         songs_playlist_empty.beVisibleIf(songs.isEmpty())
         songs_playlist_empty_add_folder.beVisibleIf(songs.isEmpty())
+        art_holder.beVisibleIf(songs.isNotEmpty())
+        top_navigation.beVisibleIf(songs.isNotEmpty())
+        songs_list.beVisibleIf(songs.isNotEmpty())
     }
 
     private fun getSongIndex(song: Song) = songs.indexOfFirstOrNull { it == song } ?: 0
@@ -643,7 +607,6 @@ class MainActivity : SimpleActivity(), SongListListener {
     fun songStateChanged(event: Events.SongStateChanged) {
         val isPlaying = event.isPlaying
         play_pause_btn.setImageDrawable(resources.getDrawable(if (isPlaying) R.drawable.ic_pause_vector else R.drawable.ic_play_vector))
-        getSongsAdapter()?.updateSongState(isPlaying)
     }
 
     @Subscribe
@@ -656,7 +619,6 @@ class MainActivity : SimpleActivity(), SongListListener {
     fun progressUpdated(event: Events.ProgressUpdated) {
         val progress = event.progress
         song_progressbar.progress = progress
-        getSongsAdapter()?.updateSongProgress(progress)
     }
 
     @Subscribe
@@ -690,7 +652,7 @@ class MainActivity : SimpleActivity(), SongListListener {
         }
 
         val coverToUse = if (MusicService.mCurrSongCover?.isRecycled == true) {
-            resources.getColoredBitmap(R.drawable.ic_headset, config.textColor)
+            resources.getColoredBitmap(R.drawable.ic_music_disc, config.textColor)
         } else {
             MusicService.mCurrSongCover
         }

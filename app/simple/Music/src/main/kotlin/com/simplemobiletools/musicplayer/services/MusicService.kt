@@ -454,7 +454,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         }
 
         if (mCurrSongCover?.isRecycled == true) {
-            mCurrSongCover = resources.getColoredBitmap(R.drawable.ic_headset, config.textColor)
+            mCurrSongCover = resources.getColoredBitmap(R.drawable.ic_music_disc, config.textColor)
         }
 
         val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
@@ -484,6 +484,8 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         Handler(Looper.getMainLooper()).postDelayed({
             if (!getIsPlaying()) {
                 stopForeground(false)
+            } else {
+                notify(notification.build())
             }
         }, 200L)
 
@@ -494,6 +496,11 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                     .build())
         } catch (ignored: IllegalStateException) {
         }
+    }
+
+    private fun notify(notification: Notification) {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+        notificationManager?.notify(NOTIFICATION_ID, notification)
     }
 
     private fun getContentIntent(): PendingIntent {
@@ -752,7 +759,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
             }
         }
 
-        return Pair(resources.getColoredBitmap(R.drawable.ic_headset, config.textColor), false)
+        return Pair(resources.getColoredBitmap(R.drawable.ic_music_disc, config.textColor), false)
     }
 
     private fun destroyPlayer() {

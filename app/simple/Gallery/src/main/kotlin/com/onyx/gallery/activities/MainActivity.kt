@@ -71,7 +71,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     private var mOpenedSubfolders = arrayListOf("")     // used at "Group direct subfolders" for navigating Up with the back button
     private var mLastMediaHandler = Handler()
     private var mTempShowHiddenHandler = Handler()
-    private var mZoomListener: MyRecyclerView.MyZoomListener? = null
     private var mSearchMenuItem: MenuItem? = null
     private var mLastMediaFetcher: MediaFetcher? = null
     private var mDirs = ArrayList<Directory>()
@@ -109,16 +108,9 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
 
         directories_refresh_layout.setOnRefreshListener { getDirectories() }
         storeStateVariables()
-        ShowWhatsNewDialogAction(true).execute(this);
 
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
         setupLatestMediaId()
-
-        // notify some users about the Clock app
-        /*if (System.currentTimeMillis() < 1523750400000 && !config.wasNewAppShown && config.appRunCount > 100 && config.appRunCount % 50 != 0 && !isPackageInstalled(NEW_APP_PACKAGE)) {
-            config.wasNewAppShown = true
-            NewAppDialog(this, NEW_APP_PACKAGE, "Simple Clock")
-        }*/
 
         if (!config.wereFavoritesPinned) {
             config.addPinnedFolders(hashSetOf(FAVORITES))
@@ -273,10 +265,9 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             menuInflater.inflate(R.menu.menu_main, menu)
             val useBin = config.useRecycleBin
             menu.apply {
-                findItem(R.id.increase_column_count).isVisible = config.viewTypeFolders == VIEW_TYPE_GRID && config.dirColumnCnt < MAX_COLUMN_COUNT
-                findItem(R.id.reduce_column_count).isVisible = config.viewTypeFolders == VIEW_TYPE_GRID && config.dirColumnCnt > 1
                 findItem(R.id.hide_the_recycle_bin).isVisible = useBin && config.showRecycleBinAtFolders
                 findItem(R.id.show_the_recycle_bin).isVisible = useBin && !config.showRecycleBinAtFolders
+                findItem(R.id.open_camera).isVisible = config.hasCamera
                 setupSearch(this)
             }
         }
@@ -300,8 +291,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             R.id.create_new_folder -> createNewFolder()
             R.id.show_the_recycle_bin -> toggleRecycleBin(true)
             R.id.hide_the_recycle_bin -> toggleRecycleBin(false)
-            R.id.increase_column_count -> increaseColumnCount()
-            R.id.reduce_column_count -> reduceColumnCount()
             R.id.settings -> launchSettings()
             else -> return super.onOptionsItemSelected(item)
         }
@@ -647,29 +636,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
         directories_vertical_fastscroller.setScrollToY(directories_grid.computeVerticalScrollOffset())
     }
 
-    private fun initZoomListener() {
-        if (config.viewTypeFolders == VIEW_TYPE_GRID) {
-            val layoutManager = directories_grid.layoutManager as MyGridLayoutManager
-            mZoomListener = object : MyRecyclerView.MyZoomListener {
-                override fun zoomIn() {
-                    if (layoutManager.spanCount > 1) {
-                        reduceColumnCount()
-                        getRecyclerAdapter()?.finishActMode()
-                    }
-                }
-
-                override fun zoomOut() {
-                    if (layoutManager.spanCount < MAX_COLUMN_COUNT) {
-                        increaseColumnCount()
-                        getRecyclerAdapter()?.finishActMode()
-                    }
-                }
-            }
-        } else {
-            mZoomListener = null
-        }
-    }
-
     private fun setupListLayoutManager() {
         val layoutManager = directories_grid.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = 1
@@ -681,8 +647,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             topMargin = smallMargin
             bottomMargin = smallMargin
         }
-
-        mZoomListener = null
     }
 
     private fun toggleRecycleBin(show: Boolean) {
@@ -705,24 +669,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
                     gotDirectories(addTempFolderIfNeeded(getCurrentlyDisplayedDirs()))
                 }
             }
-        }
-    }
-
-    private fun increaseColumnCount() {
-        config.dirColumnCnt = ++(directories_grid.layoutManager as MyGridLayoutManager).spanCount
-        columnCountChanged()
-    }
-
-    private fun reduceColumnCount() {
-        config.dirColumnCnt = --(directories_grid.layoutManager as MyGridLayoutManager).spanCount
-        columnCountChanged()
-    }
-
-    private fun columnCountChanged() {
-        invalidateOptionsMenu()
-        directories_grid.adapter?.notifyDataSetChanged()
-        getRecyclerAdapter()?.dirs?.apply {
-            measureRecyclerViewContent(this)
         }
     }
 
@@ -1084,7 +1030,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
         var dirsToShow = getDirsToShow(sortedDirs, mDirs, mCurrentPathPrefix).clone() as ArrayList<Directory>
 
         if (currAdapter == null) {
-            initZoomListener()
             val fastscroller = if (config.scrollHorizontally) directories_horizontal_fastscroller else directories_vertical_fastscroller
             DirectoryAdapter(this, dirsToShow, this, directories_grid, isPickIntent(intent) || isGetAnyContentIntent(intent), fastscroller) {
                 val clickedDir = it as Directory
@@ -1099,7 +1044,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
                     setupAdapter(mDirs, "")
                 }
             }.apply {
-                setupZoomListener(mZoomListener)
                 runOnUiThread {
                     directories_grid.adapter = this
                     setupScrollDirection()

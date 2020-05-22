@@ -2,7 +2,7 @@ package com.onyx.gallery.dialogs
 
 import android.graphics.Point
 import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
+import android.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.onyx.gallery.R

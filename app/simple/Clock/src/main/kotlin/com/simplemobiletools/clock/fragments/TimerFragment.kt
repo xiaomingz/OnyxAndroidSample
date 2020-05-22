@@ -1,6 +1,5 @@
 package com.simplemobiletools.clock.fragments
 
-import android.graphics.Color
 import android.media.AudioManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +16,7 @@ import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ALARM_SOUND_TYPE_ALARM
 import com.simplemobiletools.commons.models.AlarmSound
+import kotlinx.android.synthetic.main.fragment_timer.*
 import kotlinx.android.synthetic.main.fragment_timer.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -46,8 +46,6 @@ class TimerFragment : Fragment() {
             timer_label.setText(config.timerLabel)
 
             requiredActivity.updateTextColors(timer_fragment)
-            timer_play_pause.background = resources.getColoredDrawableWithColor(R.drawable.circle_background_filled, context!!.getAdjustedPrimaryColor())
-            timer_play_pause.applyColorFilter(if (context!!.getAdjustedPrimaryColor() == Color.WHITE) Color.BLACK else Color.WHITE)
             timer_reset.applyColorFilter(textColor)
 
             timer_initial_time.text = config.timerSeconds.getFormattedDuration()
@@ -88,6 +86,7 @@ class TimerFragment : Fragment() {
                 }
             }
 
+            timer_vibrate_holder.beGoneIf(!requireContext().hasVibrator())
             timer_vibrate_holder.setOnClickListener {
                 timer_vibrate.toggle()
                 config.timerVibrate = timer_vibrate.isChecked
@@ -124,6 +123,7 @@ class TimerFragment : Fragment() {
         EventBus.getDefault().post(TimerState.Idle)
         requiredActivity.hideTimerNotification()
         view.timer_time.text = requiredActivity.config.timerSeconds.getFormattedDuration()
+        time_running.update(0f)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -134,6 +134,7 @@ class TimerFragment : Fragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(state: TimerState.Running) {
+        updateRunningView(state)
         view.timer_time.text = state.tick.div(1000F).roundToInt().getFormattedDuration()
         updateViewStates(state)
     }
@@ -146,6 +147,7 @@ class TimerFragment : Fragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(state: TimerState.Finished) {
         view.timer_time.text = 0.getFormattedDuration()
+        time_running.update(0f)
         updateViewStates(state)
     }
 
@@ -158,19 +160,19 @@ class TimerFragment : Fragment() {
         } else {
             R.drawable.ic_play_vector
         }
-
-        val iconColor = if (requiredActivity.getAdjustedPrimaryColor() == Color.WHITE) {
-            Color.BLACK
-        } else {
-            Color.WHITE
-        }
-
-        view.timer_play_pause.setImageDrawable(resources.getColoredDrawableWithColor(drawableId, iconColor))
+        view.timer_play_pause.setImageResource(drawableId)
     }
 
     fun updateAlarmSound(alarmSound: AlarmSound) {
+        requiredActivity.config.timerChannelId = null
         requiredActivity.config.timerSoundTitle = alarmSound.title
         requiredActivity.config.timerSoundUri = alarmSound.uri
         view.timer_sound.text = alarmSound.title
+    }
+
+    fun updateRunningView(state: TimerState.Running) {
+        val step = 360f / state.duration.div(1000F).roundToInt()
+        val value = 360f - state.tick.div(1000F).roundToInt() * step
+        time_running.update(value)
     }
 }

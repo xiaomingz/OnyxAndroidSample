@@ -9,6 +9,7 @@
         android:id="@+id/sorting_dialog_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minWidth="@dimen/dialog_min_width"
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_margin"
         android:paddingRight="@dimen/activity_margin"

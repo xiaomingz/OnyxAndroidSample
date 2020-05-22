@@ -19,7 +19,6 @@ class SettingsActivity : SimpleActivity() {
     override fun onResume() {
         super.onResume()
 
-        setupPreventPhoneFromSleeping()
         setupHourFormat()
         setupSundayFirst()
         setupShowSeconds()
@@ -38,14 +37,6 @@ class SettingsActivity : SimpleActivity() {
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
         arrayListOf(clock_tab_label, alarm_tab_label, stopwatch_tab_label, timer_tab_label, widgets_label).forEach {
             it.setTextColor(adjustedPrimaryColor)
-        }
-    }
-
-    private fun setupPreventPhoneFromSleeping() {
-        settings_prevent_phone_from_sleeping.isChecked = config.preventPhoneFromSleeping
-        settings_prevent_phone_from_sleeping_holder.setOnClickListener {
-            settings_prevent_phone_from_sleeping.toggle()
-            config.preventPhoneFromSleeping = settings_prevent_phone_from_sleeping.isChecked
         }
     }
 
@@ -105,6 +96,8 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupVibrate() {
+        stopwatch_tab_label.beGoneIf(!hasVibrator())
+        settings_vibrate_holder.beGoneIf(!hasVibrator())
         settings_vibrate.isChecked = config.vibrateOnButtonPress
         settings_vibrate_holder.setOnClickListener {
             settings_vibrate.toggle()

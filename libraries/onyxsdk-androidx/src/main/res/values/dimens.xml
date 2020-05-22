@@ -51,4 +51,16 @@
     <dimen name="material_toolbar_title_text_size_title">@dimen/menu_text_size_small</dimen>
     <dimen name="menu_text_size_large">18sp</dimen>
     <dimen name="menu_text_size_small">16sp</dimen>
+
+    <dimen name="seekbar_progress_height">8dp</dimen>
+    <dimen name="seekbar_thumb_drawable_size">20dp</dimen>
+    <dimen name="switch_btn_width">35dp</dimen>
+    <dimen name="switch_btn_height">20dp</dimen>
+
+    <dimen name="dash_Line_length">2dp</dimen>
+    <dimen name="dash_space_length">2dp</dimen>
+    <dimen name="dash_line_width">1px</dimen>
+
+    <dimen name="title_bar_item_back_width">15dp</dimen>
+    <dimen name="title_bar_item_back_height">28dp</dimen>
 </resources>

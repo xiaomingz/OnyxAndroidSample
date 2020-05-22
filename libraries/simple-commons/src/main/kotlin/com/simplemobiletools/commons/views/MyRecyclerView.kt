@@ -8,6 +8,7 @@ import android.view.ScaleGestureDetector
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.simplemobiletools.commons.R
+import com.simplemobiletools.commons.helpers.OnyxLinearSnapHelper
 import com.simplemobiletools.commons.interfaces.RecyclerScrollCallback
 
 // drag selection is based on https://github.com/afollestad/drag-select-recyclerview
@@ -56,6 +57,7 @@ open class MyRecyclerView : RecyclerView {
     private var totalItemCount = 0
     private var lastMaxItemIndex = 0
     private var linearLayoutManager: LinearLayoutManager? = null
+    private var linearSnapHelper = OnyxLinearSnapHelper()
 
     constructor(context: Context) : super(context)
 
@@ -81,6 +83,7 @@ open class MyRecyclerView : RecyclerView {
         }
 
         scaleDetector = ScaleGestureDetector(context, GestureListener(gestureListener))
+        linearSnapHelper.attachToRecyclerView(this)
     }
 
     override fun onMeasure(widthSpec: Int, heightSpec: Int) {

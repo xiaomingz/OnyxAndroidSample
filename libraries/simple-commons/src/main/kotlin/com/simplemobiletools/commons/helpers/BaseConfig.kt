@@ -255,7 +255,7 @@ open class BaseConfig(val context: Context) {
         set(scrollHorizontally) = prefs.edit().putBoolean(SCROLL_HORIZONTALLY, scrollHorizontally).apply()
 
     var preventPhoneFromSleeping: Boolean
-        get() = prefs.getBoolean(PREVENT_PHONE_FROM_SLEEPING, true)
+        get() = prefs.getBoolean(PREVENT_PHONE_FROM_SLEEPING, false)
         set(preventPhoneFromSleeping) = prefs.edit().putBoolean(PREVENT_PHONE_FROM_SLEEPING, preventPhoneFromSleeping).apply()
 
     var lastUsedViewPagerPage: Int

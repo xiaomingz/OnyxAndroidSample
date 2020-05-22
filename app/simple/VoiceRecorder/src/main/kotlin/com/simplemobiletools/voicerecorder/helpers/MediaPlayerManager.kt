@@ -31,10 +31,10 @@ class MediaPlayerManager private constructor() {
             mediaPlayer = MediaPlayer()
             mediaPlayer!!.setDataSource(path)
             mediaPlayer!!.setOnCompletionListener {
-                getEventBus().post(Events.MediaPlayingFinishEvent())
                 mediaPlayer?.release()
                 isPlaying = false
                 mediaPlayer = null
+                getEventBus().post(Events.MediaPlayingFinishEvent())
             }
         } catch (e: IOException) {
             e.printStackTrace()
@@ -118,6 +118,10 @@ class MediaPlayerManager private constructor() {
 
     fun getCurrentPosition(): Int {
         return mediaPlayer?.currentPosition ?: 0
+    }
+
+    fun getRemainingDuration(): Int {
+        return getDuration() - getCurrentPosition()
     }
 
     fun seekTo(msec: Int) {

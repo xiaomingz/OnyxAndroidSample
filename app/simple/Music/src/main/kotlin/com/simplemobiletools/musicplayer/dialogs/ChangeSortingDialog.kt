@@ -1,8 +1,8 @@
 package com.simplemobiletools.musicplayer.dialogs
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.musicplayer.R

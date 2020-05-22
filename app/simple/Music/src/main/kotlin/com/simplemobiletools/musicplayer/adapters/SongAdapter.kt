@@ -4,7 +4,6 @@ import android.content.Intent
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.PropertiesDialog
@@ -24,29 +23,15 @@ import com.simplemobiletools.musicplayer.helpers.*
 import com.simplemobiletools.musicplayer.interfaces.SongListListener
 import com.simplemobiletools.musicplayer.models.Song
 import com.simplemobiletools.musicplayer.services.MusicService
-import kotlinx.android.synthetic.main.item_navigation.view.*
 import kotlinx.android.synthetic.main.item_song.view.*
 
-class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val listener: SongListListener, val transparentView: View,
-                  recyclerView: MyRecyclerView, fastScroller: FastScroller, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
-
-    private val VIEW_TYPE_TRANSPARENT = 0
-    private val VIEW_TYPE_NAVIGATION = 1
-    private val VIEW_TYPE_ITEM = 2
+class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val listener: SongListListener, recyclerView: MyRecyclerView,
+                  fastScroller: FastScroller?, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private var currentSongIndex = 0
     private var songsHashCode = songs.hashCode()
     private var currentSong: Song? = null
-    private var initialProgress = 0
-    private var initialIsPlaying = false
     private var textToHighlight = ""
-
-    private var transparentViewHolder: TransparentViewHolder? = null
-    private var transparentViewHeight = 0
-
-    private var navigationView: ViewGroup? = null
-    private var navigationViewHolder: NavigationViewHolder? = null
-    private var navigationViewHeight = 0
 
     var isThirdPartyIntent = false
     private var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
@@ -59,31 +44,15 @@ class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val list
     override fun getActionMenuId() = R.menu.cab
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return when (viewType) {
-            VIEW_TYPE_TRANSPARENT -> getTransparentViewHolder()
-            VIEW_TYPE_NAVIGATION -> getNavigationViewHolder()
-            else -> createViewHolder(R.layout.item_song, parent)
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> VIEW_TYPE_TRANSPARENT
-            1 -> VIEW_TYPE_NAVIGATION
-            else -> VIEW_TYPE_ITEM
-        }
+        return createViewHolder(R.layout.item_song, parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (holder !is TransparentViewHolder && holder !is NavigationViewHolder) {
-            val song = songs.getOrNull(position - LIST_HEADERS_COUNT) ?: return
-            holder.bindView(song, true, true) { itemView, layoutPosition ->
-                setupView(itemView, song, layoutPosition)
-            }
-            bindViewHolder(holder)
-        } else {
-            holder.itemView.tag = holder
+        val song = songs.getOrNull(position - LIST_HEADERS_COUNT) ?: return
+        holder.bindView(song, true, true) { itemView, layoutPosition ->
+            setupView(itemView, song, layoutPosition)
         }
+        bindViewHolder(holder)
     }
 
     override fun getItemCount() = songs.size + LIST_HEADERS_COUNT
@@ -124,38 +93,10 @@ class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val list
     override fun onActionModeDestroyed() {}
 
     fun searchOpened() {
-        transparentViewHeight = transparentView.height
-        transparentView.layoutParams?.height = 0
-
-        navigationViewHeight = navigationView?.height ?: 0
-        navigationView?.layoutParams?.height = 0
     }
 
     fun searchClosed() {
-        transparentView.layoutParams?.height = transparentViewHeight
-        navigationView?.layoutParams?.height = navigationViewHeight
         notifyDataSetChanged()
-    }
-
-    private fun getTransparentViewHolder(): TransparentViewHolder {
-        if (transparentViewHolder == null) {
-            transparentViewHolder = TransparentViewHolder(transparentView)
-        }
-
-        return transparentViewHolder!!
-    }
-
-    private fun getNavigationViewHolder(): NavigationViewHolder {
-        if (navigationView == null) {
-            navigationView = activity.layoutInflater.inflate(R.layout.item_navigation, null) as ViewGroup
-            initNavigationView()
-        }
-
-        if (navigationViewHolder == null) {
-            navigationViewHolder = NavigationViewHolder(navigationView!!)
-        }
-
-        return navigationViewHolder!!
     }
 
     private fun showProperties() {
@@ -339,12 +280,6 @@ class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val list
 
     fun updateSong(song: Song?) {
         currentSong = song
-        navigationView?.apply {
-            song_info_title.text = song?.title ?: ""
-            song_info_artist.text = song?.artist ?: ""
-            song_progressbar.max = song?.duration ?: 0
-            song_progressbar.progress = 0
-        }
     }
 
     fun removeCurrentSongFromPlaylist() {
@@ -370,103 +305,13 @@ class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val list
         }
     }
 
-    private fun initNavigationView() {
-        navigationView?.apply {
-            shuffle_btn.setOnClickListener { listener.listToggleShuffle() }
-            previous_btn.setOnClickListener { activity.sendIntent(PREVIOUS) }
-            play_pause_btn.setOnClickListener { activity.sendIntent(PLAYPAUSE) }
-            next_btn.setOnClickListener { activity.sendIntent(NEXT) }
-            repeat_btn.setOnClickListener { listener.listToggleSongRepetition() }
-            song_progress_current.setOnClickListener { activity.sendIntent(SKIP_BACKWARD) }
-            song_progress_max.setOnClickListener { activity.sendIntent(SKIP_FORWARD) }
-
-            updateColors()
-
-            song_progressbar?.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                    val duration = song_progressbar.max.getFormattedDuration()
-                    val formattedProgress = progress.getFormattedDuration()
-                    song_progress_current.text = formattedProgress
-                    song_progress_max.text = duration
-                }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar) {
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar) {
-                    Intent(activity, MusicService::class.java).apply {
-                        putExtra(PROGRESS, seekBar.progress)
-                        action = SET_PROGRESS
-                        activity.startService(this)
-                    }
-                }
-            })
-
-            updateSong(currentSong)
-            updateSongProgress(initialProgress)
-            updateSongState(initialIsPlaying)
-        }
-    }
-
     fun updateColors() {
         val config = activity.config
         textColor = config.textColor
         primaryColor = config.primaryColor
         backgroundColor = config.backgroundColor
         adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
-        navigationView?.apply {
-            previous_btn.applyColorFilter(textColor)
-            play_pause_btn.applyColorFilter(textColor)
-            next_btn.applyColorFilter(textColor)
-            repeat_btn.applyColorFilter(textColor)
-
-            shuffle_btn.applyColorFilter(if (config.isShuffleEnabled) adjustedPrimaryColor else textColor)
-            shuffle_btn.alpha = if (config.isShuffleEnabled) 1f else LOWER_ALPHA
-
-            repeat_btn.applyColorFilter(if (config.repeatSong) adjustedPrimaryColor else textColor)
-            repeat_btn.alpha = if (config.repeatSong) 1f else LOWER_ALPHA
-
-            song_info_title.setTextColor(textColor)
-            song_info_artist.setTextColor(textColor)
-            song_progress_current.setTextColor(textColor)
-            song_progress_max.setTextColor(textColor)
-            song_progressbar.setColors(textColor, adjustedPrimaryColor, backgroundColor)
-        }
     }
-
-    fun updateSongState(isPlaying: Boolean) {
-        if (navigationView == null) {
-            initialIsPlaying = isPlaying
-        }
-        navigationView?.play_pause_btn?.setImageDrawable(resources.getDrawable(if (isPlaying) R.drawable.ic_pause_vector else R.drawable.ic_play_vector))
-    }
-
-    fun updateSongProgress(progress: Int) {
-        if (navigationView == null) {
-            initialProgress = progress
-        }
-        navigationView?.song_progressbar?.progress = progress
-    }
-
-    fun updateShuffle(enable: Boolean) {
-        navigationView?.apply {
-            shuffle_btn.applyColorFilter(if (enable) adjustedPrimaryColor else textColor)
-            shuffle_btn.alpha = if (enable) 1f else LOWER_ALPHA
-            shuffle_btn.contentDescription = resources.getString(if (enable) R.string.disable_shuffle else R.string.enable_shuffle)
-        }
-    }
-
-    fun updateRepeatSong(repeat: Boolean) {
-        navigationView?.apply {
-            repeat_btn.applyColorFilter(if (repeat) adjustedPrimaryColor else textColor)
-            repeat_btn.alpha = if (repeat) 1f else LOWER_ALPHA
-            repeat_btn.contentDescription = resources.getString(if (repeat) R.string.disable_song_repetition else R.string.enable_song_repetition)
-        }
-    }
-
-    inner class TransparentViewHolder(view: View) : ViewHolder(view)
-
-    inner class NavigationViewHolder(view: View) : ViewHolder(view)
 
     private fun setupView(view: View, song: Song, layoutPosition: Int) {
         view.apply {

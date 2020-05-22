@@ -14,6 +14,9 @@ class MyCompatRadioButton : AppCompatRadioButton {
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
     fun setColors(textColor: Int, accentColor: Int, backgroundColor: Int) {
+    }
+
+    private fun setColorsWithTints(textColor: Int, accentColor: Int) {
         setTextColor(textColor)
         val colorStateList = ColorStateList(
                 arrayOf(intArrayOf(-android.R.attr.state_checked),

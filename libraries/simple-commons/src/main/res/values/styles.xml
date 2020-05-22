@@ -66,7 +66,7 @@
         <item name="height">?attr/actionBarSize</item>
         <item name="titleTextStyle">@style/TextAppearance.AppCompat.Widget.ActionMode.Title</item>
         <item name="subtitleTextStyle">@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle</item>
-        <item name="closeItemLayout">@layout/abc_action_mode_close_item_material</item>
+        <item name="closeItemLayout">@layout/action_mode_close_item_layout</item>
     </style>
 
     <style name="LightActionBarItems" parent="ThemeOverlay.AppCompat.ActionBar">
@@ -1618,6 +1618,29 @@
         <item name="actionBarTheme">@style/LightActionBarItems</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:textColorPrimary">@color/theme_light_background_color</item>
+    </style>
+
+    <style name="FloatingBtnStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">@dimen/fb_margin</item>
+        <item name="android:src">@drawable/ic_plus_vector</item>
+        <item name="elevation">0dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="borderWidth">0dp</item>
+        <item name="pressedTranslationZ">0dp</item>
+        <item name="fabCustomSize">@dimen/fb_size</item>
+        <item name="maxImageSize">@dimen/fb_size</item>
+    </style>
+
+    <style name="NormalRadioButtonStyle">
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/normal_margin</item>
+        <item name="android:paddingBottom">@dimen/normal_margin</item>
     </style>
 
 </resources>

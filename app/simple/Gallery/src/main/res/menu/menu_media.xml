@@ -8,11 +8,6 @@
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom"/>
     <item
-        android:id="@+id/toggle_filename"
-        android:icon="@drawable/ic_label_vector"
-        android:title="@string/toggle_filename"
-        app:showAsAction="ifRoom"/>
-    <item
         android:id="@+id/sort"
         android:icon="@drawable/ic_sort_vector"
         android:title="@string/sort_by"
@@ -74,14 +69,6 @@
     <item
         android:id="@+id/create_new_folder"
         android:title="@string/create_new_folder"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/increase_column_count"
-        android:title="@string/increase_column_count"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/reduce_column_count"
-        android:title="@string/reduce_column_count"
         app:showAsAction="never"/>
     <item
         android:id="@+id/slideshow"

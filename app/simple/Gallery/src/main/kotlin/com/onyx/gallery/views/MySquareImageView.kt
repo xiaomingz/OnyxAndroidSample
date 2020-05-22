@@ -2,9 +2,9 @@ package com.onyx.gallery.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 
-class MySquareImageView : ImageView {
+class MySquareImageView : AppCompatImageView {
     var isHorizontalScrolling = false
 
     constructor(context: Context) : super(context)
@@ -14,7 +14,9 @@ class MySquareImageView : ImageView {
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val spec = if (isHorizontalScrolling) heightMeasureSpec else widthMeasureSpec
-        super.onMeasure(spec, spec)
+        if (isHorizontalScrolling) {
+            super.onMeasure(heightMeasureSpec, heightMeasureSpec)
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 }

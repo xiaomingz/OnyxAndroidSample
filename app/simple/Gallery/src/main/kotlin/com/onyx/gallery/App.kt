@@ -3,6 +3,7 @@ package com.onyx.gallery
 import android.content.Context
 import androidx.multidex.MultiDexApplication
 import com.github.ajalt.reprint.core.Reprint
+import com.onyx.gallery.helpers.AppContext
 import com.onyx.android.sdk.utils.ResManager
 import com.simplemobiletools.commons.extensions.checkUseEnglish
 
@@ -19,5 +20,6 @@ class App : MultiDexApplication() {
         ResManager.init(this)
         checkUseEnglish()
         Reprint.initialize(this)
+        AppContext.init(this)
     }
 }

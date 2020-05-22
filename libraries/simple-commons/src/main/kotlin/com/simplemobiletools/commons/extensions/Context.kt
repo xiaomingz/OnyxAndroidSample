@@ -2,6 +2,7 @@ package com.simplemobiletools.commons.extensions
 
 import android.Manifest
 import android.app.Activity
+import android.app.Service
 import android.content.ComponentName
 import android.content.ContentUris
 import android.content.Context
@@ -15,10 +16,7 @@ import android.media.ExifInterface
 import android.media.MediaMetadataRetriever
 import android.media.RingtoneManager
 import android.net.Uri
-import android.os.Build
-import android.os.Environment
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.provider.BaseColumns
 import android.provider.DocumentsContract
 import android.provider.MediaStore
@@ -739,3 +737,16 @@ val Context.realScreenSize: Point
     }
 
 fun Context.getInteger(resId: Int) = resources.getInteger(resId)
+
+fun <T> Context.objectFromRawResource(name: String?, classOfT: Class<T>): T? {
+    val resId = resources.getIdentifier(
+            name?.replace("-", "_")?.toLowerCase(Locale.getDefault()) ?: "",
+            "raw", packageName)
+    val content: String? = resources.contentOfRawResource(resId)
+    return JSONParseUtils.parseObjectSafely(content, classOfT)
+}
+
+fun Context.hasVibrator(): Boolean {
+    val vibrator = getSystemService(Service.VIBRATOR_SERVICE) as? Vibrator
+    return vibrator?.hasVibrator() ?: false
+}
