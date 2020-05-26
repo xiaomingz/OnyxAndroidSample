@@ -23,7 +23,7 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
 
     @Override
     public void execute(@NotNull NoteManager noteManager) throws Exception {
-        getGlobalEditBundle().setCurrShapeType(newShape);
+        noteManager.updateCurrShapeType(newShape);
         EventHandlerManager.EventHandlerType eventHandlerType;
         switch (newShape) {
             case ShapeFactory.SHAPE_CIRCLE:

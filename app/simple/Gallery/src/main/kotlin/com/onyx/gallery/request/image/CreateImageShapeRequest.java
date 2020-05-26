@@ -54,7 +54,8 @@ public class CreateImageShapeRequest extends BaseRequest {
         imageShape = createImageShape(downPoint, noteManager.getRenderContext(), imageSize);
         noteManager.renderToBitmap(imageShape);
         noteManager.cacheShape(imageShape);
-        noteManager.updateLimitRect(new Rect((int) dx, (int) dy, ((int) dx + imageSize.width), ((int) dy + imageSize.height)));
+        Rect rect = new Rect((int) dx, (int) dy, ((int) dx + imageSize.width), ((int) dy + imageSize.height));
+        noteManager.setOrgLimitRect(rect);
         getGlobalEditBundle().setInitDx(dx);
         getGlobalEditBundle().setInitDy(dy);
         getGlobalEditBundle().setInitScaleFactor(scaleFactor);

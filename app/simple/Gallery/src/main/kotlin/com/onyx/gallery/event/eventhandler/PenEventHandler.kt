@@ -21,7 +21,7 @@ class PenEventHandler(globalEditBundle: GlobalEditBundle) : BaseEventHandler(glo
     }
 
     private fun createEraseShape(touchPointList: TouchPointList): Shape {
-        val shape = ShapeFactory.createShape(globalEditBundle.currShapeType)
+        val shape = ShapeFactory.createShape(noteManager.currShapeType)
         shape.layoutType = LayoutType.FREE.ordinal
         shape.strokeWidth = noteManager.strokeWidth
         shape.color = noteManager.strokeColor

@@ -1,7 +1,6 @@
 package com.onyx.gallery.helpers;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.SurfaceView;
@@ -55,10 +54,10 @@ public class NoteManager {
 
     private CommandManager commandManager;
 
-    private float strokeWidth = 20f;
-    private int strokeColor = Color.BLACK;
-
-    private Rect limitRect = new Rect();
+    private DrawingArgs drawingArgs = new DrawingArgs();
+    private Rect orgLimitRect = new Rect();
+    private Rect currLimitRect = new Rect();
+    private Rect surfaceRect = new Rect();
 
     public NoteManager(Context context, EventBus eventBus) {
         this.eventBus = eventBus;
@@ -92,8 +91,8 @@ public class NoteManager {
         }
         touchHelper.openRawDrawing();
         touchHelper.setRawDrawingEnabled(false);
-        setStrokeStyle(TouchHelper.STROKE_STYLE_PENCIL);
-        setStrokeWidth(10);
+        drawingArgs.initArgs(this);
+        noteView.getLocalVisibleRect(surfaceRect);
         getRendererHelper().createRendererBitmap(new Rect(0, 0, view.getWidth(), view.getHeight()));
     }
 
@@ -108,14 +107,21 @@ public class NoteManager {
         getRxManager().enqueue(request, callback);
     }
 
-    public void updateLimitRect(Rect rect) {
+    public void updateLimitRect() {
         if (getTouchHelper() == null) {
             return;
         }
-        touchHelper.closeRawDrawing();
-        limitRect.set(rect);
-        getTouchHelper().setLimitRect(Collections.singletonList(limitRect));
-        touchHelper.openRawDrawing();
+        RectF dstLimitRect = new RectF();
+        RectF srcLimitRect = new RectF(getOrgLimitRect());
+        getRenderContext().matrix.mapRect(dstLimitRect, srcLimitRect);
+        Rect newLimit = new Rect();
+        dstLimitRect.round(newLimit);
+        if (newLimit.intersect(surfaceRect)) {
+            currLimitRect.set(newLimit);
+            touchHelper.setRawDrawingEnabled(false);
+            getTouchHelper().setLimitRect(Collections.singletonList(currLimitRect));
+            touchHelper.setRawDrawingEnabled(true);
+        }
     }
 
     public RendererHelper getRendererHelper() {
@@ -194,6 +200,9 @@ public class NoteManager {
         noteView = null;
         rawInputCallback = null;
         shapeCacheList.clear();
+        drawingArgs.reset();
+        orgLimitRect.set(0, 0, 0, 0);
+        currLimitRect.set(0, 0, 0, 0);
         resetCommand();
         if (getTouchHelper() != null) {
             getTouchHelper().closeRawDrawing();
@@ -264,6 +273,7 @@ public class NoteManager {
         if (getTouchHelper() == null) {
             return;
         }
+        drawingArgs.setStrokeStyle(style);
         getTouchHelper().setStrokeStyle(style);
     }
 
@@ -271,12 +281,12 @@ public class NoteManager {
         if (getTouchHelper() == null) {
             return;
         }
-        strokeColor = color;
+        drawingArgs.setStrokeColor(color);
         getTouchHelper().setStrokeColor(color);
     }
 
     public int getStrokeColor() {
-        return strokeColor;
+        return drawingArgs.getStrokeColor();
     }
 
     public void renderToBitmap(Shape shape) {
@@ -298,12 +308,12 @@ public class NoteManager {
     }
 
     public void setStrokeWidth(float penWidth) {
-        strokeWidth = penWidth;
+        drawingArgs.setStrokeWidth(penWidth);
         getTouchHelper().setStrokeWidth(penWidth);
     }
 
     public float getStrokeWidth() {
-        return strokeWidth;
+        return drawingArgs.getStrokeWidth();
     }
 
     public RenderContext getRenderContext() {
@@ -337,7 +347,36 @@ public class NoteManager {
         return shapeList;
     }
 
-    public Rect getLimitRect() {
-        return limitRect;
+    public void setOrgLimitRect(Rect orgLimitRect) {
+        this.orgLimitRect = orgLimitRect;
+    }
+
+    public Rect getOrgLimitRect() {
+        return orgLimitRect;
+    }
+
+    public Rect getCurrLimitRect() {
+        return currLimitRect;
+    }
+
+    public Rect getSurfaceRect() {
+        return surfaceRect;
+    }
+
+    public void updateCurrShapeType(int newShape) {
+        drawingArgs.setCurrShapeType(newShape);
+    }
+
+    public int getCurrShapeType() {
+        return drawingArgs.getCurrShapeType();
+    }
+
+    public Shape getImageShape() {
+        for (Shape shape : shapeCacheList) {
+            if (shape instanceof ImageShape) {
+                return shape;
+            }
+        }
+        return null;
     }
 }

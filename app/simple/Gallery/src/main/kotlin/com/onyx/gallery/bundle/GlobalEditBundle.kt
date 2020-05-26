@@ -3,10 +3,8 @@ package com.onyx.gallery.bundle
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.provider.MediaStore
-import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.gallery.App
 import com.onyx.gallery.R
 import com.onyx.gallery.event.eventhandler.EventHandlerManager
@@ -32,17 +30,6 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     var initDy = 0f
     var initScaleFactor = 0f
 
-    var currShapeType = defaultShape()
-        set(value) {
-            if (field == value) {
-                return
-            }
-            lastShapeType = currShapeType
-            field = value
-        }
-
-    private var lastShapeType = currShapeType
-
     val noteManager: NoteManager = NoteManager(context, eventBus)
     val eventHandlerManager: EventHandlerManager = EventHandlerManager(this)
 
@@ -51,10 +38,6 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
             GlobalEditBundle(App.instance)
         }
     }
-
-    fun defaultShape(): Int = ShapeFactory.SHAPE_PENCIL_SCRIBBLE
-
-    fun defaultStrokeColor(): Int = Color.BLACK
 
     fun parseIntent(host: Activity) {
         uri = parseImageUri(host)

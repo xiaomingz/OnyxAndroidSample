@@ -29,13 +29,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding>() {
 
     private var uri: Uri? = null
     private var inFastMode = false
-    private var surfaceCallback: SurfaceHolder.Callback? = null
-        get() {
-            if (field == null) {
-                field = initSurfaceCallback()
-            }
-            return field
-        }
+    private val surfaceCallback: SurfaceHolder.Callback by lazy { initSurfaceCallback() }
 
     private lateinit var viewModel: EditContentViewModel
 

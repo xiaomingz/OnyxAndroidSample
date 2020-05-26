@@ -57,6 +57,7 @@ public class TranslateViewPortRequest extends BaseRequest {
         translateRenderMatrix(noteManager);
         renderToBitmap(noteManager, hRenderShapes, translateHRect);
         renderToBitmap(noteManager, vRenderShapes, translateVRect);
+        noteManager.updateLimitRect();
     }
 
     private void renderToBitmap(NoteManager noteManager, @NonNull List<Shape> shapes, RectF clipRect) {

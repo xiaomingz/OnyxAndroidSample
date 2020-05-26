@@ -44,7 +44,8 @@ public class ZoomFinishRequest extends BaseRequest {
         renderContext.canvas.drawColor(Color.WHITE);
         setRenderShapesToBitmap(true);
         isViewScaling = renderContext.isViewScaling();
-        noteManager.getTouchHelper().setRawDrawingEnabled(true);
+        noteManager.setRawDrawingEnabled(true);
+        noteManager.updateLimitRect();
     }
 
     private RectF getDrawRect() {

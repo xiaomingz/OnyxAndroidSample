@@ -11,6 +11,7 @@ import android.view.SurfaceView;
 import androidx.annotation.WorkerThread;
 
 import com.onyx.android.sdk.api.device.epd.EpdController;
+import com.onyx.android.sdk.scribble.data.RenderColorConfig;
 import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.android.sdk.scribble.shape.Shape;
 import com.onyx.android.sdk.utils.Benchmark;
@@ -30,7 +31,13 @@ import static com.onyx.gallery.utils.RendererUtils.createRenderContext;
 
 public class RendererHelper {
 
-    private RenderContext renderContext = createRenderContext().setEnableBitmapCache(true);
+    private RenderContext renderContext;
+
+    public RendererHelper() {
+        renderContext = createRenderContext()
+                .setEnableBitmapCache(true)
+                .setRenderColorConfig(RenderColorConfig.RAW_RENDER_COLOR);
+    }
 
     public RenderContext getRenderContext() {
         return renderContext;

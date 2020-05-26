@@ -74,7 +74,7 @@ class NormalShapeHandler(globalEditBundle: GlobalEditBundle) : BaseEventHandler(
     }
 
     private fun createShape(downTouchPoint: TouchPoint?): Shape {
-        val shape: Shape = ShapeFactory.createShape(globalEditBundle.currShapeType)
+        val shape: Shape = ShapeFactory.createShape(noteManager.currShapeType)
         shape.layoutType = ShapeFactory.LayoutType.FREE.ordinal
         shape.strokeWidth = noteManager.strokeWidth
         shape.color = noteManager.strokeColor
