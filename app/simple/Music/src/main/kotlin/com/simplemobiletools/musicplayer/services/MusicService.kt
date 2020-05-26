@@ -444,7 +444,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
 
         if (isOreoPlus()) {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            val name = resources.getString(R.string.app_name)
+            val name = resources.getString(R.string.app_launcher_name)
             val importance = NotificationManager.IMPORTANCE_LOW
             NotificationChannel(NOTIFICATION_CHANNEL, name, importance).apply {
                 enableLights(false)
@@ -518,7 +518,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     @SuppressLint("NewApi")
     private fun setupFakeNotification() {
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val name = resources.getString(R.string.app_name)
+        val name = resources.getString(R.string.app_launcher_name)
         val importance = NotificationManager.IMPORTANCE_LOW
         NotificationChannel(NOTIFICATION_CHANNEL, name, importance).apply {
             enableLights(false)
