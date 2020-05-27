@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simple Music Player</string>
+    <string name="app_name">Music Player</string>
     <string name="app_launcher_name">Music Player</string>
     <string name="playlist_empty">Your playlist is empty</string>
     <string name="rename_song">Rename song</string>
