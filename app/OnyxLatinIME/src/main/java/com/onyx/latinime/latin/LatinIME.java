@@ -1425,7 +1425,10 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
         final EditorInfo ei = getCurrentInputEditorInfo();
         if (ei == null) return Constants.TextUtils.CAP_MODE_OFF;
-        final int inputType = ei.inputType;
+        int inputType = ei.inputType;
+        if (inputType == InputType.TYPE_CLASS_TEXT) {
+            inputType = inputType | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+        }
         // Warning: this depends on mSpaceState, which may not be the most current value. If
         // mSpaceState gets updated later, whoever called this may need to be told about it.
         return mConnection.getCursorCapsMode(inputType, currentSettingsValues,
