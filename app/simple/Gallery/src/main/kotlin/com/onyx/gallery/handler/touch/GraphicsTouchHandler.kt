@@ -1,4 +1,4 @@
-package com.onyx.gallery.event.eventhandler
+package com.onyx.gallery.handler.touch
 
 import android.graphics.Matrix
 import com.onyx.android.sdk.pen.data.TouchPoint
@@ -15,9 +15,9 @@ import io.reactivex.disposables.Disposable
 import java.util.*
 
 /**
- * Created by Leung on 2020/5/21
+ * Created by Leung on 2020/6/7
  */
-class NormalShapeHandler(globalEditBundle: GlobalEditBundle) : BaseEventHandler(globalEditBundle) {
+open class GraphicsTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(globalEditBundle) {
 
     companion object {
         private const val TOUCH_POINT_BUFFER_MAX_COUNT = 30
@@ -64,7 +64,7 @@ class NormalShapeHandler(globalEditBundle: GlobalEditBundle) : BaseEventHandler(
 
     private fun normalMatrixMapPoint(downPoint: TouchPoint, upPoint: TouchPoint) {
         val normalizedMatrix = Matrix()
-        noteManager.renderContext.matrix.invert(normalizedMatrix)
+        drawHandler.renderContext.matrix.invert(normalizedMatrix)
         downPoint.set(ShapeUtils.matrixTouchPoint(downPoint, normalizedMatrix))
         upPoint.set(ShapeUtils.matrixTouchPoint(upPoint, normalizedMatrix))
     }
@@ -74,10 +74,10 @@ class NormalShapeHandler(globalEditBundle: GlobalEditBundle) : BaseEventHandler(
     }
 
     private fun createShape(downTouchPoint: TouchPoint?): Shape {
-        val shape: Shape = ShapeFactory.createShape(noteManager.currShapeType)
+        val shape: Shape = ShapeFactory.createShape(drawHandler.getCurrShapeType())
         shape.layoutType = ShapeFactory.LayoutType.FREE.ordinal
-        shape.strokeWidth = noteManager.strokeWidth
-        shape.color = noteManager.strokeColor
+        shape.strokeWidth = drawHandler.getStrokeWidth()
+        shape.color = drawHandler.getStrokeColor()
         shape.onDown(downTouchPoint, downTouchPoint)
         return shape
     }
@@ -92,6 +92,5 @@ class NormalShapeHandler(globalEditBundle: GlobalEditBundle) : BaseEventHandler(
         }
         actionDisposables.clear()
     }
-
 
 }

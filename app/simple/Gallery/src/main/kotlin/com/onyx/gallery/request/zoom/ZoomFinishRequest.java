@@ -8,7 +8,7 @@ import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.android.sdk.utils.NumberUtils;
 import com.onyx.android.sdk.utils.RectUtils;
 import com.onyx.gallery.common.BaseRequest;
-import com.onyx.gallery.helpers.NoteManager;
+import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.NoteUtils;
 
 /**
@@ -30,8 +30,8 @@ public class ZoomFinishRequest extends BaseRequest {
     }
 
     @Override
-    public void execute(NoteManager noteManager) throws Exception {
-        RenderContext renderContext = noteManager.getRenderContext();
+    public void execute(DrawHandler drawHandler) throws Exception {
+        RenderContext renderContext = drawHandler.getRenderContext();
         if ((renderContext.getViewPortScale() * scale) <= NumberUtils.FLOAT_ONE) {
             NoteUtils.resetZoom(renderContext);
         } else {
@@ -44,12 +44,12 @@ public class ZoomFinishRequest extends BaseRequest {
         renderContext.canvas.drawColor(Color.WHITE);
         setRenderShapesToBitmap(true);
         isViewScaling = renderContext.isViewScaling();
-        noteManager.setRawDrawingEnabled(true);
-        noteManager.updateLimitRect();
+        drawHandler.setRawDrawingEnabled(true);
+        drawHandler.updateLimitRect();
     }
 
     private RectF getDrawRect() {
-        return getNoteManager().getRenderContext().getViewPortRect();
+        return getDrawHandler().getRenderContext().getViewPortRect();
     }
 
     public boolean isViewScaling() {

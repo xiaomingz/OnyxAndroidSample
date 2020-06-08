@@ -1,15 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="@style/OnyxAppCompat.ActionBar"/>
+    <style name="AppTheme" parent="@style/OnyxAppCompat.ActionBar" />
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="FullScreenTheme.Base" parent="AppTheme">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
-    <style name="FullScreenTheme" parent="FullScreenTheme.Base"/>
+    <style name="FullScreenTheme" parent="FullScreenTheme.Base" />
 
     <style name="RadioButtonStyle">
         <item name="android:textSize">@dimen/normal_text_size</item>
@@ -23,7 +23,6 @@
         <item name="android:paddingTop">@dimen/activity_margin</item>
         <item name="android:paddingBottom">@dimen/activity_margin</item>
     </style>
-
 
 
     <style name="main_menu_bottom_progress_light_layout">
@@ -83,5 +82,23 @@
         <item name="android:textSize">@dimen/text_size_large_mode</item>
         <item name="android:textColor">@color/normal_black</item>
     </style>
+
+    <style name="seek_bar_layout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:maxHeight">@dimen/seekbar_with_text_seekbar_height</item>
+        <item name="android:minHeight">@dimen/seekbar_with_text_seekbar_height</item>
+        <item name="android:focusable">true</item>
+        <item name="android:padding">@dimen/seekbar_padding</item>
+        <item name="android:paddingStart" tools:ignore="NewApi">0dp</item>
+        <item name="android:paddingEnd" tools:ignore="NewApi">0dp</item>
+        <item name="android:thumbOffset">0dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:progressDrawable">@drawable/seekbar_with_text_progress</item>
+        <item name="android:thumb">@drawable/seekbar_with_text_thumb</item>
+    </style>
+
 
 </resources>

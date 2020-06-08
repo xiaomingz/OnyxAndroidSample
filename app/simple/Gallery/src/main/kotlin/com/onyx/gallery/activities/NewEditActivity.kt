@@ -6,12 +6,13 @@ import android.view.Menu
 import android.view.MenuItem
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.R
-import com.onyx.gallery.action.SaveEditPictureAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.result.SaveEditPictureResultEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.fragments.EditContentFragment
 import com.onyx.gallery.fragments.EditMenuFragment
+import com.onyx.gallery.handler.ActionType
+import com.onyx.gallery.handler.AppBarHandler
 import com.simplemobiletools.commons.extensions.checkAppSideloading
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import org.greenrobot.eventbus.Subscribe
@@ -21,7 +22,7 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by Leung on 2020/4/30
  */
 class NewEditActivity : SimpleActivity() {
-
+    private lateinit var appBarHandler: AppBarHandler
     private val globalEditBundle: GlobalEditBundle = GlobalEditBundle.instance
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,7 @@ class NewEditActivity : SimpleActivity() {
     }
 
     private fun configActionBar() {
+        appBarHandler = AppBarHandler(this)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(resources.getColoredDrawableWithColor(R.drawable.ic_arrow_left_vector, Color.BLACK))
@@ -54,12 +56,15 @@ class NewEditActivity : SimpleActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // todo R.id.undo ->  ,   R.id.redo , R.id.delete
-        when (item.itemId) {
-            android.R.id.home -> finish()
-            R.id.save -> globalEditBundle.filePath?.let { SaveEditPictureAction(it).execute(null) }
+        var actionType: ActionType = when (item.itemId) {
+            android.R.id.home -> ActionType.BACK
+            R.id.save -> ActionType.SAVE_EDIT
+            R.id.delete -> ActionType.DELETE
+            R.id.undo -> ActionType.UNDO
+            R.id.redo -> ActionType.REDO
             else -> return super.onOptionsItemSelected(item)
         }
+        appBarHandler.onHandleAction(actionType)
         return true
     }
 

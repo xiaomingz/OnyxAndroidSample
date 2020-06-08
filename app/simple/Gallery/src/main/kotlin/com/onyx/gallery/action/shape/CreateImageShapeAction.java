@@ -36,7 +36,7 @@ public class CreateImageShapeAction extends BaseEditAction {
         final CreateImageShapeRequest shapeRequest = new CreateImageShapeRequest()
                 .setScribbleRect(scribbleRect)
                 .setImageFilePath(filePath);
-        getNoteManager().enqueue(shapeRequest, new RxCallback<CreateImageShapeRequest>() {
+        getGlobalEditBundle().enqueue(shapeRequest, new RxCallback<CreateImageShapeRequest>() {
             @Override
             public void onNext(@NonNull CreateImageShapeRequest request) {
                 RxCallback.onNext(callback, request);

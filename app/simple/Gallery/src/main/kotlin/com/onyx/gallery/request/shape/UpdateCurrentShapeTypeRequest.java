@@ -2,8 +2,8 @@ package com.onyx.gallery.request.shape;
 
 import com.onyx.android.sdk.scribble.shape.ShapeFactory;
 import com.onyx.gallery.common.BaseRequest;
-import com.onyx.gallery.event.eventhandler.EventHandlerManager;
-import com.onyx.gallery.helpers.NoteManager;
+import com.onyx.gallery.handler.DrawHandler;
+import com.onyx.gallery.handler.touch.TouchHandlerType;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,23 +22,23 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
     }
 
     @Override
-    public void execute(@NotNull NoteManager noteManager) throws Exception {
-        noteManager.updateCurrShapeType(newShape);
-        EventHandlerManager.EventHandlerType eventHandlerType;
+    public void execute(@NotNull DrawHandler drawHandler) throws Exception {
+        drawHandler.updateCurrShapeType(newShape);
+        TouchHandlerType touchHandlerType;
         switch (newShape) {
             case ShapeFactory.SHAPE_CIRCLE:
             case ShapeFactory.SHAPE_RECTANGLE:
             case ShapeFactory.SHAPE_TRIANGLE:
             case ShapeFactory.SHAPE_LINE:
-                noteManager.setRawDrawingRenderEnabled(false);
-                eventHandlerType = EventHandlerManager.EventHandlerType.NORMAL_SHAPE_EVENT;
+                drawHandler.setRawDrawingRenderEnabled(false);
+                touchHandlerType = TouchHandlerType.GRAPHICS;
                 break;
             default:
-                noteManager.setRawDrawingRenderEnabled(true);
-                eventHandlerType = EventHandlerManager.EventHandlerType.PEN_EVENT;
+                drawHandler.setRawDrawingRenderEnabled(true);
+                touchHandlerType = TouchHandlerType.SCRIBBLE;
                 break;
         }
 
-        getGlobalEditBundle().getEventHandlerManager().activateHandler(eventHandlerType);
+        getGlobalEditBundle().getTouchHandlerManager().activateHandler(touchHandlerType);
     }
 }

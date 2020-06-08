@@ -14,7 +14,7 @@ import com.onyx.android.sdk.scribble.shape.ShapeFactory;
 import com.onyx.android.sdk.scribble.utils.ShapeUtils;
 import com.onyx.android.sdk.utils.BitmapUtils;
 import com.onyx.gallery.common.BaseRequest;
-import com.onyx.gallery.helpers.NoteManager;
+import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.NoteUtils;
 
 /**
@@ -41,24 +41,25 @@ public class CreateImageShapeRequest extends BaseRequest {
     }
 
     @Override
-    public void execute(NoteManager noteManager) {
+    public void execute(DrawHandler drawHandler) {
         Size imageSize = new Size();
         BitmapUtils.decodeBitmapSize(imageFilePath, imageSize);
 
-        float scaleFactor = calculateScaleFactor(noteManager.getNoteView(), imageSize);
+        float scaleFactor = calculateScaleFactor(drawHandler.getSurfaceView(), imageSize);
         updateImageSize(imageSize, scaleFactor);
 
         float dx = scribbleRect.width() / 2 - imageSize.width / 2;
         float dy = scribbleRect.height() / 2 - imageSize.height / 2;
         TouchPoint downPoint = new TouchPoint(dx, dy);
-        imageShape = createImageShape(downPoint, noteManager.getRenderContext(), imageSize);
-        noteManager.renderToBitmap(imageShape);
-        noteManager.cacheShape(imageShape);
+        imageShape = createImageShape(downPoint, drawHandler.getRenderContext(), imageSize);
+        drawHandler.renderToBitmap(imageShape);
+        drawHandler.addShape(imageShape);
         Rect rect = new Rect((int) dx, (int) dy, ((int) dx + imageSize.width), ((int) dy + imageSize.height));
-        noteManager.setOrgLimitRect(rect);
+        drawHandler.setOrgLimitRect(rect);
         getGlobalEditBundle().setInitDx(dx);
         getGlobalEditBundle().setInitDy(dy);
         getGlobalEditBundle().setInitScaleFactor(scaleFactor);
+        drawHandler.updateLimitRect();
     }
 
     private void updateImageSize(Size imageSize, float scaleFactor) {

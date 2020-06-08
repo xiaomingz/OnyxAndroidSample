@@ -7,7 +7,7 @@ import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.android.sdk.utils.FileUtils
 import com.onyx.android.sdk.utils.MtpUtils
 import com.onyx.gallery.common.BaseRequest
-import com.onyx.gallery.helpers.NoteManager
+import com.onyx.gallery.handler.DrawHandler
 import java.io.File
 
 /**
@@ -15,7 +15,7 @@ import java.io.File
  */
 class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
 
-    override fun execute(noteManager: NoteManager) {
+    override fun execute(drawHandler: DrawHandler) {
         val opts = BitmapFactory.Options()
         val imageBitmap = decodeFile(filePath, opts)
         val newBitmap = createBitmap(filePath, opts)
@@ -39,7 +39,7 @@ class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
 
     private fun createShapeBitmap(opts: BitmapFactory.Options): Bitmap {
         val renderContext = createRenderContext(opts.outWidth, opts.outHeight)
-        val handwritingShape = noteManager.handwritingShape
+        val handwritingShape = drawHandler.getHandwritingShape()
         val matrix = Matrix()
         val normalizedMatrix = Matrix()
         matrix.postScale(globalEditBundle.initScaleFactor, globalEditBundle.initScaleFactor)

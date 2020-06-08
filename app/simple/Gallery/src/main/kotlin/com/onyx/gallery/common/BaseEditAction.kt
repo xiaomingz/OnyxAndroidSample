@@ -1,7 +1,6 @@
 package com.onyx.gallery.common
 
 import com.onyx.android.sdk.rx.RxRequest
-import com.onyx.gallery.helpers.NoteManager
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -9,7 +8,7 @@ import org.greenrobot.eventbus.EventBus
  */
 abstract class BaseEditAction<T : RxRequest> : BaseAction<T>() {
 
-    val noteManager: NoteManager = globalEditBundle.noteManager
+    val drawHandler = globalEditBundle.drawHandler
     val eventBus: EventBus = globalEditBundle.eventBus
 
 }

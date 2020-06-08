@@ -5,10 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
+import com.onyx.android.sdk.rx.RxCallback
+import com.onyx.android.sdk.rx.RxManager
+import com.onyx.android.sdk.rx.RxRequest
 import com.onyx.gallery.App
 import com.onyx.gallery.R
-import com.onyx.gallery.event.eventhandler.EventHandlerManager
-import com.onyx.gallery.helpers.NoteManager
+import com.onyx.gallery.handler.DrawHandler
+import com.onyx.gallery.handler.touch.TouchHandlerManager
 import com.simplemobiletools.commons.extensions.getRealPathFromURI
 import com.simplemobiletools.commons.extensions.isPathOnOTG
 import com.simplemobiletools.commons.extensions.toast
@@ -30,8 +33,9 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     var initDy = 0f
     var initScaleFactor = 0f
 
-    val noteManager: NoteManager = NoteManager(context, eventBus)
-    val eventHandlerManager: EventHandlerManager = EventHandlerManager(this)
+    val drawHandler = DrawHandler(context, eventBus)
+    val rxManager: RxManager by lazy { RxManager.Builder.sharedSingleThreadManager() }
+    val touchHandlerManager = TouchHandlerManager(this)
 
     companion object {
         val instance: GlobalEditBundle by lazy {
@@ -74,6 +78,15 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     private fun parseSaveUri(intent: Intent): Uri? = when {
         intent.extras?.containsKey(MediaStore.EXTRA_OUTPUT) == true -> intent.extras!!.get(MediaStore.EXTRA_OUTPUT) as Uri
         else -> uri!!
+    }
+
+    fun <T : RxRequest?> enqueue(request: T, callback: RxCallback<T>?) {
+        rxManager.enqueue(request, callback)
+    }
+
+    fun release() {
+        drawHandler.quit()
+        touchHandlerManager.deactivateHandler()
     }
 
 

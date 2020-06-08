@@ -12,7 +12,7 @@ import com.onyx.gallery.request.SaveEditPictureRequest
 class SaveEditPictureAction(private val filePath: String) : BaseEditAction<RxRequest>() {
 
     override fun execute(rxCallback: RxCallback<RxRequest>?) {
-        noteManager.enqueue(SaveEditPictureRequest(filePath), object : RxCallback<SaveEditPictureRequest>() {
+        globalEditBundle.enqueue(SaveEditPictureRequest(filePath), object : RxCallback<SaveEditPictureRequest>() {
 
             override fun onNext(request: SaveEditPictureRequest) {
                 RxCallback.onNext(rxCallback, request)

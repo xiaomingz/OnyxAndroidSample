@@ -23,7 +23,8 @@
             style="@style/dialog_format_parent_layout"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
 
             <TextView
                 style="@style/text_style_spacing_style_name"
@@ -83,8 +84,8 @@
             style="@style/dialog_format_parent_layout"
             android:layout_height="0dp"
             android:layout_marginTop="0dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
 
             <TextView
                 style="@style/text_style_spacing_style_name"
@@ -137,6 +138,40 @@
                 setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_WAVY_LINE}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_WAVY_LINE)}"
                 app:srcCompat="@drawable/ic_wave" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/dialog_format_parent_layout"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                style="@style/text_style_spacing_style_name"
+                android:text="@string/stroke_width" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                android:layout_weight="0"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.STROKE_WIDTH_SUBTRACTION)}"
+                app:srcCompat="@drawable/ic_subtraction" />
+
+            <SeekBar
+                style="@style/seek_bar_layout"
+                onSeekBarChangeListener="@{viewModel.onChangeListener}"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:max="@{viewModel.seekBarMax}"
+                android:progress="@{viewModel.currStrokeWidth}" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                android:layout_weight="0"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.STROKE_WIDTH_ADDITION)}"
+                app:srcCompat="@drawable/ic_addition" />
 
         </LinearLayout>
     </LinearLayout>

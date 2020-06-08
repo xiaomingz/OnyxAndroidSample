@@ -5,7 +5,7 @@ import android.graphics.Matrix;
 import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.gallery.common.BaseRequest;
-import com.onyx.gallery.helpers.NoteManager;
+import com.onyx.gallery.handler.DrawHandler;
 
 /**
  * <pre>
@@ -25,8 +25,8 @@ public class ZoomingRequest extends BaseRequest {
     }
 
     @Override
-    public void execute(NoteManager noteManager) throws Exception {
-        RenderContext renderContext = noteManager.getRenderContext();
+    public void execute(DrawHandler drawHandler) throws Exception {
+        RenderContext renderContext = drawHandler.getRenderContext();
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale, scalePoint.x, scalePoint.y);
         renderContext.setScalingMatrix(matrix);

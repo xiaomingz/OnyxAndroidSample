@@ -2,7 +2,7 @@ package com.onyx.gallery.request.shape
 
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.gallery.common.BaseRequest
-import com.onyx.gallery.helpers.NoteManager
+import com.onyx.gallery.handler.DrawHandler
 
 
 /**
@@ -10,10 +10,12 @@ import com.onyx.gallery.helpers.NoteManager
  */
 class RenderVarietyShapeRequest(private val shape: MutableList<Shape>) : BaseRequest() {
 
-    override fun execute(noteManager: NoteManager) {
+    override fun execute(drawHandler: DrawHandler) {
         renderShapesToBitmap = true
         renderToScreen = false
-        noteManager.renderVarietyShapesToScreen(shape)
+        drawHandler.renderVarietyShapesToScreen(shape)
     }
 
 }
+
+

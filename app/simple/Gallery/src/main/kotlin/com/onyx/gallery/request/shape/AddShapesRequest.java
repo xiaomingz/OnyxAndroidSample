@@ -2,7 +2,7 @@ package com.onyx.gallery.request.shape;
 
 import com.onyx.android.sdk.scribble.shape.Shape;
 import com.onyx.gallery.common.BaseRequest;
-import com.onyx.gallery.helpers.NoteManager;
+import com.onyx.gallery.handler.DrawHandler;
 
 import java.util.List;
 
@@ -19,12 +19,12 @@ public class AddShapesRequest extends BaseRequest {
     }
 
     @Override
-    public void execute(NoteManager noteManager)throws Exception {
+    public void execute(DrawHandler drawHandler) throws Exception {
         if (shapes == null) {
             return;
         }
-        noteManager.cacheShape(shapes);
-        noteManager.renderToBitmap(shapes);
+        drawHandler.addShape(shapes);
+        drawHandler.renderToBitmap(shapes);
         setRenderShapesToBitmap(true);
         setRenderToScreen(true);
     }

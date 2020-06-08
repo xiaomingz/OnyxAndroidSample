@@ -1,28 +1,25 @@
-package com.onyx.gallery.event.eventhandler
+package com.onyx.gallery.handler.touch
 
-import android.graphics.Matrix
 import androidx.annotation.CallSuper
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
-import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.raw.BeginRawDrawEvent
 import com.onyx.gallery.event.raw.EndRawDrawingEvent
 import com.onyx.gallery.event.raw.RawDrawingPointsMoveReceivedEvent
 import com.onyx.gallery.event.raw.RawDrawingPointsReceivedEvent
-import com.onyx.gallery.helpers.NoteManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * Created by Leung on 2020/5/21
+ * Created by Leung on 2020/6/7
  */
-abstract class BaseEventHandler(val globalEditBundle: GlobalEditBundle) : EventHandler {
+abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchHandler {
     private val eventBus: EventBus = globalEditBundle.eventBus
 
-    protected val noteManager: NoteManager = globalEditBundle.noteManager
+    protected val drawHandler = globalEditBundle.drawHandler
 
     protected fun postEvent(event: Any) = eventBus.post(event)
 
@@ -59,5 +56,4 @@ abstract class BaseEventHandler(val globalEditBundle: GlobalEditBundle) : EventH
     override fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList) {
 
     }
-
 }

@@ -380,6 +380,9 @@
     <string name="color">颜色</string>
     <string name="scale_min_tips">已缩放到最小值</string>
     <string name="scale_max_tips">已缩放到最大值</string>
+    <string name="stroke_width">线宽</string>
+    <string name="text_menu_font_size">字号</string>
+    <string name="typeface">字体</string>
 
     <!--
         Haven't found some strings? There's more at

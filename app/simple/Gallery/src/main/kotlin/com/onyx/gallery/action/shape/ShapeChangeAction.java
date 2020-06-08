@@ -25,7 +25,7 @@ public class ShapeChangeAction extends BaseEditAction {
     @Override
     public void execute(RxCallback rxCallback) {
         UpdateCurrentShapeTypeRequest request = new UpdateCurrentShapeTypeRequest(shapeType);
-        getNoteManager().enqueue(request, new RxCallback<UpdateCurrentShapeTypeRequest>() {
+        getGlobalEditBundle().enqueue(request, new RxCallback<UpdateCurrentShapeTypeRequest>() {
             @Override
             public void onNext(@NonNull UpdateCurrentShapeTypeRequest updateCurrentShapeTypeRequest) {
                 RxCallback.onNext(rxCallback, request);

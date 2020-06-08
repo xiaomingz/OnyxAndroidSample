@@ -32,12 +32,12 @@
 
     <dimen name="reader_main_menu_bottom_height">88px</dimen>
     <dimen name="ic_read_progress_padding_top">10px</dimen>
-    <dimen name="common_large_text_size">22px</dimen>
+    <dimen name="common_large_text_size">15sp</dimen>
 
     <dimen name="reader_main_menu_top_image_width_1">38px</dimen>
     <dimen name="reader_main_menu_top_image_height_1">38px</dimen>
 
-    <dimen name="dialog_parent_layout_padding_left">44dp</dimen>
+    <dimen name="dialog_parent_layout_padding_left">30dp</dimen>
     <dimen name="dialog_text_style_layout_margin_top">47dp</dimen>
 
     <dimen name="font_face_name_height">37dp</dimen>
@@ -49,13 +49,24 @@
     <dimen name="reader_main_menu_back_height">32px</dimen>
     <dimen name="reader_main_menu_back_width">18px</dimen>
 
-    <dimen name="seekbar_with_text_view_width">112dp</dimen>
-    <dimen name="text_size_large_mode">24px</dimen>
+    <dimen name="seekbar_with_text_view_width">50dp</dimen>
+    <dimen name="text_size_large_mode">15sp</dimen>
     <dimen name="fragment_edit_content_margin_top">10dp</dimen>
     <dimen name="fragment_edit_content_margin_bottom">10dp</dimen>
     <dimen name="zoom_preview_view_width">225dp</dimen>
     <dimen name="gesture_page_threshold_value">300dp</dimen>
     <dimen name="kcb_item_title_text_size">16sp</dimen>
-    <dimen name="edit_menu_graffiti_height_content">130dp</dimen>
+    <dimen name="edit_menu_graffiti_height_content">195dp</dimen>
+    <dimen name="menu_radius">20dp</dimen>
+
+    <dimen name="seek_bar_thumb_size">13dp</dimen>
+    <dimen name="progress_seek_bar_height">6dp</dimen>
+    <dimen name="seekbar_padding">10px</dimen>
+    <dimen name="seekbar_with_text_seekbar_layout_margin_left">21dp</dimen>
+    <dimen name="seekbar_with_text_seekbar_height">7dp</dimen>
+    <dimen name="seekbar_with_text_seekbar_thumb_height">15dp</dimen>
+    <dimen name="seekbar_with_text_seekbar_text_size">15sp</dimen>
+    <dimen name="seekbar_with_text_seekbar_layout_margin_top">11dp</dimen>
+    <dimen name="seekbar_with_text_seekbar_margin_top">3dp</dimen>
 
 </resources>

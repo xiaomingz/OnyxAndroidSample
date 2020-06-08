@@ -1,7 +1,7 @@
 package com.onyx.gallery.request;
 
 import com.onyx.gallery.common.BaseRequest;
-import com.onyx.gallery.helpers.NoteManager;
+import com.onyx.gallery.handler.DrawHandler;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +22,7 @@ public class StrokeColorChangeRequest extends BaseRequest {
     }
 
     @Override
-    public void execute(@NotNull NoteManager noteManager) throws Exception {
-        getNoteManager().setStrokeColor(color);
+    public void execute(@NotNull DrawHandler drawHandler) throws Exception {
+        drawHandler.setStrokeColor(color);
     }
 }

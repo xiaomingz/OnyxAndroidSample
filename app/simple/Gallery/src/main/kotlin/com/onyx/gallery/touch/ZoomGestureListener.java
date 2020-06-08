@@ -12,8 +12,8 @@ import com.onyx.gallery.R;
 import com.onyx.gallery.action.zoom.ZoomBeginAction;
 import com.onyx.gallery.action.zoom.ZoomFinishAction;
 import com.onyx.gallery.bundle.GlobalEditBundle;
+import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.helpers.ConstantsKt;
-import com.onyx.gallery.helpers.NoteManager;
 import com.onyx.gallery.request.zoom.ZoomingRequest;
 import com.onyx.gallery.utils.ToastUtils;
 
@@ -71,7 +71,7 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
         curScale = NumberUtils.FLOAT_ONE;
         preScale = NumberUtils.FLOAT_ONE;
         lastScaleFactor = NumberUtils.FLOAT_ONE;
-        viewScale = getNoteManager().getRenderContext().getViewPortScale();
+        viewScale = getDrawHandler().getRenderContext().getViewPortScale();
     }
 
     private boolean onScaling(ScaleGestureDetector detector) {
@@ -111,7 +111,7 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
         }
         preScale = curScale;
         ZoomingRequest request = new ZoomingRequest(curScale, touchPoint);
-        getNoteManager().enqueue(request, null);
+        getGlobalEditBundle().enqueue(request, null);
     }
 
     @Override
@@ -126,8 +126,8 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
         return getGlobalEditBundle().getSupportZoom();
     }
 
-    private NoteManager getNoteManager() {
-        return getGlobalEditBundle().getNoteManager();
+    private DrawHandler getDrawHandler() {
+        return getGlobalEditBundle().getDrawHandler();
     }
 
     private GlobalEditBundle getGlobalEditBundle() {

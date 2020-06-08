@@ -8,5 +8,5 @@ import com.onyx.gallery.bundle.GlobalEditBundle
  */
 abstract class BaseViewModel : ViewModel() {
     protected val globalEditBundle = GlobalEditBundle.instance
-    protected val noteManage = globalEditBundle.noteManager
+    protected val noteManage = globalEditBundle.drawHandler
 }

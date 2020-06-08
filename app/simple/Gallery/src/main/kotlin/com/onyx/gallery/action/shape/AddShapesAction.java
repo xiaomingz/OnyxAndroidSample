@@ -36,11 +36,11 @@ public class AddShapesAction extends BaseEditAction {
     @Override
     public void execute(final RxCallback rxCallback) {
         AddShapesRequest request = new AddShapesRequest(shapes);
-        getNoteManager().getRxManager().enqueue(request, new RxCallback<AddShapesRequest>() {
+        getGlobalEditBundle().getRxManager().enqueue(request, new RxCallback<AddShapesRequest>() {
             @Override
             public void onNext(@NonNull AddShapesRequest addShapesRequest) {
                 RxCallback.onNext(rxCallback, addShapesRequest);
-                getNoteManager().postEvent(PenEvent.resumeRawDrawing());
+                getEventBus().post(PenEvent.resumeRawDrawing());
             }
 
             @Override

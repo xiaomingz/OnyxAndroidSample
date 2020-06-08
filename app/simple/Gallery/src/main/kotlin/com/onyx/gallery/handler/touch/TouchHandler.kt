@@ -1,4 +1,4 @@
-package com.onyx.gallery.event.eventhandler
+package com.onyx.gallery.handler.touch
 
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
@@ -6,7 +6,7 @@ import com.onyx.android.sdk.pen.data.TouchPointList
 /**
  * Created by Leung on 2020/5/19
  */
-interface EventHandler {
+interface TouchHandler {
     fun onActivate()
     fun onDeactivate()
     fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint)

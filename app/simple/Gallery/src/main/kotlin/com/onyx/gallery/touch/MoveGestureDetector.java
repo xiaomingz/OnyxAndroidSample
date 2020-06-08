@@ -30,7 +30,7 @@ public class MoveGestureDetector extends BaseTouchDetector {
     private boolean multiTouched;
 
     public boolean onTouchEvent(MotionEvent ev) {
-        if (!getNoteManager().getRenderContext().isViewScaling()) {
+        if (!getDrawHandler().getRenderContext().isViewScaling()) {
             return false;
         }
         if (!getEditBundle().getCanFingerTouch()) {
@@ -96,7 +96,7 @@ public class MoveGestureDetector extends BaseTouchDetector {
         }
         isTranslating = true;
         TranslateViewPortRequest request = new TranslateViewPortRequest(moveX, moveY);
-        getNoteManager().enqueue(request, new RxCallback<TranslateViewPortRequest>() {
+        getEditBundle().enqueue(request, new RxCallback<TranslateViewPortRequest>() {
             @Override
             public void onNext(@NonNull TranslateViewPortRequest translateViewRequest) {
                 isTranslating = false;

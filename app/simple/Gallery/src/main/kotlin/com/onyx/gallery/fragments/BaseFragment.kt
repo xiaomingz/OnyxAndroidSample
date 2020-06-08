@@ -20,7 +20,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     protected val globalEditBundle = GlobalEditBundle.instance
 
-    protected val noteManager = globalEditBundle.noteManager
+    protected val drawHandler = globalEditBundle.drawHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

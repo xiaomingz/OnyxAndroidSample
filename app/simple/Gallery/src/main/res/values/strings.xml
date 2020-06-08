@@ -383,6 +383,9 @@
     <string name="touch_help_attach_error">can not start when view width and height is 0</string>
     <string name="scale_min_tips">Zoomed to the Minimum Value</string>
     <string name="scale_max_tips">Zoomed to the Maximum Value</string>
+    <string name="stroke_width">stroke width</string>
+    <string name="text_menu_font_size">font size</string>
+    <string name="typeface">typeface</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

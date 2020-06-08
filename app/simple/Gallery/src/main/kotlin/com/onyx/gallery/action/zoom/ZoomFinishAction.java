@@ -29,11 +29,11 @@ public class ZoomFinishAction extends BaseEditAction {
     @Override
     public void execute(final RxCallback callback) {
         final ZoomFinishRequest zoomFinishRequest = new ZoomFinishRequest(scale, scalePoint);
-        getNoteManager().enqueue(zoomFinishRequest, new RxCallback<ZoomFinishRequest>() {
+        getGlobalEditBundle().enqueue(zoomFinishRequest, new RxCallback<ZoomFinishRequest>() {
             @Override
             public void onNext(ZoomFinishRequest zoomFinishRequest) {
                 RxCallback.onNext(callback, zoomFinishRequest);
-                getNoteManager().postEvent(PenEvent.resumeRawDrawing(ZOOM_DELAY_RESUME_PEN_TIME_MS));
+                getEventBus().post(PenEvent.resumeRawDrawing(ZOOM_DELAY_RESUME_PEN_TIME_MS));
             }
 
             @Override

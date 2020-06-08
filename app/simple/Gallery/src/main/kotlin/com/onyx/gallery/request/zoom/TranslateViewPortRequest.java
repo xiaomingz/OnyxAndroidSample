@@ -11,7 +11,7 @@ import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.android.sdk.scribble.shape.Shape;
 import com.onyx.android.sdk.utils.RectUtils;
 import com.onyx.gallery.common.BaseRequest;
-import com.onyx.gallery.helpers.NoteManager;
+import com.onyx.gallery.handler.DrawHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,15 +38,15 @@ public class TranslateViewPortRequest extends BaseRequest {
     }
 
     private RectF getZoomRect() {
-        return getNoteManager().getRenderContext().getZoomRect();
+        return getDrawHandler().getRenderContext().getZoomRect();
     }
 
     private RectF getViewPortRect() {
-        return getNoteManager().getRenderContext().getViewPortRect();
+        return getDrawHandler().getRenderContext().getViewPortRect();
     }
 
     @Override
-    public void execute(NoteManager noteManager) throws Exception{
+    public void execute(DrawHandler drawHandler) throws Exception {
         normalizeViewport();
         if (!canTranslate()) {
             return;
@@ -54,20 +54,20 @@ public class TranslateViewPortRequest extends BaseRequest {
         translateBitmap();
         calculateTranslateRect();
         buildTranslateShapes();
-        translateRenderMatrix(noteManager);
-        renderToBitmap(noteManager, hRenderShapes, translateHRect);
-        renderToBitmap(noteManager, vRenderShapes, translateVRect);
-        noteManager.updateLimitRect();
+        translateRenderMatrix(drawHandler);
+        renderToBitmap(drawHandler, hRenderShapes, translateHRect);
+        renderToBitmap(drawHandler, vRenderShapes, translateVRect);
+        drawHandler.updateLimitRect();
     }
 
-    private void renderToBitmap(NoteManager noteManager, @NonNull List<Shape> shapes, RectF clipRect) {
+    private void renderToBitmap(DrawHandler drawHandler, @NonNull List<Shape> shapes, RectF clipRect) {
         if (shapes.isEmpty()) {
             return;
         }
-        Canvas renderCanvas = noteManager.getRenderContext().canvas;
+        Canvas renderCanvas = drawHandler.getRenderContext().canvas;
         renderCanvas.save();
         renderCanvas.clipRect(clipRect);
-        getNoteManager().renderToBitmap(shapes);
+        getDrawHandler().renderToBitmap(shapes);
         renderCanvas.restore();
     }
 
@@ -86,8 +86,8 @@ public class TranslateViewPortRequest extends BaseRequest {
         }
     }
 
-    private void translateRenderMatrix(NoteManager noteManager) {
-        RenderContext renderContext = noteManager.getRenderContext();
+    private void translateRenderMatrix(DrawHandler drawHandler) {
+        RenderContext renderContext = drawHandler.getRenderContext();
         renderContext.matrix.postTranslate(dx, dy);
     }
 
@@ -119,10 +119,11 @@ public class TranslateViewPortRequest extends BaseRequest {
     }
 
     private void buildTranslateShapes() {
-        List<Shape> shapeList = getNoteManager().getShapeCacheList();
+        DrawHandler drawHandler = getDrawHandler();
+        List<Shape> shapeList = getDrawHandler().getCacheShapeList();
         for (Shape shape : shapeList) {
             RectF shapeRect = new RectF(shape.getBoundingRect());
-            getNoteManager().getRenderContext().matrix.mapRect(shapeRect);
+            drawHandler.getRenderContext().matrix.mapRect(shapeRect);
             RectUtils.translate(shapeRect, dx, dy);
             if (shapeRect.intersect(translateHRect)) {
                 hRenderShapes.add(shape);
@@ -134,11 +135,12 @@ public class TranslateViewPortRequest extends BaseRequest {
     }
 
     private void translateBitmap() {
+        DrawHandler drawHandler = getDrawHandler();
         Bitmap newBitmap = Bitmap.createBitmap((int) getViewPortRect().width(), (int) getViewPortRect().height(), Bitmap.Config.ARGB_8888);
         newBitmap.eraseColor(Color.TRANSPARENT);
         Canvas canvas = new Canvas(newBitmap);
         canvas.translate(dx, dy);
-        canvas.drawBitmap(getNoteManager().getRenderContext().bitmap, 0, 0, null);
-        getNoteManager().getRenderContext().updateBitmap(newBitmap);
+        canvas.drawBitmap(drawHandler.getRenderContext().bitmap, 0, 0, null);
+        drawHandler.getRenderContext().updateBitmap(newBitmap);
     }
 }

@@ -35,7 +35,7 @@ class RenderVarietyShapeAction : BaseEditAction<BaseRequest>() {
 
     override fun execute(rxCallback: RxCallback<BaseRequest>?) {
         val request = RenderVarietyShapeRequest(shapeList)
-        noteManager.enqueue(request, object : RxCallback<BaseRequest>() {
+        globalEditBundle.enqueue(request, object : RxCallback<BaseRequest>() {
             override fun onNext(rxRequest: BaseRequest) {
                 RxCallback.onNext(rxCallback, request)
             }

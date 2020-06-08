@@ -25,7 +25,7 @@ public class StrokeColorChangeAction extends BaseEditAction {
     public void execute(final RxCallback rxCallback) {
         final StrokeColorChangeRequest request = new StrokeColorChangeRequest()
                 .setColor(color);
-        getNoteManager().enqueue(request, new RxCallback<StrokeColorChangeRequest>() {
+        getGlobalEditBundle().enqueue(request, new RxCallback<StrokeColorChangeRequest>() {
             @Override
             public void onNext(@NonNull StrokeColorChangeRequest strokeColorChangeRequest) {
                 RxCallback.onNext(rxCallback, request);

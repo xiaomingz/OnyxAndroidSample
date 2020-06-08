@@ -48,18 +48,13 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding>(), Observer<EditM
         replaceLoadFragment(R.id.item_sub_menu_layout, fragment)
     }
 
-    private fun createSubMenuFragment(menuStyle: EditMenuViewModel.MenuStyle): BaseFragment<*> {
-        var fragment: BaseFragment<*>
-        when (menuStyle) {
-            EditMenuViewModel.MenuStyle.SHARE -> fragment = ShareMenuFragment()
-            EditMenuViewModel.MenuStyle.GRAFFITI -> fragment = GraffitiMenuFragment()
-            EditMenuViewModel.MenuStyle.TEXT -> fragment = TextMenuFragment()
-            EditMenuViewModel.MenuStyle.CROP -> fragment = CropMenuFragment()
-            EditMenuViewModel.MenuStyle.MOSAIC -> fragment = MosaicMenuFragment()
-            else -> fragment = NoneMenuFragment()
-        }
-        return fragment
+    private fun createSubMenuFragment(menuStyle: EditMenuViewModel.MenuStyle): BaseFragment<*> = when (menuStyle) {
+        EditMenuViewModel.MenuStyle.SHARE -> ShareMenuFragment()
+        EditMenuViewModel.MenuStyle.GRAFFITI -> GraffitiMenuFragment()
+        EditMenuViewModel.MenuStyle.TEXT -> TextMenuFragment()
+        EditMenuViewModel.MenuStyle.CROP -> CropMenuFragment()
+        EditMenuViewModel.MenuStyle.MOSAIC -> MosaicMenuFragment()
+        else -> NoneMenuFragment()
     }
-
 
 }

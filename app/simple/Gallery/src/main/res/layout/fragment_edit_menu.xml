@@ -71,7 +71,7 @@
 
                 <ImageView
                     style="@style/main_menu_bottom_iv_style"
-                    setHint="@{com.onyx.gallery.R.drawable.s_main_menu_writing}" />
+                    setHint="@{com.onyx.gallery.R.drawable.ic_graffiti}" />
 
                 <TextView
                     style="@style/main_menu_bottom_progress_light_text"

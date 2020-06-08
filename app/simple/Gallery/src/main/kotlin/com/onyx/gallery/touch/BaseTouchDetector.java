@@ -3,7 +3,7 @@ package com.onyx.gallery.touch;
 import android.view.MotionEvent;
 
 import com.onyx.gallery.bundle.GlobalEditBundle;
-import com.onyx.gallery.helpers.NoteManager;
+import com.onyx.gallery.handler.DrawHandler;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,8 +30,8 @@ public abstract class BaseTouchDetector {
         return GlobalEditBundle.Companion.getInstance();
     }
 
-    public NoteManager getNoteManager() {
-        return getEditBundle().getNoteManager();
+    public DrawHandler getDrawHandler() {
+        return getEditBundle().getDrawHandler();
     }
 
 }

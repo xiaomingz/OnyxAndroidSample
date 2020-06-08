@@ -72,7 +72,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        globalEditBundle.noteManager.quit()
+        globalEditBundle.drawHandler.quit()
         ensureQuitFastMode()
         binding.surfaceView.holder.removeCallback(surfaceCallback)
     }
@@ -98,11 +98,11 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding>() {
     }
 
     private fun attachHostView() {
-        if (binding.surfaceView === noteManager.noteView) {
+        if (binding.surfaceView === drawHandler.surfaceView) {
             return
         }
         val request = AttachNoteViewRequest(binding.surfaceView)
-        noteManager.enqueue(request, object : RxCallback<AttachNoteViewRequest>() {
+        globalEditBundle.enqueue(request, object : RxCallback<AttachNoteViewRequest>() {
             override fun onNext(startScribbleRequest: AttachNoteViewRequest) {
                 loadImage()
             }
@@ -135,7 +135,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding>() {
         }
     }
 
-    private fun openHandwriting() = noteManager.touchHelper.setRawDrawingEnabled(true)
+    private fun openHandwriting() = drawHandler.touchHelper?.setRawDrawingEnabled(true)
 
 
 }

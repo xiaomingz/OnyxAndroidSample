@@ -16,7 +16,7 @@ public class ZoomBeginAction extends BaseEditAction {
     @Override
     public void execute(final RxCallback callback) {
         RendererToScreenRequest request = new RendererToScreenRequest();
-        getNoteManager().enqueue(request, new RxCallback<RendererToScreenRequest>() {
+        getGlobalEditBundle().enqueue(request, new RxCallback<RendererToScreenRequest>() {
             @Override
             public void onNext(RendererToScreenRequest rendererToScreenRequest) {
                 RxCallback.onNext(callback, rendererToScreenRequest);
