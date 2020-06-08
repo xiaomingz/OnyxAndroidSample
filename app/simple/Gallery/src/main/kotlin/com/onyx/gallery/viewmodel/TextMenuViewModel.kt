@@ -10,7 +10,6 @@ import com.onyx.gallery.models.MenuAction
 class TextMenuViewModel : BaseMenuViewModel() {
 
     val seekBarMax = 20
-    private val stepSize = 1
     private val minFontSize = 10f
     val currFontSize: MutableLiveData<Int> = MutableLiveData(10)
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
@@ -31,8 +30,6 @@ class TextMenuViewModel : BaseMenuViewModel() {
     override fun onHandleMenu(action: MenuAction): Boolean {
         super.onHandleMenu(action)
         when (action) {
-//            MenuAction.STROKE_WIDTH_ADDITION -> onStrokeWidthAdd()
-//            MenuAction.STROKE_WIDTH_SUBTRACTION -> onStrokeWidthSub()
             else -> return false
         }
         return true

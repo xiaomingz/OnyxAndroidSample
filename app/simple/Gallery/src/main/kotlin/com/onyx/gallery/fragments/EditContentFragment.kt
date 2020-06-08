@@ -25,15 +25,13 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Created by Leung on 2020/4/30
  */
-class EditContentFragment : BaseFragment<FragmentEditContentBinding>() {
+class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContentViewModel>() {
 
     private var uri: Uri? = null
     private var inFastMode = false
     private val surfaceCallback: SurfaceHolder.Callback by lazy { initSurfaceCallback() }
 
-    private lateinit var viewModel: EditContentViewModel
-
-    private val TAG: String = EditContentFragment::class.java.getSimpleName()
+    private val TAG: String = EditContentFragment::class.java.simpleName
 
     companion object {
         fun instance(uri: Uri?): EditContentFragment {
@@ -62,12 +60,13 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding>() {
         }
     }
 
-    override fun onInitViewModel(context: Context, binding: FragmentEditContentBinding, rootView: View) {
-        viewModel = ViewModelProvider(this).get(EditContentViewModel::class.java)
+    override fun onInitViewModel(context: Context, binding: FragmentEditContentBinding, rootView: View): EditContentViewModel {
+        val editContentViewModel = ViewModelProvider(requireActivity()).get(EditContentViewModel::class.java)
         binding.run {
-            viewModel = viewModel
+            viewModel = editContentViewModel
             lifecycleOwner = this@EditContentFragment
         }
+        return editContentViewModel
     }
 
     override fun onDestroyView() {

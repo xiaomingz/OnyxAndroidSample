@@ -10,14 +10,15 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.viewmodel.BaseViewModel
 
 /**
  * Created by Leung on 2020/5/6
  */
-abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment() {
 
     protected lateinit var binding: T
-
+    protected lateinit var viewModel: V
     protected val globalEditBundle = GlobalEditBundle.instance
 
     protected val drawHandler = globalEditBundle.drawHandler
@@ -36,7 +37,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
             onHandleArguments(it)
         }
         onInitView(binding, rootView)
-        onInitViewModel(requireContext(), binding, rootView)
+        viewModel = onInitViewModel(requireContext(), binding, rootView)
         return rootView
     }
 
@@ -57,6 +58,6 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     protected abstract fun onInitView(binding: T, contentView: View)
 
-    protected abstract fun onInitViewModel(context: Context, binding: T, rootView: View)
+    protected abstract fun onInitViewModel(context: Context, binding: T, rootView: View): V
 
 }

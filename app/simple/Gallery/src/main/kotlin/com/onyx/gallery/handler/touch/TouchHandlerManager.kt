@@ -7,24 +7,27 @@ import com.onyx.gallery.bundle.GlobalEditBundle
  */
 
 enum class TouchHandlerType {
-    SCRIBBLE, GRAPHICS
+    SCRIBBLE, GRAPHICS, TEXT_INSERTION
 }
 
 class TouchHandlerManager(globalEditBundle: GlobalEditBundle) {
 
+    lateinit var activateHandlerType: TouchHandlerType
     private val touchHandlerMap = mutableMapOf<TouchHandlerType, TouchHandler>()
 
     init {
         touchHandlerMap[TouchHandlerType.SCRIBBLE] = ScribbleTouchHandler(globalEditBundle)
         touchHandlerMap[TouchHandlerType.GRAPHICS] = GraphicsTouchHandler(globalEditBundle)
+        touchHandlerMap[TouchHandlerType.TEXT_INSERTION] = TextInsertTouchHandler(globalEditBundle)
         activateHandler(TouchHandlerType.SCRIBBLE)
     }
 
     private fun getTouchHandler(type: TouchHandlerType?): TouchHandler? = touchHandlerMap[type]
 
-    fun activateHandler(eventHandlerType: TouchHandlerType) {
+    fun activateHandler(touchHandlerType: TouchHandlerType) {
         deactivateHandler()
-        getTouchHandler(eventHandlerType)?.onActivate()
+        getTouchHandler(touchHandlerType)?.onActivate()
+        activateHandlerType = touchHandlerType
     }
 
     fun deactivateHandler() {

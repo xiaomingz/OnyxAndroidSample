@@ -14,7 +14,7 @@ import com.onyx.gallery.bundle.GlobalEditBundle
 class ScribbleTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(globalEditBundle) {
 
     override fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList) {
-        var normalTouchPointList = getNormalTouchPoint(touchPointList)
+        val normalTouchPointList = getNormalTouchPoint(touchPointList)
         val shape = createEraseShape(normalTouchPointList)
         AddShapesAction().setShape(shape).execute(null)
     }

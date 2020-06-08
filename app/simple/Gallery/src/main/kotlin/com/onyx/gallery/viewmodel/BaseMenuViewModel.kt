@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
+import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.models.MenuAction
 
 /**
@@ -23,6 +24,13 @@ open class BaseMenuViewModel : BaseViewModel() {
     open fun defaultShape(): Int = ShapeFactory.SHAPE_PENCIL_SCRIBBLE
 
     open fun defaultStrokeColor(): Int = Color.BLACK
+
+    override fun onCleared() {
+        super.onCleared()
+        colorMapping?.run {
+            clear()
+        }
+    }
 
     open fun getColorFromNoteMenuAction(action: MenuAction): Int {
         val map: Map<Int, MenuAction> = getColorMapping()
@@ -61,5 +69,11 @@ open class BaseMenuViewModel : BaseViewModel() {
 //                todo SCRIBBLE_ERASER_PART -> type = ShapeFactory.SHAPE_ERASER ,  SCRIBBLE_PENCIL -> type = ShapeFactory.SHAPE_PENCIL_SCRIBBLE
                 else -> defaultShape()
             }
+
+    fun updateTouchHandler() {
+        selectShapeAction.value?.let {
+            ShapeChangeAction().setShapeType(getShapeTypeFromNoteMenuAction(it)).execute(null)
+        }
+    }
 
 }

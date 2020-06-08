@@ -7,36 +7,51 @@ import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuBinding
 import com.onyx.gallery.extensions.replaceLoadFragment
+import com.onyx.gallery.handler.touch.TouchHandlerType
 import com.onyx.gallery.viewmodel.EditMenuViewModel
 import java.util.*
 
 /**
  * Created by Leung on 2020/4/30
  */
-class EditMenuFragment : BaseFragment<FragmentEditMenuBinding>(), Observer<EditMenuViewModel.MenuStyle> {
+class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel>(), Observer<EditMenuViewModel.MenuStyle> {
 
-    private lateinit var editMenuViewModel: EditMenuViewModel
-    private val menuFragmentMap = HashMap<EditMenuViewModel.MenuStyle, BaseFragment<*>>()
+    private val menuFragmentMap = HashMap<EditMenuViewModel.MenuStyle, BaseFragment<*, *>>()
 
     override fun getLayoutId(): Int = R.layout.fragment_edit_menu
 
     override fun onInitView(binding: FragmentEditMenuBinding, contentView: View) {
     }
 
-    override fun onInitViewModel(context: Context, binding: FragmentEditMenuBinding, rootView: View) {
-        editMenuViewModel = ViewModelProvider(this).get(EditMenuViewModel::class.java)
+    override fun onInitViewModel(context: Context, binding: FragmentEditMenuBinding, rootView: View): EditMenuViewModel {
+        val editMenuViewModel = ViewModelProvider(this).get(EditMenuViewModel::class.java)
         binding.viewModel = editMenuViewModel
         binding.lifecycleOwner = this
         editMenuViewModel.currItemMenuStyle.observe(this, this)
+        return editMenuViewModel
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        editMenuViewModel.currItemMenuStyle.removeObservers(this);
+        viewModel.currItemMenuStyle.removeObservers(this)
+        menuFragmentMap.clear()
     }
 
     override fun onChanged(menuStyle: EditMenuViewModel.MenuStyle?) {
-        menuStyle?.apply { updateSubMenuFragment(this) }
+        menuStyle?.apply {
+            updateTouchHandler(this)
+            updateSubMenuFragment(this)
+        }
+    }
+
+    private fun updateTouchHandler(menuStyle: EditMenuViewModel.MenuStyle) {
+        val touchHandlerManager = globalEditBundle.touchHandlerManager
+        val touchHandlerType = when (menuStyle) {
+            EditMenuViewModel.MenuStyle.GRAFFITI -> TouchHandlerType.SCRIBBLE
+            EditMenuViewModel.MenuStyle.TEXT -> TouchHandlerType.TEXT_INSERTION
+            else -> TouchHandlerType.SCRIBBLE
+        }
+        touchHandlerManager.activateHandler(touchHandlerType)
     }
 
     private fun updateSubMenuFragment(menuStyle: EditMenuViewModel.MenuStyle) {
@@ -48,7 +63,7 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding>(), Observer<EditM
         replaceLoadFragment(R.id.item_sub_menu_layout, fragment)
     }
 
-    private fun createSubMenuFragment(menuStyle: EditMenuViewModel.MenuStyle): BaseFragment<*> = when (menuStyle) {
+    private fun createSubMenuFragment(menuStyle: EditMenuViewModel.MenuStyle): BaseFragment<*, *> = when (menuStyle) {
         EditMenuViewModel.MenuStyle.SHARE -> ShareMenuFragment()
         EditMenuViewModel.MenuStyle.GRAFFITI -> GraffitiMenuFragment()
         EditMenuViewModel.MenuStyle.TEXT -> TextMenuFragment()

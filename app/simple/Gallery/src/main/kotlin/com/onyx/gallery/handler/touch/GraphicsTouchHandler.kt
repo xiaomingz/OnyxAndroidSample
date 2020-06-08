@@ -17,7 +17,7 @@ import java.util.*
 /**
  * Created by Leung on 2020/6/7
  */
-open class GraphicsTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(globalEditBundle) {
+class GraphicsTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(globalEditBundle) {
 
     companion object {
         private const val TOUCH_POINT_BUFFER_MAX_COUNT = 30
