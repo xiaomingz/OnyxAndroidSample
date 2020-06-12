@@ -42,8 +42,11 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     var textShape: EditTextShape? = null
         set(value) {
             field = value
-            editTextView?.setText(field?.text)
+            val text = field?.text
+            editTextView?.setText(text)
+            editTextView?.setSelection(getTextSelection(text))
         }
+
     var selectionRect: SelectionRect? = null
 
     var lastPoint: TouchPoint? = null
@@ -72,7 +75,7 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
             return
         }
         textShape!!.text = text
-        cursorOffset = text.length
+        cursorOffset = selection
         setCursorOffset(cursorOffset)
         updateCursorShapeByOffset(cursorOffset)
         renderInputTextShape(textShape!!)
@@ -241,11 +244,10 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         textShape = null
     }
 
-    fun hitTextShape(touchPoint: TouchPoint): Boolean {
-        if (textShape == null) {
-            return false
-        }
-        return textShape!!.boundingRect.contains(touchPoint.x, touchPoint.y)
+    private fun getTextSelection(text: String?): Int = if (TextUtils.isEmpty(text)) {
+        0
+    } else {
+        text!!.length
     }
 
 

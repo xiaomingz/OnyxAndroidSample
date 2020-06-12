@@ -27,8 +27,8 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHand
     }
 
     private fun showInitInputEdit() {
-        val limitRect = globalEditBundle.drawHandler.orgLimitRect
-        val point = TouchPoint((limitRect.width() / 4).toFloat(), (limitRect.height() / 2).toFloat())
+        val limitRect = globalEditBundle.drawHandler.currLimitRect
+        val point = TouchPoint(limitRect.centerX().toFloat(), limitRect.centerY().toFloat())
         hitTestTextShape(point)
     }
 

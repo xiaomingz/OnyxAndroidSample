@@ -87,6 +87,7 @@ public class HitTestTextShapeRequest extends BaseRequest {
     }
 
     private Shape createTextShape(TouchPoint point) {
+        DrawHandler drawHandler = getDrawHandler();
         Shape shape = NoteUtils.createShape(ShapeFactory.SHAPE_EDIT_TEXT_SHAPE, ShapeFactory.LayoutType.FREE.ordinal());
         ShapeTextStyle textStyle = new ShapeTextStyle();
         InsertTextConfig insertTextConfig = getInsertTextConfig();
@@ -96,14 +97,15 @@ public class HitTestTextShapeRequest extends BaseRequest {
                 .setTextItalic(insertTextConfig.getItalic());
 //                .setFontFace(textInsertConfig.getFontFace());
         TouchPoint newPoint = point.clone();
-        newPoint.applyMatrix(getDrawHandler().getRenderContext().matrix);
-        RectF container = new RectF(getRenderContext().getViewPortRect());
-        textStyle.setTextWidth((int) (container.right - newPoint.x - ResManager.getDimens(R.dimen.note_text_input_shape_left_right_margin)));
+        newPoint.applyMatrix(drawHandler.getRenderContext().matrix);
+        RectF container = new RectF(drawHandler.getCurrLimitRect());
+        int textWidth = (int) (container.width() / 2);
+        textStyle.setTextWidth(textWidth);
         textStyle.setPointScale(drawingArgs.getNormalizeScale());
         shape.setTextStyle(textStyle);
         shape.setText("");
         shape.setColor(drawingArgs.getStrokeColor());
-        RectF shapeRect = locationShapeRect(shape, point);
+        RectF shapeRect = locationShapeRect(shape, point, textWidth);
         point.x = shapeRect.left;
         point.y = shapeRect.top;
         TouchPoint up = new TouchPoint();
@@ -116,19 +118,26 @@ public class HitTestTextShapeRequest extends BaseRequest {
         return shape;
     }
 
-    private RectF locationShapeRect(Shape shape, TouchPoint point) {
-        RectF container = new RectF(getRenderContext().getViewPortRect());
-        container.right = getRenderContext().getMatrixInvertValue(container.right);
-        container.bottom = getRenderContext().getMatrixInvertValue(container.bottom);
+    private RectF locationShapeRect(Shape shape, TouchPoint point, int textWidth) {
+        RenderContext renderContext = getRenderContext();
+        RectF container = new RectF(getDrawHandler().getCurrLimitRect());
         StaticLayout layout = TextLayoutUtils.createTextLayout(shape);
-        final float width = getRenderContext().getMatrixInvertValue(layout.getWidth());
-        final float height = getRenderContext()
-                .getMatrixInvertValue(layout.getHeight()) * ResManager.getInteger(R.integer.min_edit_text_shape_row);
-        RectF shapeRect = new RectF(point.x, point.y, container.right, point.y + height);
+        final float height = renderContext.getMatrixInvertValue(layout.getHeight()) * ResManager.getInteger(R.integer.min_edit_text_shape_row);
+        RectF shapeRect = new RectF(point.x - textWidth / 2, point.y - height / 2, point.x + textWidth / 2, point.y + height);
         if (!RectUtils.contains(container, shapeRect)) {
             Matrix matrix = new Matrix();
-            matrix.setTranslate(container.right - shapeRect.right < 0 ? -width : 0,
-                    container.bottom - shapeRect.bottom < 0 ? -height : 0);
+            float dx = 0, dy = 0;
+            if (shapeRect.left < container.left) {
+                dx = container.left - shapeRect.left;
+            } else if (shapeRect.right > container.right) {
+                dx = container.right - shapeRect.right;
+            }
+            if (shapeRect.top < container.top) {
+                dy = container.top - shapeRect.top;
+            } else if (shapeRect.bottom > container.bottom) {
+                dy = container.bottom - shapeRect.bottom;
+            }
+            matrix.setTranslate(dx, dy);
             matrix.mapRect(shapeRect);
         }
         return shapeRect;
