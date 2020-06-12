@@ -41,7 +41,8 @@
                 onSeekBarChangeListener="@{viewModel.onChangeListener}"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:max="@{viewModel.seekBarMax}"
+                android:max="@{viewModel.maxFontSize}"
+                android:min="@{viewModel.minFontSize}"
                 android:progress="@{viewModel.currFontSize}" />
 
             <ImageView
@@ -52,7 +53,7 @@
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                setViewActivated="@{viewModel.selectColorAction == MenuAction.FONT_BOLD}"
+                setViewActivated="@{viewModel.bold}"
                 android:layout_weight="0"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.FONT_BOLD)}"
                 app:srcCompat="@drawable/ic_bold" />
@@ -96,7 +97,7 @@
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                setViewActivated="@{viewModel.selectColorAction == MenuAction.FONT_BOLD}"
+                setViewActivated="@{viewModel.traditional}"
                 android:layout_weight="0"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.FONT_BOLD)}"
                 app:srcCompat="@drawable/ic_traditional" />

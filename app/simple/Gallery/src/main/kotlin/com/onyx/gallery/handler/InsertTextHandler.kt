@@ -14,6 +14,7 @@ import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.data.ShapeTransformAction
 import com.onyx.android.sdk.scribble.shape.EditTextShape
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.android.sdk.utils.DimenUtils
 import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
 import com.onyx.gallery.action.textInput.CreateCursorShapeByOffsetAction
@@ -248,6 +249,35 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         0
     } else {
         text!!.length
+    }
+
+    fun onTextSizeEvent(textSize: Float) {
+        if (!canEdit()) {
+            return
+        }
+        insertTextConfig.textSize = textSize
+        val textStyle = textShape!!.textStyle
+        textStyle.textSize = DimenUtils.pt2px(ResManager.getAppContext(), textSize)
+        updateCursorShapeByOffset(cursorOffset)
+        renderInputTextShape(textShape!!)
+    }
+
+    fun onTextBoldEvent(enableBold: Boolean) {
+        if (!canEdit()) {
+            return
+        }
+        insertTextConfig.bold = enableBold
+        val textStyle = textShape!!.textStyle
+        textStyle.isTextBold = enableBold
+        renderInputTextShape(textShape!!)
+    }
+
+    fun onChangeColorEvent(color: Int) {
+        if (!canEdit()) {
+            return
+        }
+        textShape!!.color = color
+        renderInputTextShape(textShape!!)
     }
 
 

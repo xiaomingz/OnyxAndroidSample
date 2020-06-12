@@ -71,5 +71,8 @@
     <dimen name="note_text_input_shape_left_right_margin">10dp</dimen>
 
     <dimen name="edit_text_shape_text_size">15px</dimen>
+    <dimen name="edit_text_shape_text_size_min">8px</dimen>
+    <dimen name="edit_text_shape_text_size_max">40px</dimen>
+    <dimen name="edit_text_shape_text_size_step">3px</dimen>
 
 </resources>
