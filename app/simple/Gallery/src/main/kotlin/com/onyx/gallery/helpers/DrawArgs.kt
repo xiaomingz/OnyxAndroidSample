@@ -9,8 +9,10 @@ import com.onyx.android.sdk.scribble.shape.ShapeFactory
  */
 class DrawArgs {
     companion object {
-        const val minStrokeWidth = 2f
-        const val defaultStrokeWidth = 10f
+        const val stepStrokeWidth = 3
+        const val maxStrokeWidth = 40
+        const val minStrokeWidth = 10
+        const val defaultStrokeWidth = 15
         const val defaultStrokeColor = Color.BLACK
         const val defaultShape = ShapeFactory.SHAPE_PENCIL_SCRIBBLE
         const val defaultStrokeType = TouchHelper.STROKE_STYLE_PENCIL

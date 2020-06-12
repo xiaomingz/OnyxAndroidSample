@@ -3,8 +3,8 @@ package com.onyx.gallery.viewmodel
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.lifecycle.MutableLiveData
-import com.onyx.gallery.action.shape.StrokeColorChangeAction
 import com.onyx.gallery.action.shape.ShapeChangeAction
+import com.onyx.gallery.action.shape.StrokeColorChangeAction
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.models.MenuAction
 
@@ -13,16 +13,16 @@ import com.onyx.gallery.models.MenuAction
  */
 class GraffitiMenuViewModel : BaseMenuViewModel() {
 
-    val seekBarMax = 20
-    private val stepSize = 1
-    private val minStrokeWidth = DrawArgs.minStrokeWidth
-    val currStrokeWidth: MutableLiveData<Int> = MutableLiveData(DrawArgs.minStrokeWidth.toInt())
+    private val stepStrokeWidth = DrawArgs.stepStrokeWidth
+    val maxStrokeWidth = DrawArgs.maxStrokeWidth
+    val minStrokeWidth = DrawArgs.minStrokeWidth
+    val currStrokeWidth: MutableLiveData<Int> = MutableLiveData(DrawArgs.defaultStrokeWidth)
     val onChangeListener: OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
 
     private fun initOnSeekBarChangeListener(): OnSeekBarChangeListener = object : OnSeekBarChangeListener {
-        override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-            currStrokeWidth.value = progress.coerceAtMost(seekBarMax).coerceAtLeast(minStrokeWidth.toInt())
-            globalEditBundle.drawHandler.setStrokeWidth(progress.toFloat())
+        override fun onProgressChanged(seekBar: SeekBar, strokeWidth: Int, fromUser: Boolean) {
+            currStrokeWidth.value = strokeWidth
+            globalEditBundle.drawHandler.setStrokeWidth(strokeWidth.toFloat())
         }
 
         override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -55,22 +55,18 @@ class GraffitiMenuViewModel : BaseMenuViewModel() {
         return true
     }
 
-    private fun onSelectColor(action: MenuAction) = setSelectColorAction(action)
-
-    private fun onSelectShape(action: MenuAction) = setSelectShapeAction(action)
-
-    private fun setSelectShapeAction(action: MenuAction) {
+    private fun onSelectColor(action: MenuAction) {
         selectShapeAction.value = action
         ShapeChangeAction().setShapeType(getShapeTypeFromNoteMenuAction(action)).execute(null)
     }
 
-    private fun setSelectColorAction(action: MenuAction) {
+    private fun onSelectShape(action: MenuAction) {
         selectColorAction.value = action
         StrokeColorChangeAction(getColorFromNoteMenuAction(action)).execute(null)
     }
 
-    private fun onStrokeWidthAdd() = currStrokeWidth.run { value = value?.plus(stepSize)?.coerceAtMost(seekBarMax) }
+    private fun onStrokeWidthAdd() = currStrokeWidth.run { value = value?.plus(stepStrokeWidth)?.coerceAtMost(maxStrokeWidth) }
 
-    private fun onStrokeWidthSub() = currStrokeWidth.run { value = value?.minus(stepSize)?.coerceAtLeast(minStrokeWidth.toInt()) }
+    private fun onStrokeWidthSub() = currStrokeWidth.run { value = value?.minus(stepStrokeWidth)?.coerceAtLeast(minStrokeWidth) }
 
 }

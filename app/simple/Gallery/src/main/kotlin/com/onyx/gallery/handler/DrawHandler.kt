@@ -63,7 +63,7 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
 
     private fun initDrawArgs() {
         setStrokeColor(DrawArgs.defaultStrokeColor)
-        setStrokeWidth(DrawArgs.defaultStrokeWidth)
+        setStrokeWidth(DrawArgs.defaultStrokeWidth.toFloat())
     }
 
     fun updateLimitRect() {
@@ -154,21 +154,17 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
     }
 
     fun setStrokeWidth(penWidth: Float) {
-        drawingArgs.strokeWidth = penWidth
+        drawingArgs.strokeWidth = penWidth.toInt()
         touchHelper?.setStrokeWidth(penWidth)
     }
 
-    fun getStrokeWidth(): Float {
-        return drawingArgs.strokeWidth
-    }
+    fun getStrokeWidth(): Float  = drawingArgs.strokeWidth.toFloat()
 
     fun updateCurrShapeType(newShape: Int) {
         drawingArgs.currShapeType = newShape
     }
 
-    fun getCurrShapeType(): Int {
-        return drawingArgs.currShapeType
-    }
+    fun getCurrShapeType(): Int  = drawingArgs.currShapeType
 
     fun postSelectionBundle() {
         val bundle = SelectionBundle()

@@ -103,15 +103,11 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     }
 
     fun onTouchMove(point: TouchPoint) {
-        if (selectionObservable != null) {
-            selectionObservable!!.onNext(point)
-        }
+        selectionObservable?.apply { onNext(point) }
     }
 
     fun onTouchUp(point: TouchPoint) {
-        if (selectionObservable != null) {
-            selectionObservable!!.dispose()
-        }
+        selectionObservable?.apply { dispose() }
         selectionObservable = null
         if (transformAction == ShapeTransformAction.Translate && !transformed) {
             onSingleTapUp(point)
@@ -219,7 +215,7 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
 
     fun isTranslateTransform(): Boolean = transformAction == ShapeTransformAction.Translate
 
-    private fun canEdit(): Boolean = textShape != null && textShape!!.textStyle != null
+    private fun canEdit(): Boolean = textShape?.textStyle != null
 
     fun showSoftInput() = editTextView?.let {
         it.visibility = View.VISIBLE

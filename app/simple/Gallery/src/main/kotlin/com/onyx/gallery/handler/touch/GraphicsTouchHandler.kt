@@ -34,7 +34,7 @@ class GraphicsTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandle
             drawEmitter = e
             drawEmitter!!.onNext(point)
         }
-                .buffer(Companion.TOUCH_POINT_BUFFER_MAX_COUNT)
+                .buffer(TOUCH_POINT_BUFFER_MAX_COUNT)
                 .observeOn(SingleThreadScheduler.scheduler())
                 .subscribeOn(SingleThreadScheduler.scheduler())
                 .subscribe { touchPoints ->

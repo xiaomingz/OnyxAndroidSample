@@ -164,7 +164,8 @@
                 onSeekBarChangeListener="@{viewModel.onChangeListener}"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:max="@{viewModel.seekBarMax}"
+                android:max="@{viewModel.maxStrokeWidth}"
+                android:min="@{viewModel.minStrokeWidth}"
                 android:progress="@{viewModel.currStrokeWidth}" />
 
             <ImageView

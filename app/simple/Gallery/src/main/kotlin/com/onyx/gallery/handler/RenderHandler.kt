@@ -18,6 +18,8 @@ import com.onyx.gallery.utils.RendererUtils
  */
 
 class RenderHandler {
+    private val strokePaint: Paint by lazy { initStrokePaint() }
+
     var renderContext: RenderContext = RendererUtils.createRenderContext()
             .setEnableBitmapCache(true)
             .setRenderColorConfig(RenderColorConfig.RAW_RENDER_COLOR)
@@ -129,26 +131,23 @@ class RenderHandler {
     }
 
     private fun drawSelectionRect(canvas: Canvas, renderContext: RenderContext) {
-        if (renderContext.selectionRect == null) {
-            return
-        }
-        val rectF = RectF(renderContext.selectionRect.originRect)
+        val selectionRect = renderContext.selectionRect ?: return
+        val rectF = RectF(selectionRect.originRect)
         val path = Path()
         path.addRect(rectF, Path.Direction.CW)
         path.transform(renderContext.selectionRect.getMatrix())
         if (renderContext.matrix != null) {
             path.transform(renderContext.matrix)
         }
-        canvas.drawPath(path, getStrokePaint())
+        canvas.drawPath(path, strokePaint)
     }
 
-    private var strokePaint: Paint? = null
-    private fun getStrokePaint(): Paint? {
-        if (strokePaint == null) {
-            strokePaint = Paint()
-            strokePaint!!.setStyle(Paint.Style.STROKE)
-            strokePaint!!.setColor(Color.BLACK)
-            strokePaint!!.setStrokeWidth(2f)
+    private fun initStrokePaint(): Paint {
+        val strokePaint = Paint()
+        strokePaint.apply {
+            style = Paint.Style.STROKE
+            color = Color.BLACK
+            strokeWidth = 2f
         }
         return strokePaint
     }
