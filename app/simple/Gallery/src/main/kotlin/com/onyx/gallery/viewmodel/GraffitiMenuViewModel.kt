@@ -3,7 +3,7 @@ package com.onyx.gallery.viewmodel
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.lifecycle.MutableLiveData
-import com.onyx.gallery.action.StrokeColorChangeAction
+import com.onyx.gallery.action.shape.StrokeColorChangeAction
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.models.MenuAction

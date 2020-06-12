@@ -5,8 +5,11 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.view.SurfaceView
 import com.onyx.android.sdk.pen.TouchHelper
+import com.onyx.android.sdk.scribble.data.SelectionBundle
+import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.gallery.event.raw.SelectionBundleEvent
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
 import org.greenrobot.eventbus.EventBus
@@ -15,12 +18,12 @@ import java.util.*
 /**
  * Created by Leung on 2020/6/5
  */
-class DrawHandler(val context: Context, eventBus: EventBus) {
+class DrawHandler(val context: Context, val eventBus: EventBus) {
     var orgLimitRect = Rect()
-    private val currLimitRect = Rect()
+    val currLimitRect = Rect()
     private val surfaceRect = Rect()
     val cacheShapeList = mutableListOf<Shape>()
-    private val drawingArgs = DrawArgs()
+    val drawingArgs = DrawArgs()
 
     private var readerHandler = RenderHandler()
     val renderContext = readerHandler.renderContext
@@ -98,7 +101,7 @@ class DrawHandler(val context: Context, eventBus: EventBus) {
     }
 
     fun renderVarietyShapesToScreen(shape: List<Shape>) {
-        surfaceView?.let { readerHandler.renderVarietyShapesToScreen(it, shape) }
+        surfaceView?.let { readerHandler.renderVarietyShapesToSurfaceView(it, shape) }
     }
 
     fun quit() {
@@ -166,6 +169,17 @@ class DrawHandler(val context: Context, eventBus: EventBus) {
     fun getCurrShapeType(): Int {
         return drawingArgs.currShapeType
     }
+
+    fun postSelectionBundle() {
+        val bundle = SelectionBundle()
+                .setSelectionRect(SelectionRect(renderContext.selectionRect))
+        eventBus.post(SelectionBundleEvent(bundle))
+    }
+
+    fun clearSelectionRect() {
+        renderContext.selectionRect = null
+    }
+
 
 }
 

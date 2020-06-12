@@ -1,10 +1,7 @@
 package com.onyx.gallery.handler
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.view.SurfaceView
 import androidx.annotation.WorkerThread
 import com.onyx.android.sdk.api.device.epd.EpdController
@@ -60,12 +57,15 @@ class RenderHandler {
     }
 
     @WorkerThread
-    fun renderVarietyShapesToScreen(surfaceView: SurfaceView, shapes: List<Shape>): Boolean {
+    fun renderVarietyShapesToSurfaceView(surfaceView: SurfaceView, shapes: List<Shape>): Boolean {
         if (CollectionUtils.isNullOrEmpty(shapes)) {
             return false
         }
         return renderToSurfaceViewImp(surfaceView) {
+            val rect = RendererUtils.checkSurfaceView(surfaceView)
+            renderBackground(surfaceView.context, it, renderContext, rect)
             it.drawBitmap(renderContext.bitmap, 0f, 0f, null)
+            drawSelectionRect(it, renderContext)
             renderShapeToCanvas(shapes, it)
         }
     }
@@ -74,8 +74,10 @@ class RenderHandler {
         if (CollectionUtils.isNullOrEmpty(shapes)) {
             return false
         }
-        val renderContext = RendererUtils.createRenderContext()
-        renderContext.canvas = canvas
+        val paint = Paint()
+        paint.style = Paint.Style.FILL
+        paint.color = Color.WHITE
+        val renderContext = RenderContext.create(canvas, paint, null)
         for (shape in shapes) {
             shape.render(renderContext)
         }
@@ -105,10 +107,6 @@ class RenderHandler {
         renderContext.drawBackGround(context, canvas, viewRect, matrix)
     }
 
-    private fun beforeUnlockCanvas(surfaceView: SurfaceView) {
-        EpdController.enablePost(surfaceView, 1)
-    }
-
     private inline fun renderToSurfaceViewImp(surfaceView: SurfaceView, block: (canvas: Canvas) -> Boolean): Boolean {
         val canvas = surfaceView.holder.lockCanvas()
         val benchmark = Benchmark()
@@ -124,6 +122,35 @@ class RenderHandler {
             }
         }
         return false
+    }
+
+    private fun beforeUnlockCanvas(surfaceView: SurfaceView) {
+        EpdController.enablePost(surfaceView, 1)
+    }
+
+    private fun drawSelectionRect(canvas: Canvas, renderContext: RenderContext) {
+        if (renderContext.selectionRect == null) {
+            return
+        }
+        val rectF = RectF(renderContext.selectionRect.originRect)
+        val path = Path()
+        path.addRect(rectF, Path.Direction.CW)
+        path.transform(renderContext.selectionRect.getMatrix())
+        if (renderContext.matrix != null) {
+            path.transform(renderContext.matrix)
+        }
+        canvas.drawPath(path, getStrokePaint())
+    }
+
+    private var strokePaint: Paint? = null
+    private fun getStrokePaint(): Paint? {
+        if (strokePaint == null) {
+            strokePaint = Paint()
+            strokePaint!!.setStyle(Paint.Style.STROKE)
+            strokePaint!!.setColor(Color.BLACK)
+            strokePaint!!.setStrokeWidth(2f)
+        }
+        return strokePaint
     }
 
 }

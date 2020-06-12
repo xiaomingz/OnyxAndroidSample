@@ -13,4 +13,7 @@ interface TouchHandler {
     fun onEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint)
     fun onRawDrawingPointsMoveReceived(touchPoint: TouchPoint)
     fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList)
+    fun onTouchDown(touchPoint: TouchPoint)
+    fun onTouchMove(touchPoint: TouchPoint)
+    fun onTouchUp(touchPoint: TouchPoint)
 }

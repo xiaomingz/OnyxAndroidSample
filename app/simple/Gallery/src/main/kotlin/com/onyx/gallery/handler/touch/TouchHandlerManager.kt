@@ -12,13 +12,12 @@ enum class TouchHandlerType {
 
 class TouchHandlerManager(globalEditBundle: GlobalEditBundle) {
 
-    lateinit var activateHandlerType: TouchHandlerType
     private val touchHandlerMap = mutableMapOf<TouchHandlerType, TouchHandler>()
 
     init {
         touchHandlerMap[TouchHandlerType.SCRIBBLE] = ScribbleTouchHandler(globalEditBundle)
         touchHandlerMap[TouchHandlerType.GRAPHICS] = GraphicsTouchHandler(globalEditBundle)
-        touchHandlerMap[TouchHandlerType.TEXT_INSERTION] = TextInsertTouchHandler(globalEditBundle)
+        touchHandlerMap[TouchHandlerType.TEXT_INSERTION] = InsertTextTouchHandler(globalEditBundle)
         activateHandler(TouchHandlerType.SCRIBBLE)
     }
 
@@ -27,7 +26,6 @@ class TouchHandlerManager(globalEditBundle: GlobalEditBundle) {
     fun activateHandler(touchHandlerType: TouchHandlerType) {
         deactivateHandler()
         getTouchHandler(touchHandlerType)?.onActivate()
-        activateHandlerType = touchHandlerType
     }
 
     fun deactivateHandler() {

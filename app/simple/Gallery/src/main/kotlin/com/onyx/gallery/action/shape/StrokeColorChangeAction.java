@@ -1,4 +1,4 @@
-package com.onyx.gallery.action;
+package com.onyx.gallery.action.shape;
 
 import androidx.annotation.NonNull;
 

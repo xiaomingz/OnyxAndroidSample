@@ -16,10 +16,12 @@ public class ScribbleTouchDistributor {
 
     private final ScaleGestureDetector scaleGestureDetector = new ScribbleScaleGestureDetector(ResManager.getAppContext(), new ZoomGestureListener());
     private final MoveGestureDetector moveGestureDetector = new MoveGestureDetector();
+    private final ScribbleTouchDetector scribbleTouchDetector = new ScribbleTouchDetector();
 
     public boolean onTouchEvent(MotionEvent event) {
         scaleGestureDetector.onTouchEvent(event);
         moveGestureDetector.onTouchEvent(event);
+        scribbleTouchDetector.onTouchEvent(event);
         return true;
     }
 }

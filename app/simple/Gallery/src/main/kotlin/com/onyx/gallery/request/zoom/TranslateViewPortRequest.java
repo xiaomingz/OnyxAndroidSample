@@ -58,6 +58,7 @@ public class TranslateViewPortRequest extends BaseRequest {
         renderToBitmap(drawHandler, hRenderShapes, translateHRect);
         renderToBitmap(drawHandler, vRenderShapes, translateVRect);
         drawHandler.updateLimitRect();
+        setRenderToScreen(true);
     }
 
     private void renderToBitmap(DrawHandler drawHandler, @NonNull List<Shape> shapes, RectF clipRect) {

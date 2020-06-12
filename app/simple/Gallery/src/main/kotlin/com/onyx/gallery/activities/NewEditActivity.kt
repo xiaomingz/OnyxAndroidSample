@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.R
 import com.onyx.gallery.bundle.GlobalEditBundle
@@ -21,7 +22,7 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Created by Leung on 2020/4/30
  */
-class NewEditActivity : SimpleActivity() {
+class NewEditActivity : AppCompatActivity() {
     private lateinit var appBarHandler: AppBarHandler
     private val globalEditBundle: GlobalEditBundle = GlobalEditBundle.instance
     override fun onCreate(savedInstanceState: Bundle?) {

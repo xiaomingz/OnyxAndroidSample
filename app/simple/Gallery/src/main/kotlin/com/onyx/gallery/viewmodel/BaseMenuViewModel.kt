@@ -70,7 +70,7 @@ open class BaseMenuViewModel : BaseViewModel() {
                 else -> defaultShape()
             }
 
-    fun updateTouchHandler() {
+    open fun updateTouchHandler() {
         selectShapeAction.value?.let {
             ShapeChangeAction().setShapeType(getShapeTypeFromNoteMenuAction(it)).execute(null)
         }

@@ -30,6 +30,7 @@ public class ZoomingRequest extends BaseRequest {
         Matrix matrix = new Matrix();
         matrix.postScale(scale, scale, scalePoint.x, scalePoint.y);
         renderContext.setScalingMatrix(matrix);
+        setRenderToScreen(true);
     }
 
     public float getScale() {

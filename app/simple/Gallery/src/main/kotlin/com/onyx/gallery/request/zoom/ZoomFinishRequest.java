@@ -46,6 +46,7 @@ public class ZoomFinishRequest extends BaseRequest {
         isViewScaling = renderContext.isViewScaling();
         drawHandler.setRawDrawingEnabled(true);
         drawHandler.updateLimitRect();
+        setRenderToScreen(true);
     }
 
     private RectF getDrawRect() {

@@ -8,12 +8,12 @@ import android.os.Bundle
 import android.view.SurfaceHolder
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.onyx.android.sdk.api.device.epd.EpdController
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.utils.Debug
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditContentBinding
 import com.onyx.gallery.event.result.LoadImageResultEvent
+import com.onyx.gallery.extensions.hideSoftInput
 import com.onyx.gallery.helpers.PATH_URI
 import com.onyx.gallery.request.AttachNoteViewRequest
 import com.onyx.gallery.touch.ScribbleTouchDistributor
@@ -28,7 +28,6 @@ import org.greenrobot.eventbus.ThreadMode
 class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContentViewModel>() {
 
     private var uri: Uri? = null
-    private var inFastMode = false
     private val surfaceCallback: SurfaceHolder.Callback by lazy { initSurfaceCallback() }
 
     private val TAG: String = EditContentFragment::class.java.simpleName
@@ -55,6 +54,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     override fun onInitView(binding: FragmentEditContentBinding, contentView: View) {
         initSurfaceView()
         val scribbleTouchDistributor = ScribbleTouchDistributor()
+        globalEditBundle.insertTextHandler.bindEditText(binding.editText)
         binding.surfaceView.setOnTouchListener { _, event ->
             scribbleTouchDistributor.onTouchEvent(event)
         }
@@ -69,10 +69,14 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         return editContentViewModel
     }
 
+    override fun onPause() {
+        super.onPause()
+        requireActivity().hideSoftInput(binding.editText)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        globalEditBundle.drawHandler.quit()
-        ensureQuitFastMode()
+        globalEditBundle.release()
         binding.surfaceView.holder.removeCallback(surfaceCallback)
     }
 
@@ -110,14 +114,6 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     private fun onScribbleLayoutChange() {
 
-    }
-
-    private fun ensureQuitFastMode() {
-        if (!inFastMode) {
-            return
-        }
-        EpdController.applyApplicationFastMode(TAG, false, true)
-        inFastMode = false
     }
 
     private fun loadImage() {

@@ -12,7 +12,6 @@ class RenderVarietyShapeRequest(private val shape: MutableList<Shape>) : BaseReq
 
     override fun execute(drawHandler: DrawHandler) {
         renderShapesToBitmap = true
-        renderToScreen = false
         drawHandler.renderVarietyShapesToScreen(shape)
     }
 

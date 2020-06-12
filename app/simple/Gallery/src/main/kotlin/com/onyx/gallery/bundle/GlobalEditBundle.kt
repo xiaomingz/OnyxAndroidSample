@@ -11,6 +11,7 @@ import com.onyx.android.sdk.rx.RxRequest
 import com.onyx.gallery.App
 import com.onyx.gallery.R
 import com.onyx.gallery.handler.DrawHandler
+import com.onyx.gallery.handler.InsertTextHandler
 import com.onyx.gallery.handler.touch.TouchHandlerManager
 import com.simplemobiletools.commons.extensions.getRealPathFromURI
 import com.simplemobiletools.commons.extensions.isPathOnOTG
@@ -36,6 +37,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     val drawHandler = DrawHandler(context, eventBus)
     val rxManager: RxManager by lazy { RxManager.Builder.sharedSingleThreadManager() }
     val touchHandlerManager = TouchHandlerManager(this)
+    val insertTextHandler = InsertTextHandler(this)
 
     companion object {
         val instance: GlobalEditBundle by lazy {
@@ -86,6 +88,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
 
     fun release() {
         drawHandler.quit()
+        insertTextHandler.unBindEditText()
         touchHandlerManager.deactivateHandler()
     }
 

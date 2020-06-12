@@ -60,6 +60,7 @@ public class CreateImageShapeRequest extends BaseRequest {
         getGlobalEditBundle().setInitDy(dy);
         getGlobalEditBundle().setInitScaleFactor(scaleFactor);
         drawHandler.updateLimitRect();
+        setRenderToScreen(true);
     }
 
     private void updateImageSize(Size imageSize, float scaleFactor) {

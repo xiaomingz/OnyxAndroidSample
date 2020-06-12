@@ -68,5 +68,8 @@
     <dimen name="seekbar_with_text_seekbar_text_size">15sp</dimen>
     <dimen name="seekbar_with_text_seekbar_layout_margin_top">11dp</dimen>
     <dimen name="seekbar_with_text_seekbar_margin_top">3dp</dimen>
+    <dimen name="note_text_input_shape_left_right_margin">10dp</dimen>
+
+    <dimen name="edit_text_shape_text_size">15px</dimen>
 
 </resources>

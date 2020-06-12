@@ -17,7 +17,7 @@ abstract class BaseRequest : RxRequest() {
     protected val drawHandler = globalEditBundle.drawHandler
 
     @Volatile
-    var renderToScreen = true
+    var renderToScreen = false
 
     @Volatile
     var renderShapesToBitmap = false

@@ -16,6 +16,7 @@ class DrawArgs {
         const val defaultStrokeType = TouchHelper.STROKE_STYLE_PENCIL
     }
 
+    var normalizeScale = 1f
     var strokeColor = defaultStrokeColor
     var strokeWidth = defaultStrokeWidth
     var strokeStyle = defaultStrokeType
@@ -33,10 +34,13 @@ class DrawArgs {
         strokeColor = defaultStrokeColor
         strokeWidth = defaultStrokeWidth
         strokeStyle = defaultStrokeType
-        lastShapeType =   defaultShape
+        lastShapeType = defaultShape
         currShapeType = defaultShape
     }
 
+    fun getRendererScale(): Float {
+        return 1f / normalizeScale
+    }
 
 }
 

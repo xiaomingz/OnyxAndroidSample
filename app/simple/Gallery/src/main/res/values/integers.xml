@@ -6,4 +6,6 @@
 
     <integer name="default_sorting">33794</integer>
     <integer name="move_distance_threshold">5</integer>
+    <integer name="min_edit_text_shape_row">1</integer>
+    <integer name="selection_buffer_time">10</integer>
 </resources>

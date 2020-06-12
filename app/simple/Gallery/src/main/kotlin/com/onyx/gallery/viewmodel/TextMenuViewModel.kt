@@ -2,6 +2,8 @@ package com.onyx.gallery.viewmodel
 
 import android.widget.SeekBar
 import androidx.lifecycle.MutableLiveData
+import com.onyx.android.sdk.scribble.shape.ShapeFactory
+import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.models.MenuAction
 
 /**
@@ -13,6 +15,10 @@ class TextMenuViewModel : BaseMenuViewModel() {
     private val minFontSize = 10f
     val currFontSize: MutableLiveData<Int> = MutableLiveData(10)
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
+
+    override fun updateTouchHandler() {
+        ShapeChangeAction().setShapeType(ShapeFactory.SHAPE_EDIT_TEXT_SHAPE).execute(null)
+    }
 
     private fun initOnSeekBarChangeListener(): SeekBar.OnSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {

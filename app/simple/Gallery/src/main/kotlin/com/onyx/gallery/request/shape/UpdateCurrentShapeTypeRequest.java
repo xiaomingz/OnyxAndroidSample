@@ -33,6 +33,10 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
                 drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.GRAPHICS;
                 break;
+            case ShapeFactory.SHAPE_EDIT_TEXT_SHAPE:
+                drawHandler.setRawDrawingRenderEnabled(false);
+                touchHandlerType = TouchHandlerType.TEXT_INSERTION;
+                break;
             default:
                 drawHandler.setRawDrawingRenderEnabled(true);
                 touchHandlerType = TouchHandlerType.SCRIBBLE;
