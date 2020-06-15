@@ -4,14 +4,11 @@ import androidx.annotation.NonNull
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.scribble.shape.EditTextShape
-import com.onyx.android.sdk.scribble.shape.Shape
-import com.onyx.android.sdk.utils.StringUtils
 import com.onyx.gallery.action.StartTransformAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.raw.SelectionBundleEvent
 import com.onyx.gallery.handler.InsertTextHandler
 import com.onyx.gallery.request.textInput.HitTestTextShapeRequest
-import com.onyx.gallery.request.textInput.SaveTextShapesRequest
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -45,7 +42,7 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHand
     override fun onTouchUp(touchPoint: TouchPoint) {
         super.onTouchUp(touchPoint)
         if (insertTextHandler.isUndefinedTransform()) {
-            saveTextShape(false)
+            insertTextHandler.saveTextShape(false)
             hitTestTextShape(touchPoint)
         }
         insertTextHandler.onTouchUp(touchPoint)
@@ -73,23 +70,5 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHand
         insertTextHandler.selectionRect = event.bundle.selectionRect
     }
 
-    private fun saveTextShape(clear: Boolean) {
-        val textShape: Shape = insertTextHandler.textShape ?: return
-        if (StringUtils.isNullOrEmpty(textShape.text)) {
-            return
-        }
-        saveTextShape(textShape, clear)
-    }
-
-    private fun saveTextShape(textShape: Shape, clear: Boolean) {
-        val request = SaveTextShapesRequest(mutableListOf(textShape))
-        globalEditBundle.enqueue(request, object : RxCallback<SaveTextShapesRequest?>() {
-            override fun onNext(@NonNull saveTextShapesRequest: SaveTextShapesRequest) {
-                if (clear) {
-                    insertTextHandler.clear()
-                }
-            }
-        })
-    }
 
 }

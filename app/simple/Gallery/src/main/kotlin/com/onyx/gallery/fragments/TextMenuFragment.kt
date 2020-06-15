@@ -34,6 +34,11 @@ class TextMenuFragment : BaseMenuFragment<FragmentEditMenuTextBinding, TextMenuV
         return textMenuViewModel
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        globalEditBundle.insertTextHandler.saveTextShape(true)
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onShowFontSelectMenuEvent(event: ShowFontSelectMenuEvent) {
         addFragment(R.id.sub_menu_content, fontSelectFragment)

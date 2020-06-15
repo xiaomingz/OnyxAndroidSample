@@ -61,7 +61,7 @@ open class BaseMenuViewModel : BaseViewModel() {
 
     open fun getShapeTypeFromNoteMenuAction(menuAction: MenuAction): Int =
             when (menuAction) {
-                MenuAction.SCRIBBLE_BRUSH -> ShapeFactory.SHAPE_BRUSH_SCRIBBLE
+                MenuAction.SCRIBBLE_BRUSH -> ShapeFactory.SHAPE_PENCIL_SCRIBBLE
                 MenuAction.SCRIBBLE_LINE -> ShapeFactory.SHAPE_LINE
                 MenuAction.SCRIBBLE_TRIANGLE -> ShapeFactory.SHAPE_TRIANGLE
                 MenuAction.SCRIBBLE_CIRCLE -> ShapeFactory.SHAPE_CIRCLE

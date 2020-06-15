@@ -56,13 +56,13 @@ class GraffitiMenuViewModel : BaseMenuViewModel() {
     }
 
     private fun onSelectColor(action: MenuAction) {
-        selectShapeAction.value = action
-        ShapeChangeAction().setShapeType(getShapeTypeFromNoteMenuAction(action)).execute(null)
+        selectColorAction.value = action
+        StrokeColorChangeAction(getColorFromNoteMenuAction(action)).execute(null)
     }
 
     private fun onSelectShape(action: MenuAction) {
-        selectColorAction.value = action
-        StrokeColorChangeAction(getColorFromNoteMenuAction(action)).execute(null)
+        selectShapeAction.value = action
+        ShapeChangeAction().setShapeType(getShapeTypeFromNoteMenuAction(action)).execute(null)
     }
 
     private fun onStrokeWidthAdd() = currStrokeWidth.run { value = value?.plus(stepStrokeWidth)?.coerceAtMost(maxStrokeWidth) }

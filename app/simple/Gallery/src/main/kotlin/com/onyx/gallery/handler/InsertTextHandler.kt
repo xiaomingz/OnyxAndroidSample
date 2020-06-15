@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewConfiguration
 import android.widget.EditText
+import androidx.annotation.NonNull
 import com.onyx.android.sdk.data.FontInfo
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.rx.ObservableHolder
@@ -17,6 +18,7 @@ import com.onyx.android.sdk.scribble.shape.EditTextShape
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.DimenUtils
 import com.onyx.android.sdk.utils.ResManager
+import com.onyx.android.sdk.utils.StringUtils
 import com.onyx.gallery.R
 import com.onyx.gallery.action.textInput.CreateCursorShapeByOffsetAction
 import com.onyx.gallery.action.textInput.CreateCursorShapeByTouchPointAction
@@ -27,6 +29,7 @@ import com.onyx.gallery.helpers.InsertTextConfig
 import com.onyx.gallery.helpers.TextWatcherAdapter
 import com.onyx.gallery.request.textInput.AdjustTextInputWidthRequest
 import com.onyx.gallery.request.textInput.RenderInputTextShapeRequest
+import com.onyx.gallery.request.textInput.SaveTextShapesRequest
 import com.onyx.gallery.request.transform.TranslateRequest
 import java.util.*
 import kotlin.math.abs
@@ -228,20 +231,6 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         it.visibility = View.GONE
     }
 
-    fun clear() {
-        lastPoint = null
-        cursorShape = null
-        hideSoftInput()
-        clearTextShape()
-        editTextView?.setText("")
-        globalEditBundle.drawHandler.clearSelectionRect()
-        transformAction = ShapeTransformAction.Undefined
-    }
-
-    private fun clearTextShape() {
-        textShape = null
-    }
-
     private fun getTextSelection(text: String?): Int = if (TextUtils.isEmpty(text)) {
         0
     } else {
@@ -289,9 +278,42 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         renderInputTextShape(textShape!!)
     }
 
+    fun saveTextShape(clear: Boolean) {
+        val textShape: Shape = textShape ?: return
+        if (StringUtils.isNullOrEmpty(textShape.text)) {
+            return
+        }
+        saveTextShape(textShape, clear)
+    }
+
+    private fun saveTextShape(textShape: Shape, clear: Boolean) {
+        val request = SaveTextShapesRequest(mutableListOf(textShape))
+        globalEditBundle.enqueue(request, object : RxCallback<SaveTextShapesRequest?>() {
+            override fun onNext(@NonNull saveTextShapesRequest: SaveTextShapesRequest) {
+                if (clear) {
+                    clear()
+                }
+            }
+        })
+    }
+
     fun release() {
         unBindEditText()
         insertTextConfig.reset()
+    }
+
+    fun clear() {
+        lastPoint = null
+        cursorShape = null
+        hideSoftInput()
+        clearTextShape()
+        editTextView?.setText("")
+        globalEditBundle.drawHandler.clearSelectionRect()
+        transformAction = ShapeTransformAction.Undefined
+    }
+
+    private fun clearTextShape() {
+        textShape = null
     }
 
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuBinding
 import com.onyx.gallery.extensions.replaceLoadFragment
+import com.onyx.gallery.request.RestoreTransformRequest
 import com.onyx.gallery.viewmodel.EditMenuViewModel
 import java.util.*
 
@@ -46,6 +47,7 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
             fragment = createSubMenuFragment(menuStyle)
             menuFragmentMap[menuStyle] = fragment
         }
+        handlerMenuChange(menuStyle)
         replaceLoadFragment(R.id.item_sub_menu_layout, fragment)
     }
 
@@ -56,6 +58,20 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
         EditMenuViewModel.MenuStyle.CROP -> CropMenuFragment()
         EditMenuViewModel.MenuStyle.MOSAIC -> MosaicMenuFragment()
         else -> NoneMenuFragment()
+    }
+
+    private fun handlerMenuChange(menuStyle: EditMenuViewModel.MenuStyle) {
+        when (menuStyle) {
+            EditMenuViewModel.MenuStyle.GRAFFITI -> {
+                globalEditBundle.supportZoom = true
+                globalEditBundle.canFingerTouch = true
+            }
+            EditMenuViewModel.MenuStyle.TEXT -> {
+                globalEditBundle.supportZoom = false
+                globalEditBundle.canFingerTouch = false
+                globalEditBundle.enqueue(RestoreTransformRequest(), null)
+            }
+        }
     }
 
 }
