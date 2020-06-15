@@ -87,8 +87,8 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     }
 
     fun release() {
-        drawHandler.quit()
-        insertTextHandler.unBindEditText()
+        drawHandler.release()
+        insertTextHandler.release()
         touchHandlerManager.deactivateHandler()
     }
 

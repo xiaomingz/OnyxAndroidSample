@@ -8,5 +8,12 @@ import androidx.fragment.app.Fragment
 fun Fragment.replaceLoadFragment(replaceId: Int, fragment: Fragment) {
     childFragmentManager.beginTransaction()
             .replace(replaceId, fragment)
-            .commitNow()
+            .commit()
+}
+
+fun Fragment.addFragment(replaceId: Int, fragment: Fragment) {
+    childFragmentManager.beginTransaction()
+            .add(replaceId, fragment)
+            .addToBackStack(fragment::class.java.simpleName)
+            .commit()
 }

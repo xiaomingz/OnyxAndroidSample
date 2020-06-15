@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewConfiguration
 import android.widget.EditText
+import com.onyx.android.sdk.data.FontInfo
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.rx.ObservableHolder
 import com.onyx.android.sdk.rx.RxCallback
@@ -65,7 +66,7 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         editTextView?.addTextChangedListener(this)
     }
 
-    fun unBindEditText() = editTextView?.removeTextChangedListener(this)
+    private fun unBindEditText() = editTextView?.removeTextChangedListener(this)
 
     override fun afterTextChanged(s: Editable?) {
         onTextInput(s.toString(), editTextView!!.selectionStart)
@@ -272,9 +273,25 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         if (!canEdit()) {
             return
         }
+        insertTextConfig.textColor = color
         textShape!!.color = color
         renderInputTextShape(textShape!!)
     }
 
+    fun onTextFontFaceEvent(fontInfo: FontInfo) {
+        if (!canEdit()) {
+            return
+        }
+        insertTextConfig.fontId = fontInfo.id
+        insertTextConfig.fontFace = fontInfo.name
+        val textStyle = textShape!!.textStyle
+        textStyle.fontFace = fontInfo.id
+        renderInputTextShape(textShape!!)
+    }
+
+    fun release() {
+        unBindEditText()
+        insertTextConfig.reset()
+    }
 
 }

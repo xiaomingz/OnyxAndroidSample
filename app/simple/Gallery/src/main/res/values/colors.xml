@@ -12,4 +12,9 @@
 
     <color name="normal_black">@android:color/black</color>
 
+
+    <color name="book_format_text_color">#525252</color>
+
+    <color name="transparent">#00000000</color>
+
 </resources>

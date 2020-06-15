@@ -2,10 +2,12 @@ package com.onyx.gallery.viewmodel
 
 import android.widget.SeekBar
 import androidx.lifecycle.MutableLiveData
+import com.onyx.android.sdk.data.FontInfo
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
 import com.onyx.gallery.action.shape.ShapeChangeAction
+import com.onyx.gallery.event.ui.ShowFontSelectMenuEvent
 import com.onyx.gallery.handler.InsertTextHandler
 import com.onyx.gallery.models.MenuAction
 
@@ -14,8 +16,12 @@ import com.onyx.gallery.models.MenuAction
  */
 class TextMenuViewModel : BaseMenuViewModel() {
 
+    var showSubMenu = MutableLiveData(false)
+
     var bold = MutableLiveData(false)
     var traditional = MutableLiveData(false)
+
+    var currFont = MutableLiveData(ResManager.getString(R.string.default_font))
 
     private val stepFontSize = ResManager.getAppContext().resources.getDimension(R.dimen.edit_text_shape_text_size_step).toInt()
     val maxFontSize = ResManager.getAppContext().resources.getDimension(R.dimen.edit_text_shape_text_size_max).toInt()
@@ -54,9 +60,18 @@ class TextMenuViewModel : BaseMenuViewModel() {
             MenuAction.NOTE_COLOR_BLUE -> onSelectColor(action)
             MenuAction.FONT_SIZE_SUBTRACTION -> onStrokeWidthSub()
             MenuAction.FONT_SIZE_ADDITION -> onStrokeWidthAdd()
+            MenuAction.FONT_SELECT -> onFontSelect()
             else -> return false
         }
         return true
+    }
+
+    private fun onFontSelect() {
+        val isShowSubMenu = showSubMenu.value!!
+        if (!isShowSubMenu) {
+            showSubMenu.value = true
+        }
+        postEvent(ShowFontSelectMenuEvent())
     }
 
     private fun onStrokeWidthAdd() = currFontSize.run { value = value?.plus(stepFontSize)?.coerceAtMost(maxFontSize) }
@@ -78,6 +93,15 @@ class TextMenuViewModel : BaseMenuViewModel() {
     }
 
     private fun getInsertTextHandler(): InsertTextHandler = globalEditBundle.insertTextHandler
+
+    fun showContent() {
+        showSubMenu.value = false
+    }
+
+    fun onFontChange(fontInfo: FontInfo) {
+        currFont.value = fontInfo.name
+        getInsertTextHandler().onTextFontFaceEvent(fontInfo)
+    }
 
 
 }

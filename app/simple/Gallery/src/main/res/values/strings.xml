@@ -386,6 +386,13 @@
     <string name="stroke_width">stroke width</string>
     <string name="text_menu_font_size">font size</string>
     <string name="typeface">typeface</string>
+    <string name="default_font">default</string>
+    <string name="text_style_cn">CN</string>
+    <string name="text_style_en">EN</string>
+    <string name="text_style_customize">customize</string>
+    <string name="back">back</string>
+    <string name="total_count">Total:%d</string>
+    <string name="page_index">%d/%d</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

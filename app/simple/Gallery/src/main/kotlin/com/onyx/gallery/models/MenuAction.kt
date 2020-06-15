@@ -26,4 +26,8 @@ enum class MenuAction {
     FONT_SIZE_ADDITION,
     FONT_SIZE_SUBTRACTION,
     FONT_BOLD,
+    FONT_SELECT,
+    PREV_PAGE,
+    NEXT_PAGE,
+    CANCEL,
 }

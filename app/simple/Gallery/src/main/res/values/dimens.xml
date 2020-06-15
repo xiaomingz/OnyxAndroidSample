@@ -74,5 +74,17 @@
     <dimen name="edit_text_shape_text_size_min">8px</dimen>
     <dimen name="edit_text_shape_text_size_max">40px</dimen>
     <dimen name="edit_text_shape_text_size_step">3px</dimen>
+    <dimen name="edit_menu_font_select_height_content">300dp</dimen>
+    <dimen name="font_option_choice_page_view_margin_bottom">-3dp</dimen>
+    <dimen name="option_choice_title_height">55dp</dimen>
+    <dimen name="option_choice_title_drawable_padding">8dp</dimen>
+    <dimen name="item_checkbox_size">25dp</dimen>
+    <dimen name="text_style_option_choice_padding">8dp</dimen>
+    <dimen name="dialog_table_of_content_select_checkbox_size">18dp</dimen>
+    <dimen name="item_style_option_choice_padding_left">8dp</dimen>
+    <dimen name="item_checkbox_margin_right">8dp</dimen>
+    <dimen name="preference_check_box_size">24dp</dimen>
+    <dimen name="dialog_text_style_layout_margin_left">10dp</dimen>
+    <dimen name="dialog_text_style_layout_margin_right">10dp</dimen>
 
 </resources>

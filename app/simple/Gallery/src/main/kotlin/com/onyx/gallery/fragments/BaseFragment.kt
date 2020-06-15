@@ -60,4 +60,6 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
 
     protected abstract fun onInitViewModel(context: Context, binding: T, rootView: View): V
 
+    fun postEvent(event: Any) = globalEditBundle.eventBus.post(event)
+
 }

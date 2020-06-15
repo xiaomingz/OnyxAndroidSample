@@ -2,10 +2,13 @@ package com.onyx.gallery.databinding
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
 import android.view.View
+import android.widget.CheckedTextView
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.databinding.BindingAdapter
@@ -16,6 +19,43 @@ import com.onyx.gallery.R
  */
 
 object ViewAdapter {
+
+    @JvmStatic
+    @BindingAdapter("setTextViewTypeface")
+    fun setTextViewTypeface(textView: TextView, typeface: Typeface?) {
+        textView.typeface = typeface
+    }
+
+    @JvmStatic
+    @BindingAdapter("checkedOrUnChecked")
+    fun setCheckedTextViewCheckedOrUnChecked(checkedTextView: CheckedTextView, isChecked: Boolean) {
+        checkedTextView.isChecked = isChecked
+    }
+
+    @JvmStatic
+    @BindingAdapter("setLeftHint")
+    fun setLeftHint(view: TextView, res: Int) {
+        view.setBackgroundResource(R.drawable.bg_img_click_solid)
+        view.setCompoundDrawablesWithIntrinsicBounds(
+                getHintDrawable(view.context, res),
+                null,
+                null,
+                null
+        )
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("visibleOrGone")
+    fun setViewVisibleOrGone(view: View, show: Boolean) {
+        view.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    @JvmStatic
+    @BindingAdapter("visibleOrInvisible")
+    fun setViewVisibleOrInvisible(view: View, show: Boolean) {
+        view.visibility = if (show) View.VISIBLE else View.INVISIBLE
+    }
 
     @JvmStatic
     @BindingAdapter("setViewActivated")

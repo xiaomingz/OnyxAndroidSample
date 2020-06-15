@@ -104,7 +104,7 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
         surfaceView?.let { readerHandler.renderVarietyShapesToSurfaceView(it, shape) }
     }
 
-    fun quit() {
+    fun release() {
         drawingArgs.reset()
         cacheShapeList.clear()
         orgLimitRect[0, 0, 0] = 0
@@ -158,13 +158,13 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
         touchHelper?.setStrokeWidth(penWidth)
     }
 
-    fun getStrokeWidth(): Float  = drawingArgs.strokeWidth.toFloat()
+    fun getStrokeWidth(): Float = drawingArgs.strokeWidth.toFloat()
 
     fun updateCurrShapeType(newShape: Int) {
         drawingArgs.currShapeType = newShape
     }
 
-    fun getCurrShapeType(): Int  = drawingArgs.currShapeType
+    fun getCurrShapeType(): Int = drawingArgs.currShapeType
 
     fun postSelectionBundle() {
         val bundle = SelectionBundle()

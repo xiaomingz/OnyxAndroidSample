@@ -9,4 +9,8 @@ import com.onyx.gallery.bundle.GlobalEditBundle
 abstract class BaseViewModel : ViewModel() {
     protected val globalEditBundle = GlobalEditBundle.instance
     protected val noteManage = globalEditBundle.drawHandler
+
+    fun postEvent(event: Any) {
+        globalEditBundle.eventBus.post(event)
+    }
 }

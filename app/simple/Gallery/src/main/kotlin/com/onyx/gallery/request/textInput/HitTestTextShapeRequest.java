@@ -94,8 +94,8 @@ public class HitTestTextShapeRequest extends BaseRequest {
         textStyle.setTextSize(DimenUtils.pt2px(ResManager.getAppContext(), insertTextConfig.getTextSize()))
                 .setTextSpacing(insertTextConfig.getTextSpacing())
                 .setTextBold(insertTextConfig.getBold())
-                .setTextItalic(insertTextConfig.getItalic());
-//                .setFontFace(textInsertConfig.getFontFace());
+                .setTextItalic(insertTextConfig.getItalic())
+                .setFontFace(insertTextConfig.getFontFace());
         TouchPoint newPoint = point.clone();
         newPoint.applyMatrix(drawHandler.getRenderContext().matrix);
         RectF container = new RectF(drawHandler.getCurrLimitRect());
@@ -104,7 +104,7 @@ public class HitTestTextShapeRequest extends BaseRequest {
         textStyle.setPointScale(drawingArgs.getNormalizeScale());
         shape.setTextStyle(textStyle);
         shape.setText("");
-        shape.setColor(drawingArgs.getStrokeColor());
+        shape.setColor(insertTextConfig.getTextColor());
         RectF shapeRect = locationShapeRect(shape, point, textWidth);
         point.x = shapeRect.left;
         point.y = shapeRect.top;
