@@ -11,6 +11,7 @@ import com.onyx.gallery.event.ui.ShowFontSelectMenuEvent
 import com.onyx.gallery.handler.InsertTextHandler
 import com.onyx.gallery.models.MenuAction
 
+
 /**
  * Created by Leung on 2020/6/5
  */
@@ -61,6 +62,7 @@ class TextMenuViewModel : BaseMenuViewModel() {
             MenuAction.FONT_SIZE_SUBTRACTION -> onStrokeWidthSub()
             MenuAction.FONT_SIZE_ADDITION -> onStrokeWidthAdd()
             MenuAction.FONT_SELECT -> onFontSelect()
+            MenuAction.INDENTATION -> onTextIndentation()
             else -> return false
         }
         return true
@@ -83,13 +85,20 @@ class TextMenuViewModel : BaseMenuViewModel() {
     }
 
     private fun onFontBoldChange() {
-        bold.value = !(bold.value)!!
-        getInsertTextHandler().onTextBoldEvent(bold.value!!)
+        bold.value = (!(bold.value)!!).apply {
+            getInsertTextHandler().onTextBoldEvent(this)
+        }
     }
 
     private fun onSelectColor(action: MenuAction) {
         selectColorAction.value = action
         getInsertTextHandler().onChangeColorEvent(getColorFromNoteMenuAction(action))
+    }
+
+    private fun onTextIndentation() {
+        traditional.value = (!(traditional.value)!!).apply {
+            getInsertTextHandler().onTextIndentationEvent(this)
+        }
     }
 
     private fun getInsertTextHandler(): InsertTextHandler = globalEditBundle.insertTextHandler

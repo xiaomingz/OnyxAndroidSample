@@ -31,6 +31,7 @@ import com.onyx.gallery.request.textInput.AdjustTextInputWidthRequest
 import com.onyx.gallery.request.textInput.RenderInputTextShapeRequest
 import com.onyx.gallery.request.textInput.SaveTextShapesRequest
 import com.onyx.gallery.request.transform.TranslateRequest
+import com.onyx.gallery.views.EditTextShapeExpand
 import java.util.*
 import kotlin.math.abs
 
@@ -278,6 +279,14 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         renderInputTextShape(textShape!!)
     }
 
+    fun onTextIndentationEvent(isIndentation: Boolean) {
+        if (!canEdit()) {
+            return
+        }
+        (textShape!! as EditTextShapeExpand).isIndentation = isIndentation
+        renderInputTextShape(textShape!!)
+    }
+
     fun saveTextShape(clear: Boolean) {
         val textShape: Shape = textShape ?: return
         if (StringUtils.isNullOrEmpty(textShape.text)) {
@@ -299,6 +308,7 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
 
     fun release() {
         unBindEditText()
+        clear()
         insertTextConfig.reset()
     }
 

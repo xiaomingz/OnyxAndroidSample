@@ -20,7 +20,7 @@ import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.helpers.DrawArgs;
 import com.onyx.gallery.helpers.InsertTextConfig;
-import com.onyx.gallery.utils.NoteUtils;
+import com.onyx.gallery.views.EditTextShapeExpand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +88,7 @@ public class HitTestTextShapeRequest extends BaseRequest {
 
     private Shape createTextShape(TouchPoint point) {
         DrawHandler drawHandler = getDrawHandler();
-        Shape shape = NoteUtils.createShape(ShapeFactory.SHAPE_EDIT_TEXT_SHAPE, ShapeFactory.LayoutType.FREE.ordinal());
+        Shape shape = new EditTextShapeExpand();
         ShapeTextStyle textStyle = new ShapeTextStyle();
         InsertTextConfig insertTextConfig = getInsertTextConfig();
         textStyle.setTextSize(DimenUtils.pt2px(ResManager.getAppContext(), insertTextConfig.getTextSize()))

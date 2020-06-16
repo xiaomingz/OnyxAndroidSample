@@ -101,16 +101,15 @@
 
                 <ImageView
                     style="@style/dialog_text_style_radio_button"
-                    setViewActivated="@{viewModel.selectColorAction == MenuAction.FONT_BOLD}"
+                    setViewActivated="@{viewModel.traditional}"
                     android:layout_weight="0"
-                    android:onClick="@{()->viewModel.onHandleMenu(MenuAction.FONT_BOLD)}"
+                    android:onClick="@{()->viewModel.onHandleMenu(MenuAction.INDENTATION)}"
                     app:srcCompat="@drawable/ic_indentation" />
 
                 <ImageView
                     style="@style/dialog_text_style_radio_button"
                     setViewActivated="@{viewModel.traditional}"
                     android:layout_weight="0"
-                    android:onClick="@{()->viewModel.onHandleMenu(MenuAction.FONT_BOLD)}"
                     app:srcCompat="@drawable/ic_traditional" />
 
             </LinearLayout>

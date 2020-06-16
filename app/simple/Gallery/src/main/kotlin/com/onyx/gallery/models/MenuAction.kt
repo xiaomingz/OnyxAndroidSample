@@ -30,4 +30,5 @@ enum class MenuAction {
     PREV_PAGE,
     NEXT_PAGE,
     CANCEL,
+    INDENTATION,
 }
