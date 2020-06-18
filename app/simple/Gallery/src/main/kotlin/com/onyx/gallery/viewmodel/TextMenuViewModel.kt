@@ -20,6 +20,7 @@ class TextMenuViewModel : BaseMenuViewModel() {
     var showSubMenu = MutableLiveData(false)
 
     var bold = MutableLiveData(false)
+    var indentation = MutableLiveData(false)
     var traditional = MutableLiveData(false)
 
     var currFont = MutableLiveData(ResManager.getString(R.string.default_font))
@@ -63,6 +64,7 @@ class TextMenuViewModel : BaseMenuViewModel() {
             MenuAction.FONT_SIZE_ADDITION -> onStrokeWidthAdd()
             MenuAction.FONT_SELECT -> onFontSelect()
             MenuAction.INDENTATION -> onTextIndentation()
+            MenuAction.TRADITIONAL -> onTextTraditional()
             else -> return false
         }
         return true
@@ -96,8 +98,14 @@ class TextMenuViewModel : BaseMenuViewModel() {
     }
 
     private fun onTextIndentation() {
-        traditional.value = (!(traditional.value)!!).apply {
+        indentation.value = (!(indentation.value)!!).apply {
             getInsertTextHandler().onTextIndentationEvent(this)
+        }
+    }
+
+    private fun onTextTraditional() {
+        traditional.value = (!(traditional.value)!!).apply {
+            getInsertTextHandler().onTextTraditionalEvent(this)
         }
     }
 

@@ -22,6 +22,7 @@ import com.onyx.android.sdk.utils.StringUtils
 import com.onyx.gallery.R
 import com.onyx.gallery.action.textInput.CreateCursorShapeByOffsetAction
 import com.onyx.gallery.action.textInput.CreateCursorShapeByTouchPointAction
+import com.onyx.gallery.action.textInput.TextIndentationAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.extensions.hideSoftInput
 import com.onyx.gallery.extensions.showSoftInput
@@ -157,7 +158,7 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     }
 
     private fun updateCursorShapeByOffset(cursorOffset: Int) {
-        val action: CreateCursorShapeByOffsetAction = CreateCursorShapeByOffsetAction()
+        val action = CreateCursorShapeByOffsetAction()
                 .setCursorOffset(cursorOffset)
                 .setNormalizeScale(getNormalizeScale())
                 .setTextShape(textShape)
@@ -203,7 +204,9 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
 
     private fun setCursorOffset(cursorOffset: Int) {
         this.cursorOffset = cursorOffset
-        editTextView?.setSelection(cursorOffset)
+        if (cursorOffset > editTextView!!.text.length) {
+            editTextView?.setSelection(editTextView!!.text.length)
+        }
     }
 
     private fun getScreenTouchPoint(touchPoint: TouchPoint): TouchPoint {
@@ -284,7 +287,11 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
             return
         }
         (textShape!! as EditTextShapeExpand).isIndentation = isIndentation
-        renderInputTextShape(textShape!!)
+        TextIndentationAction(textShape!!, cursorShape!!, cursorOffset).execute(null)
+    }
+
+    fun onTextTraditionalEvent(isTraditional: Boolean) {
+
     }
 
     fun saveTextShape(clear: Boolean) {
@@ -325,5 +332,8 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     private fun clearTextShape() {
         textShape = null
     }
+
+    private fun getTextShapeIsIndentation() = (textShape as EditTextShapeExpand).isIndentation
+
 
 }

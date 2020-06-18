@@ -4,12 +4,12 @@ import android.text.StaticLayout;
 
 import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.scribble.shape.Shape;
-import com.onyx.android.sdk.scribble.utils.TextLayoutUtils;
 import com.onyx.android.sdk.utils.ResManager;
 import com.onyx.gallery.R;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.RenderHandlerUtils;
+import com.onyx.gallery.utils.StaticLayoutUtils;
 
 /**
  * <pre>
@@ -44,7 +44,7 @@ public class RenderInputTextShapeRequest extends BaseRequest {
         if (textShape == null) {
             return;
         }
-        StaticLayout layout = TextLayoutUtils.createTextLayout(textShape);
+        StaticLayout layout = StaticLayoutUtils.createTextLayout(textShape);
         TouchPoint down = textShape.getPoints().get(0);
         TouchPoint up = textShape.getPoints().get(1);
         float deltaX = drawHandler.getRenderContext().getMatrixInvertValue(layout.getWidth());

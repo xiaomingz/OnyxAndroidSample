@@ -12,9 +12,10 @@ import com.onyx.android.sdk.scribble.data.SelectionRect;
 import com.onyx.android.sdk.scribble.data.ShapeTextStyle;
 import com.onyx.android.sdk.scribble.shape.Shape;
 import com.onyx.android.sdk.scribble.utils.ShapeUtils;
-import com.onyx.android.sdk.scribble.utils.TextLayoutUtils;
 import com.onyx.android.sdk.utils.RectUtils;
 import com.onyx.gallery.common.BaseEditAction;
+import com.onyx.gallery.utils.StaticLayoutUtils;
+import com.onyx.gallery.views.EditTextShapeExpand;
 
 /**
  * <pre>
@@ -67,7 +68,7 @@ public class CreateCursorShapeByTouchPointAction extends BaseEditAction<RxReques
         touchPoint.y = touchPoint.y - pointF.y;
 
         RectF cursorRect = new RectF();
-        StaticLayout layout = TextLayoutUtils.createTextLayout(textShape);
+        StaticLayout layout = StaticLayoutUtils.createTextLayout(textShape);
         int lineCount = layout.getLineCount();
 
         for (int i = 0; i < lineCount; i++) {
@@ -82,11 +83,11 @@ public class CreateCursorShapeByTouchPointAction extends BaseEditAction<RxReques
                     return;
                 }
                 String content = textShape.getText().substring(start, end);
-                StaticLayout lineLayout = TextLayoutUtils.createTextLayout(content, cloneTextStyle);
-
+                StaticLayout lineLayout = StaticLayoutUtils.createTextLayout(content, cloneTextStyle, ((EditTextShapeExpand) textShape).isIndentation());
                 int offset = lineLayout.getOffsetForHorizontal(0, touchPoint.x);
-                cursorRect.set(lineLayout.getPrimaryHorizontal(offset) + pointF.x,
-                        lineRect.top + pointF.y, lineLayout.getPrimaryHorizontal(offset) + pointF.x,
+                offset = (int) lineLayout.getPrimaryHorizontal(offset);
+                cursorRect.set(offset + pointF.x,
+                        lineRect.top + pointF.y, offset + pointF.x,
                         lineRect.bottom + pointF.y);
                 cursorOffset = offset + start;
                 RectUtils.scale(cursorRect, normalizeScale, normalizeScale);
@@ -97,6 +98,11 @@ public class CreateCursorShapeByTouchPointAction extends BaseEditAction<RxReques
     }
 
     public int getCursorOffset() {
+        if (((EditTextShapeExpand) textShape).isIndentation()) {
+            cursorOffset += 2;
+        } else {
+            cursorOffset -= 2;
+        }
         return cursorOffset;
     }
 

@@ -101,7 +101,7 @@
 
                 <ImageView
                     style="@style/dialog_text_style_radio_button"
-                    setViewActivated="@{viewModel.traditional}"
+                    setViewActivated="@{viewModel.indentation}"
                     android:layout_weight="0"
                     android:onClick="@{()->viewModel.onHandleMenu(MenuAction.INDENTATION)}"
                     app:srcCompat="@drawable/ic_indentation" />
@@ -110,6 +110,8 @@
                     style="@style/dialog_text_style_radio_button"
                     setViewActivated="@{viewModel.traditional}"
                     android:layout_weight="0"
+
+                    android:onClick="@{()->viewModel.onHandleMenu(MenuAction.TRADITIONAL)}"
                     app:srcCompat="@drawable/ic_traditional" />
 
             </LinearLayout>

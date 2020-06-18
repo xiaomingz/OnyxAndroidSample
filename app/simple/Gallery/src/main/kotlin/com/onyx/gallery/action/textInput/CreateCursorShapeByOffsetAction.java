@@ -14,6 +14,8 @@ import com.onyx.android.sdk.scribble.utils.ShapeUtils;
 import com.onyx.android.sdk.scribble.utils.TextLayoutUtils;
 import com.onyx.android.sdk.utils.RectUtils;
 import com.onyx.gallery.common.BaseEditAction;
+import com.onyx.gallery.utils.StaticLayoutUtils;
+import com.onyx.gallery.views.EditTextShapeExpand;
 
 /**
  * <pre>
@@ -22,7 +24,7 @@ import com.onyx.gallery.common.BaseEditAction;
  *     desc   :
  * </pre>
  */
-public class CreateCursorShapeByOffsetAction extends BaseEditAction<RxRequest>{
+public class CreateCursorShapeByOffsetAction extends BaseEditAction<RxRequest> {
 
     private Shape textShape;
     private SelectionRect selectionRect;
@@ -59,7 +61,7 @@ public class CreateCursorShapeByOffsetAction extends BaseEditAction<RxRequest>{
             return;
         }
         PointF pointF = selectionRect.getRenderMatrixPoint(selectionRect.getOriginRect().left, selectionRect.getOriginRect().top);
-        StaticLayout layout = TextLayoutUtils.createTextLayout(textShape);
+        StaticLayout layout = StaticLayoutUtils.createTextLayout(textShape);
         int line = layout.getLineForOffset(cursorOffset);
         int start = layout.getLineStart(line);
         if (cursorOffset == start && line > 0) {
@@ -81,8 +83,13 @@ public class CreateCursorShapeByOffsetAction extends BaseEditAction<RxRequest>{
         String content = textShape.getText().substring(start, end);
         StaticLayout lineLayout = TextLayoutUtils.createTextLayout(content, cloneTextStyle);
 
-        cursorRect.set(lineLayout.getPrimaryHorizontal(cursorOffset - start) + pointF.x,
-                lineRect.top + pointF.y,lineLayout.getPrimaryHorizontal(cursorOffset - start) + pointF.x,
+        int offset = (int) lineLayout.getPrimaryHorizontal(cursorOffset - start);
+        if (line == 0 && ((EditTextShapeExpand) textShape).isIndentation()) {
+            offset += textShape.getTextStyle().getTextSize() * 2;
+        }
+
+        cursorRect.set(offset + pointF.x,
+                lineRect.top + pointF.y, offset + pointF.x,
                 lineRect.bottom + pointF.y);
         RectUtils.scale(cursorRect, normalizeScale, normalizeScale);
         cursorShape = ShapeUtils.createCursorShape(cursorRect);
