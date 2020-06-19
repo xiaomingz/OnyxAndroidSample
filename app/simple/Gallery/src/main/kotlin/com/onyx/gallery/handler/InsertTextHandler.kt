@@ -289,7 +289,12 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     }
 
     fun onTextTraditionalEvent(isTraditional: Boolean) {
-
+        if (!canEdit()) {
+            return
+        }
+        insertTextConfig.isTraditional = isTraditional
+        (textShape!! as EditTextShapeExpand).isTraditional = isTraditional
+        renderInputTextShape(textShape!!)
     }
 
     fun saveTextShape(clear: Boolean) {

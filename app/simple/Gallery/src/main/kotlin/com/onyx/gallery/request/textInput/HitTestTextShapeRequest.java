@@ -92,6 +92,7 @@ public class HitTestTextShapeRequest extends BaseRequest {
         ShapeTextStyle textStyle = new ShapeTextStyle();
         InsertTextConfig insertTextConfig = getInsertTextConfig();
         shape.setIndentation(insertTextConfig.isIndentation());
+        shape.setTraditional(insertTextConfig.isTraditional());
         textStyle.setTextSize(DimenUtils.pt2px(ResManager.getAppContext(), insertTextConfig.getTextSize()))
                 .setTextSpacing(insertTextConfig.getTextSpacing())
                 .setTextBold(insertTextConfig.getBold())

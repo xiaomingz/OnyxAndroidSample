@@ -19,6 +19,7 @@ class InsertTextConfig {
     var fontId = ""
     var fontFace = ""
     var isIndentation = false
+    var isTraditional = false
     var textColor = defaultTextColor
     var fontType: DeviceUtils.FontType? = null
 
@@ -30,6 +31,7 @@ class InsertTextConfig {
         fontId = ""
         fontFace = ""
         isIndentation = false
+        isTraditional = false
         textColor = defaultTextColor
     }
 }
