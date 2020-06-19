@@ -10,9 +10,10 @@ import com.onyx.gallery.utils.RenderHandlerUtils
 /**¬
  * Created by Leung on 2020/6/11
  */
-class AdjustTextInputWidthRequest(
-        private val shape: Shape, private val movedPoint: TouchPoint,
-        private val cursorShape: Shape, private val lastPoint: TouchPoint) : BaseRequest() {
+class AdjustTextInputWidthRequest(private val shape: Shape,
+                                  private val movedPoint: TouchPoint,
+                                  private val cursorShape: Shape?,
+                                  private val lastPoint: TouchPoint) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
         val rectF = shape.boundingRect

@@ -10,6 +10,7 @@ import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.RenderHandlerUtils;
 import com.onyx.gallery.utils.StaticLayoutUtils;
+import com.onyx.gallery.views.EditTextShapeExpand;
 
 /**
  * <pre>
@@ -44,7 +45,7 @@ public class RenderInputTextShapeRequest extends BaseRequest {
         if (textShape == null) {
             return;
         }
-        StaticLayout layout = StaticLayoutUtils.createTextLayout(textShape);
+        StaticLayout layout = StaticLayoutUtils.createTextLayout((EditTextShapeExpand) textShape);
         TouchPoint down = textShape.getPoints().get(0);
         TouchPoint up = textShape.getPoints().get(1);
         float deltaX = drawHandler.getRenderContext().getMatrixInvertValue(layout.getWidth());

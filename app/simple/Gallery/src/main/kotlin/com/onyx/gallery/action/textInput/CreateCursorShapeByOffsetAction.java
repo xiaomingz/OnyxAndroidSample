@@ -55,13 +55,11 @@ public class CreateCursorShapeByOffsetAction extends BaseEditAction<RxRequest> {
 
     @Override
     public void execute(RxCallback callback) {
-        if (textShape == null
-                || textShape.getTextStyle() == null
-                || selectionRect == null) {
+        if (textShape == null || textShape.getTextStyle() == null || selectionRect == null) {
             return;
         }
         PointF pointF = selectionRect.getRenderMatrixPoint(selectionRect.getOriginRect().left, selectionRect.getOriginRect().top);
-        StaticLayout layout = StaticLayoutUtils.createTextLayout(textShape);
+        StaticLayout layout = StaticLayoutUtils.createTextLayout((EditTextShapeExpand) textShape);
         int line = layout.getLineForOffset(cursorOffset);
         int start = layout.getLineStart(line);
         if (cursorOffset == start && line > 0) {
@@ -69,27 +67,30 @@ public class CreateCursorShapeByOffsetAction extends BaseEditAction<RxRequest> {
         }
         start = layout.getLineStart(line);
         int end = layout.getLineEnd(line);
+
         Rect lineRect = new Rect();
         layout.getLineBounds(line, lineRect);
-        RectF cursorRect = new RectF();
 
         ShapeTextStyle cloneTextStyle = textShape.getTextStyle().clone();
-        if (cloneTextStyle == null) {
+        if (cloneTextStyle == null || textShape.getText() == null) {
             return;
         }
-        if (textShape.getText() == null) {
-            return;
-        }
+
         String content = textShape.getText().substring(start, end);
         StaticLayout lineLayout = TextLayoutUtils.createTextLayout(content, cloneTextStyle);
 
         int offset = (int) lineLayout.getPrimaryHorizontal(cursorOffset - start);
-        if (line == 0 && ((EditTextShapeExpand) textShape).isIndentation()) {
-            offset += textShape.getTextStyle().getTextSize() * 2;
+        if (textShape instanceof EditTextShapeExpand) {
+            EditTextShapeExpand editTextShapeExpand = (EditTextShapeExpand) textShape;
+            if (line == 0 && editTextShapeExpand.isIndentation()) {
+                offset += editTextShapeExpand.getIndentationOffset();
+            }
         }
 
+        RectF cursorRect = new RectF();
         cursorRect.set(offset + pointF.x,
-                lineRect.top + pointF.y, offset + pointF.x,
+                lineRect.top + pointF.y,
+                offset + pointF.x,
                 lineRect.bottom + pointF.y);
         RectUtils.scale(cursorRect, normalizeScale, normalizeScale);
         cursorShape = ShapeUtils.createCursorShape(cursorRect);

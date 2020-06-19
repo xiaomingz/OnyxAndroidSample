@@ -12,7 +12,16 @@ import com.onyx.gallery.utils.StaticLayoutUtils
  */
 class EditTextShapeExpand : EditTextShape() {
 
+    companion object {
+        const val INDENTATION_COUNT = 2
+    }
+
     var isIndentation = false
+
+    fun getIndentationOffset(): Float {
+        val textStyle = textStyle ?: return 0f
+        return textStyle.textSize * INDENTATION_COUNT
+    }
 
     override fun render(renderContext: RenderContext) {
         val textStyle = textStyle ?: return
@@ -32,7 +41,7 @@ class EditTextShapeExpand : EditTextShape() {
         }
         val textPaint = TextPaint()
         textPaint.color = getRenderColor(renderContext)
-        val layout = StaticLayoutUtils.createTextLayout(this, textPaint, isIndentation)
+        val layout = StaticLayoutUtils.createTextLayout(this, textPaint)
         renderContext.canvas.translate(0f, TextLayoutUtils.getFontBaseLineTranslate(this).toFloat())
         layout.draw(renderContext.canvas)
         renderContext.canvas.restore()

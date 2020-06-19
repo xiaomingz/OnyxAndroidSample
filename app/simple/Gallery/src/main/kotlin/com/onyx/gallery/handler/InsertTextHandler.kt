@@ -6,7 +6,6 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewConfiguration
 import android.widget.EditText
-import androidx.annotation.NonNull
 import com.onyx.android.sdk.data.FontInfo
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.rx.ObservableHolder
@@ -138,17 +137,16 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     }
 
     private fun transform(transformAction: ShapeTransformAction, movedPoint: TouchPoint) {
-        if (textShape == null) {
-            return
-        }
-        when (transformAction) {
-            ShapeTransformAction.ScaleX -> adjustTextInputWidth(textShape!!, movedPoint)
-            ShapeTransformAction.Translate -> onTranslate(textShape!!, movedPoint)
+        textShape?.run {
+            when (transformAction) {
+                ShapeTransformAction.ScaleX -> adjustTextInputWidth(this, movedPoint)
+                ShapeTransformAction.Translate -> onTranslate(this, movedPoint)
+            }
         }
     }
 
     private fun adjustTextInputWidth(shape: Shape, movedPoint: TouchPoint) {
-        val request = AdjustTextInputWidthRequest(shape, movedPoint, cursorShape!!, lastPoint!!)
+        val request = AdjustTextInputWidthRequest(shape, movedPoint, cursorShape, lastPoint!!)
         globalEditBundle.enqueue(request, object : RxCallback<AdjustTextInputWidthRequest?>() {
             override fun onNext(adjustTextInputWidthRequest: AdjustTextInputWidthRequest) {
                 lastPoint = movedPoint
@@ -173,9 +171,8 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         val dy = movedPoint.y - lastPoint!!.y
         lastPoint = TouchPoint(movedPoint)
         val shapes: MutableList<Shape> = ArrayList()
-        shapes.add(shape)
-        if (!TextUtils.isEmpty(shape.text) && cursorShape != null) {
-            shapes.add(cursorShape!!)
+        shapes.add(shape).apply {
+            cursorShape?.run { shapes.add(this) }
         }
         val request = TranslateRequest(shapes, PointF(dx, dy))
         globalEditBundle.enqueue(request, null)
@@ -204,9 +201,7 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
 
     private fun setCursorOffset(cursorOffset: Int) {
         this.cursorOffset = cursorOffset
-        if (cursorOffset > editTextView!!.text.length) {
-            editTextView?.setSelection(editTextView!!.text.length)
-        }
+        editTextView?.setSelection(cursorOffset)
     }
 
     private fun getScreenTouchPoint(touchPoint: TouchPoint): TouchPoint {
@@ -235,10 +230,12 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         it.visibility = View.GONE
     }
 
-    private fun getTextSelection(text: String?): Int = if (TextUtils.isEmpty(text)) {
-        0
-    } else {
-        text!!.length
+    private fun getTextSelection(text: String?): Int {
+        return if (TextUtils.isEmpty(text)) {
+            0
+        } else {
+            text!!.length
+        }
     }
 
     fun onTextSizeEvent(textSize: Float) {
@@ -286,8 +283,9 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         if (!canEdit()) {
             return
         }
+        insertTextConfig.isIndentation = isIndentation
         (textShape!! as EditTextShapeExpand).isIndentation = isIndentation
-        TextIndentationAction(textShape!!, cursorShape!!, cursorOffset).execute(null)
+        TextIndentationAction(textShape!!, cursorShape, cursorOffset).execute(null)
     }
 
     fun onTextTraditionalEvent(isTraditional: Boolean) {
@@ -305,7 +303,7 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     private fun saveTextShape(textShape: Shape, clear: Boolean) {
         val request = SaveTextShapesRequest(mutableListOf(textShape))
         globalEditBundle.enqueue(request, object : RxCallback<SaveTextShapesRequest?>() {
-            override fun onNext(@NonNull saveTextShapesRequest: SaveTextShapesRequest) {
+            override fun onNext(saveTextShapesRequest: SaveTextShapesRequest) {
                 if (clear) {
                     clear()
                 }
@@ -332,8 +330,5 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     private fun clearTextShape() {
         textShape = null
     }
-
-    private fun getTextShapeIsIndentation() = (textShape as EditTextShapeExpand).isIndentation
-
 
 }

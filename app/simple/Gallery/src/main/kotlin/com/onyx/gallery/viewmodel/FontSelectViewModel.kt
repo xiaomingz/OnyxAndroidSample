@@ -26,6 +26,7 @@ class FontSelectViewModel : BaseMenuViewModel() {
         const val TAB_FONT_CUSTOMIZE = 2
     }
 
+    val handler = Handler()
     lateinit var gPaginator: GPaginator
     lateinit var fontAdapter: FontSelectAdapter
     val totalCount = MutableLiveData<String>()
@@ -37,6 +38,11 @@ class FontSelectViewModel : BaseMenuViewModel() {
     private var cnFonts = listOf<FontInfo>()
     private var enFonts = listOf<FontInfo>()
     private var customizeFonts = listOf<FontInfo>()
+
+    override fun onCleared() {
+        super.onCleared()
+        handler.looper.quitSafely()
+    }
 
     fun onTypeChecked(type: Int) {
         if (currentTab.value === type) {
@@ -85,7 +91,7 @@ class FontSelectViewModel : BaseMenuViewModel() {
             resizeGPaginator(data.size)
         }
         totalCount.value = ResManager.getString(R.string.total_count, fontAdapter.data.size)
-        Handler().postDelayed({ updatePageIndicator() }, 300)
+        handler.postDelayed({ updatePageIndicator() }, 300L)
     }
 
     private fun resizeGPaginator(size: Int) {

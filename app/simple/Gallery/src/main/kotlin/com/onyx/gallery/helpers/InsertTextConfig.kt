@@ -13,12 +13,13 @@ class InsertTextConfig {
     private val defaultTextColor = ResManager.getColor(R.color.default_text_color)
 
     var textSize = defaultTextSize
-    var textSpacing: Float = 1f
-    var italic: Boolean = false
-    var bold: Boolean = false
-    var fontId: String = ""
-    var fontFace: String = ""
-    var textColor: Int = defaultTextColor
+    var textSpacing = 1f
+    var italic = false
+    var bold = false
+    var fontId = ""
+    var fontFace = ""
+    var isIndentation = false
+    var textColor = defaultTextColor
     var fontType: DeviceUtils.FontType? = null
 
     fun reset() {
@@ -28,6 +29,7 @@ class InsertTextConfig {
         bold = false
         fontId = ""
         fontFace = ""
+        isIndentation = false
         textColor = defaultTextColor
     }
 }

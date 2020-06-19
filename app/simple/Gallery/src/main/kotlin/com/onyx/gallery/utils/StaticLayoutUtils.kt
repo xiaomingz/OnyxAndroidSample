@@ -10,7 +10,6 @@ import android.text.StaticLayout
 import android.text.TextPaint
 import android.text.style.LeadingMarginSpan
 import com.onyx.android.sdk.scribble.data.ShapeTextStyle
-import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.utils.TextLayoutUtils
 import com.onyx.gallery.views.EditTextShapeExpand
 
@@ -21,14 +20,14 @@ import com.onyx.gallery.views.EditTextShapeExpand
 object StaticLayoutUtils {
 
     @JvmStatic
-    fun createTextLayout(shape: Shape): StaticLayout {
+    fun createTextLayout(shape: EditTextShapeExpand): StaticLayout {
         val tp = TextPaint()
         tp.color = shape.color
-        return createTextLayout(shape, tp, (shape as EditTextShapeExpand).isIndentation)
+        return createTextLayout(shape, tp)
     }
 
     @JvmStatic
-    fun createTextLayout(shape: Shape, textPaint: TextPaint, isIndentation: Boolean): StaticLayout {
+    fun createTextLayout(shape: EditTextShapeExpand, textPaint: TextPaint): StaticLayout {
         val textStyle = shape.textStyle
         val content = shape.renderText
         buildShapeTextPaint(textPaint, textStyle, content)
@@ -37,7 +36,7 @@ object StaticLayoutUtils {
         } else {
             textPaint.xfermode = null
         }
-        val span = buildTextContent(content, textStyle.textSize, isIndentation)
+        val span = buildTextContent(content, textStyle.textSize, shape.isIndentation)
         return StaticLayout(span,
                 textPaint,
                 textStyle.textWidth,
@@ -62,10 +61,10 @@ object StaticLayoutUtils {
     }
 
     @JvmStatic
-    fun buildTextContent(content: String, textSize: Float, isIndentation: Boolean): SpannableString {
+    private fun buildTextContent(content: String, textSize: Float, isIndentation: Boolean): SpannableString {
         val spannableString = SpannableString(content)
         if (isIndentation) {
-            val what = LeadingMarginSpan.Standard((textSize * 2).toInt(), 0)
+            val what = LeadingMarginSpan.Standard((textSize * EditTextShapeExpand.INDENTATION_COUNT).toInt(), 0)
             spannableString.setSpan(what, 0, spannableString.length, SpannableString.SPAN_INCLUSIVE_INCLUSIVE)
         }
         return spannableString

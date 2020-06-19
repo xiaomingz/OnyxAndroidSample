@@ -14,7 +14,7 @@ import com.onyx.gallery.request.textInput.UpdateSelectionRectRequest
 /**
  * Created by Leung on 2020/6/18
  */
-class TextIndentationAction(private val textShape: EditTextShape, private val cursorShape: Shape, val cursorOffset: Int) : BaseEditAction<RxRequest>() {
+class TextIndentationAction(private val textShape: EditTextShape, private var cursorShape: Shape?, val cursorOffset: Int) : BaseEditAction<RxRequest>() {
 
     override fun execute(callback: RxCallback<RxRequest>?) {
 
@@ -32,7 +32,8 @@ class TextIndentationAction(private val textShape: EditTextShape, private val cu
                             .setTextShape(textShape)
                             .setSelectionRect(getSelectionRect())
                     createCursorShapeByOffsetAction?.execute(null)
-                    renderInputTextShapeRequest.setCursorShape(createCursorShapeByOffsetAction!!.cursorShape)
+                    cursorShape = createCursorShapeByOffsetAction!!.cursorShape
+                    renderInputTextShapeRequest.setCursorShape(cursorShape)
                 }
             }
         }
