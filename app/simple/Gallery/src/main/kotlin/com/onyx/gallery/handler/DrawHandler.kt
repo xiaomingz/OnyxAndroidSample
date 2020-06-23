@@ -1,6 +1,7 @@
 package com.onyx.gallery.handler
 
 import android.content.Context
+import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
 import android.view.SurfaceView
@@ -80,6 +81,20 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
                 setRawDrawingEnabled(true)
             }
         }
+    }
+
+    fun clearScreen() {
+        readerHandler.clearCanvas()
+    }
+
+    fun rotateScreen(angle: Float, centerPoint: PointF) {
+        readerHandler.renderContext.matrix.run {
+            postRotate(angle, centerPoint.x, centerPoint.y)
+        }
+    }
+
+    fun renderMirror(mirrorModel: MirrorModel) {
+        surfaceView?.let { readerHandler.renderMirror(it, currLimitRect, mirrorModel) }
     }
 
     fun renderToBitmap(shape: Shape) {

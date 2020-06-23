@@ -11,9 +11,8 @@ class RestoreTransformRequest : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
         val renderContext = drawHandler.renderContext
-        val matrix = Matrix()
-        matrix.setScale(1f, 1f)
-        renderContext.setMatrix(matrix)
+        renderContext.setMatrix(Matrix())
+        renderShapesToBitmap = true
         renderToScreen = true
     }
 

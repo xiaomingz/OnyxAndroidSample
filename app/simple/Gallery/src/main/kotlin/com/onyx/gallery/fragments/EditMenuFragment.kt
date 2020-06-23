@@ -69,9 +69,13 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
             EditMenuViewModel.MenuStyle.TEXT -> {
                 globalEditBundle.supportZoom = false
                 globalEditBundle.canFingerTouch = false
-                globalEditBundle.enqueue(RestoreTransformRequest(), null)
+            }
+            EditMenuViewModel.MenuStyle.CROP -> {
+                globalEditBundle.supportZoom = true
+                globalEditBundle.canFingerTouch = true
             }
         }
+        globalEditBundle.enqueue(RestoreTransformRequest(), null)
     }
 
 }

@@ -17,6 +17,10 @@ import com.onyx.gallery.utils.RendererUtils
  * Created by Leung on 2020/6/5
  */
 
+enum class MirrorModel {
+    LEFT, TOP, RIGHT, BOTTOMÒ
+}
+
 class RenderHandler {
     private val strokePaint: Paint by lazy { initStrokePaint() }
 
@@ -45,6 +49,11 @@ class RenderHandler {
 
     private fun recycleRendererBitmap() {
         renderContext.recycleBitmap()
+    }
+
+    @WorkerThread
+    fun clearCanvas() {
+        renderContext.canvas.drawColor(Color.WHITE)
     }
 
     @WorkerThread
@@ -94,6 +103,39 @@ class RenderHandler {
         val rect = RendererUtils.checkSurfaceView(surfaceView)
         renderBackground(surfaceView.context, it, renderContext, rect)
         it.drawBitmap(renderContext.getBitmap(), 0f, 0f, null)
+        true
+    }
+
+    @WorkerThread
+    fun renderMirror(surfaceView: SurfaceView, limitRect: Rect, mirrorModel: MirrorModel) = renderToSurfaceViewImp(surfaceView) {
+        if (renderContext.scalingMatrix != null) {
+            it.matrix = renderContext.getScalingMatrix()
+        }
+        val rect = RendererUtils.checkSurfaceView(surfaceView)
+        renderBackground(surfaceView.context, it, renderContext, rect)
+
+        val matrix = Matrix()
+        when (mirrorModel) {
+            MirrorModel.LEFT -> {
+                val dx = (limitRect.left + limitRect.width() / 2).toFloat()
+                matrix.postTranslate(-dx, 0f);
+            }
+            MirrorModel.TOP -> {
+                val dy = (limitRect.top + limitRect.height() / 2).toFloat()
+                matrix.postTranslate(0f, -dy);
+            }
+            MirrorModel.RIGHT -> {
+                val dx = (limitRect.left + limitRect.width() / 2).toFloat()
+                matrix.postTranslate(dx, 0f);
+                matrix.postScale(-1f, 1f, limitRect.right.toFloat(), limitRect.bottom.toFloat())
+            }
+            MirrorModel.BOTTOMÒ -> {
+                val dy = (limitRect.top + limitRect.height() / 2).toFloat()
+                matrix.postTranslate(0f, dy);
+                matrix.postScale(1f, -1f, limitRect.right.toFloat(), limitRect.bottom.toFloat())
+            }
+        }
+        it.drawBitmap(renderContext.getBitmap(), matrix, Paint())
         true
     }
 

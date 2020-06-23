@@ -1,23 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.onyx.gallery.viewmodel.CropMenuViewModel" />
+
+        <import type="com.onyx.gallery.models.MenuAction" />
+
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white">
+        android:layout_height="@dimen/edit_menu_crop_height_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="#88ad"
-            android:gravity="center"
-            android:text="裁剪菜单" />
+        <LinearLayout
+            style="@style/dialog_format_parent_layout"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
 
-    </RelativeLayout>
+            <TextView
+                style="@style/text_style_spacing_style_name"
+                android:text="@string/crop" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.cropAction == MenuAction.CROP_CUSTOMIZE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_CUSTOMIZE)}"
+                app:srcCompat="@drawable/ic_crop_customize" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.cropAction == MenuAction.CROP_1_1}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_1_1)}"
+                app:srcCompat="@drawable/ic_crop_1_1" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.cropAction == MenuAction.CROP_4_3}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_4_3)}"
+                app:srcCompat="@drawable/ic_crop_4_3" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.cropAction == MenuAction.CROP_3_4}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_3_4)}"
+                app:srcCompat="@drawable/ic_crop_3_4" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.cropAction == MenuAction.CROP_16_9_h}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_16_9_h)}"
+                app:srcCompat="@drawable/ic_crop_16_9_h" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.cropAction == MenuAction.CROP_16_9_v}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_16_9_v)}"
+                app:srcCompat="@drawable/ic_crop_16_9_v" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/dialog_format_parent_layout"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                style="@style/text_style_spacing_style_name"
+                android:text="@string/rotate" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.ROTATE_LEFT)}"
+                app:srcCompat="@drawable/ic_rotate_left" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.ROTATE_RIGHT)}"
+                app:srcCompat="@drawable/ic_rotate_right" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_LEFT)}"
+                app:srcCompat="@drawable/ic_mirror_right" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_RIGHT)}"
+                app:srcCompat="@drawable/ic_mirror_left" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_BOTTOM)}"
+                app:srcCompat="@drawable/ic_mirror_top" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_TOP)}"
+                app:srcCompat="@drawable/ic_mirror_bottom" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </layout>

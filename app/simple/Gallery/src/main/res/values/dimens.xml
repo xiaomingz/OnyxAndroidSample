@@ -57,6 +57,7 @@
     <dimen name="gesture_page_threshold_value">300dp</dimen>
     <dimen name="kcb_item_title_text_size">16sp</dimen>
     <dimen name="edit_menu_graffiti_height_content">195dp</dimen>
+    <dimen name="edit_menu_crop_height_content">145dp</dimen>
     <dimen name="menu_radius">20dp</dimen>
 
     <dimen name="seek_bar_thumb_size">13dp</dimen>

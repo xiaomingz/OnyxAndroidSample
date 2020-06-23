@@ -390,6 +390,7 @@
     <string name="back">返回</string>
     <string name="total_count">总数：%d</string>
     <string name="page_index">%d/%d</string>
+    <string name="crop">裁剪</string>
 
     <!--
         Haven't found some strings? There's more at

@@ -9,6 +9,7 @@ import com.onyx.gallery.event.ui.DismissFontSelectMenuEvent
 import com.onyx.gallery.event.ui.FontChangeEvent
 import com.onyx.gallery.event.ui.ShowFontSelectMenuEvent
 import com.onyx.gallery.extensions.addFragment
+import com.onyx.gallery.extensions.showFragment
 import com.onyx.gallery.viewmodel.TextMenuViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -36,16 +37,22 @@ class TextMenuFragment : BaseMenuFragment<FragmentEditMenuTextBinding, TextMenuV
 
     override fun onDestroyView() {
         super.onDestroyView()
+        viewModel.showContent()
         globalEditBundle.insertTextHandler.saveTextShape(true)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onShowFontSelectMenuEvent(event: ShowFontSelectMenuEvent) {
+        val fragment = childFragmentManager.findFragmentByTag(FontSelectFragment::class.java.simpleName)
+        if (fragment != null) {
+            showFragment(fragment)
+            return
+        }
         addFragment(R.id.sub_menu_content, fontSelectFragment)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onDismissFontSelectMenuEvent(event: DismissFontSelectMenuEvent) {
+    fun onDismissFontSelectMenuEvent(event: DismissFontSelectMenuEvent? = null) {
         viewModel.showContent()
         childFragmentManager.popBackStack()
     }

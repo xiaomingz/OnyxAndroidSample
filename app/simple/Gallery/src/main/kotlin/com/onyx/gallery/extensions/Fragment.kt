@@ -12,8 +12,15 @@ fun Fragment.replaceLoadFragment(replaceId: Int, fragment: Fragment) {
 }
 
 fun Fragment.addFragment(replaceId: Int, fragment: Fragment) {
+    val tag = fragment::class.java.simpleName
     childFragmentManager.beginTransaction()
-            .add(replaceId, fragment)
-            .addToBackStack(fragment::class.java.simpleName)
+            .add(replaceId, fragment, tag)
+            .addToBackStack(tag)
+            .commit()
+}
+
+fun Fragment.showFragment(fragment: Fragment) {
+    childFragmentManager.beginTransaction()
+            .show(fragment)
             .commit()
 }
