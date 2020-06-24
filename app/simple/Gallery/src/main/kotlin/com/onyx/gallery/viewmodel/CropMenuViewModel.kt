@@ -14,6 +14,8 @@ import com.onyx.gallery.request.transform.RotateRequest
 class CropMenuViewModel : BaseMenuViewModel() {
 
     var rotateAngle = 90f
+    val xAxisMirror = MutableLiveData(MirrorModel.LEFT)
+    val yAxisMirror = MutableLiveData(MirrorModel.TOP)
     var cropAction = MutableLiveData(MenuAction.CROP_CUSTOMIZE)
 
     override fun updateTouchHandler() {
@@ -31,10 +33,10 @@ class CropMenuViewModel : BaseMenuViewModel() {
             MenuAction.CROP_16_9_v -> onCropTypeChange(action)
             MenuAction.ROTATE_LEFT -> onRotateToLeft()
             MenuAction.ROTATE_RIGHT -> onRotateToRight()
-            MenuAction.MIRROR_RIGHT -> onMirror(MirrorModel.RIGHT)
-            MenuAction.MIRROR_LEFT -> onMirror(MirrorModel.LEFT)
-            MenuAction.MIRROR_TOP -> onMirror(MirrorModel.TOP)
-            MenuAction.MIRROR_BOTTOM -> onMirror(MirrorModel.BOTTOMÒ)
+            MenuAction.MIRROR_LEFT,
+            MenuAction.MIRROR_RIGHT -> onXAxisChange()
+            MenuAction.MIRROR_TOP,
+            MenuAction.MIRROR_BOTTOM -> onYAxisChange()
             else -> return super.onHandleMenu(action)
         }
         return true
@@ -52,6 +54,26 @@ class CropMenuViewModel : BaseMenuViewModel() {
     private fun onRotateToRight() {
         val centerPoint = getCenterPoint()
         globalEditBundle.enqueue(RotateRequest(rotateAngle, centerPoint), null)
+    }
+
+    private fun onXAxisChange() {
+        val mirrorModel = if (xAxisMirror.value == MirrorModel.LEFT) {
+            MirrorModel.RIGHT
+        } else {
+            MirrorModel.LEFT
+        }
+        xAxisMirror.value = mirrorModel
+        onMirror(mirrorModel)
+    }
+
+    private fun onYAxisChange() {
+        val mirrorModel = if (yAxisMirror.value == MirrorModel.TOP) {
+            MirrorModel.BOTTOM
+        } else {
+            MirrorModel.TOP
+        }
+        yAxisMirror.value = mirrorModel
+        onMirror(mirrorModel)
     }
 
     private fun onMirror(mirrorModel: MirrorModel) {

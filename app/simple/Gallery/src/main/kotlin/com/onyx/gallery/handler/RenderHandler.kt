@@ -18,7 +18,7 @@ import com.onyx.gallery.utils.RendererUtils
  */
 
 enum class MirrorModel {
-    LEFT, TOP, RIGHT, BOTTOMÒ
+    LEFT, TOP, RIGHT, BOTTOM
 }
 
 class RenderHandler {
@@ -116,23 +116,20 @@ class RenderHandler {
 
         val matrix = Matrix()
         when (mirrorModel) {
-            MirrorModel.LEFT -> {
-                val dx = (limitRect.left + limitRect.width() / 2).toFloat()
-                matrix.postTranslate(-dx, 0f);
-            }
+            MirrorModel.LEFT,
             MirrorModel.TOP -> {
-                val dy = (limitRect.top + limitRect.height() / 2).toFloat()
-                matrix.postTranslate(0f, -dy);
+                matrix.postTranslate(0f, 0f);
+                matrix.postScale(1f, 1f);
             }
             MirrorModel.RIGHT -> {
-                val dx = (limitRect.left + limitRect.width() / 2).toFloat()
-                matrix.postTranslate(dx, 0f);
-                matrix.postScale(-1f, 1f, limitRect.right.toFloat(), limitRect.bottom.toFloat())
+                val dx = (limitRect.left + limitRect.width()).toFloat()
+                matrix.postTranslate(-dx, 0f);
+                matrix.postScale(-1f, 1f)
             }
-            MirrorModel.BOTTOMÒ -> {
-                val dy = (limitRect.top + limitRect.height() / 2).toFloat()
-                matrix.postTranslate(0f, dy);
-                matrix.postScale(1f, -1f, limitRect.right.toFloat(), limitRect.bottom.toFloat())
+            MirrorModel.BOTTOM -> {
+                val dy = (limitRect.top + limitRect.height()).toFloat()
+                matrix.postTranslate(0f, -dy);
+                matrix.postScale(1f, -1f)
             }
         }
         it.drawBitmap(renderContext.getBitmap(), matrix, Paint())

@@ -12,6 +12,8 @@
 
         <import type="com.onyx.gallery.models.MenuAction" />
 
+        <import type="com.onyx.gallery.handler.MirrorModel" />
+
     </data>
 
     <LinearLayout
@@ -92,21 +94,25 @@
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
+                visibleOrGone="@{viewModel.XAxisMirror==MirrorModel.LEFT}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_LEFT)}"
                 app:srcCompat="@drawable/ic_mirror_right" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
+                visibleOrGone="@{viewModel.XAxisMirror==MirrorModel.RIGHT}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_RIGHT)}"
                 app:srcCompat="@drawable/ic_mirror_left" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
+                visibleOrGone="@{viewModel.YAxisMirror==MirrorModel.BOTTOM}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_BOTTOM)}"
                 app:srcCompat="@drawable/ic_mirror_top" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
+                visibleOrGone="@{viewModel.YAxisMirror==MirrorModel.TOP}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_TOP)}"
                 app:srcCompat="@drawable/ic_mirror_bottom" />
 
