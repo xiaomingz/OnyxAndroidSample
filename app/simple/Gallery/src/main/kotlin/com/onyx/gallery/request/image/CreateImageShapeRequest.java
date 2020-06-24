@@ -10,12 +10,11 @@ import com.onyx.android.sdk.scribble.data.bean.ResourceType;
 import com.onyx.android.sdk.scribble.data.bean.ShapeResource;
 import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.android.sdk.scribble.shape.Shape;
-import com.onyx.android.sdk.scribble.shape.ShapeFactory;
 import com.onyx.android.sdk.scribble.utils.ShapeUtils;
 import com.onyx.android.sdk.utils.BitmapUtils;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
-import com.onyx.gallery.utils.NoteUtils;
+import com.onyx.gallery.views.ImageShapeExpand;
 
 /**
  * <pre>
@@ -85,7 +84,7 @@ public class CreateImageShapeRequest extends BaseRequest {
         Matrix normalizedMatrix = new Matrix();
         renderContext.matrix.invert(normalizedMatrix);
         TouchPoint normalizedDownPoint = ShapeUtils.matrixTouchPoint(downPoint, normalizedMatrix);
-        Shape shape = NoteUtils.createShape(ShapeFactory.SHAPE_IMAGE, ShapeFactory.LayoutType.FREE.ordinal());
+        Shape shape = new ImageShapeExpand();
         shape.onDown(normalizedDownPoint, normalizedDownPoint);
         TouchPoint up = new TouchPoint(downPoint);
         up.x = downPoint.x + imageSize.width;

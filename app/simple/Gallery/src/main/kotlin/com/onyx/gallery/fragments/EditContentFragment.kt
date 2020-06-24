@@ -1,8 +1,10 @@
 package com.onyx.gallery.fragments
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.PixelFormat
 import android.graphics.Rect
+import android.graphics.RectF
 import android.net.Uri
 import android.os.Bundle
 import android.view.SurfaceHolder
@@ -13,11 +15,16 @@ import com.onyx.android.sdk.utils.Debug
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditContentBinding
 import com.onyx.gallery.event.result.LoadImageResultEvent
+import com.onyx.gallery.event.ui.CloseCropEvent
+import com.onyx.gallery.event.ui.OpenCropEvent
+import com.onyx.gallery.event.ui.UpdateCropRectEvent
 import com.onyx.gallery.extensions.hideSoftInput
 import com.onyx.gallery.helpers.PATH_URI
 import com.onyx.gallery.request.AttachNoteViewRequest
 import com.onyx.gallery.touch.ScribbleTouchDistributor
 import com.onyx.gallery.viewmodel.EditContentViewModel
+import com.onyx.gallery.views.crop.HighlightView
+import com.onyx.gallery.views.crop.RotateBitmap
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -28,6 +35,7 @@ import org.greenrobot.eventbus.ThreadMode
 class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContentViewModel>() {
 
     private var uri: Uri? = null
+    private var rotateBitmap: RotateBitmap? = null
     private val surfaceCallback: SurfaceHolder.Callback by lazy { initSurfaceCallback() }
 
     private val TAG: String = EditContentFragment::class.java.simpleName
@@ -58,6 +66,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         binding.surfaceView.setOnTouchListener { _, event ->
             scribbleTouchDistributor.onTouchEvent(event)
         }
+        makeCropBorder()
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditContentBinding, rootView: View): EditContentViewModel {
@@ -78,6 +87,11 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         super.onDestroyView()
         globalEditBundle.release()
         binding.surfaceView.holder.removeCallback(surfaceCallback)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        rotateBitmap?.recycle()
     }
 
     private fun initSurfaceView() {
@@ -123,6 +137,8 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         }
     }
 
+    private fun openHandwriting() = drawHandler.touchHelper?.setRawDrawingEnabled(true)
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLoadImageResultEvent(event: LoadImageResultEvent) {
         if (event.isSuccess()) {
@@ -130,7 +146,52 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         }
     }
 
-    private fun openHandwriting() = drawHandler.touchHelper?.setRawDrawingEnabled(true)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onOpenCrop(event: OpenCropEvent) {
+        binding.cropImageView.visibility = View.VISIBLE
+        val highlightView = makeCropBorder()
+        binding.cropImageView.add(highlightView)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onCloseCropEvent(event: CloseCropEvent) {
+        binding.cropImageView.visibility = View.GONE
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdateCropRectEvent(event: UpdateCropRectEvent) {
+        binding.cropImageView.run {
+            highlightViews.clear()
+            highlightViews.add(makeCropBorder(event.cropRect))
+            postInvalidate()
+        }
+    }
+
+    private fun makeCropBorder(cropRect: RectF = RectF()): HighlightView? {
+        val imageBitmap = globalEditBundle.drawHandler.getImageBitmap() ?: return null
+        val rotateBitmap = RotateBitmap(imageBitmap, 0)
+        binding.cropImageView.setImageRotateBitmapResetBase(rotateBitmap, false)
+        val highlightView = HighlightView(binding.cropImageView)
+
+        if (cropRect.isEmpty) {
+            cropRect.set(initCropRect(imageBitmap))
+        }
+
+        val currLimitRect = globalEditBundle.drawHandler.currLimitRect
+        highlightView.setup(binding.cropImageView.getUnrotatedMatrix(), currLimitRect, cropRect, false)
+        highlightView.setFocus(true)
+        return highlightView
+    }
+
+    private fun initCropRect(imageBitmap: Bitmap): RectF {
+        val width: Int = imageBitmap.width
+        val height: Int = imageBitmap.height
+        val cropWidth = Math.min(width / 2, height / 2)
+        val cropHeight = cropWidth
+        val x = (width - cropWidth) / 2
+        val y = (height - cropHeight) / 2
+        return RectF(x.toFloat(), y.toFloat(), (x + cropWidth).toFloat(), (y + cropHeight).toFloat())
+    }
 
 
 }

@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuBinding
+import com.onyx.gallery.event.ui.CloseCropEvent
+import com.onyx.gallery.event.ui.OpenCropEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.request.RestoreTransformRequest
 import com.onyx.gallery.viewmodel.EditMenuViewModel
@@ -63,14 +65,17 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
     private fun handlerMenuChange(menuStyle: EditMenuViewModel.MenuStyle) {
         when (menuStyle) {
             EditMenuViewModel.MenuStyle.GRAFFITI -> {
+                postEvent(CloseCropEvent())
                 globalEditBundle.supportZoom = true
                 globalEditBundle.canFingerTouch = true
             }
             EditMenuViewModel.MenuStyle.TEXT -> {
+                postEvent(CloseCropEvent())
                 globalEditBundle.supportZoom = false
                 globalEditBundle.canFingerTouch = false
             }
             EditMenuViewModel.MenuStyle.CROP -> {
+                postEvent(OpenCropEvent())
                 globalEditBundle.supportZoom = true
                 globalEditBundle.canFingerTouch = true
             }

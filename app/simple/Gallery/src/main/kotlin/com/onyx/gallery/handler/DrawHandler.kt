@@ -1,6 +1,7 @@
 package com.onyx.gallery.handler
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.PointF
 import android.graphics.Rect
 import android.graphics.RectF
@@ -10,9 +11,11 @@ import com.onyx.android.sdk.scribble.data.SelectionBundle
 import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.gallery.event.raw.SelectionBundleEvent
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
+import com.onyx.gallery.views.ImageShapeExpand
 import org.greenrobot.eventbus.EventBus
 import java.util.*
 
@@ -189,6 +192,18 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
 
     fun clearSelectionRect() {
         renderContext.selectionRect = null
+    }
+
+    fun getImageBitmap(): Bitmap? {
+        if (CollectionUtils.isNullOrEmpty(cacheShapeList)) {
+            return null
+        }
+        for (shape in cacheShapeList) {
+            if (shape is ImageShapeExpand) {
+                return shape.getImageBitmap()
+            }
+        }
+        return null
     }
 
 
