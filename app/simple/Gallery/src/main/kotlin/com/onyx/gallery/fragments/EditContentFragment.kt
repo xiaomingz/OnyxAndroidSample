@@ -1,7 +1,7 @@
 package com.onyx.gallery.fragments
 
 import android.content.Context
-import android.graphics.Bitmap
+import android.graphics.Matrix
 import android.graphics.PixelFormat
 import android.graphics.Rect
 import android.graphics.RectF
@@ -149,8 +149,6 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onOpenCrop(event: OpenCropEvent) {
         binding.cropImageView.visibility = View.VISIBLE
-        val highlightView = makeCropBorder()
-        binding.cropImageView.add(highlightView)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -161,9 +159,11 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpdateCropRectEvent(event: UpdateCropRectEvent) {
         binding.cropImageView.run {
+            val highlightView = makeCropBorder(event.cropRect)
             highlightViews.clear()
-            highlightViews.add(makeCropBorder(event.cropRect))
-            postInvalidate()
+            highlightViews.add(highlightView)
+            highlightView?.setFocus(true)
+            invalidate()
         }
     }
 
@@ -172,26 +172,9 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         val rotateBitmap = RotateBitmap(imageBitmap, 0)
         binding.cropImageView.setImageRotateBitmapResetBase(rotateBitmap, false)
         val highlightView = HighlightView(binding.cropImageView)
-
-        if (cropRect.isEmpty) {
-            cropRect.set(initCropRect(imageBitmap))
-        }
-
         val currLimitRect = globalEditBundle.drawHandler.currLimitRect
-        highlightView.setup(binding.cropImageView.getUnrotatedMatrix(), currLimitRect, cropRect, false)
-        highlightView.setFocus(true)
+        highlightView.setup(Matrix(), currLimitRect, cropRect, false)
         return highlightView
     }
-
-    private fun initCropRect(imageBitmap: Bitmap): RectF {
-        val width: Int = imageBitmap.width
-        val height: Int = imageBitmap.height
-        val cropWidth = Math.min(width / 2, height / 2)
-        val cropHeight = cropWidth
-        val x = (width - cropWidth) / 2
-        val y = (height - cropHeight) / 2
-        return RectF(x.toFloat(), y.toFloat(), (x + cropWidth).toFloat(), (y + cropHeight).toFloat())
-    }
-
 
 }

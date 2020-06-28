@@ -41,7 +41,7 @@ class FontSelectViewModel : BaseMenuViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        handler.looper.quitSafely()
+        handler.removeCallbacksAndMessages(null)
     }
 
     fun onTypeChecked(type: Int) {

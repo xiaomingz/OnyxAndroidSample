@@ -116,6 +116,13 @@
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_TOP)}"
                 app:srcCompat="@drawable/ic_mirror_bottom" />
 
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                android:visibility="invisible" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                android:visibility="invisible" />
         </LinearLayout>
 
 

@@ -122,12 +122,12 @@ class RenderHandler {
                 matrix.postScale(1f, 1f);
             }
             MirrorModel.RIGHT -> {
-                val dx = (limitRect.left + limitRect.width()).toFloat()
+                val dx = limitRect.right.toFloat() + limitRect.left
                 matrix.postTranslate(-dx, 0f);
                 matrix.postScale(-1f, 1f)
             }
             MirrorModel.BOTTOM -> {
-                val dy = (limitRect.top + limitRect.height()).toFloat()
+                val dy = limitRect.bottom.toFloat() + limitRect.top
                 matrix.postTranslate(0f, -dy);
                 matrix.postScale(1f, -1f)
             }
