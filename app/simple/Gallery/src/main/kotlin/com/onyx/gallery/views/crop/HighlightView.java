@@ -202,6 +202,11 @@ public class HighlightView {
         canvas.drawCircle(xMiddle, drawRect.top, handleRadius, handlePaint);
         canvas.drawCircle(drawRect.right, yMiddle, handleRadius, handlePaint);
         canvas.drawCircle(xMiddle, drawRect.bottom, handleRadius, handlePaint);
+
+        canvas.drawCircle(drawRect.left, drawRect.top, handleRadius, handlePaint);
+        canvas.drawCircle(drawRect.left, drawRect.bottom, handleRadius, handlePaint);
+        canvas.drawCircle(drawRect.right, drawRect.top, handleRadius, handlePaint);
+        canvas.drawCircle(drawRect.right, drawRect.bottom, handleRadius, handlePaint);
     }
 
     private void drawThirds(Canvas canvas) {

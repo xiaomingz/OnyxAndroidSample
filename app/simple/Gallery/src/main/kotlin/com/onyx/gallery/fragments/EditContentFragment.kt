@@ -153,7 +153,11 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onCloseCropEvent(event: CloseCropEvent) {
-        binding.cropImageView.visibility = View.GONE
+        binding.cropImageView.run {
+            visibility = View.GONE
+            highlightViews.clear()
+            invalidate()
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

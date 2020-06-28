@@ -118,10 +118,12 @@
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
+                app:srcCompat="@drawable/ic_mirror_bottom"
                 android:visibility="invisible" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
+                app:srcCompat="@drawable/ic_mirror_bottom"
                 android:visibility="invisible" />
         </LinearLayout>
 
