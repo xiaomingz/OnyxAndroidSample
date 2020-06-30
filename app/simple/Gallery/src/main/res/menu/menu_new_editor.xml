@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:visible="true"
+        android:id="@+id/ok"
+        android:icon="@drawable/ic_ok"
+        android:title="@string/ok"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/undo"
         android:icon="@drawable/ic_note_undo"
         android:title="@string/search"

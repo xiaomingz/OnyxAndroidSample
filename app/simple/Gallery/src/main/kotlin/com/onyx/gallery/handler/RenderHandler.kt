@@ -57,6 +57,12 @@ class RenderHandler {
     }
 
     @WorkerThread
+    fun refreshBitmap(shapes: MutableList<Shape>) {
+        clearCanvas()
+        renderToBitmap(shapes)
+    }
+
+    @WorkerThread
     fun renderToBitmap(shapes: List<Shape>) {
         val benchmark = Benchmark()
         for (shape in shapes) {

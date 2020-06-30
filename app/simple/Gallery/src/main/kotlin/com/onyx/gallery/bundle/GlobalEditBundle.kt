@@ -10,6 +10,7 @@ import com.onyx.android.sdk.rx.RxManager
 import com.onyx.android.sdk.rx.RxRequest
 import com.onyx.gallery.App
 import com.onyx.gallery.R
+import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.handler.InsertTextHandler
 import com.onyx.gallery.handler.touch.TouchHandlerManager
@@ -38,6 +39,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     val rxManager: RxManager by lazy { RxManager.Builder.sharedSingleThreadManager() }
     val touchHandlerManager = TouchHandlerManager(this)
     val insertTextHandler = InsertTextHandler(this)
+    val cropHandler = CropHandler(this)
 
     companion object {
         val instance: GlobalEditBundle by lazy {
@@ -88,6 +90,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
 
     fun release() {
         drawHandler.release()
+        cropHandler.release()
         insertTextHandler.release()
         touchHandlerManager.deactivateHandler()
     }

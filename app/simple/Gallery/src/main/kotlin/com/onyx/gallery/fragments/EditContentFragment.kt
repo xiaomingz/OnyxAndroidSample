@@ -15,6 +15,7 @@ import com.onyx.android.sdk.utils.Debug
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditContentBinding
 import com.onyx.gallery.event.result.LoadImageResultEvent
+import com.onyx.gallery.event.result.SaveCropTransformResultEvent
 import com.onyx.gallery.event.ui.CloseCropEvent
 import com.onyx.gallery.event.ui.OpenCropEvent
 import com.onyx.gallery.event.ui.UpdateCropRectEvent
@@ -35,7 +36,6 @@ import org.greenrobot.eventbus.ThreadMode
 class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContentViewModel>() {
 
     private var uri: Uri? = null
-    private var rotateBitmap: RotateBitmap? = null
     private val surfaceCallback: SurfaceHolder.Callback by lazy { initSurfaceCallback() }
 
     private val TAG: String = EditContentFragment::class.java.simpleName
@@ -66,7 +66,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         binding.surfaceView.setOnTouchListener { _, event ->
             scribbleTouchDistributor.onTouchEvent(event)
         }
-        makeCropBorder()
+        binding.cropImageView.setOnCropRectChange(globalEditBundle.cropHandler)
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditContentBinding, rootView: View): EditContentViewModel {
@@ -87,11 +87,6 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         super.onDestroyView()
         globalEditBundle.release()
         binding.surfaceView.holder.removeCallback(surfaceCallback)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        rotateBitmap?.recycle()
     }
 
     private fun initSurfaceView() {
@@ -147,6 +142,13 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSaveCropTransformResultEvent(event: SaveCropTransformResultEvent) {
+        if (event.isSuccess()) {
+            onCloseCropEvent(CloseCropEvent())
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onOpenCrop(event: OpenCropEvent) {
         binding.cropImageView.visibility = View.VISIBLE
     }
@@ -154,7 +156,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onCloseCropEvent(event: CloseCropEvent) {
         binding.cropImageView.run {
-            visibility = View.GONE
+            visibility = View.INVISIBLE
             highlightViews.clear()
             invalidate()
         }
@@ -163,6 +165,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpdateCropRectEvent(event: UpdateCropRectEvent) {
         binding.cropImageView.run {
+            visibility = View.VISIBLE
             val highlightView = makeCropBorder(event.cropRect)
             highlightViews.clear()
             highlightViews.add(highlightView)
@@ -171,7 +174,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         }
     }
 
-    private fun makeCropBorder(cropRect: RectF = RectF()): HighlightView? {
+    private fun makeCropBorder(cropRect: RectF): HighlightView? {
         val imageBitmap = globalEditBundle.drawHandler.getImageBitmap() ?: return null
         val rotateBitmap = RotateBitmap(imageBitmap, 0)
         binding.cropImageView.setImageRotateBitmapResetBase(rotateBitmap, false)

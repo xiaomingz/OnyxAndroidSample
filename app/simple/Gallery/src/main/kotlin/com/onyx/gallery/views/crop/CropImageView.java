@@ -3,8 +3,11 @@ package com.onyx.gallery.views.crop;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
+import androidx.annotation.NonNull;
 
 import com.theartofdev.edmodo.cropper.CropImageActivity;
 
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 
 public class CropImageView extends ImageViewTouchBase {
 
+    private OnCropRectChange onCropRectChange;
     public ArrayList<HighlightView> highlightViews = new ArrayList<HighlightView>();
     HighlightView motionHighlightView;
     Context context;
@@ -20,6 +24,10 @@ public class CropImageView extends ImageViewTouchBase {
     private float lastY;
     private int motionEdge;
     private int validPointerId;
+
+    public interface OnCropRectChange {
+        void onCropRectChange(@NonNull RectF cropRect);
+    }
 
     public CropImageView(Context context) {
         super(context);
@@ -123,6 +131,9 @@ public class CropImageView extends ImageViewTouchBase {
                     lastX = event.getX();
                     lastY = event.getY();
                     ensureVisible(motionHighlightView);
+                    if (onCropRectChange != null) {
+                        onCropRectChange.onCropRectChange(motionHighlightView.cropRect);
+                    }
                 }
 
 //                if (motionHighlightView != null && event.getPointerId(event.getActionIndex()) == validPointerId) {
@@ -199,5 +210,9 @@ public class CropImageView extends ImageViewTouchBase {
     public void add(HighlightView hv) {
         highlightViews.add(hv);
         invalidate();
+    }
+
+    public void setOnCropRectChange(OnCropRectChange onCropRectChange) {
+        this.onCropRectChange = onCropRectChange;
     }
 }

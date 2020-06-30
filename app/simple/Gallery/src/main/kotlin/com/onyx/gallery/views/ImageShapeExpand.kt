@@ -10,4 +10,8 @@ class ImageShapeExpand : ImageShape() {
 
     fun getImageBitmap(): Bitmap = resourceBitmap
 
+    fun setResourceBitmap(imageBitmap: Bitmap) {
+        resourceBitmap = imageBitmap
+    }
+
 }

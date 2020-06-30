@@ -70,6 +70,12 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
         setStrokeWidth(DrawArgs.defaultStrokeWidth.toFloat())
     }
 
+    fun updateLimitRect(newLimitRect: Rect) {
+        orgLimitRect.set(newLimitRect)
+        currLimitRect.set(newLimitRect)
+        updateLimitRect()
+    }
+
     fun updateLimitRect() {
         touchHelper?.run {
             val dstLimitRect = RectF()
@@ -101,8 +107,7 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
     }
 
     fun renderToBitmap(shape: Shape) {
-        val shapes: MutableList<Shape> = ArrayList()
-        shapes.add(shape)
+        val shapes = mutableListOf(shape)
         renderToBitmap(shapes)
     }
 
@@ -115,7 +120,7 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
     }
 
     fun renderShapesToBitmap() {
-        readerHandler.renderToBitmap(cacheShapeList)
+        readerHandler.refreshBitmap(cacheShapeList)
     }
 
     fun renderVarietyShapesToScreen(shape: List<Shape>) {
@@ -195,17 +200,20 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
     }
 
     fun getImageBitmap(): Bitmap? {
+        return getImageShape()?.getImageBitmap()
+    }
+
+    fun getImageShape(): ImageShapeExpand? {
         if (CollectionUtils.isNullOrEmpty(cacheShapeList)) {
             return null
         }
         for (shape in cacheShapeList) {
             if (shape is ImageShapeExpand) {
-                return shape.getImageBitmap()
+                return shape
             }
         }
         return null
     }
-
 
 }
 

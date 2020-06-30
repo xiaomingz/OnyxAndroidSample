@@ -4,11 +4,9 @@ import android.graphics.*
 import com.onyx.android.sdk.scribble.data.RenderColorConfig
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
-import com.onyx.android.sdk.utils.FileUtils
-import com.onyx.android.sdk.utils.MtpUtils
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
-import java.io.File
+import com.onyx.gallery.utils.BitmapUtils
 
 /**
  * Created by Leung on 2020/5/8
@@ -16,29 +14,29 @@ import java.io.File
 class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
-        val opts = BitmapFactory.Options()
-        val imageBitmap = decodeFile(filePath, opts)
-        val newBitmap = createBitmap(filePath, opts)
-        val shapeBitmap = createShapeBitmap(opts)
+        val imageBitmap = decodeFile(filePath)
+        val newBitmap = createBitmap(filePath)
+        val shapeBitmap = createShapeBitmap(imageBitmap.width, imageBitmap.height)
         drawBitmap(newBitmap, imageBitmap, shapeBitmap)
-        saveBitmapToFile(filePath, newBitmap)
+        BitmapUtils.saveBitmapToFile(context, filePath, newBitmap)
         newBitmap.recycle()
+        imageBitmap.recycle()
     }
 
-    private fun createBitmap(path: String, opts: BitmapFactory.Options): Bitmap {
-        opts.inJustDecodeBounds = true
-        BitmapFactory.decodeFile(path, opts)
+    private fun createBitmap(path: String): Bitmap {
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        BitmapFactory.decodeFile(path, options)
         val config = Bitmap.Config.ARGB_8888
-        return Bitmap.createBitmap(opts.outWidth, opts.outHeight, config)
+        return Bitmap.createBitmap(options.outWidth, options.outHeight, config)
     }
 
-    private fun decodeFile(path: String, opts: BitmapFactory.Options): Bitmap {
-        opts.inJustDecodeBounds = false
+    private fun decodeFile(path: String): Bitmap {
         return BitmapFactory.decodeFile(path, BitmapFactory.Options())
     }
 
-    private fun createShapeBitmap(opts: BitmapFactory.Options): Bitmap {
-        val renderContext = createRenderContext(opts.outWidth, opts.outHeight)
+    private fun createShapeBitmap(outWidth: Int, outHeight: Int): Bitmap {
+        val renderContext = createRenderContext(outWidth, outHeight)
         val handwritingShape = drawHandler.getHandwritingShape()
         val matrix = Matrix()
         val normalizedMatrix = Matrix()
@@ -64,13 +62,5 @@ class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
         canvas.drawBitmap(imageBitmap, 0f, 0f, null)
         canvas.drawBitmap(shapeBitmap, 0f, 0f, null)
     }
-
-    private fun saveBitmapToFile(path: String, bitmap: Bitmap) {
-        FileUtils.deleteFile(path)
-        val file = File(path)
-        FileUtils.saveBitmapToFile(bitmap, file, Bitmap.CompressFormat.PNG, 100)
-        MtpUtils.updateMtpDb(context, file)
-    }
-
 
 }
