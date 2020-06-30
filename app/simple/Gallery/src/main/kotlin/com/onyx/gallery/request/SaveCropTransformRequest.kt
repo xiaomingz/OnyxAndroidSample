@@ -52,7 +52,7 @@ class SaveCropTransformRequest : BaseRequest() {
         val newBitmap = Bitmap.createScaledBitmap(cropBitmap, orgCropRect.width().toInt(), orgCropRect.height().toInt(), true)
         imageShape.setResourceBitmap(newBitmap)
 
-        val surfaceView = drawHandler.surfaceView!!
+        val surfaceView = drawHandler.surfaceView
         val dx: Float = surfaceView.width / 2 - orgCropRect.width() / 2.toFloat()
         val dy: Float = surfaceView.height / 2 - orgCropRect.height() / 2.toFloat()
         val downPoint = TouchPoint(dx, dy)

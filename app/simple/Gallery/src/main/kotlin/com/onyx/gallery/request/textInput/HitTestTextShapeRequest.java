@@ -89,7 +89,7 @@ public class HitTestTextShapeRequest extends BaseRequest {
 
     private Shape createTextShape(TouchPoint point) {
         DrawHandler drawHandler = getDrawHandler();
-        EditTextShapeExpand shape = (EditTextShapeExpand) ExpandShapeFactory.createShape(ExpandShapeFactory.EDITTEXT_SHAPE_EXPAND);
+        EditTextShapeExpand shape = (EditTextShapeExpand) ExpandShapeFactory.createShape(ExpandShapeFactory.EDIT_TEXT_SHAPE_EXPAND);
         ShapeTextStyle textStyle = new ShapeTextStyle();
         InsertTextConfig insertTextConfig = getInsertTextConfig();
         shape.setIndentation(insertTextConfig.isIndentation());

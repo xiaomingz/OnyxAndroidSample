@@ -25,8 +25,8 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     }
 
     fun onCropChangeToCustomize() {
-        val surfaceView = globalEditBundle.drawHandler.surfaceView ?: return
-        val imageBitmap = globalEditBundle.drawHandler.getImageBitmap() ?: return
+        val surfaceView = globalEditBundle.drawHandler.surfaceView
+        val imageBitmap = getImageBitmap() ?: return
         val width: Int = surfaceView.width
         val height: Int = surfaceView.height
         val centerPoint = Point(width / 2, height / 2)
@@ -114,26 +114,26 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     }
 
     private fun updateWidthRange(cropWidth: Int, width: Int, cropHeight: Int): Pair<Int, Int> {
-        var cropWidth1 = cropWidth
-        var cropHeight1 = cropHeight
-        val offsetWidth = cropWidth1 - width
-        val offsetHeight = cropHeight1 * offsetWidth / cropWidth1
-        cropWidth1 -= offsetWidth
-        cropHeight1 -= offsetHeight
-        return Pair(cropHeight1, cropWidth1)
+        var newCropWidth = cropWidth
+        var newCropHeight = cropHeight
+        val offsetWidth = newCropWidth - width
+        val offsetHeight = newCropHeight * offsetWidth / newCropWidth
+        newCropWidth -= offsetWidth
+        newCropHeight -= offsetHeight
+        return Pair(newCropHeight, newCropWidth)
     }
 
-    private fun updateHeightRange(cropHeight: Int, height: Int, cropWidth: Int): Pair<Int, Int> {
-        var cropHeight1 = cropHeight
-        var cropWidth1 = cropWidth
-        val offsetHeight = cropHeight1 - height
-        val offsetWidth = cropWidth1 * offsetHeight / cropHeight1
-        cropWidth1 -= offsetWidth
-        cropHeight1 -= offsetHeight
-        return Pair(cropHeight1, cropWidth1)
+    private fun updateHeightRange(cropHeight: Int, orgHeight: Int, cropWidth: Int): Pair<Int, Int> {
+        var newCropHeight = cropHeight
+        var newCropWidth = cropWidth
+        val offsetHeight = newCropHeight - orgHeight
+        val offsetWidth = newCropWidth * offsetHeight / newCropHeight
+        newCropWidth -= offsetWidth
+        newCropHeight -= offsetHeight
+        return Pair(newCropHeight, newCropWidth)
     }
 
-    private fun getImageBitmap(): Bitmap = globalEditBundle.drawHandler.getImageBitmap()!!
+    private fun getImageBitmap(): Bitmap? = globalEditBundle.drawHandler.getImageBitmap()
 
     fun onRotateToLeft() {
         val centerPoint = getCenterPoint()
@@ -169,8 +169,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
 
     private fun getCenterPoint(): PointF {
         val surfaceView = globalEditBundle.drawHandler.surfaceView
-        surfaceView ?: return PointF()
-        return PointF((surfaceView!!.width / 2).toFloat(), (surfaceView.height / 2).toFloat())
+        return PointF((surfaceView.width / 2).toFloat(), (surfaceView.height / 2).toFloat())
     }
 
     private fun postEvent(event: Any) {

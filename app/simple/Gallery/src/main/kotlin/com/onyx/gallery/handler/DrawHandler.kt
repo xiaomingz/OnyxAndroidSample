@@ -50,7 +50,7 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
             openRawDrawing()
             setRawDrawingEnabled(false)
         }
-        surfaceView!!.run {
+        surfaceView.run {
             getLocalVisibleRect(surfaceRect)
             readerHandler.createRendererBitmap(Rect(0, 0, width, height))
         }

@@ -11,13 +11,13 @@ object ExpandShapeFactory {
 
     const val IMAGE_SHAPE_EXPAND = 1
 
-    const val EDITTEXT_SHAPE_EXPAND = 2
+    const val EDIT_TEXT_SHAPE_EXPAND = 2
 
     @JvmStatic
     fun createShape(shapeType: Int): Shape {
         val shape = when (shapeType) {
             IMAGE_SHAPE_EXPAND -> ImageShapeExpand()
-            EDITTEXT_SHAPE_EXPAND -> EditTextShapeExpand()
+            EDIT_TEXT_SHAPE_EXPAND -> EditTextShapeExpand()
             else -> NoteUtils.createShape(shapeType, 0)
         }
         return shape
