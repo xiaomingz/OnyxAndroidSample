@@ -52,7 +52,7 @@ class TextMenuFragment : BaseMenuFragment<FragmentEditMenuTextBinding, TextMenuV
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onDismissFontSelectMenuEvent(event: DismissFontSelectMenuEvent? = null) {
+    fun onDismissFontSelectMenuEvent(event: DismissFontSelectMenuEvent) {
         viewModel.showContent()
         childFragmentManager.popBackStack()
     }

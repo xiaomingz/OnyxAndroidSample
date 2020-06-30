@@ -7,11 +7,12 @@ import com.onyx.gallery.bundle.GlobalEditBundle
  */
 
 enum class TouchHandlerType {
-    SCRIBBLE, GRAPHICS, TEXT_INSERTION,CROP
+    SCRIBBLE, GRAPHICS, TEXT_INSERTION, CROP
 }
 
 class TouchHandlerManager(globalEditBundle: GlobalEditBundle) {
 
+    var activateHandler: TouchHandler? = null
     private val touchHandlerMap = mutableMapOf<TouchHandlerType, TouchHandler>()
 
     init {
@@ -27,12 +28,10 @@ class TouchHandlerManager(globalEditBundle: GlobalEditBundle) {
 
     fun activateHandler(touchHandlerType: TouchHandlerType) {
         deactivateHandler()
-        getTouchHandler(touchHandlerType)?.onActivate()
+        activateHandler = getTouchHandler(touchHandlerType)?.apply { onActivate() }
     }
 
     fun deactivateHandler() {
-        for ((key, value) in touchHandlerMap) {
-            value.onDeactivate()
-        }
+        activateHandler?.onDeactivate()
     }
 }

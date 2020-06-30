@@ -12,7 +12,6 @@ enum class MenuAction {
     NOTE_COLOR_DARK_GREY,
     NOTE_COLOR_MEDIUM_GREY,
     NOTE_COLOR_LIGHT_GREY,
-    CROP_16_9_hNOTE_COLOR_WHITE,
     NOTE_COLOR_RED,
     NOTE_COLOR_GREEN,
     NOTE_COLOR_BLUE,
@@ -45,8 +44,8 @@ enum class MenuAction {
     CROP_1_1,
     CROP_4_3,
     CROP_3_4,
-    CROP_16_9_h,
-    CROP_16_9_v,
+    CROP_16_9_HORIZONTAL,
+    CROP_16_9_VERTICAL,
 
     //rotate
     ROTATE_LEFT,

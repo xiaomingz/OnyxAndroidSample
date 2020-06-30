@@ -87,5 +87,8 @@
     <dimen name="preference_check_box_size">24dp</dimen>
     <dimen name="dialog_text_style_layout_margin_left">10dp</dimen>
     <dimen name="dialog_text_style_layout_margin_right">10dp</dimen>
+    <dimen name="crop_menu_action_size">70dp</dimen>
+    <dimen name="graffiti_menu_action_size">70dp</dimen>
+    <dimen name="text_menu_action_size">70dp</dimen>
 
 </resources>

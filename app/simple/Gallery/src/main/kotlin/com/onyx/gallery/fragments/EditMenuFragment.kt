@@ -65,22 +65,34 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
     private fun handlerMenuChange(menuStyle: EditMenuViewModel.MenuStyle) {
         when (menuStyle) {
             EditMenuViewModel.MenuStyle.GRAFFITI -> {
-                postEvent(CloseCropEvent())
-                globalEditBundle.supportZoom = true
-                globalEditBundle.canFingerTouch = true
+                onGraffitiMenuClick()
             }
             EditMenuViewModel.MenuStyle.TEXT -> {
-                postEvent(CloseCropEvent())
-                globalEditBundle.supportZoom = false
-                globalEditBundle.canFingerTouch = false
+                onTextMenuClick()
             }
             EditMenuViewModel.MenuStyle.CROP -> {
-                postEvent(OpenCropEvent())
-                globalEditBundle.supportZoom = true
-                globalEditBundle.canFingerTouch = true
+                onCropMenuClick()
             }
         }
         globalEditBundle.enqueue(RestoreTransformRequest(), null)
+    }
+
+    private fun onGraffitiMenuClick() {
+        postEvent(CloseCropEvent())
+        globalEditBundle.supportZoom = true
+        globalEditBundle.canFingerTouch = true
+    }
+
+    private fun onTextMenuClick() {
+        postEvent(CloseCropEvent())
+        globalEditBundle.supportZoom = false
+        globalEditBundle.canFingerTouch = false
+    }
+
+    private fun onCropMenuClick() {
+        postEvent(OpenCropEvent())
+        globalEditBundle.supportZoom = true
+        globalEditBundle.canFingerTouch = true
     }
 
 }

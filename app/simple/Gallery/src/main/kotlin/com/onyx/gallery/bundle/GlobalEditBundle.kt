@@ -28,7 +28,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     var canFingerTouch = true
     var supportZoom = true
     var uri: Uri? = null
-    var filePath: String? = null
+    lateinit var filePath: String
     private var saveUri: Uri? = null
 
     var initDx = 0f
@@ -66,13 +66,12 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
         if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
             filePath = intent.extras!!.getString(REAL_FILE_PATH)
             uri = when {
-                host.isPathOnOTG(filePath!!) -> uri
-                filePath!!.startsWith("file:/") -> Uri.parse(filePath)
+                host.isPathOnOTG(filePath) -> uri
+                filePath.startsWith("file:/") -> Uri.parse(filePath)
                 else -> Uri.fromFile(File(filePath))
             }
         } else {
-            filePath = host.getRealPathFromURI(uri)
-            filePath?.apply {
+            filePath = host.getRealPathFromURI(uri).apply {
                 uri = Uri.fromFile(File(this))
             }
         }

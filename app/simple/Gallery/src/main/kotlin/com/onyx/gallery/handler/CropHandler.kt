@@ -24,7 +24,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         cropRect.set(cropRect)
     }
 
-    fun onCropChange_customize() {
+    fun onCropChangeToCustomize() {
         val surfaceView = globalEditBundle.drawHandler.surfaceView ?: return
         val imageBitmap = globalEditBundle.drawHandler.getImageBitmap() ?: return
         val width: Int = surfaceView.width
@@ -35,13 +35,13 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         postEvent(UpdateCropRectEvent(cropRect))
     }
 
-    fun onCropChange_1_1() {
+    fun onCropChangeTo_1_1() {
         val currLimitRect = globalEditBundle.drawHandler.currLimitRect
         cropRect.set(currLimitRect)
         postEvent(UpdateCropRectEvent(cropRect))
     }
 
-    fun onCropChange_4_3() {
+    fun onCropChangeTo_4_3() {
         val currLimitRect = globalEditBundle.drawHandler.currLimitRect
         val width = currLimitRect.width()
         val height = currLimitRect.height()
@@ -59,7 +59,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         postEvent(UpdateCropRectEvent(cropRect))
     }
 
-    fun onCropChange_3_4() {
+    fun onCropChangeTo_3_4() {
         val currLimitRect = globalEditBundle.drawHandler.currLimitRect
         val width = currLimitRect.width()
         val height = currLimitRect.height()
@@ -77,7 +77,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         postEvent(UpdateCropRectEvent(cropRect))
     }
 
-    fun onCropChange_h_16_9() {
+    fun onCropChangeToHorizontal_16_9() {
         val currLimitRect = globalEditBundle.drawHandler.currLimitRect
         val width = currLimitRect.width()
         val height = currLimitRect.height()
@@ -95,7 +95,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         postEvent(UpdateCropRectEvent(cropRect))
     }
 
-    fun onCropChange_v_16_9() {
+    fun onCropChangeToVertical_16_9() {
         val currLimitRect = globalEditBundle.drawHandler.currLimitRect
         val width = currLimitRect.width()
         val height = currLimitRect.height()
@@ -169,6 +169,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
 
     private fun getCenterPoint(): PointF {
         val surfaceView = globalEditBundle.drawHandler.surfaceView
+        surfaceView ?: return PointF()
         return PointF((surfaceView!!.width / 2).toFloat(), (surfaceView.height / 2).toFloat())
     }
 

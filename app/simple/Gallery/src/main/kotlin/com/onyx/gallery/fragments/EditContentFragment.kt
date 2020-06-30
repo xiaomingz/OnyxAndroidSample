@@ -110,9 +110,6 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     }
 
     private fun attachHostView() {
-        if (binding.surfaceView === drawHandler.surfaceView) {
-            return
-        }
         val request = AttachNoteViewRequest(binding.surfaceView)
         globalEditBundle.enqueue(request, object : RxCallback<AttachNoteViewRequest>() {
             override fun onNext(startScribbleRequest: AttachNoteViewRequest) {

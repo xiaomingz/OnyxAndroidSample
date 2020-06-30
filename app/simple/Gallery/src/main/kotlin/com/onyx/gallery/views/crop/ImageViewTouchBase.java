@@ -139,7 +139,6 @@ abstract class ImageViewTouchBase extends ImageView {
     }
 
     private void setImageBitmap(Bitmap bitmap, int rotation) {
-//        super.setImageBitmap(bitmap);
         Drawable d = getDrawable();
         if (d != null) {
             d.setDither(true);

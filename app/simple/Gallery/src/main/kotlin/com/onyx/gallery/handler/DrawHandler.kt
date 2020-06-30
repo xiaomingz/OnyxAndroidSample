@@ -32,15 +32,12 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
     private var readerHandler = RenderHandler()
     val renderContext = readerHandler.renderContext
 
-    var surfaceView: SurfaceView? = null
+    lateinit var surfaceView: SurfaceView
     private var rawInputCallback = RawInputCallbackImp(eventBus)
     var touchHelper: TouchHelper? = null
 
     fun attachHostView(hostView: SurfaceView) {
         checkSizeIsZero(hostView)
-        if (comparedHostView(hostView)) {
-            return
-        }
         initDrawArgs()
         surfaceView = hostView
         touchHelper = if (touchHelper == null) {
@@ -62,8 +59,6 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
     private fun checkSizeIsZero(surfaceView: SurfaceView) {
         check(!(surfaceView.width == 0 && surfaceView.height == 0)) { "can not start when view width and height is 0" }
     }
-
-    private fun comparedHostView(hostView: SurfaceView): Boolean = surfaceView === hostView
 
     private fun initDrawArgs() {
         setStrokeColor(DrawArgs.defaultStrokeColor)

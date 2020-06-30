@@ -12,6 +12,7 @@ import com.onyx.gallery.models.MenuAction
  */
 class CropMenuViewModel : BaseMenuViewModel() {
 
+    private val delayMillis = 300L
     val handler = Handler()
     val xAxisMirror = MutableLiveData(MirrorModel.LEFT)
     val yAxisMirror = MutableLiveData(MirrorModel.TOP)
@@ -23,7 +24,7 @@ class CropMenuViewModel : BaseMenuViewModel() {
         cropAction.value?.let {
             handler.postDelayed({
                 onHandleMenu(it)
-            }, 300)
+            }, delayMillis)
         }
     }
 
@@ -36,12 +37,12 @@ class CropMenuViewModel : BaseMenuViewModel() {
 
     override fun onHandleMenu(action: MenuAction): Boolean {
         when (action) {
-            MenuAction.CROP_CUSTOMIZE -> onCropChange_customize()
-            MenuAction.CROP_1_1 -> onCropChange_1_1()
-            MenuAction.CROP_4_3 -> onCropChange_4_3()
-            MenuAction.CROP_3_4 -> onCropChange_3_4()
-            MenuAction.CROP_16_9_h -> onCropChange_h_16_9()
-            MenuAction.CROP_16_9_v -> onCropChange_v_16_9()
+            MenuAction.CROP_CUSTOMIZE -> onCropChangeToCustomize()
+            MenuAction.CROP_1_1 -> onCropChangeTo_1_1()
+            MenuAction.CROP_4_3 -> onCropChangeTo_4_3()
+            MenuAction.CROP_3_4 -> onCropChangeTo_3_4()
+            MenuAction.CROP_16_9_HORIZONTAL -> onCropChangeToHorizontal_16_9()
+            MenuAction.CROP_16_9_VERTICAL -> onCropChangeToVertical_16_9()
             MenuAction.ROTATE_LEFT -> onRotateToLeft()
             MenuAction.ROTATE_RIGHT -> onRotateToRight()
             MenuAction.MIRROR_LEFT,
@@ -53,34 +54,34 @@ class CropMenuViewModel : BaseMenuViewModel() {
         return true
     }
 
-    private fun onCropChange_customize() {
-        getCropHandler().onCropChange_customize()
+    private fun onCropChangeToCustomize() {
+        getCropHandler().onCropChangeToCustomize()
         cropAction.value = MenuAction.CROP_CUSTOMIZE
     }
 
-    private fun onCropChange_1_1() {
-        getCropHandler().onCropChange_1_1()
+    private fun onCropChangeTo_1_1() {
+        getCropHandler().onCropChangeTo_1_1()
         cropAction.value = MenuAction.CROP_1_1
     }
 
-    private fun onCropChange_4_3() {
-        getCropHandler().onCropChange_4_3()
+    private fun onCropChangeTo_4_3() {
+        getCropHandler().onCropChangeTo_4_3()
         cropAction.value = MenuAction.CROP_4_3
     }
 
-    private fun onCropChange_3_4() {
-        getCropHandler().onCropChange_3_4()
+    private fun onCropChangeTo_3_4() {
+        getCropHandler().onCropChangeTo_3_4()
         cropAction.value = MenuAction.CROP_3_4
     }
 
-    private fun onCropChange_h_16_9() {
-        getCropHandler().onCropChange_h_16_9()
-        cropAction.value = MenuAction.CROP_16_9_h
+    private fun onCropChangeToHorizontal_16_9() {
+        getCropHandler().onCropChangeToHorizontal_16_9()
+        cropAction.value = MenuAction.CROP_16_9_HORIZONTAL
     }
 
-    private fun onCropChange_v_16_9() {
-        getCropHandler().onCropChange_v_16_9()
-        cropAction.value = MenuAction.CROP_16_9_v
+    private fun onCropChangeToVertical_16_9() {
+        getCropHandler().onCropChangeToVertical_16_9()
+        cropAction.value = MenuAction.CROP_16_9_VERTICAL
     }
 
     private fun onRotateToLeft() {

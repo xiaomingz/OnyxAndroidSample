@@ -22,7 +22,7 @@ class SaveCropTransformRequest : BaseRequest() {
         val cropBitmap = cropImage(cropRect)
         updateImageShape(imageShape, cropRect, cropBitmap)
         updateLimitRect(cropRect, imageShape.downPoint)
-        BitmapUtils.saveBitmapToFile(context, globalEditBundle.filePath!!, cropBitmap)
+        BitmapUtils.saveBitmapToFile(context, globalEditBundle.filePath, cropBitmap)
         renderShapesToBitmap = true
         renderToScreen = true
     }

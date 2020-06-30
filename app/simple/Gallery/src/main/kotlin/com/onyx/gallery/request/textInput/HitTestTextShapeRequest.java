@@ -20,6 +20,7 @@ import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.helpers.DrawArgs;
 import com.onyx.gallery.helpers.InsertTextConfig;
+import com.onyx.gallery.utils.ExpandShapeFactory;
 import com.onyx.gallery.views.EditTextShapeExpand;
 
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class HitTestTextShapeRequest extends BaseRequest {
 
     private Shape createTextShape(TouchPoint point) {
         DrawHandler drawHandler = getDrawHandler();
-        EditTextShapeExpand shape = new EditTextShapeExpand();
+        EditTextShapeExpand shape = (EditTextShapeExpand) ExpandShapeFactory.createShape(ExpandShapeFactory.EDITTEXT_SHAPE_EXPAND);
         ShapeTextStyle textStyle = new ShapeTextStyle();
         InsertTextConfig insertTextConfig = getInsertTextConfig();
         shape.setIndentation(insertTextConfig.isIndentation());

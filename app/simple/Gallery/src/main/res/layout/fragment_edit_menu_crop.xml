@@ -59,14 +59,14 @@
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                setViewActivated="@{viewModel.cropAction == MenuAction.CROP_16_9_h}"
-                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_16_9_h)}"
+                setViewActivated="@{viewModel.cropAction == MenuAction.CROP_16_9_HORIZONTAL}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_16_9_HORIZONTAL)}"
                 app:srcCompat="@drawable/ic_crop_16_9_h" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                setViewActivated="@{viewModel.cropAction == MenuAction.CROP_16_9_v}"
-                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_16_9_v)}"
+                setViewActivated="@{viewModel.cropAction == MenuAction.CROP_16_9_VERTICAL}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_16_9_VERTICAL)}"
                 app:srcCompat="@drawable/ic_crop_16_9_v" />
 
         </LinearLayout>

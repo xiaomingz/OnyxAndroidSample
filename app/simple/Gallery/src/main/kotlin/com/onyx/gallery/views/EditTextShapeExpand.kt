@@ -35,10 +35,10 @@ class EditTextShapeExpand : EditTextShape() {
         renderContext.canvas.save()
         renderContext.canvas.translate(pts[0], pts[1])
         if (renderContext.matrix != null) {
-            val f = FloatArray(9)
-            renderContext.matrix.getValues(f)
-            val scaleX = f[Matrix.MSCALE_X]
-            val scaleY = f[Matrix.MSCALE_Y]
+            val matrixValues = FloatArray(9)
+            renderContext.matrix.getValues(matrixValues)
+            val scaleX = matrixValues[Matrix.MSCALE_X]
+            val scaleY = matrixValues[Matrix.MSCALE_Y]
             renderContext.canvas.scale(scaleX * textStyle.pointScale, scaleY * textStyle.pointScale)
         }
         val textPaint = TextPaint()

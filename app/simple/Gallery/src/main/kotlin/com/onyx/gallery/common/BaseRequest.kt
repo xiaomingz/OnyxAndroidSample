@@ -10,7 +10,7 @@ import com.onyx.gallery.handler.DrawHandler
 /**
  * Created by Leung on 2020/5/16
  */
-abstract class BaseRequest() : RxRequest() {
+abstract class BaseRequest : RxRequest() {
     private val reportLogTimeThreshold = 1500
 
     protected val globalEditBundle = GlobalEditBundle.instance

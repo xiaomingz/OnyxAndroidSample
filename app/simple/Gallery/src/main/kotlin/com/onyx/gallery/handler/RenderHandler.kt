@@ -102,23 +102,19 @@ class RenderHandler {
     }
 
     @WorkerThread
-    fun renderToSurfaceView(surfaceView: SurfaceView) = renderToSurfaceViewImp(surfaceView) {
-        if (renderContext.scalingMatrix != null) {
-            it.matrix = renderContext.getScalingMatrix()
-        }
+    fun renderToSurfaceView(surfaceView: SurfaceView) = renderToSurfaceViewImp(surfaceView) { canvas ->
+        renderContext.scalingMatrix?.let { canvas.matrix = it }
         val rect = RendererUtils.checkSurfaceView(surfaceView)
-        renderBackground(surfaceView.context, it, renderContext, rect)
-        it.drawBitmap(renderContext.getBitmap(), 0f, 0f, null)
+        renderBackground(surfaceView.context, canvas, renderContext, rect)
+        canvas.drawBitmap(renderContext.getBitmap(), 0f, 0f, null)
         true
     }
 
     @WorkerThread
-    fun renderMirror(surfaceView: SurfaceView, limitRect: Rect, mirrorModel: MirrorModel) = renderToSurfaceViewImp(surfaceView) {
-        if (renderContext.scalingMatrix != null) {
-            it.matrix = renderContext.getScalingMatrix()
-        }
+    fun renderMirror(surfaceView: SurfaceView, limitRect: Rect, mirrorModel: MirrorModel) = renderToSurfaceViewImp(surfaceView) { canvas ->
+        renderContext.scalingMatrix?.let { canvas.matrix = it }
         val rect = RendererUtils.checkSurfaceView(surfaceView)
-        renderBackground(surfaceView.context, it, renderContext, rect)
+        renderBackground(surfaceView.context, canvas, renderContext, rect)
 
         val matrix = Matrix()
         when (mirrorModel) {
@@ -138,7 +134,7 @@ class RenderHandler {
                 matrix.postScale(1f, -1f)
             }
         }
-        it.drawBitmap(renderContext.getBitmap(), matrix, Paint())
+        canvas.drawBitmap(renderContext.getBitmap(), matrix, Paint())
         true
     }
 
