@@ -213,8 +213,7 @@ fun Context.getRealPathFromURI(uri: Uri): String {
             return path
         }
     }
-    val path = getDataColumn(uri)
-    return path ?: ""
+    return getDataColumn(uri) ?: ""
 }
 
 fun Context.getDataColumn(uri: Uri, selection: String? = null, selectionArgs: Array<String>? = null): String? {
