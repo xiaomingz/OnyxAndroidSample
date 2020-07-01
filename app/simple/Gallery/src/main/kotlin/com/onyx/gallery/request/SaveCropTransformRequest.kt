@@ -40,6 +40,9 @@ class SaveCropTransformRequest : BaseRequest() {
         var imageBitmap = BitmapFactory.decodeFile(filePath, BitmapFactory.Options())
         val cropRect = RectF(orgRropRect)
 
+        if (cropHandler.hasMirrorChange()) {
+            cropHandler.currMirrot?.let { imageBitmap = imageMirrorChange(imageBitmap, it) }
+        }
         val matrix = Matrix()
         val normalizedMatrix = Matrix()
         matrix.postScale(globalEditBundle.initScaleFactor, globalEditBundle.initScaleFactor)
@@ -54,6 +57,27 @@ class SaveCropTransformRequest : BaseRequest() {
                 cropRect.width().toInt(),
                 cropRect.height().toInt()
         )
+    }
+
+    private fun imageMirrorChange(imageBitmap: Bitmap, mirrorModel: MirrorModel): Bitmap {
+        val newBitmap = Bitmap.createBitmap(imageBitmap.width, imageBitmap.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(newBitmap)
+        val matrix = Matrix()
+        when (mirrorModel) {
+            MirrorModel.RIGHT -> {
+                val dx = imageBitmap.width.toFloat()
+                matrix.postTranslate(-dx, 0f);
+                matrix.postScale(-1f, 1f)
+            }
+            MirrorModel.BOTTOM -> {
+                val dy = imageBitmap.height.toFloat()
+                matrix.postTranslate(0f, -dy);
+                matrix.postScale(1f, -1f)
+            }
+        }
+        canvas.drawBitmap(imageBitmap, matrix, Paint())
+        imageBitmap.recycle()
+        return newBitmap
     }
 
     private fun zoomInToContainer(containerView: SurfaceView, imageSize: Size): Float {

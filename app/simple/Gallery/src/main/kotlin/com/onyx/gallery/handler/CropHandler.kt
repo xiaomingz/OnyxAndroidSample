@@ -19,6 +19,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     var rotateAngle = 90f
     var xAxisMirror = MirrorModel.LEFT
     var yAxisMirror = MirrorModel.TOP
+    var currMirrot: MirrorModel? = null
 
     override fun onCropRectChange(cropRect: RectF) {
         cropRect.set(cropRect)
@@ -164,7 +165,13 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     }
 
     private fun onMirror(mirrorModel: MirrorModel) {
+        currMirrot = mirrorModel
         globalEditBundle.enqueue(MirrorRequest(mirrorModel), null)
+    }
+
+    fun hasMirrorChange(): Boolean {
+        currMirrot ?: return false
+        return currMirrot == MirrorModel.RIGHT || currMirrot == MirrorModel.BOTTOM
     }
 
     private fun getCenterPoint(): PointF {
