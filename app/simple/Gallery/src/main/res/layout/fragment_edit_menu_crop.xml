@@ -100,12 +100,14 @@
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.XAxisMirror == MirrorModel.RIGHT}"
                 visibleOrGone="@{viewModel.XAxisMirror==MirrorModel.RIGHT}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_RIGHT)}"
                 app:srcCompat="@drawable/ic_mirror_left" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.YAxisMirror == MirrorModel.BOTTOM}"
                 visibleOrGone="@{viewModel.YAxisMirror==MirrorModel.BOTTOM}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_BOTTOM)}"
                 app:srcCompat="@drawable/ic_mirror_top" />
@@ -118,13 +120,13 @@
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                app:srcCompat="@drawable/ic_mirror_bottom"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_mirror_bottom" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                app:srcCompat="@drawable/ic_mirror_bottom"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_mirror_bottom" />
         </LinearLayout>
 
 

@@ -142,7 +142,7 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
     fun getHandwritingShape(): List<Shape> {
         val shapeList: MutableList<Shape> = ArrayList()
         for (shape in cacheShapeList) {
-            if (shape is ImageShape) {
+            if (shape is ImageShape || shape is ImageShapeExpand) {
                 continue
             }
             shapeList.add(shape)

@@ -16,7 +16,7 @@ class CropMenuViewModel : BaseMenuViewModel() {
     val handler = Handler()
     val xAxisMirror = MutableLiveData(MirrorModel.LEFT)
     val yAxisMirror = MutableLiveData(MirrorModel.TOP)
-    var cropAction = MutableLiveData<MenuAction>()
+    var cropAction = MutableLiveData(MenuAction.CROP_CUSTOMIZE)
 
     override fun updateTouchHandler() {
         globalEditBundle.touchHandlerManager.activateHandler(TouchHandlerType.CROP)

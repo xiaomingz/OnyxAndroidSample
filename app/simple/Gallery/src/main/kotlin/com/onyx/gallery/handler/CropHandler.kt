@@ -177,6 +177,10 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     }
 
     fun release() {
+        resetCropRect()
+    }
+
+    private fun resetCropRect() {
         cropRect.set(0f, 0f, 0f, 0f)
     }
 

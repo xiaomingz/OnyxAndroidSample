@@ -14,7 +14,8 @@ abstract class BaseRequest : RxRequest() {
     private val reportLogTimeThreshold = 1500
 
     protected val globalEditBundle = GlobalEditBundle.instance
-    protected val drawHandler = globalEditBundle.drawHandler
+    val drawHandler = globalEditBundle.drawHandler
+    val cropHandler = globalEditBundle.cropHandler
 
     @Volatile
     var renderToScreen = false

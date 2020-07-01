@@ -1,9 +1,12 @@
 package com.onyx.gallery.request
 
 import android.graphics.*
+import android.view.SurfaceView
+import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
+import com.onyx.gallery.handler.MirrorModel
 import com.onyx.gallery.utils.BitmapUtils
 import com.onyx.gallery.views.ImageShapeExpand
 
@@ -14,14 +17,19 @@ class SaveCropTransformRequest : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
         val imageShape = drawHandler.getImageShape() ?: return
-        val cropHandler = globalEditBundle.cropHandler
         val cropRect = RectF(cropHandler.cropRect)
         if (cropRect.isEmpty) {
             return
         }
         val cropBitmap = cropImage(cropRect)
-        updateImageShape(imageShape, cropRect, cropBitmap)
-        updateLimitRect(cropRect, imageShape.downPoint)
+
+        val imageSize = Size(cropBitmap.width.toInt(), cropBitmap.height.toInt())
+        val scaleFactor: Float = zoomInToContainer(drawHandler.surfaceView, imageSize).apply {
+            globalEditBundle.initScaleFactor = this
+        }
+        updateImageSize(imageSize, scaleFactor)
+        updateImageShape(imageShape, imageSize, cropBitmap)
+        updateLimitRect(imageSize, imageShape.downPoint)
         BitmapUtils.saveBitmapToFile(context, globalEditBundle.filePath, cropBitmap)
         renderShapesToBitmap = true
         renderToScreen = true
@@ -29,7 +37,7 @@ class SaveCropTransformRequest : BaseRequest() {
 
     private fun cropImage(orgRropRect: RectF): Bitmap {
         val filePath = globalEditBundle.filePath
-        val imageBitmap = BitmapFactory.decodeFile(filePath, BitmapFactory.Options())
+        var imageBitmap = BitmapFactory.decodeFile(filePath, BitmapFactory.Options())
         val cropRect = RectF(orgRropRect)
 
         val matrix = Matrix()
@@ -48,29 +56,51 @@ class SaveCropTransformRequest : BaseRequest() {
         )
     }
 
-    private fun updateImageShape(imageShape: ImageShapeExpand, orgCropRect: RectF, cropBitmap: Bitmap) {
-        val newBitmap = Bitmap.createScaledBitmap(cropBitmap, orgCropRect.width().toInt(), orgCropRect.height().toInt(), true)
+    private fun zoomInToContainer(containerView: SurfaceView, imageSize: Size): Float {
+        val containerWidth = containerView.width.toFloat()
+        val containerHeight = containerView.height.toFloat()
+        var scaleFactor = 1.0f
+        scaleFactor = if (containerWidth <= containerHeight) {
+            containerWidth / imageSize.width
+        } else {
+            containerHeight / imageSize.height
+        }
+        return scaleFactor
+    }
+
+    private fun updateImageSize(imageSize: Size, scaleFactor: Float) {
+        imageSize.width = (imageSize.width * scaleFactor).toInt()
+        imageSize.height = (imageSize.height * scaleFactor).toInt()
+    }
+
+    private fun updateImageShape(imageShape: ImageShapeExpand, imageSize: Size, cropBitmap: Bitmap) {
+        val newBitmap = Bitmap.createScaledBitmap(cropBitmap, imageSize.width, imageSize.height, true)
         imageShape.setResourceBitmap(newBitmap)
 
         val surfaceView = drawHandler.surfaceView
-        val dx: Float = surfaceView.width / 2 - orgCropRect.width() / 2.toFloat()
-        val dy: Float = surfaceView.height / 2 - orgCropRect.height() / 2.toFloat()
+        val dx: Float = surfaceView.width / 2 - imageSize.width / 2.toFloat()
+        val dy: Float = surfaceView.height / 2 - imageSize.height / 2.toFloat()
         val downPoint = TouchPoint(dx, dy)
         imageShape.onDown(downPoint, downPoint)
 
         val up = TouchPoint(downPoint)
-        up.x = downPoint.x + orgCropRect.width()
-        up.y = downPoint.y + orgCropRect.height()
+        up.x = downPoint.x + imageSize.width
+        up.y = downPoint.y + imageSize.height
         imageShape.onUp(up, up)
 
         imageShape.ensureShapeUniqueId()
         imageShape.updateShapeRect()
+
+        val rect = Rect(dx.toInt(), dy.toInt(), (dx + imageSize.width).toInt(), (dy + imageSize.height).toInt())
+        drawHandler.orgLimitRect = rect
+        globalEditBundle.initDx = dx
+        globalEditBundle.initDy = dy
     }
 
-    private fun updateLimitRect(orgCropRect: RectF, downPoint: TouchPoint) {
+    private fun updateLimitRect(imageSize: Size, downPoint: TouchPoint) {
         val newLimitRect = Rect(downPoint.x.toInt(), downPoint.y.toInt(),
-                (downPoint.x + orgCropRect.width()).toInt(),
-                (downPoint.y + orgCropRect.height()).toInt())
+                (downPoint.x + imageSize.width).toInt(),
+                (downPoint.y + imageSize.height).toInt())
         drawHandler.updateLimitRect(newLimitRect)
         drawHandler.setRawDrawingRenderEnabled(false)
     }
