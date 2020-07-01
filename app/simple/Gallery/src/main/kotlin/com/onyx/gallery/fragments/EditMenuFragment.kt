@@ -64,15 +64,9 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
 
     private fun handlerMenuChange(menuStyle: EditMenuViewModel.MenuStyle) {
         when (menuStyle) {
-            EditMenuViewModel.MenuStyle.GRAFFITI -> {
-                onGraffitiMenuClick()
-            }
-            EditMenuViewModel.MenuStyle.TEXT -> {
-                onTextMenuClick()
-            }
-            EditMenuViewModel.MenuStyle.CROP -> {
-                onCropMenuClick()
-            }
+            EditMenuViewModel.MenuStyle.GRAFFITI -> onGraffitiMenuClick()
+            EditMenuViewModel.MenuStyle.TEXT -> onTextMenuClick()
+            EditMenuViewModel.MenuStyle.CROP -> onCropMenuClick()
         }
         globalEditBundle.enqueue(RestoreTransformRequest(), null)
     }

@@ -35,21 +35,15 @@ class SaveCropTransformRequest : BaseRequest() {
         renderToScreen = true
     }
 
-    private fun cropImage(orgRropRect: RectF): Bitmap {
+    private fun cropImage(orgCropRect: RectF): Bitmap {
         val filePath = globalEditBundle.filePath
         var imageBitmap = BitmapFactory.decodeFile(filePath, BitmapFactory.Options())
-        val cropRect = RectF(orgRropRect)
+        val cropRect = RectF(orgCropRect)
 
         if (cropHandler.hasMirrorChange()) {
             cropHandler.currMirrot?.let { imageBitmap = imageMirrorChange(imageBitmap, it) }
         }
-        val matrix = Matrix()
-        val normalizedMatrix = Matrix()
-        matrix.postScale(globalEditBundle.initScaleFactor, globalEditBundle.initScaleFactor)
-        matrix.postTranslate(globalEditBundle.initDx, globalEditBundle.initDy)
-        matrix.invert(normalizedMatrix)
-        normalizedMatrix.mapRect(cropRect)
-
+        globalEditBundle.getNormalizedMatrix().mapRect(cropRect)
         return Bitmap.createBitmap(
                 imageBitmap,
                 cropRect.left.toInt(),

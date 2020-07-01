@@ -3,6 +3,7 @@ package com.onyx.gallery.bundle
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Matrix
 import android.net.Uri
 import android.provider.MediaStore
 import com.onyx.android.sdk.rx.RxCallback
@@ -92,6 +93,15 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
         cropHandler.release()
         insertTextHandler.release()
         touchHandlerManager.deactivateHandler()
+    }
+
+    fun getNormalizedMatrix(): Matrix {
+        val matrix = Matrix()
+        val normalizedMatrix = Matrix()
+        matrix.postScale(initScaleFactor, initScaleFactor)
+        matrix.postTranslate(initDx, initDy)
+        matrix.invert(normalizedMatrix)
+        return normalizedMatrix
     }
 
 

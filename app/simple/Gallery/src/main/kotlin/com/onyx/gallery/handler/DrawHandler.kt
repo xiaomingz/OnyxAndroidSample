@@ -1,10 +1,7 @@
 package com.onyx.gallery.handler
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.PointF
-import android.graphics.Rect
-import android.graphics.RectF
+import android.graphics.*
 import android.view.SurfaceView
 import com.onyx.android.sdk.pen.TouchHelper
 import com.onyx.android.sdk.scribble.data.SelectionBundle
@@ -98,7 +95,7 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
     }
 
     fun renderMirror(mirrorModel: MirrorModel) {
-        surfaceView?.let { readerHandler.renderMirror(it, currLimitRect, mirrorModel) }
+        readerHandler.renderMirror(surfaceView, currLimitRect, mirrorModel)
     }
 
     fun renderToBitmap(shape: Shape) {
@@ -111,7 +108,7 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
     }
 
     fun renderToScreen() {
-        surfaceView?.let { readerHandler.renderToSurfaceView(it) }
+        readerHandler.renderToSurfaceView(surfaceView)
     }
 
     fun renderShapesToBitmap() {
@@ -119,7 +116,7 @@ class DrawHandler(val context: Context, val eventBus: EventBus) {
     }
 
     fun renderVarietyShapesToScreen(shape: List<Shape>) {
-        surfaceView?.let { readerHandler.renderVarietyShapesToSurfaceView(it, shape) }
+        readerHandler.renderVarietyShapesToSurfaceView(surfaceView, shape)
     }
 
     fun release() {
