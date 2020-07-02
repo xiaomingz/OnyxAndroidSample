@@ -7,13 +7,13 @@ import com.onyx.gallery.handler.DrawHandler
 /**
  * Created by Leung on 2020/6/15
  */
-class RestoreTransformRequest : BaseRequest() {
+class RestoreTransformRequest(val refresh: Boolean = true) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
         val renderContext = drawHandler.renderContext
         renderContext.setMatrix(Matrix())
-        renderShapesToBitmap = true
-        renderToScreen = true
+        renderShapesToBitmap = refresh
+        renderToScreen = refresh
     }
 
 }

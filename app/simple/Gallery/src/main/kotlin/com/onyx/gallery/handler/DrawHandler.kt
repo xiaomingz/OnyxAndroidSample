@@ -1,7 +1,10 @@
 package com.onyx.gallery.handler
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.PointF
+import android.graphics.Rect
+import android.graphics.RectF
 import android.view.SurfaceView
 import com.onyx.android.sdk.pen.TouchHelper
 import com.onyx.android.sdk.scribble.data.SelectionBundle
@@ -22,14 +25,14 @@ import java.util.*
 class DrawHandler(val context: Context, val eventBus: EventBus) {
     var orgLimitRect = Rect()
     val currLimitRect = Rect()
-    private val surfaceRect = Rect()
+    val surfaceRect = Rect()
     val cacheShapeList = mutableListOf<Shape>()
     val drawingArgs = DrawArgs()
 
     private var readerHandler = RenderHandler()
     val renderContext = readerHandler.renderContext
 
-    lateinit var surfaceView: SurfaceView
+    private lateinit var surfaceView: SurfaceView
     private var rawInputCallback = RawInputCallbackImp(eventBus)
     var touchHelper: TouchHelper? = null
 

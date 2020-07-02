@@ -53,7 +53,7 @@ class RenderHandler {
 
     @WorkerThread
     fun clearCanvas() {
-        renderContext.canvas.drawColor(Color.WHITE)
+        renderContext.canvas?.drawColor(Color.WHITE)
     }
 
     @WorkerThread

@@ -2,7 +2,6 @@ package com.onyx.gallery.request.image;
 
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.view.SurfaceView;
 
 import com.onyx.android.sdk.data.Size;
 import com.onyx.android.sdk.pen.data.TouchPoint;
@@ -15,7 +14,6 @@ import com.onyx.android.sdk.utils.BitmapUtils;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.ExpandShapeFactory;
-import com.onyx.gallery.views.ImageShapeExpand;
 
 /**
  * <pre>
@@ -45,7 +43,7 @@ public class CreateImageShapeRequest extends BaseRequest {
         Size imageSize = new Size();
         BitmapUtils.decodeBitmapSize(imageFilePath, imageSize);
 
-        float scaleFactor = calculateScaleFactor(drawHandler.getSurfaceView(), imageSize);
+        float scaleFactor = calculatesSaleFactor(imageSize);
         updateImageSize(imageSize, scaleFactor);
 
         float dx = scribbleRect.width() / 2 - imageSize.width / 2;
@@ -63,22 +61,13 @@ public class CreateImageShapeRequest extends BaseRequest {
         setRenderToScreen(true);
     }
 
+    private float calculatesSaleFactor(Size imageSize) {
+        return getGlobalEditBundle().scaleToContainer(imageSize);
+    }
+
     private void updateImageSize(Size imageSize, float scaleFactor) {
         imageSize.width = (int) (imageSize.width * scaleFactor);
         imageSize.height = (int) (imageSize.height * scaleFactor);
-    }
-
-    private float calculateScaleFactor(SurfaceView surfaceView, Size imageSize) {
-        float containerWidth = surfaceView.getWidth();
-        float containerHeight = surfaceView.getHeight();
-
-        float scaleFactor = 1.0f;
-        if (imageSize.width >= imageSize.height) {
-            scaleFactor = containerWidth / imageSize.width;
-        } else {
-            scaleFactor = containerHeight / imageSize.height;
-        }
-        return scaleFactor;
     }
 
     private Shape createImageShape(TouchPoint downPoint, RenderContext renderContext, Size imageSize) {

@@ -27,10 +27,10 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     }
 
     fun onCropChangeToCustomize() {
-        val surfaceView = globalEditBundle.drawHandler.surfaceView
+        val surfaceRect = globalEditBundle.drawHandler.surfaceRect
         val imageBitmap = getImageBitmap() ?: return
-        val width: Int = surfaceView.width
-        val height: Int = surfaceView.height
+        val width: Int = surfaceRect.width()
+        val height: Int = surfaceRect.height()
         val centerPoint = Point(width / 2, height / 2)
         val offset = Math.min(imageBitmap.width / 4, imageBitmap.height / 4).toFloat()
         cropBoxRect.set(centerPoint.x - offset, centerPoint.y - offset, centerPoint.x + offset, centerPoint.y + offset)

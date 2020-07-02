@@ -1,17 +1,13 @@
 package com.onyx.gallery.request
 
 import android.graphics.*
-import android.view.SurfaceView
 import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.pen.data.TouchPoint
-import com.onyx.android.sdk.utils.DateTimeUtil
-import com.onyx.android.sdk.utils.FileUtils
-import com.onyx.android.sdk.utils.MtpUtils
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.handler.MirrorModel
+import com.onyx.gallery.utils.BitmapUtils
 import com.onyx.gallery.views.ImageShapeExpand
-import java.io.File
 
 /**
  * Created by Leung on 2020/6/29
@@ -27,22 +23,14 @@ class SaveCropTransformRequest : BaseRequest() {
         val cropBitmap = cropImage(cropRect)
 
         val imageSize = Size(cropBitmap.width.toInt(), cropBitmap.height.toInt())
-        val scaleFactor: Float = zoomInToContainer(drawHandler.surfaceView, imageSize).apply {
+        val scaleFactor: Float = globalEditBundle.scaleToContainer(imageSize).apply {
             globalEditBundle.initScaleFactor = this
         }
         updateImageSize(imageSize, scaleFactor)
         updateImageShape(imageShape, imageSize, cropBitmap)
         updateLimitRect(imageSize, imageShape.downPoint)
-//        BitmapUtils.saveBitmapToFile(context, globalEditBundle.filePath, cropBitmap)
-
-        val file = File(FileUtils.getParent(globalEditBundle.filePath), "leung_crop_${DateTimeUtil.getCurrentTime()}.png")
-        FileUtils.saveBitmapToFile(cropBitmap, file, Bitmap.CompressFormat.PNG, 100)
-        MtpUtils.updateMtpDb(context, file)
-        globalEditBundle.filePath = file.absolutePath
-
+        BitmapUtils.saveBitmapToFile(context, globalEditBundle.filePath, cropBitmap)
         cropHandler.resetCropState()
-        renderShapesToBitmap = true
-        renderToScreen = true
     }
 
     private fun cropImage(orgCropRect: RectF): Bitmap {
@@ -98,18 +86,6 @@ class SaveCropTransformRequest : BaseRequest() {
         return newBitmap
     }
 
-    private fun zoomInToContainer(containerView: SurfaceView, imageSize: Size): Float {
-        val containerWidth = containerView.width.toFloat()
-        val containerHeight = containerView.height.toFloat()
-        var scaleFactor = 1.0f
-        scaleFactor = if (containerWidth <= containerHeight) {
-            containerWidth / imageSize.width
-        } else {
-            containerHeight / imageSize.height
-        }
-        return scaleFactor
-    }
-
     private fun updateImageSize(imageSize: Size, scaleFactor: Float) {
         imageSize.width = (imageSize.width * scaleFactor).toInt()
         imageSize.height = (imageSize.height * scaleFactor).toInt()
@@ -119,9 +95,9 @@ class SaveCropTransformRequest : BaseRequest() {
         val newBitmap = Bitmap.createScaledBitmap(cropBitmap, imageSize.width, imageSize.height, true)
         imageShape.setResourceBitmap(newBitmap)
 
-        val surfaceView = drawHandler.surfaceView
-        val dx: Float = surfaceView.width / 2 - imageSize.width / 2.toFloat()
-        val dy: Float = surfaceView.height / 2 - imageSize.height / 2.toFloat()
+        val surfaceRect = drawHandler.surfaceRect
+        val dx: Float = surfaceRect.width() / 2 - imageSize.width / 2.toFloat()
+        val dy: Float = surfaceRect.height() / 2 - imageSize.height / 2.toFloat()
         val downPoint = TouchPoint(dx, dy)
         imageShape.onDown(downPoint, downPoint)
 

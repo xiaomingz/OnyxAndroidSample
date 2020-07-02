@@ -7,6 +7,7 @@ import android.graphics.Matrix
 import android.graphics.PointF
 import android.net.Uri
 import android.provider.MediaStore
+import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.rx.RxManager
 import com.onyx.android.sdk.rx.RxRequest
@@ -97,13 +98,21 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     }
 
     fun getContainerCenterPoint(): PointF {
-        val surfaceView = drawHandler.surfaceView
-        return PointF((surfaceView.width / 2).toFloat(), (surfaceView.height / 2).toFloat())
+        val surfaceRect = drawHandler.surfaceRect
+        return PointF((surfaceRect.width() / 2).toFloat(), (surfaceRect.height() / 2).toFloat())
     }
 
-    fun getImageCenterPoint(): PointF {
-        val imageBitmap = drawHandler.getImageBitmap() ?: return PointF()
-        return PointF((imageBitmap.width / 2).toFloat(), (imageBitmap.height / 2).toFloat())
+    fun scaleToContainer(imageSize: Size): Float {
+        val surfaceRect = drawHandler.surfaceRect
+        val containerWidth = surfaceRect.width().toFloat()
+        val containerHeight = surfaceRect.height().toFloat()
+        val scaleFactor = if (imageSize.width > containerWidth && imageSize.height > containerHeight
+                && imageSize.width >= imageSize.height) {
+            containerWidth / imageSize.width
+        } else {
+            containerHeight / imageSize.height
+        }
+        return scaleFactor
     }
 
     fun getNormalizedMatrix(): Matrix {
