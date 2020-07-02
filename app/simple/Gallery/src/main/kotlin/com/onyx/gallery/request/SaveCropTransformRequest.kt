@@ -4,11 +4,14 @@ import android.graphics.*
 import android.view.SurfaceView
 import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.pen.data.TouchPoint
+import com.onyx.android.sdk.utils.DateTimeUtil
+import com.onyx.android.sdk.utils.FileUtils
+import com.onyx.android.sdk.utils.MtpUtils
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.handler.MirrorModel
-import com.onyx.gallery.utils.BitmapUtils
 import com.onyx.gallery.views.ImageShapeExpand
+import java.io.File
 
 /**
  * Created by Leung on 2020/6/29
@@ -17,7 +20,7 @@ class SaveCropTransformRequest : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
         val imageShape = drawHandler.getImageShape() ?: return
-        val cropRect = RectF(cropHandler.cropRect)
+        val cropRect = RectF(cropHandler.cropBoxRect)
         if (cropRect.isEmpty) {
             return
         }
@@ -30,7 +33,14 @@ class SaveCropTransformRequest : BaseRequest() {
         updateImageSize(imageSize, scaleFactor)
         updateImageShape(imageShape, imageSize, cropBitmap)
         updateLimitRect(imageSize, imageShape.downPoint)
-        BitmapUtils.saveBitmapToFile(context, globalEditBundle.filePath, cropBitmap)
+//        BitmapUtils.saveBitmapToFile(context, globalEditBundle.filePath, cropBitmap)
+
+        val file = File(FileUtils.getParent(globalEditBundle.filePath), "leung_crop_${DateTimeUtil.getCurrentTime()}.png")
+        FileUtils.saveBitmapToFile(cropBitmap, file, Bitmap.CompressFormat.PNG, 100)
+        MtpUtils.updateMtpDb(context, file)
+        globalEditBundle.filePath = file.absolutePath
+
+        cropHandler.resetCropState()
         renderShapesToBitmap = true
         renderToScreen = true
     }
@@ -39,7 +49,9 @@ class SaveCropTransformRequest : BaseRequest() {
         val filePath = globalEditBundle.filePath
         var imageBitmap = BitmapFactory.decodeFile(filePath, BitmapFactory.Options())
         val cropRect = RectF(orgCropRect)
-
+        if (cropHandler.hasRotateChange()) {
+            imageBitmap = imageRotateChange(imageBitmap)
+        }
         if (cropHandler.hasMirrorChange()) {
             cropHandler.currMirrot?.let { imageBitmap = imageMirrorChange(imageBitmap, it) }
         }
@@ -51,6 +63,18 @@ class SaveCropTransformRequest : BaseRequest() {
                 cropRect.width().toInt(),
                 cropRect.height().toInt()
         )
+    }
+
+    private fun imageRotateChange(imageBitmap: Bitmap): Bitmap {
+        val width = imageBitmap.width
+        val height = imageBitmap.height
+        val newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(newBitmap)
+        val matrix = Matrix()
+        matrix.postRotate(cropHandler.currAngle, (width / 2).toFloat(), (height / 2).toFloat())
+        canvas.drawBitmap(imageBitmap, matrix, Paint())
+        imageBitmap.recycle()
+        return newBitmap
     }
 
     private fun imageMirrorChange(imageBitmap: Bitmap, mirrorModel: MirrorModel): Bitmap {

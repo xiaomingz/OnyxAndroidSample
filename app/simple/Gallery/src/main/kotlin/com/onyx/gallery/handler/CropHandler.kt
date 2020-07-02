@@ -2,9 +2,9 @@ package com.onyx.gallery.handler
 
 import android.graphics.Bitmap
 import android.graphics.Point
-import android.graphics.PointF
 import android.graphics.RectF
 import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.event.ui.StartRotateEvent
 import com.onyx.gallery.event.ui.UpdateCropRectEvent
 import com.onyx.gallery.request.transform.MirrorRequest
 import com.onyx.gallery.request.transform.RotateRequest
@@ -15,14 +15,15 @@ import com.onyx.gallery.views.crop.CropImageView
  */
 class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCropRectChange {
 
-    var cropRect = RectF()
-    var rotateAngle = 90f
+    var cropBoxRect = RectF()
+    var singleRotateAngle = 90f
+    var currAngle = 0f
     var xAxisMirror = MirrorModel.LEFT
     var yAxisMirror = MirrorModel.TOP
     var currMirrot: MirrorModel? = null
 
-    override fun onCropRectChange(cropRect: RectF) {
-        cropRect.set(cropRect)
+    override fun onCropRectChange(newCropRect: RectF) {
+        cropBoxRect.set(newCropRect)
     }
 
     fun onCropChangeToCustomize() {
@@ -32,14 +33,14 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         val height: Int = surfaceView.height
         val centerPoint = Point(width / 2, height / 2)
         val offset = Math.min(imageBitmap.width / 4, imageBitmap.height / 4).toFloat()
-        cropRect.set(centerPoint.x - offset, centerPoint.y - offset, centerPoint.x + offset, centerPoint.y + offset)
-        postEvent(UpdateCropRectEvent(cropRect))
+        cropBoxRect.set(centerPoint.x - offset, centerPoint.y - offset, centerPoint.x + offset, centerPoint.y + offset)
+        postEvent(UpdateCropRectEvent(cropBoxRect))
     }
 
     fun onCropChangeTo_1_1() {
         val currLimitRect = globalEditBundle.drawHandler.currLimitRect
-        cropRect.set(currLimitRect)
-        postEvent(UpdateCropRectEvent(cropRect))
+        cropBoxRect.set(currLimitRect)
+        postEvent(UpdateCropRectEvent(cropBoxRect))
     }
 
     fun onCropChangeTo_4_3() {
@@ -54,10 +55,10 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
             cropHeight = pair.first
             cropWidth = pair.second
         }
-        cropRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
+        cropBoxRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
                 currLimitRect.left + cropWidth.toFloat(),
                 currLimitRect.top + cropHeight.toFloat())
-        postEvent(UpdateCropRectEvent(cropRect))
+        postEvent(UpdateCropRectEvent(cropBoxRect))
     }
 
     fun onCropChangeTo_3_4() {
@@ -72,10 +73,10 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
             cropHeight = pair.first
             cropWidth = pair.second
         }
-        cropRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
+        cropBoxRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
                 currLimitRect.left + cropWidth.toFloat(),
                 currLimitRect.top + cropHeight.toFloat())
-        postEvent(UpdateCropRectEvent(cropRect))
+        postEvent(UpdateCropRectEvent(cropBoxRect))
     }
 
     fun onCropChangeToHorizontal_16_9() {
@@ -90,10 +91,10 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
             cropHeight = pair.first
             cropWidth = pair.second
         }
-        cropRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
+        cropBoxRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
                 currLimitRect.left + cropWidth.toFloat(),
                 currLimitRect.top + cropHeight.toFloat())
-        postEvent(UpdateCropRectEvent(cropRect))
+        postEvent(UpdateCropRectEvent(cropBoxRect))
     }
 
     fun onCropChangeToVertical_16_9() {
@@ -108,10 +109,10 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
             cropHeight = pair.first
             cropWidth = pair.second
         }
-        cropRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
+        cropBoxRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
                 currLimitRect.left + cropWidth.toFloat(),
                 currLimitRect.top + cropHeight.toFloat())
-        postEvent(UpdateCropRectEvent(cropRect))
+        postEvent(UpdateCropRectEvent(cropBoxRect))
     }
 
     private fun updateWidthRange(cropWidth: Int, width: Int, cropHeight: Int): Pair<Int, Int> {
@@ -137,13 +138,15 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     private fun getImageBitmap(): Bitmap? = globalEditBundle.drawHandler.getImageBitmap()
 
     fun onRotateToLeft() {
-        val centerPoint = getCenterPoint()
-        globalEditBundle.enqueue(RotateRequest(-rotateAngle, centerPoint), null)
+        currAngle -= singleRotateAngle
+        postEvent(StartRotateEvent(currAngle))
+        globalEditBundle.enqueue(RotateRequest(-singleRotateAngle), null)
     }
 
     fun onRotateToRight() {
-        val centerPoint = getCenterPoint()
-        globalEditBundle.enqueue(RotateRequest(rotateAngle, centerPoint), null)
+        currAngle += singleRotateAngle
+        postEvent(StartRotateEvent(currAngle))
+        globalEditBundle.enqueue(RotateRequest(singleRotateAngle), null)
     }
 
     fun onXAxisChange(): MirrorModel {
@@ -169,14 +172,13 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         globalEditBundle.enqueue(MirrorRequest(mirrorModel), null)
     }
 
+    fun hasRotateChange(): Boolean {
+        return currAngle % 360 != 0f
+    }
+
     fun hasMirrorChange(): Boolean {
         currMirrot ?: return false
         return currMirrot == MirrorModel.RIGHT || currMirrot == MirrorModel.BOTTOM
-    }
-
-    private fun getCenterPoint(): PointF {
-        val surfaceView = globalEditBundle.drawHandler.surfaceView
-        return PointF((surfaceView.width / 2).toFloat(), (surfaceView.height / 2).toFloat())
     }
 
     private fun postEvent(event: Any) {
@@ -184,11 +186,20 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     }
 
     fun release() {
+        resetCropState()
+    }
+
+    fun resetCropState() {
         resetCropRect()
+        resetRotateAngle()
+    }
+
+    private fun resetRotateAngle() {
+        currAngle = 0f
     }
 
     private fun resetCropRect() {
-        cropRect.set(0f, 0f, 0f, 0f)
+        cropBoxRect.set(0f, 0f, 0f, 0f)
     }
 
 }

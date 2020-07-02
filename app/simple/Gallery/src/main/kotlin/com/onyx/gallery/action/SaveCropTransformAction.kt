@@ -1,9 +1,12 @@
 package com.onyx.gallery.action
 
+import com.onyx.android.sdk.rx.RequestChain
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.rx.RxRequest
 import com.onyx.gallery.common.BaseEditAction
+import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.event.result.SaveCropTransformResultEvent
+import com.onyx.gallery.request.RestoreTransformRequest
 import com.onyx.gallery.request.SaveCropTransformRequest
 
 /**
@@ -12,9 +15,11 @@ import com.onyx.gallery.request.SaveCropTransformRequest
 class SaveCropTransformAction(private val filePath: String) : BaseEditAction<RxRequest>() {
 
     override fun execute(rxCallback: RxCallback<RxRequest>?) {
-        val saveCropTransformRequest = SaveCropTransformRequest()
-        globalEditBundle.enqueue(saveCropTransformRequest, object : RxCallback<SaveCropTransformRequest>() {
-            override fun onNext(request: SaveCropTransformRequest) {
+        val requestChain = object : RequestChain<BaseRequest>() {}
+        requestChain.addRequest(SaveCropTransformRequest())
+        requestChain.addRequest(RestoreTransformRequest())
+        globalEditBundle.enqueue(requestChain, object : RxCallback<RxRequest>() {
+            override fun onNext(request: RxRequest) {
                 RxCallback.onNext(rxCallback, request)
                 eventBus.post(SaveCropTransformResultEvent())
             }

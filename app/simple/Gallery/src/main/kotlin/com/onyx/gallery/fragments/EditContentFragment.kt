@@ -18,6 +18,7 @@ import com.onyx.gallery.event.result.LoadImageResultEvent
 import com.onyx.gallery.event.result.SaveCropTransformResultEvent
 import com.onyx.gallery.event.ui.CloseCropEvent
 import com.onyx.gallery.event.ui.OpenCropEvent
+import com.onyx.gallery.event.ui.StartRotateEvent
 import com.onyx.gallery.event.ui.UpdateCropRectEvent
 import com.onyx.gallery.extensions.hideSoftInput
 import com.onyx.gallery.helpers.PATH_URI
@@ -168,6 +169,18 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
             highlightViews.add(highlightView)
             highlightView?.setFocus(true)
             invalidate()
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onStartRotateEvent(event: StartRotateEvent) {
+        binding.cropImageView.run {
+            val centerPoint = globalEditBundle.getContainerCenterPoint()
+            val cropRect = RectF(globalEditBundle.cropHandler.cropBoxRect)
+            val matrix = Matrix()
+            matrix.postRotate(event.angle, centerPoint.x, centerPoint.y)
+            matrix.mapRect(cropRect)
+            onUpdateCropRectEvent(UpdateCropRectEvent(cropRect))
         }
     }
 
