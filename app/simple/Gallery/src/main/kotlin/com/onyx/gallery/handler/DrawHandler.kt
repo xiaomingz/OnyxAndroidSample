@@ -12,6 +12,7 @@ import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.CollectionUtils
+import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.raw.SelectionBundleEvent
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
@@ -22,7 +23,7 @@ import java.util.*
 /**
  * Created by Leung on 2020/6/5
  */
-class DrawHandler(val context: Context, val eventBus: EventBus) {
+class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, val eventBus: EventBus) {
     var orgLimitRect = Rect()
     val currLimitRect = Rect()
     val surfaceRect = Rect()

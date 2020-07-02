@@ -1,8 +1,10 @@
 package com.onyx.gallery.request
 
 import android.graphics.*
+import androidx.core.graphics.values
 import com.onyx.android.sdk.scribble.data.RenderColorConfig
 import com.onyx.android.sdk.scribble.shape.RenderContext
+import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
@@ -40,8 +42,16 @@ class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
         val handwritingShape = drawHandler.getHandwritingShape()
         val normalizedMatrix = globalEditBundle.getNormalizedMatrix()
         handwritingShape.forEach { it.postConcat(normalizedMatrix) }
+        updateShapeStrokeWidth(handwritingShape)
         ShapeUtils.renderShapes(handwritingShape, renderContext, true)
         return renderContext.getBitmap()
+    }
+
+    private fun updateShapeStrokeWidth(shapes: List<Shape>) {
+        val scaleFactor = globalEditBundle.getNormalizedMatrix().values()[Matrix.MSCALE_X]
+        for (shape in shapes) {
+            shape.strokeWidth *= scaleFactor
+        }
     }
 
     private fun createRenderContext(width: Int, height: Int): RenderContext {
