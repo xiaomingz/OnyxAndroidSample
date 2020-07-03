@@ -101,10 +101,6 @@ class CropMenuViewModel : BaseMenuViewModel() {
     }
 
     fun resetCropState() {
-        resetCropRect()
-    }
-
-    private fun resetCropRect() {
         cropAction.value = null
     }
 

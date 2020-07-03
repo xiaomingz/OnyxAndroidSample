@@ -15,8 +15,12 @@ import com.onyx.gallery.views.crop.CropImageView
  */
 class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCropRectChange {
 
+    companion object {
+        const val SINGLE_ROTATE_ANGLE = 90f
+        const val ROTATE_CYCLE = 360f
+    }
+
     var cropBoxRect = RectF()
-    var singleRotateAngle = 90f
     var currAngle = 0f
     var xAxisMirror = MirrorModel.LEFT
     var yAxisMirror = MirrorModel.TOP
@@ -138,15 +142,15 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     private fun getImageBitmap(): Bitmap? = globalEditBundle.drawHandler.getImageBitmap()
 
     fun onRotateToLeft() {
-        currAngle -= singleRotateAngle
+        currAngle -= SINGLE_ROTATE_ANGLE
         postEvent(StartRotateEvent(currAngle))
-        globalEditBundle.enqueue(RotateRequest(-singleRotateAngle), null)
+        globalEditBundle.enqueue(RotateRequest(-SINGLE_ROTATE_ANGLE), null)
     }
 
     fun onRotateToRight() {
-        currAngle += singleRotateAngle
+        currAngle += SINGLE_ROTATE_ANGLE
         postEvent(StartRotateEvent(currAngle))
-        globalEditBundle.enqueue(RotateRequest(singleRotateAngle), null)
+        globalEditBundle.enqueue(RotateRequest(SINGLE_ROTATE_ANGLE), null)
     }
 
     fun onXAxisChange(): MirrorModel {
@@ -173,7 +177,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     }
 
     fun hasRotateChange(): Boolean {
-        return currAngle % 360 != 0f
+        return currAngle % ROTATE_CYCLE != 0f
     }
 
     fun hasMirrorChange(): Boolean {
@@ -199,7 +203,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     }
 
     private fun resetCropRect() {
-        cropBoxRect.set(0f, 0f, 0f, 0f)
+        cropBoxRect.setEmpty()
     }
 
 }

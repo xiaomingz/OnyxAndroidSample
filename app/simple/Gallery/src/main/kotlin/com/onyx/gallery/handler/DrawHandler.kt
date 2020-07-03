@@ -126,8 +126,8 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     fun release() {
         drawingArgs.reset()
         cacheShapeList.clear()
-        orgLimitRect[0, 0, 0] = 0
-        currLimitRect[0, 0, 0] = 0
+        orgLimitRect.setEmpty()
+        currLimitRect.setEmpty()
         touchHelper?.closeRawDrawing()
         readerHandler.resetRenderContext()
     }
