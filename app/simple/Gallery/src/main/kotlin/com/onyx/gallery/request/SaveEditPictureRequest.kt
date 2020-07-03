@@ -21,6 +21,7 @@ class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
         val shapeBitmap = createShapeBitmap(imageBitmap.width, imageBitmap.height)
         drawBitmap(newBitmap, imageBitmap, shapeBitmap)
         BitmapUtils.saveBitmapToFile(context, filePath, newBitmap)
+        shapeBitmap.recycle()
         newBitmap.recycle()
         imageBitmap.recycle()
     }

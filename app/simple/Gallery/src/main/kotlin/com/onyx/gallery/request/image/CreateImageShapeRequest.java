@@ -44,7 +44,6 @@ public class CreateImageShapeRequest extends BaseRequest {
         BitmapUtils.decodeBitmapSize(imageFilePath, imageSize);
 
         float scaleFactor = calculatesSaleFactor(imageSize);
-        updateImageSize(imageSize, scaleFactor);
 
         float dx = scribbleRect.width() / 2 - imageSize.width / 2;
         float dy = scribbleRect.height() / 2 - imageSize.height / 2;
@@ -63,11 +62,6 @@ public class CreateImageShapeRequest extends BaseRequest {
 
     private float calculatesSaleFactor(Size imageSize) {
         return getGlobalEditBundle().scaleToContainer(imageSize);
-    }
-
-    private void updateImageSize(Size imageSize, float scaleFactor) {
-        imageSize.width = (int) (imageSize.width * scaleFactor);
-        imageSize.height = (int) (imageSize.height * scaleFactor);
     }
 
     private Shape createImageShape(TouchPoint downPoint, RenderContext renderContext, Size imageSize) {

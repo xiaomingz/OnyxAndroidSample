@@ -26,10 +26,10 @@ class SaveCropTransformRequest : BaseRequest() {
         val scaleFactor: Float = globalEditBundle.scaleToContainer(imageSize).apply {
             globalEditBundle.initScaleFactor = this
         }
-        updateImageSize(imageSize, scaleFactor)
         updateImageShape(imageShape, imageSize, cropBitmap)
         updateLimitRect(imageSize, imageShape.downPoint)
         BitmapUtils.saveBitmapToFile(context, globalEditBundle.filePath, cropBitmap)
+        cropBitmap.recycle()
         cropHandler.resetCropState()
     }
 
@@ -84,11 +84,6 @@ class SaveCropTransformRequest : BaseRequest() {
         canvas.drawBitmap(imageBitmap, matrix, Paint())
         imageBitmap.recycle()
         return newBitmap
-    }
-
-    private fun updateImageSize(imageSize: Size, scaleFactor: Float) {
-        imageSize.width = (imageSize.width * scaleFactor).toInt()
-        imageSize.height = (imageSize.height * scaleFactor).toInt()
     }
 
     private fun updateImageShape(imageShape: ImageShapeExpand, imageSize: Size, cropBitmap: Bitmap) {

@@ -106,12 +106,16 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
         val surfaceRect = drawHandler.surfaceRect
         val containerWidth = surfaceRect.width().toFloat()
         val containerHeight = surfaceRect.height().toFloat()
-        val scaleFactor = if (imageSize.width > containerWidth && imageSize.height > containerHeight
-                && imageSize.width >= imageSize.height) {
-            containerWidth / imageSize.width
+        val widthScaleFactor = containerWidth / imageSize.width
+        val heightScaleFactor = containerHeight / imageSize.height
+        val scaleFactor = if (imageSize.width > imageSize.height
+                && imageSize.height * widthScaleFactor <= containerHeight) {
+            widthScaleFactor
         } else {
-            containerHeight / imageSize.height
+            heightScaleFactor
         }
+        imageSize.width = (imageSize.width * scaleFactor).toInt()
+        imageSize.height = (imageSize.height * scaleFactor).toInt()
         return scaleFactor
     }
 
