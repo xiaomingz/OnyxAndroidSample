@@ -70,6 +70,7 @@ class GraphicsTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandle
     }
 
     private fun addShape(renderShape: Shape) {
+        invertShapeStrokeWidth(renderShape)
         AddShapesAction().setShape(renderShape).execute(null)
     }
 

@@ -16,6 +16,7 @@ class ScribbleTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandle
     override fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList) {
         val normalTouchPointList = getNormalTouchPoint(touchPointList)
         val shape = createEraseShape(normalTouchPointList)
+        invertShapeStrokeWidth(shape)
         AddShapesAction().setShape(shape).execute(null)
     }
 
