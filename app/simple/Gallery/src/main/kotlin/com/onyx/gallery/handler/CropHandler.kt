@@ -1,8 +1,6 @@
 package com.onyx.gallery.handler
 
-import android.graphics.Bitmap
-import android.graphics.Point
-import android.graphics.RectF
+import android.graphics.*
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.ui.StartRotateEvent
 import com.onyx.gallery.event.ui.UpdateCropRectEvent
@@ -143,14 +141,36 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
 
     fun onRotateToLeft() {
         currAngle -= SINGLE_ROTATE_ANGLE
-        postEvent(StartRotateEvent(currAngle))
+        postEvent(StartRotateEvent(currAngle, getRotatedCropBox()))
         globalEditBundle.enqueue(RotateRequest(-SINGLE_ROTATE_ANGLE), null)
     }
 
     fun onRotateToRight() {
         currAngle += SINGLE_ROTATE_ANGLE
-        postEvent(StartRotateEvent(currAngle))
+        postEvent(StartRotateEvent(currAngle, getRotatedCropBox()))
         globalEditBundle.enqueue(RotateRequest(SINGLE_ROTATE_ANGLE), null)
+    }
+
+    private fun getRotatedCropBox(): RectF {
+        return RectF(cropBoxRect).apply {
+            getRotateMatrix().mapRect(this)
+        }
+    }
+
+    fun getImageRect(): Rect {
+        val rectF = RectF(globalEditBundle.drawHandler.currLimitRect).apply {
+            getRotateMatrix().mapRect(this)
+        }
+        return Rect().apply {
+            rectF.round(this)
+        }
+    }
+
+    private fun getRotateMatrix(): Matrix {
+        val centerPoint = globalEditBundle.getContainerCenterPoint()
+        return Matrix().apply {
+            postRotate(currAngle, centerPoint.x, centerPoint.y)
+        }
     }
 
     fun onXAxisChange(): MirrorModel {
@@ -194,15 +214,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     }
 
     fun resetCropState() {
-        resetCropRect()
-        resetRotateAngle()
-    }
-
-    private fun resetRotateAngle() {
         currAngle = 0f
-    }
-
-    private fun resetCropRect() {
         cropBoxRect.setEmpty()
     }
 

@@ -21,6 +21,7 @@ import com.onyx.gallery.event.ui.OpenCropEvent
 import com.onyx.gallery.event.ui.StartRotateEvent
 import com.onyx.gallery.event.ui.UpdateCropRectEvent
 import com.onyx.gallery.extensions.hideSoftInput
+import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.helpers.PATH_URI
 import com.onyx.gallery.request.AttachNoteViewRequest
 import com.onyx.gallery.touch.ScribbleTouchDistributor
@@ -67,7 +68,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         binding.surfaceView.setOnTouchListener { _, event ->
             scribbleTouchDistributor.onTouchEvent(event)
         }
-        binding.cropImageView.setOnCropRectChange(globalEditBundle.cropHandler)
+        binding.cropImageView.setOnCropRectChange(getCropHandler())
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditContentBinding, rootView: View): EditContentViewModel {
@@ -132,6 +133,8 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     private fun openHandwriting() = drawHandler.touchHelper?.setRawDrawingEnabled(true)
 
+    private fun getCropHandler(): CropHandler = globalEditBundle.cropHandler
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLoadImageResultEvent(event: LoadImageResultEvent) {
         if (event.isSuccess()) {
@@ -164,7 +167,8 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     fun onUpdateCropRectEvent(event: UpdateCropRectEvent) {
         binding.cropImageView.run {
             visibility = View.VISIBLE
-            val highlightView = makeCropBorder(event.cropRect)
+            val imageRect = getCropHandler().getImageRect()
+            val highlightView = makeCropBorder(imageRect, event.cropRect)
             highlightViews.clear()
             highlightViews.add(highlightView)
             highlightView?.setFocus(true)
@@ -175,22 +179,16 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onStartRotateEvent(event: StartRotateEvent) {
         binding.cropImageView.run {
-            val centerPoint = globalEditBundle.getContainerCenterPoint()
-            val cropRect = RectF(globalEditBundle.cropHandler.cropBoxRect)
-            val matrix = Matrix()
-            matrix.postRotate(event.angle, centerPoint.x, centerPoint.y)
-            matrix.mapRect(cropRect)
-            onUpdateCropRectEvent(UpdateCropRectEvent(cropRect))
+            onUpdateCropRectEvent(UpdateCropRectEvent(event.cropRect))
         }
     }
 
-    private fun makeCropBorder(cropRect: RectF): HighlightView? {
+    private fun makeCropBorder(imageRect: Rect, cropRect: RectF): HighlightView? {
         val imageBitmap = globalEditBundle.drawHandler.getImageBitmap() ?: return null
         val rotateBitmap = RotateBitmap(imageBitmap, 0)
         binding.cropImageView.setImageRotateBitmapResetBase(rotateBitmap, false)
         val highlightView = HighlightView(binding.cropImageView)
-        val currLimitRect = globalEditBundle.drawHandler.currLimitRect
-        highlightView.setup(Matrix(), currLimitRect, cropRect, false)
+        highlightView.setup(Matrix(), imageRect, cropRect, false)
         return highlightView
     }
 
