@@ -9,14 +9,17 @@ import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.utils.BitmapUtils
+import com.onyx.gallery.utils.SaveMosaicUtils
 
 /**
  * Created by Leung on 2020/5/8
  */
 class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
 
+    private lateinit var imageBitmap: Bitmap
+
     override fun execute(drawHandler: DrawHandler) {
-        val imageBitmap = decodeFile(filePath)
+        imageBitmap = decodeFile(filePath)
         val newBitmap = createBitmap(filePath)
         val shapeBitmap = createShapeBitmap(imageBitmap.width, imageBitmap.height)
         drawBitmap(newBitmap, imageBitmap, shapeBitmap)
@@ -45,6 +48,9 @@ class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
         handwritingShape.forEach { it.postConcat(normalizedMatrix) }
         updateShapeStrokeWidth(handwritingShape)
         ShapeUtils.renderShapes(handwritingShape, renderContext, true)
+        if (drawHandler.hasMosaic()) {
+            SaveMosaicUtils.renderMosaicToCanvas(drawHandler, renderContext.canvas, normalizedMatrix, imageBitmap)
+        }
         return renderContext.getBitmap()
     }
 

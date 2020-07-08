@@ -220,5 +220,12 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         readerHandler.currMosaicPath.set(currPath)
     }
 
+    fun getMosaicPathList(): MutableList<Path> {
+        return readerHandler.mosaicPathList
+    }
+
+    fun hasMosaic(): Boolean {
+        return !readerHandler.mosaicPathList.isEmpty()
+    }
 }
 

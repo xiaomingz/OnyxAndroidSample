@@ -14,6 +14,7 @@ import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.utils.RendererUtils
+import com.onyx.gallery.utils.SaveMosaicUtils
 
 /**
  * Created by Leung on 2020/6/5
@@ -28,23 +29,17 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     private val pathPaint: Paint by lazy { initPathPaint() }
     private val mosaicPaint: Paint by lazy { initMosaicPaint() }
     val surfaceRect = Rect()
-    private val mosaicScaleFactor = 16f
+
     private var mosaicBitmap: Bitmap? = null
     private val strokePaint: Paint by lazy { initStrokePaint() }
-    private val mosaicPathList = mutableListOf<Path>()
+    val mosaicPathList = mutableListOf<Path>()
 
     var renderContext: RenderContext = RendererUtils.createRenderContext()
             .setEnableBitmapCache(true)
             .setRenderColorConfig(RenderColorConfig.RAW_RENDER_COLOR)
 
     fun initPathPaint(): Paint {
-        val pathPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        pathPaint.setDither(true)
-        pathPaint.setAntiAlias(true)
-        pathPaint.setStyle(Paint.Style.STROKE)
-        pathPaint.setTextAlign(Paint.Align.CENTER)
-        pathPaint.setStrokeCap(Paint.Cap.ROUND)
-        pathPaint.setStrokeJoin(Paint.Join.ROUND)
+        val pathPaint = SaveMosaicUtils.getPathPaint(globalEditBundle.drawHandler)
         updateMosaicStrokeWidth(pathPaint)
         return pathPaint
     }
@@ -55,10 +50,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     }
 
     fun initMosaicPaint(): Paint {
-        val mosaicPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        mosaicPaint.setFilterBitmap(false)
-        mosaicPaint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
-        return mosaicPaint
+        return SaveMosaicUtils.getMosaicPaint()
     }
 
     fun resetRenderContext() {
@@ -264,13 +256,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
 
     private fun updateMosaicBitmap() {
         if (mosaicPathList.isEmpty() && currMosaicPath.isEmpty) return
-        val imageBitmap = renderContext.bitmap
-        val imageWidth = imageBitmap.width
-        val imageHeight = imageBitmap.height
-        val width = Math.round(imageWidth / mosaicScaleFactor)
-        val height = Math.round(imageHeight / mosaicScaleFactor)
-        mosaicBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false)
-        mosaicBitmap = Bitmap.createScaledBitmap(mosaicBitmap, imageWidth, imageHeight, false)
+        mosaicBitmap = SaveMosaicUtils.getMosaicBitmap(renderContext.bitmap)
     }
 
     fun getImageSize(): Size {
