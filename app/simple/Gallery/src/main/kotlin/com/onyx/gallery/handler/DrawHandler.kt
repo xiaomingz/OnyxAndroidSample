@@ -1,10 +1,7 @@
 package com.onyx.gallery.handler
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.PointF
-import android.graphics.Rect
-import android.graphics.RectF
+import android.graphics.*
 import android.view.SurfaceView
 import com.onyx.android.sdk.pen.TouchHelper
 import com.onyx.android.sdk.scribble.data.SelectionBundle
@@ -30,10 +27,10 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     val cacheShapeList = mutableListOf<Shape>()
     val drawingArgs = DrawArgs()
 
-    private var readerHandler = RenderHandler()
+    private var readerHandler = RenderHandler(globalEditBundle)
     val renderContext = readerHandler.renderContext
 
-    private lateinit var surfaceView: SurfaceView
+    private var surfaceView: SurfaceView? = null
     private var rawInputCallback = RawInputCallbackImp(eventBus)
     var touchHelper: TouchHelper? = null
 
@@ -51,8 +48,9 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
             openRawDrawing()
             setRawDrawingEnabled(false)
         }
-        surfaceView.run {
+        surfaceView?.run {
             getLocalVisibleRect(surfaceRect)
+            readerHandler.surfaceRect.set(surfaceRect)
             readerHandler.createRendererBitmap(Rect(0, 0, width, height))
         }
     }
@@ -99,7 +97,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun renderMirror(mirrorModel: MirrorModel) {
-        readerHandler.renderMirror(surfaceView, currLimitRect, mirrorModel)
+        surfaceView?.let { readerHandler.renderMirror(it, currLimitRect, mirrorModel) }
     }
 
     fun renderToBitmap(shape: Shape) {
@@ -112,7 +110,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun renderToScreen() {
-        readerHandler.renderToSurfaceView(surfaceView)
+        surfaceView?.let { readerHandler.renderToSurfaceView(it) }
     }
 
     fun renderShapesToBitmap() {
@@ -120,16 +118,17 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun renderVarietyShapesToScreen(shape: List<Shape>) {
-        readerHandler.renderVarietyShapesToSurfaceView(surfaceView, shape)
+        surfaceView?.let { readerHandler.renderVarietyShapesToSurfaceView(it, shape) }
     }
 
     fun release() {
+        surfaceView = null
         drawingArgs.reset()
         cacheShapeList.clear()
         orgLimitRect.setEmpty()
         currLimitRect.setEmpty()
         touchHelper?.closeRawDrawing()
-        readerHandler.resetRenderContext()
+        readerHandler.release()
     }
 
     fun addShape(shape: Shape) {
@@ -195,8 +194,10 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         renderContext.selectionRect = null
     }
 
-    fun getImageBitmap(): Bitmap? {
-        return getImageShape()?.getImageBitmap()
+    fun getImageBitmap(): Bitmap {
+        val imageBitmap = getImageShape()?.getImageBitmap()
+                ?: throw RuntimeException("imageBitmap must be not null")
+        return imageBitmap
     }
 
     fun getImageShape(): ImageShapeExpand? {
@@ -209,6 +210,14 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
             }
         }
         return null
+    }
+
+    fun addMosaicPath(path: Path) {
+        readerHandler.addMosaicPath(path)
+    }
+
+    fun setCurrMosaicPath(currPath: Path) {
+        readerHandler.currMosaicPath.set(currPath)
     }
 
 }

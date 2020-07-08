@@ -30,7 +30,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
 
     fun onCropChangeToCustomize() {
         val surfaceRect = globalEditBundle.drawHandler.surfaceRect
-        val imageBitmap = getImageBitmap() ?: return
+        val imageBitmap = getImageBitmap()
         val width: Int = surfaceRect.width()
         val height: Int = surfaceRect.height()
         val centerPoint = Point(width / 2, height / 2)
@@ -137,7 +137,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         return Pair(newCropHeight, newCropWidth)
     }
 
-    private fun getImageBitmap(): Bitmap? = globalEditBundle.drawHandler.getImageBitmap()
+    private fun getImageBitmap(): Bitmap = globalEditBundle.drawHandler.getImageBitmap()
 
     fun onRotateToLeft() {
         currAngle -= SINGLE_ROTATE_ANGLE

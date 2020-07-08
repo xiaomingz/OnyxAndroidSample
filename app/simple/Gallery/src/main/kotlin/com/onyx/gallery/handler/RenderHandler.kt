@@ -5,12 +5,14 @@ import android.graphics.*
 import android.view.SurfaceView
 import androidx.annotation.WorkerThread
 import com.onyx.android.sdk.api.device.epd.EpdController
+import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.scribble.data.RenderColorConfig
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.Benchmark
 import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.gallery.BuildConfig
+import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.utils.RendererUtils
 
 /**
@@ -21,12 +23,43 @@ enum class MirrorModel {
     LEFT, TOP, RIGHT, BOTTOM
 }
 
-class RenderHandler {
+class RenderHandler(val globalEditBundle: GlobalEditBundle) {
+    val currMosaicPath = Path()
+    private val pathPaint: Paint by lazy { initPathPaint() }
+    private val mosaicPaint: Paint by lazy { initMosaicPaint() }
+    val surfaceRect = Rect()
+    private val mosaicScaleFactor = 16f
+    private var mosaicBitmap: Bitmap? = null
     private val strokePaint: Paint by lazy { initStrokePaint() }
+    private val mosaicPathList = mutableListOf<Path>()
 
     var renderContext: RenderContext = RendererUtils.createRenderContext()
             .setEnableBitmapCache(true)
             .setRenderColorConfig(RenderColorConfig.RAW_RENDER_COLOR)
+
+    fun initPathPaint(): Paint {
+        val pathPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+        pathPaint.setDither(true)
+        pathPaint.setAntiAlias(true)
+        pathPaint.setStyle(Paint.Style.STROKE)
+        pathPaint.setTextAlign(Paint.Align.CENTER)
+        pathPaint.setStrokeCap(Paint.Cap.ROUND)
+        pathPaint.setStrokeJoin(Paint.Join.ROUND)
+        updateMosaicStrokeWidth(pathPaint)
+        return pathPaint
+    }
+
+    private fun updateMosaicStrokeWidth(pathPaint: Paint) {
+        val strokeWidth = globalEditBundle.drawHandler.getStrokeWidth()
+        pathPaint.setStrokeWidth(strokeWidth)
+    }
+
+    fun initMosaicPaint(): Paint {
+        val mosaicPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+        mosaicPaint.setFilterBitmap(false)
+        mosaicPaint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        return mosaicPaint
+    }
 
     fun resetRenderContext() {
         renderContext.reset()
@@ -51,6 +84,10 @@ class RenderHandler {
         renderContext.recycleBitmap()
     }
 
+    fun addMosaicPath(path: Path) {
+        mosaicPathList.add(path)
+    }
+
     @WorkerThread
     fun clearCanvas() {
         renderContext.canvas?.drawColor(Color.WHITE)
@@ -60,6 +97,7 @@ class RenderHandler {
     fun refreshBitmap(shapes: MutableList<Shape>) {
         clearCanvas()
         renderToBitmap(shapes)
+        updateMosaicBitmap()
     }
 
     @WorkerThread
@@ -68,6 +106,7 @@ class RenderHandler {
         for (shape in shapes) {
             shape.render(renderContext)
         }
+        updateMosaicBitmap()
         if (BuildConfig.DEBUG) {
             benchmark.report(javaClass.simpleName + " -->> renderToBitmap ")
         }
@@ -107,7 +146,37 @@ class RenderHandler {
         val rect = RendererUtils.checkSurfaceView(surfaceView)
         renderBackground(surfaceView.context, canvas, renderContext, rect)
         canvas.drawBitmap(renderContext.getBitmap(), 0f, 0f, null)
+        renderMosaic(canvas)
         true
+    }
+
+    private fun renderMosaic(canvas: Canvas) {
+        if (mosaicPathList.isEmpty() && currMosaicPath.isEmpty) {
+            return
+        }
+        val benchmark = Benchmark()
+        mosaicBitmap ?: updateMosaicBitmap()
+        val imageSize = getImageSize()
+        val left = (surfaceRect.width() - imageSize.width) / 2f
+        val top = (surfaceRect.height() - imageSize.height) / 2f
+        val layerCount = canvas.saveLayer(
+                left,
+                top,
+                left + imageSize.width.toFloat(),
+                top + imageSize.height.toFloat(),
+                null,
+                Canvas.ALL_SAVE_FLAG
+        )
+        updateMosaicStrokeWidth(pathPaint)
+        for (mosaicPath in mosaicPathList) {
+            canvas.drawPath(mosaicPath, pathPaint)
+        }
+        currMosaicPath?.let { canvas.drawPath(it, pathPaint) }
+        canvas.drawBitmap(mosaicBitmap, left, top, mosaicPaint)
+        canvas.restoreToCount(layerCount)
+        if (BuildConfig.DEBUG) {
+            benchmark.report(javaClass.simpleName + " -->> renderMosaic ")
+        }
     }
 
     @WorkerThread
@@ -191,6 +260,30 @@ class RenderHandler {
             strokeWidth = 2f
         }
         return strokePaint
+    }
+
+    private fun updateMosaicBitmap() {
+        if (mosaicPathList.isEmpty() && currMosaicPath.isEmpty) return
+        val imageBitmap = renderContext.bitmap
+        val imageWidth = imageBitmap.width
+        val imageHeight = imageBitmap.height
+        val width = Math.round(imageWidth / mosaicScaleFactor)
+        val height = Math.round(imageHeight / mosaicScaleFactor)
+        mosaicBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false)
+        mosaicBitmap = Bitmap.createScaledBitmap(mosaicBitmap, imageWidth, imageHeight, false)
+    }
+
+    fun getImageSize(): Size {
+        val bitmap = renderContext.bitmap
+        return Size(bitmap.width, bitmap.height)
+    }
+
+    fun release() {
+        currMosaicPath.set(Path())
+        mosaicPathList.clear()
+        mosaicBitmap?.let { it.recycle() }
+        mosaicBitmap = null
+        resetRenderContext()
     }
 
 }

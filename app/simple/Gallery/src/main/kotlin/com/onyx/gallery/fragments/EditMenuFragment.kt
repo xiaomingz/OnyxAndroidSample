@@ -67,26 +67,41 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
             EditMenuViewModel.MenuStyle.GRAFFITI -> onGraffitiMenuClick()
             EditMenuViewModel.MenuStyle.TEXT -> onTextMenuClick()
             EditMenuViewModel.MenuStyle.CROP -> onCropMenuClick()
+            EditMenuViewModel.MenuStyle.MOSAIC -> onMosaicMenuClick()
         }
         globalEditBundle.enqueue(RestoreTransformRequest(), null)
     }
 
     private fun onGraffitiMenuClick() {
-        postEvent(CloseCropEvent())
+        closeCropMenu()
         globalEditBundle.supportZoom = true
         globalEditBundle.canFingerTouch = true
     }
 
     private fun onTextMenuClick() {
-        postEvent(CloseCropEvent())
+        closeCropMenu()
         globalEditBundle.supportZoom = false
         globalEditBundle.canFingerTouch = false
     }
 
     private fun onCropMenuClick() {
-        postEvent(OpenCropEvent())
+        openCropMenu()
         globalEditBundle.supportZoom = true
         globalEditBundle.canFingerTouch = true
+    }
+
+    private fun onMosaicMenuClick() {
+        closeCropMenu()
+        globalEditBundle.supportZoom = false
+        globalEditBundle.canFingerTouch = false
+    }
+
+    private fun openCropMenu() {
+        postEvent(OpenCropEvent())
+    }
+
+    private fun closeCropMenu() {
+        postEvent(CloseCropEvent())
     }
 
 }

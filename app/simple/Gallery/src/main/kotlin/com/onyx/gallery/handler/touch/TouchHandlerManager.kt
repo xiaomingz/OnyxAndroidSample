@@ -7,7 +7,7 @@ import com.onyx.gallery.bundle.GlobalEditBundle
  */
 
 enum class TouchHandlerType {
-    SCRIBBLE, GRAPHICS, TEXT_INSERTION, CROP
+    SCRIBBLE, GRAPHICS, TEXT_INSERTION, CROP, MOSAIC
 }
 
 class TouchHandlerManager(globalEditBundle: GlobalEditBundle) {
@@ -21,6 +21,7 @@ class TouchHandlerManager(globalEditBundle: GlobalEditBundle) {
         touchHandlerMap[TouchHandlerType.TEXT_INSERTION] = InsertTextTouchHandler(globalEditBundle)
         touchHandlerMap[TouchHandlerType.TEXT_INSERTION] = InsertTextTouchHandler(globalEditBundle)
         touchHandlerMap[TouchHandlerType.CROP] = CropTouchHandler(globalEditBundle)
+        touchHandlerMap[TouchHandlerType.MOSAIC] = MosaicTouchHandler(globalEditBundle)
         activateHandler(TouchHandlerType.SCRIBBLE)
     }
 
