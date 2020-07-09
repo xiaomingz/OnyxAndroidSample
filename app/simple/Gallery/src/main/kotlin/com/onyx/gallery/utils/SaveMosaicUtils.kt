@@ -14,22 +14,21 @@ object SaveMosaicUtils {
     fun renderMosaicToCanvas(drawHandler: DrawHandler, canvas: Canvas, normalizedMatrix: Matrix, imageBitmap: Bitmap) {
         val mosaicPathList = drawHandler.getMosaicPathList()
         if (mosaicPathList.isEmpty()) return
-
-        val surfaceRect = drawHandler.surfaceRect
         val imageSize = Size(imageBitmap.width, imageBitmap.height)
-
-        val left = (surfaceRect.width() - imageSize.width) / 2f
-        val top = (surfaceRect.height() - imageSize.height) / 2f
-        val layerCount = canvas.saveLayer(left, top, left + imageSize.width.toFloat(), top + imageSize.height.toFloat(), null, Canvas.ALL_SAVE_FLAG)
-
-        val pathPaint = getSavePathPaint(drawHandler, normalizedMatrix)
-        for (mosaicPath in mosaicPathList) {
-            mosaicPath.transform(normalizedMatrix)
-            canvas.drawPath(mosaicPath, pathPaint)
+        val layerCount = canvas.saveLayer(0f, 0f, imageSize.width.toFloat(), imageSize.height.toFloat(), null, Canvas.ALL_SAVE_FLAG)
+        val mosaicPath = Path()
+        for (path in mosaicPathList) {
+            mosaicPath.addPath(path)
         }
-        val mosaicBitmap = getMosaicBitmap(imageBitmap)
-        canvas.drawBitmap(mosaicBitmap, left, top, getMosaicPaint())
+        mosaicPath.transform(normalizedMatrix)
+        val pathPaint = getSavePathPaint(drawHandler, normalizedMatrix)
+        canvas.drawPath(mosaicPath, pathPaint)
+        val scaleFactor = normalizedMatrix.values()[Matrix.MSCALE_X]
+        val mosaicScaleFactor = scaleFactor * MOSAIC_SCALE_FACTOR
+        val mosaicBitmap = getMosaicBitmap(imageBitmap, mosaicScaleFactor)
+        canvas.drawBitmap(mosaicBitmap, 0f, 0f, getMosaicPaint())
         canvas.restoreToCount(layerCount)
+        mosaicBitmap.recycle()
     }
 
     fun getMosaicPaint(): Paint {
@@ -66,14 +65,15 @@ object SaveMosaicUtils {
         return pathPaint
     }
 
-    fun getMosaicBitmap(imageBitmap: Bitmap): Bitmap {
+    fun getMosaicBitmap(imageBitmap: Bitmap, scaleFactor: Float = MOSAIC_SCALE_FACTOR): Bitmap {
         val imageWidth = imageBitmap.width
         val imageHeight = imageBitmap.height
-        val width = Math.round(imageWidth / MOSAIC_SCALE_FACTOR)
-        val height = Math.round(imageHeight / MOSAIC_SCALE_FACTOR)
-        val mosaicBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false)
-        return Bitmap.createScaledBitmap(mosaicBitmap, imageWidth, imageHeight, false)
+        val width = Math.round(imageWidth / scaleFactor)
+        val height = Math.round(imageHeight / scaleFactor)
+        val scaleBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false)
+        val mosaicBitmap = Bitmap.createScaledBitmap(scaleBitmap, imageWidth, imageHeight, false)
+        scaleBitmap.recycle()
+        return mosaicBitmap
     }
-
 
 }

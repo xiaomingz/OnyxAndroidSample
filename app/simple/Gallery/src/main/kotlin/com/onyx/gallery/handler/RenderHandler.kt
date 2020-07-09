@@ -25,14 +25,13 @@ enum class MirrorModel {
 }
 
 class RenderHandler(val globalEditBundle: GlobalEditBundle) {
+    val surfaceRect = Rect()
     val currMosaicPath = Path()
+    private var mosaicBitmap: Bitmap? = null
+    val mosaicPathList = mutableListOf<Path>()
     private val pathPaint: Paint by lazy { initPathPaint() }
     private val mosaicPaint: Paint by lazy { initMosaicPaint() }
-    val surfaceRect = Rect()
-
-    private var mosaicBitmap: Bitmap? = null
     private val strokePaint: Paint by lazy { initStrokePaint() }
-    val mosaicPathList = mutableListOf<Path>()
 
     var renderContext: RenderContext = RendererUtils.createRenderContext()
             .setEnableBitmapCache(true)
@@ -160,10 +159,12 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
                 Canvas.ALL_SAVE_FLAG
         )
         updateMosaicStrokeWidth(pathPaint)
-        for (mosaicPath in mosaicPathList) {
-            canvas.drawPath(mosaicPath, pathPaint)
+        val mosaicPath = Path()
+        mosaicPath.addPath(currMosaicPath)
+        for (path in mosaicPathList) {
+            mosaicPath.addPath(path)
         }
-        currMosaicPath?.let { canvas.drawPath(it, pathPaint) }
+        canvas.drawPath(mosaicPath, pathPaint)
         canvas.drawBitmap(mosaicBitmap, left, top, mosaicPaint)
         canvas.restoreToCount(layerCount)
         if (BuildConfig.DEBUG) {
