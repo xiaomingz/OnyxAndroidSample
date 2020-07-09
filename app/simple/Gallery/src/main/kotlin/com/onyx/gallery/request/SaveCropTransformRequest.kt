@@ -7,6 +7,7 @@ import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.handler.MirrorModel
 import com.onyx.gallery.utils.BitmapUtils
+import com.onyx.gallery.utils.ScribbleUtils
 import com.onyx.gallery.views.ImageShapeExpand
 
 /**
@@ -20,9 +21,10 @@ class SaveCropTransformRequest : BaseRequest() {
         if (cropRect.isEmpty) {
             return
         }
-        val cropBitmap = cropImage(cropRect)
+        val filePath = globalEditBundle.filePath
+        val cropBitmap = cropImage(filePath, cropRect)
 
-        val imageSize = Size(cropBitmap.width.toInt(), cropBitmap.height.toInt())
+        val imageSize = Size(cropBitmap.width, cropBitmap.height)
         val scaleFactor: Float = globalEditBundle.scaleToContainer(imageSize).apply {
             globalEditBundle.initScaleFactor = this
         }
@@ -33,9 +35,8 @@ class SaveCropTransformRequest : BaseRequest() {
         cropHandler.resetCropState()
     }
 
-    private fun cropImage(orgCropRect: RectF): Bitmap {
-        val filePath = globalEditBundle.filePath
-        var imageBitmap = BitmapFactory.decodeFile(filePath, BitmapFactory.Options())
+    private fun cropImage(filePath: String, orgCropRect: RectF): Bitmap {
+        var imageBitmap = ScribbleUtils.drawScribbleToImgae(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
         val cropRect = RectF(orgCropRect)
         if (cropHandler.hasRotateChange()) {
             imageBitmap = imageRotateChange(imageBitmap)

@@ -1,6 +1,7 @@
 package com.onyx.gallery.utils
 
 import android.graphics.*
+import androidx.annotation.WorkerThread
 import androidx.core.graphics.values
 import com.onyx.android.sdk.data.Size
 import com.onyx.gallery.handler.DrawHandler
@@ -8,9 +9,10 @@ import com.onyx.gallery.handler.DrawHandler
 /**
  * Created by Leung on 2020/7/8
  */
-object SaveMosaicUtils {
+object MosaicUtils {
     const val MOSAIC_SCALE_FACTOR = 16f
 
+    @WorkerThread
     fun renderMosaicToCanvas(drawHandler: DrawHandler, canvas: Canvas, normalizedMatrix: Matrix, imageBitmap: Bitmap) {
         val mosaicPathList = drawHandler.getMosaicPathList()
         if (mosaicPathList.isEmpty()) return
@@ -65,6 +67,7 @@ object SaveMosaicUtils {
         return pathPaint
     }
 
+    @WorkerThread
     fun getMosaicBitmap(imageBitmap: Bitmap, scaleFactor: Float = MOSAIC_SCALE_FACTOR): Bitmap {
         val imageWidth = imageBitmap.width
         val imageHeight = imageBitmap.height

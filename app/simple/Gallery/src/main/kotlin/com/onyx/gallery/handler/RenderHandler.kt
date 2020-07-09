@@ -14,7 +14,7 @@ import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.utils.RendererUtils
-import com.onyx.gallery.utils.SaveMosaicUtils
+import com.onyx.gallery.utils.MosaicUtils
 
 /**
  * Created by Leung on 2020/6/5
@@ -38,7 +38,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
             .setRenderColorConfig(RenderColorConfig.RAW_RENDER_COLOR)
 
     fun initPathPaint(): Paint {
-        val pathPaint = SaveMosaicUtils.getPathPaint(globalEditBundle.drawHandler)
+        val pathPaint = MosaicUtils.getPathPaint(globalEditBundle.drawHandler)
         updateMosaicStrokeWidth(pathPaint)
         return pathPaint
     }
@@ -49,7 +49,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     }
 
     fun initMosaicPaint(): Paint {
-        return SaveMosaicUtils.getMosaicPaint()
+        return MosaicUtils.getMosaicPaint()
     }
 
     fun resetRenderContext() {
@@ -257,7 +257,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
 
     private fun updateMosaicBitmap() {
         if (mosaicPathList.isEmpty() && currMosaicPath.isEmpty) return
-        mosaicBitmap = SaveMosaicUtils.getMosaicBitmap(renderContext.bitmap)
+        mosaicBitmap = MosaicUtils.getMosaicBitmap(renderContext.bitmap)
     }
 
     fun getImageSize(): Size {
