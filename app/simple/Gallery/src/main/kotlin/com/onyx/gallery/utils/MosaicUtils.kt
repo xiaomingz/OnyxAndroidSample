@@ -16,21 +16,26 @@ object MosaicUtils {
     fun renderMosaicToCanvas(drawHandler: DrawHandler, canvas: Canvas, normalizedMatrix: Matrix, imageBitmap: Bitmap) {
         val mosaicPathList = drawHandler.getMosaicPathList()
         if (mosaicPathList.isEmpty()) return
+        val mosaicPath = getMosaicPath(mosaicPathList)
+        mosaicPath.transform(normalizedMatrix)
+        val pathPaint = getSavePathPaint(drawHandler, normalizedMatrix)
+        val scaleFactor = normalizedMatrix.values()[Matrix.MSCALE_X]
+        val mosaicScaleFactor = scaleFactor * MOSAIC_SCALE_FACTOR
+        val mosaicBitmap = getMosaicBitmap(imageBitmap, mosaicScaleFactor)
         val imageSize = Size(imageBitmap.width, imageBitmap.height)
         val layerCount = canvas.saveLayer(0f, 0f, imageSize.width.toFloat(), imageSize.height.toFloat(), null, Canvas.ALL_SAVE_FLAG)
+        canvas.drawPath(mosaicPath, pathPaint)
+        canvas.drawBitmap(mosaicBitmap, 0f, 0f, getMosaicPaint())
+        canvas.restoreToCount(layerCount)
+        mosaicBitmap.recycle()
+    }
+
+    private fun getMosaicPath(mosaicPathList: MutableList<Path>): Path {
         val mosaicPath = Path()
         for (path in mosaicPathList) {
             mosaicPath.addPath(path)
         }
-        mosaicPath.transform(normalizedMatrix)
-        val pathPaint = getSavePathPaint(drawHandler, normalizedMatrix)
-        canvas.drawPath(mosaicPath, pathPaint)
-        val scaleFactor = normalizedMatrix.values()[Matrix.MSCALE_X]
-        val mosaicScaleFactor = scaleFactor * MOSAIC_SCALE_FACTOR
-        val mosaicBitmap = getMosaicBitmap(imageBitmap, mosaicScaleFactor)
-        canvas.drawBitmap(mosaicBitmap, 0f, 0f, getMosaicPaint())
-        canvas.restoreToCount(layerCount)
-        mosaicBitmap.recycle()
+        return mosaicPath
     }
 
     fun getMosaicPaint(): Paint {

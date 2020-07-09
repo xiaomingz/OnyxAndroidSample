@@ -11,12 +11,16 @@ class EditMenuViewModel : BaseViewModel() {
         NONE, SHARE, GRAFFITI, TEXT, CROP, MOSAIC
     }
 
-    var currItemMenuStyle = MutableLiveData(MenuStyle.GRAFFITI)
+    var currItemMenuStyle = MutableLiveData<MenuStyle>()
 
     fun onClickMenu(menuStyle: MenuStyle) = updateItemMenuLayout(menuStyle)
 
     private fun updateItemMenuLayout(menuStyle: MenuStyle) {
         currItemMenuStyle.value = menuStyle
+    }
+
+    fun initMenu() {
+        currItemMenuStyle.value = MenuStyle.GRAFFITI
     }
 
 }

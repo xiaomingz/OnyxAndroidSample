@@ -26,6 +26,7 @@ import com.onyx.gallery.helpers.PATH_URI
 import com.onyx.gallery.request.AttachNoteViewRequest
 import com.onyx.gallery.touch.ScribbleTouchDistributor
 import com.onyx.gallery.viewmodel.EditContentViewModel
+import com.onyx.gallery.viewmodel.EditMenuViewModel
 import com.onyx.gallery.views.crop.HighlightView
 import com.onyx.gallery.views.crop.RotateBitmap
 import org.greenrobot.eventbus.Subscribe
@@ -116,8 +117,13 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         globalEditBundle.enqueue(request, object : RxCallback<AttachNoteViewRequest>() {
             override fun onNext(startScribbleRequest: AttachNoteViewRequest) {
                 loadImage()
+                initMenu()
             }
         })
+    }
+
+    private fun initMenu() {
+        ViewModelProvider(requireActivity()).get(EditMenuViewModel::class.java).initMenu()
     }
 
     private fun onScribbleLayoutChange() {

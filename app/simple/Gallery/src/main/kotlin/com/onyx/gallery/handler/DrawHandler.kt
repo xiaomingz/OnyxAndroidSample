@@ -30,7 +30,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     private var readerHandler = RenderHandler(globalEditBundle)
     val renderContext = readerHandler.renderContext
 
-    private var surfaceView: SurfaceView? = null
+    private lateinit var surfaceView: SurfaceView
     private var rawInputCallback = RawInputCallbackImp(eventBus)
     var touchHelper: TouchHelper? = null
 
@@ -48,7 +48,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
             openRawDrawing()
             setRawDrawingEnabled(false)
         }
-        surfaceView?.run {
+        surfaceView.run {
             getLocalVisibleRect(surfaceRect)
             readerHandler.surfaceRect.set(surfaceRect)
             readerHandler.createRendererBitmap(Rect(0, 0, width, height))
@@ -97,7 +97,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun renderMirror(mirrorModel: MirrorModel) {
-        surfaceView?.let { readerHandler.renderMirror(it, currLimitRect, mirrorModel) }
+        readerHandler.renderMirror(surfaceView, currLimitRect, mirrorModel)
     }
 
     fun renderToBitmap(shape: Shape) {
@@ -110,7 +110,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun renderToScreen() {
-        surfaceView?.let { readerHandler.renderToSurfaceView(it) }
+        readerHandler.renderToSurfaceView(surfaceView)
     }
 
     fun renderShapesToBitmap() {
@@ -118,11 +118,10 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun renderVarietyShapesToScreen(shape: List<Shape>) {
-        surfaceView?.let { readerHandler.renderVarietyShapesToSurfaceView(it, shape) }
+        readerHandler.renderVarietyShapesToSurfaceView(surfaceView, shape)
     }
 
     fun release() {
-        surfaceView = null
         drawingArgs.reset()
         cacheShapeList.clear()
         orgLimitRect.setEmpty()
