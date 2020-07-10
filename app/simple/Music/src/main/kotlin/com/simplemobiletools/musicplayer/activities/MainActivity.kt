@@ -16,6 +16,9 @@ import android.view.MenuItem
 import android.widget.SeekBar
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.onyx.android.sdk.api.device.epd.EpdController
+import com.onyx.android.sdk.api.device.epd.UpdateMode
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
@@ -42,13 +45,18 @@ import com.simplemobiletools.musicplayer.services.MusicService
 import com.squareup.otto.Bus
 import com.squareup.otto.Subscribe
 import com.squareup.picasso.Picasso
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_navigation.*
 import kotlinx.android.synthetic.main.item_navigation.view.*
 import java.io.File
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : SimpleActivity(), SongListListener {
+    companion object {
+        const val FULLSCREEN_REFRESH_DEBOUNCE_TIMEOUT = 1000L
+    }
     private var isThirdPartyIntent = false
     private var songs = ArrayList<Song>()
     private var searchMenuItem: MenuItem? = null
@@ -58,8 +66,10 @@ class MainActivity : SimpleActivity(), SongListListener {
 
     private var storedTextColor = 0
     private var storedShowAlbumCover = true
+    private var isScrollStateIdle = false;
 
     lateinit var bus: Bus
+    private var fullscreenRefreshSubject = PublishSubject.create<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +110,36 @@ class MainActivity : SimpleActivity(), SongListListener {
         }
 
         checkAppOnSDCard()
+        initFullscreenRefreshSubject()
+        initSongsListScrollListener()
+
+    }
+
+    private fun initSongsListScrollListener() {
+        songs_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_DRAGGING -> {
+                        isScrollStateIdle = false
+                        fullscreenRefreshSubject.onNext("")
+                    }
+                    RecyclerView.SCROLL_STATE_IDLE -> {
+                        isScrollStateIdle = true
+                        fullscreenRefreshSubject.onNext("")
+                    }
+                }
+            }
+        })
+    }
+
+    private fun initFullscreenRefreshSubject() {
+        fullscreenRefreshSubject.debounce(FULLSCREEN_REFRESH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
+                .subscribe {
+                    if (isScrollStateIdle) {
+                        EpdController.applyGCOnce()
+                        EpdController.repaintEveryThing(UpdateMode.GU)
+                    }
+                }
     }
 
     override fun onResume() {
