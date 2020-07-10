@@ -16,8 +16,8 @@ class UndoRedoHander {
         shapeOperationHandler.add(shape)
     }
 
-    fun addShape(shapes: MutableList<Shape>) {
-        shapeOperationHandler.add(shapes)
+    fun addShapes(shapes: MutableList<Shape>) {
+        shapeOperationHandler.addAll(shapes)
     }
 
     fun getShapes(): MutableList<Shape> = shapeOperationHandler.getAllOperation()
@@ -69,7 +69,7 @@ class OperationHandler<T> {
         operations.add(operation)
     }
 
-    fun add(operations: MutableList<T>) {
+    fun addAll(operations: MutableList<T>) {
         if (!redoOperations.isEmpty()) {
             redoOperations.addAll(0, operations)
         }

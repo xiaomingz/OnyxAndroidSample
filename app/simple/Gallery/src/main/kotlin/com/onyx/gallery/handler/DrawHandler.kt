@@ -134,8 +134,8 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         undoRedoHander.addShape(shape)
     }
 
-    fun addShape(shapes: MutableList<Shape>) {
-        undoRedoHander.addShape(shapes)
+    fun addShapes(shapes: MutableList<Shape>) {
+        undoRedoHander.addShapes(shapes)
     }
 
     fun getAllShapes(): MutableList<Shape> {

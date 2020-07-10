@@ -23,7 +23,7 @@ public class AddShapesRequest extends BaseRequest {
         if (shapes == null) {
             return;
         }
-        drawHandler.addShape(shapes);
+        drawHandler.addShapes(shapes);
         setRenderShapesToBitmap(true);
         setRenderToScreen(true);
     }
