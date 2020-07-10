@@ -21,7 +21,7 @@ class StartTransformRequest(private val transformShapes: List<Shape>, private va
         val renderContext: RenderContext = drawHandler.renderContext
         renderContext.clearSelectionRect()
         renderContext.eraseBitmap()
-        val pageShapes: MutableList<Shape> = ArrayList(drawHandler.cacheShapeList)
+        val pageShapes: MutableList<Shape> = ArrayList(drawHandler.getAllShapes())
         pageShapes.removeAll(transformShapes)
         drawHandler.renderToBitmap(pageShapes)
 

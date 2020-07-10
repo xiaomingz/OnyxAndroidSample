@@ -13,8 +13,8 @@ import com.onyx.android.sdk.utils.Benchmark
 import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.bundle.GlobalEditBundle
-import com.onyx.gallery.utils.RendererUtils
 import com.onyx.gallery.utils.MosaicUtils
+import com.onyx.gallery.utils.RendererUtils
 
 /**
  * Created by Leung on 2020/6/5
@@ -28,7 +28,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     val surfaceRect = Rect()
     val currMosaicPath = Path()
     private var mosaicBitmap: Bitmap? = null
-    val mosaicPathList = mutableListOf<Path>()
+    val undoRedoHander = globalEditBundle.undoRedoHander
     private val pathPaint: Paint by lazy { initPathPaint() }
     private val mosaicPaint: Paint by lazy { initMosaicPaint() }
     private val strokePaint: Paint by lazy { initStrokePaint() }
@@ -76,7 +76,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     }
 
     fun addMosaicPath(path: Path) {
-        mosaicPathList.add(path)
+        undoRedoHander.addMosaic(path)
     }
 
     @WorkerThread
@@ -142,6 +142,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     }
 
     private fun renderMosaic(canvas: Canvas) {
+        val mosaicPathList = getAllMosaicPath()
         if (mosaicPathList.isEmpty() && currMosaicPath.isEmpty) {
             return
         }
@@ -256,6 +257,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     }
 
     private fun updateMosaicBitmap() {
+        val mosaicPathList = getAllMosaicPath()
         if (mosaicPathList.isEmpty() && currMosaicPath.isEmpty) return
         mosaicBitmap = MosaicUtils.getMosaicBitmap(renderContext.bitmap)
     }
@@ -265,9 +267,13 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         return Size(bitmap.width, bitmap.height)
     }
 
+    fun getAllMosaicPath(): MutableList<Path> {
+        return undoRedoHander.getMocais()
+    }
+
     fun release() {
         currMosaicPath.set(Path())
-        mosaicPathList.clear()
+        undoRedoHander.clearMosaic()
         mosaicBitmap?.let { it.recycle() }
         mosaicBitmap = null
         resetRenderContext()

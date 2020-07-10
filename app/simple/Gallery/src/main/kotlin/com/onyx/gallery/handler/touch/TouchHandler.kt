@@ -16,4 +16,6 @@ interface TouchHandler {
     fun onTouchDown(touchPoint: TouchPoint)
     fun onTouchMove(touchPoint: TouchPoint)
     fun onTouchUp(touchPoint: TouchPoint)
+    fun undo()
+    fun redo()
 }

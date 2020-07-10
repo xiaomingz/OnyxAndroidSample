@@ -121,7 +121,7 @@ public class TranslateViewPortRequest extends BaseRequest {
 
     private void buildTranslateShapes() {
         DrawHandler drawHandler = getDrawHandler();
-        List<Shape> shapeList = getDrawHandler().getCacheShapeList();
+        List<Shape> shapeList = getDrawHandler().getAllShapes();
         for (Shape shape : shapeList) {
             RectF shapeRect = new RectF(shape.getBoundingRect());
             drawHandler.getRenderContext().matrix.mapRect(shapeRect);

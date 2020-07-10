@@ -60,7 +60,7 @@ public class HitTestTextShapeRequest extends BaseRequest {
         if (touchPoint == null) {
             return;
         }
-        List<Shape> shapes = drawHandler.getCacheShapeList();
+        List<Shape> shapes = drawHandler.getAllShapes();
         if (shapes == null || shapes.isEmpty()) {
             return;
         }

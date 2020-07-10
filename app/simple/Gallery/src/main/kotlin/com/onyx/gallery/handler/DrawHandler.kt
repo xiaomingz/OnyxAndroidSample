@@ -24,9 +24,8 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     var orgLimitRect = Rect()
     val currLimitRect = Rect()
     val surfaceRect = Rect()
-    val cacheShapeList = mutableListOf<Shape>()
     val drawingArgs = DrawArgs()
-
+    private val undoRedoHander = globalEditBundle.undoRedoHander
     private var readerHandler = RenderHandler(globalEditBundle)
     val renderContext = readerHandler.renderContext
 
@@ -114,7 +113,8 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun renderShapesToBitmap() {
-        readerHandler.refreshBitmap(cacheShapeList)
+        val shapes = getAllShapes()
+        readerHandler.refreshBitmap(shapes)
     }
 
     fun renderVarietyShapesToScreen(shape: List<Shape>) {
@@ -123,7 +123,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
 
     fun release() {
         drawingArgs.reset()
-        cacheShapeList.clear()
+        undoRedoHander.clearShapes()
         orgLimitRect.setEmpty()
         currLimitRect.setEmpty()
         touchHelper?.closeRawDrawing()
@@ -131,16 +131,20 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun addShape(shape: Shape) {
-        cacheShapeList.add(shape)
+        undoRedoHander.addShape(shape)
     }
 
-    fun addShape(shapeList: List<Shape>) {
-        cacheShapeList.addAll(shapeList)
+    fun addShape(shapes: MutableList<Shape>) {
+        undoRedoHander.addShape(shapes)
+    }
+
+    fun getAllShapes(): MutableList<Shape> {
+        return undoRedoHander.getShapes()
     }
 
     fun getHandwritingShape(): List<Shape> {
         val shapeList: MutableList<Shape> = ArrayList()
-        for (shape in cacheShapeList) {
+        for (shape in getAllShapes()) {
             if (shape is ImageShape || shape is ImageShapeExpand) {
                 continue
             }
@@ -200,10 +204,11 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun getImageShape(): ImageShapeExpand? {
-        if (CollectionUtils.isNullOrEmpty(cacheShapeList)) {
+        val shapes = getAllShapes()
+        if (CollectionUtils.isNullOrEmpty(shapes)) {
             return null
         }
-        for (shape in cacheShapeList) {
+        for (shape in shapes) {
             if (shape is ImageShapeExpand) {
                 return shape
             }
@@ -220,11 +225,30 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun getMosaicPathList(): MutableList<Path> {
-        return readerHandler.mosaicPathList
+        return readerHandler.getAllMosaicPath()
     }
 
     fun hasMosaic(): Boolean {
-        return !readerHandler.mosaicPathList.isEmpty()
+        return !readerHandler.getAllMosaicPath().isEmpty()
+    }
+
+    fun undoShapes() {
+        undoRedoHander.undoShapes()
+    }
+
+    fun undoMosaic() {
+        readerHandler.currMosaicPath.reset()
+        undoRedoHander.undoMosaic()
+    }
+
+    fun redoShapes() {
+        undoRedoHander.redoShapes()
+    }
+
+    fun redoMosaic() {
+        val redoMosaic = undoRedoHander.redoMosaic()
+        redoMosaic?.let { readerHandler.currMosaicPath.set(redoMosaic) }
+
     }
 }
 

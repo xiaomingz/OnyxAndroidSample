@@ -13,13 +13,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.utils.Debug
 import com.onyx.gallery.R
+import com.onyx.gallery.action.RedoMosaicAction
+import com.onyx.gallery.action.RedoShapeAction
+import com.onyx.gallery.action.UndoMosaicAction
+import com.onyx.gallery.action.UndoShapeAction
 import com.onyx.gallery.databinding.FragmentEditContentBinding
 import com.onyx.gallery.event.result.LoadImageResultEvent
 import com.onyx.gallery.event.result.SaveCropTransformResultEvent
-import com.onyx.gallery.event.ui.CloseCropEvent
-import com.onyx.gallery.event.ui.OpenCropEvent
-import com.onyx.gallery.event.ui.StartRotateEvent
-import com.onyx.gallery.event.ui.UpdateCropRectEvent
+import com.onyx.gallery.event.ui.*
 import com.onyx.gallery.extensions.hideSoftInput
 import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.helpers.PATH_URI
@@ -140,6 +141,26 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     private fun openHandwriting() = drawHandler.touchHelper?.setRawDrawingEnabled(true)
 
     private fun getCropHandler(): CropHandler = globalEditBundle.cropHandler
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUndoShapeEvent(event: UndoShapeEvent) {
+        UndoShapeAction().execute(null)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRedoShapeEvent(event: RedoShapeEvent) {
+        RedoShapeAction().execute(null)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUndoShapeEvent(event: UndoMosaicEvent) {
+        UndoMosaicAction().execute(null)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRedoShapeEvent(event: RedoMosaicEvent) {
+        RedoMosaicAction().execute(null)
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLoadImageResultEvent(event: LoadImageResultEvent) {

@@ -1,8 +1,8 @@
 package com.onyx.gallery.handler
 
 import android.app.Activity
-import com.onyx.gallery.action.SaveEditPictureAction
 import com.onyx.gallery.action.SaveCropTransformAction
+import com.onyx.gallery.action.SaveEditPictureAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 
 /**
@@ -38,12 +38,11 @@ class AppBarHandler(private val hostActivity: Activity) {
     }
 
     private fun undo() {
-
+        globalEditBundle.undo()
     }
 
     private fun redo() {
-
+        globalEditBundle.redo()
     }
-
 
 }

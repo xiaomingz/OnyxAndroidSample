@@ -15,6 +15,8 @@ import com.onyx.gallery.event.raw.RawDrawingPointsReceivedEvent
 import com.onyx.gallery.event.touch.TouchDownEvent
 import com.onyx.gallery.event.touch.TouchMoveEvent
 import com.onyx.gallery.event.touch.TouchUpEvent
+import com.onyx.gallery.event.ui.RedoShapeEvent
+import com.onyx.gallery.event.ui.UndoShapeEvent
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -95,6 +97,14 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
         drawHandler.renderContext.matrix.invert(matrix)
         val scaleFactor = matrix.values()[Matrix.MSCALE_X]
         shape.strokeWidth *= scaleFactor
+    }
+
+    override fun undo() {
+        postEvent(UndoShapeEvent())
+    }
+
+    override fun redo() {
+        postEvent(RedoShapeEvent())
     }
 
 }
