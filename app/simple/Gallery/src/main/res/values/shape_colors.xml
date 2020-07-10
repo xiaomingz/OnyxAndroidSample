@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="shape_blue_color">#000084</color>
+    <color name="shape_red_color">#FF6163</color>
+    <color name="shape_green_color">#00AD64</color>
+    <color name="light_gray_color">#C0C0C0</color>
+    <color name="medium_gray_color">#808080</color>
+    <color name="dark_gray_color">#404040</color>
+</resources>

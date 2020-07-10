@@ -1,0 +1,18 @@
+<vector android:autoMirrored="true" android:height="@dimen/crop_menu_action_size"
+    android:viewportHeight="70" android:viewportWidth="70"
+    android:width="@dimen/crop_menu_action_size" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#00000000"
+        android:pathData="M35,1.5L35,68.5" android:strokeColor="#000000"
+        android:strokeLineCap="round" android:strokeLineJoin="round" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M43.1,62.3l25.4,0l0,-54.6l-25.4,0"
+        android:strokeColor="#000000" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="3"/>
+    <path android:fillColor="#FF000000" android:pathData="M26.9,9.2h-4c-0.8,0 -1.5,-0.7 -1.5,-1.5s0.7,-1.5 1.5,-1.5h4c0.8,0 1.5,0.7 1.5,1.5S27.8,9.2 26.9,9.2z"/>
+    <path android:fillColor="#FF000000" android:pathData="M17.1,9.2h-5.8c-0.8,0 -1.5,-0.7 -1.5,-1.5s0.7,-1.5 1.5,-1.5h5.8c0.8,0 1.5,0.7 1.5,1.5S18,9.2 17.1,9.2z"/>
+    <path android:fillColor="#FF000000" android:pathData="M1.5,13.2c-0.8,0 -1.5,-0.7 -1.5,-1.5c0,0 0,0 0,0v-4c0,-0.8 0.7,-1.5 1.5,-1.5h4C6.3,6.2 7,6.9 7,7.7S6.3,9.2 5.5,9.2H3v2.5C3,12.5 2.3,13.2 1.5,13.2z"/>
+    <path android:fillColor="#FF000000" android:pathData="M1.5,50.5C0.7,50.5 0,49.8 0,49v-9.3c0,-0.8 0.7,-1.5 1.5,-1.5S3,38.8 3,39.7V49C3,49.8 2.3,50.5 1.5,50.5zM1.5,31.9c-0.8,0 -1.5,-0.7 -1.5,-1.5c0,0 0,0 0,0V21c0,-0.8 0.7,-1.5 1.5,-1.5S3,20.2 3,21v9.3C3,31.1 2.4,31.8 1.5,31.9C1.5,31.8 1.5,31.8 1.5,31.9L1.5,31.9z"/>
+    <path android:fillColor="#FF000000" android:pathData="M5.5,63.8h-4c-0.8,0 -1.5,-0.7 -1.5,-1.5c0,0 0,0 0,0v-4c0,-0.8 0.7,-1.5 1.5,-1.5S3,57.5 3,58.3l0,0v2.5h2.5c0.8,0 1.5,0.7 1.5,1.5S6.3,63.8 5.5,63.8L5.5,63.8z"/>
+    <path android:fillColor="#FF000000" android:pathData="M17.1,63.8h-5.8c-0.8,0 -1.5,-0.7 -1.5,-1.5s0.7,-1.5 1.5,-1.5h5.8c0.8,0 1.5,0.7 1.5,1.5S18,63.8 17.1,63.8z"/>
+    <path android:fillColor="#FF000000" android:pathData="M26.9,63.8h-4c-0.8,0 -1.5,-0.7 -1.5,-1.5s0.7,-1.5 1.5,-1.5h4c0.8,0 1.5,0.7 1.5,1.5S27.8,63.8 26.9,63.8z"/>
+</vector>

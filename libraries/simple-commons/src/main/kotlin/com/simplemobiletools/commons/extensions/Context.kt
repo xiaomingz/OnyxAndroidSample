@@ -175,7 +175,7 @@ fun Context.getLatestMediaByDateId(uri: Uri = MediaStore.Files.getContentUri("ex
 }
 
 // some helper functions were taken from https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-fun Context.getRealPathFromURI(uri: Uri): String? {
+fun Context.getRealPathFromURI(uri: Uri): String {
     if (uri.scheme == "file") {
         return uri.path
     }
@@ -213,8 +213,7 @@ fun Context.getRealPathFromURI(uri: Uri): String? {
             return path
         }
     }
-
-    return getDataColumn(uri)
+    return getDataColumn(uri) ?: ""
 }
 
 fun Context.getDataColumn(uri: Uri, selection: String? = null, selectionArgs: Array<String>? = null): String? {

@@ -1,0 +1,60 @@
+package com.onyx.gallery.models
+
+/**
+ * Created by Leung on 2020/5/6
+ */
+enum class MenuAction {
+    NONE,
+
+    //crolor
+    NOTE_COLOR_WHITE,
+    NOTE_COLOR_BLACK,
+    NOTE_COLOR_DARK_GREY,
+    NOTE_COLOR_MEDIUM_GREY,
+    NOTE_COLOR_LIGHT_GREY,
+    NOTE_COLOR_RED,
+    NOTE_COLOR_GREEN,
+    NOTE_COLOR_BLUE,
+
+    //graphics
+    SCRIBBLE_BRUSH,
+    SCRIBBLE_CIRCLE,
+    SCRIBBLE_RECTANGLE,
+    SCRIBBLE_TRIANGLE,
+    SCRIBBLE_ARROW,
+    SCRIBBLE_LINE,
+    SCRIBBLE_DOTTED_LINE,
+    SCRIBBLE_WAVY_LINE,
+
+    //text
+    STROKE_WIDTH_ADDITION,
+    STROKE_WIDTH_SUBTRACTION,
+    FONT_SIZE_ADDITION,
+    FONT_SIZE_SUBTRACTION,
+    FONT_BOLD,
+    FONT_SELECT,
+    PREV_PAGE,
+    NEXT_PAGE,
+    CANCEL,
+    INDENTATION,
+    TRADITIONAL,
+
+    //crop
+    CROP_CUSTOMIZE,
+    CROP_1_1,
+    CROP_4_3,
+    CROP_3_4,
+    CROP_16_9_HORIZONTAL,
+    CROP_16_9_VERTICAL,
+
+    //rotate
+    ROTATE_LEFT,
+    ROTATE_RIGHT,
+
+    //mirror
+    MIRROR_RIGHT,
+    MIRROR_LEFT,
+    MIRROR_TOP,
+    MIRROR_BOTTOM,
+
+}

@@ -9,6 +9,8 @@ import android.graphics.Bitmap
 import android.graphics.drawable.PictureDrawable
 import android.media.AudioManager
 import android.provider.MediaStore
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
@@ -17,8 +19,6 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
 import com.onyx.gallery.R
 import com.onyx.gallery.activities.SettingsActivity
 import com.onyx.gallery.asynctasks.GetMediaAsynctask
@@ -28,6 +28,8 @@ import com.onyx.gallery.interfaces.*
 import com.onyx.gallery.models.*
 import com.onyx.gallery.svg.SvgSoftwareLayerSetter
 import com.onyx.gallery.views.MySquareImageView
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.*
 import pl.droidsonroids.gif.GifDrawable
 import java.io.File
 import java.io.FileInputStream
@@ -909,4 +911,20 @@ fun Context.getFileDateTaken(path: String): Long {
     }
 
     return 0L
+}
+
+fun Context.showSoftInput(view: View) {
+    if (view.context == null) return
+    val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    view.requestFocus()
+    view.postDelayed({
+        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED)
+    }, 200L)
+}
+
+
+fun Context.hideSoftInput(view: View) {
+    if (view.context == null) return
+    val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
 }

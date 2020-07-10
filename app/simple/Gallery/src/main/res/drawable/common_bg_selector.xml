@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/common_bg_stroke" android:state_activated="true" />
+    <item android:drawable="@drawable/common_bg_stroke" android:state_pressed="true" />
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/menu_radius" />
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+</selector>

@@ -54,4 +54,10 @@
     <dimen name="action_mode_close_item_margin_left">10dp</dimen>
     <dimen name="action_mode_close_item_margin_right">16dp</dimen>
     <dimen name="action_mode_close_item_padding_left">8dp</dimen>
+
+
+    <dimen name="reader_main_menu_bottom_image_width">70px</dimen>
+
+    <dimen name="image_btn_rect_radius">20dp</dimen>
+
 </resources>

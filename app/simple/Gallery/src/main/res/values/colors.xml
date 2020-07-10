@@ -9,4 +9,12 @@
     <color name="actionbar_menu_icon">#454545</color>
     <color name="crop_image_view_background">#BB000000</color>
     <color name="circle_black_background">#66000000</color>
+
+    <color name="normal_black">@android:color/black</color>
+
+
+    <color name="book_format_text_color">#525252</color>
+
+    <color name="transparent">#00000000</color>
+
 </resources>

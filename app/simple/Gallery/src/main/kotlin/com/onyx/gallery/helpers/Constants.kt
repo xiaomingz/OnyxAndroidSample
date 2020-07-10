@@ -2,6 +2,12 @@ package com.onyx.gallery.helpers
 
 import com.simplemobiletools.commons.helpers.MONTH_SECONDS
 
+//zoom
+const val MAX_VIEW_SCALE = 16
+const val MIN_VIEW_SCALE = 1
+const val FLOAT_ONE = 1f
+const val ZOOM_DELAY_RESUME_PEN_TIME_MS = 500
+
 // shared preferences
 const val DIRECTORY_SORT_ORDER = "directory_sort_order"
 const val GROUP_FOLDER_PREFIX = "group_folder_"
@@ -124,6 +130,7 @@ const val FAST_FORWARD_VIDEO_MS = 10000
 const val DIRECTORY = "directory"
 const val MEDIUM = "medium"
 const val PATH = "path"
+const val PATH_URI = "path_uri"
 const val GET_IMAGE_INTENT = "get_image_intent"
 const val GET_VIDEO_INTENT = "get_video_intent"
 const val GET_ANY_INTENT = "get_any_intent"

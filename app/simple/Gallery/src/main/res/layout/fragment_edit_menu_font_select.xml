@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.onyx.gallery.models.MenuAction" />
+
+        <variable
+            name="viewModel"
+            type="com.onyx.gallery.viewmodel.FontSelectViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <View
+            style="@style/single_line_X_axis_View"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <CheckedTextView
+                style="@style/dialog_font_option"
+                checkedOrUnChecked="@{viewModel.currentTab == viewModel.TAB_FONT_CN ? true : false}"
+                android:onClick="@{()->viewModel.onTypeChecked(viewModel.TAB_FONT_CN)}"
+                android:text="@string/text_style_cn" />
+
+            <CheckedTextView
+                style="@style/dialog_font_option"
+                checkedOrUnChecked="@{viewModel.currentTab == viewModel.TAB_FONT_EN ? true : false}"
+                android:onClick="@{()->viewModel.onTypeChecked(viewModel.TAB_FONT_EN)}"
+                android:text="@string/text_style_en" />
+
+            <CheckedTextView
+                style="@style/dialog_font_option"
+                checkedOrUnChecked="@{viewModel.currentTab == viewModel.TAB_FONT_CUSTOMIZE ? true : false}"
+                android:onClick="@{()->viewModel.onTypeChecked(viewModel.TAB_FONT_CUSTOMIZE)}"
+                android:text="@string/text_style_customize" />
+        </LinearLayout>
+
+        <com.onyx.gallery.views.PageRecyclerView
+            android:id="@+id/page_view"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/dialog_text_style_layout_margin_left"
+            android:layout_marginRight="@dimen/dialog_text_style_layout_margin_right"
+            android:layout_marginBottom="@dimen/font_option_choice_page_view_margin_bottom"
+            android:layout_weight="1" />
+
+        <View
+            style="@style/single_line_X_axis_View"
+            android:layout_height="1dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_text_style_layout_height"
+            android:layout_marginLeft="@dimen/dialog_text_style_layout_margin_top"
+            android:layout_marginRight="@dimen/dialog_text_style_layout_margin_top"
+            android:background="@drawable/reader_menu_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@{viewModel.totalCount}"
+                android:textColor="@color/normal_black"
+                android:textSize="@dimen/text_size_large_mode" />
+
+            <com.onyx.gallery.views.InvertedTextView
+                setLeftHint="@{com.onyx.gallery.R.drawable.s_font_option_back}"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/option_choice_title_height"
+                android:layout_centerInParent="true"
+                android:drawablePadding="@dimen/option_choice_title_drawable_padding"
+                android:gravity="left|center_vertical"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CANCEL)}"
+                android:paddingRight="10dp"
+                android:text="@string/back"
+                android:textColor="@color/normal_black"
+                android:textSize="@dimen/text_size_large_mode" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/pre_icon"
+                    setHint="@{com.onyx.gallery.R.drawable.s_read_pre_page}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/bg_button_click_solid"
+                    android:onClick="@{()->viewModel.onHandleMenu(MenuAction.PREV_PAGE)}"
+                    android:padding="@dimen/text_style_option_choice_padding"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/page_size_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@{viewModel.pageIndicator}"
+                    android:textColor="@color/normal_black"
+                    android:textSize="@dimen/text_size_large_mode" />
+
+                <ImageView
+                    android:id="@+id/next_icon"
+                    setHint="@{com.onyx.gallery.R.drawable.s_read_next_page}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/bg_button_click_solid"
+                    android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NEXT_PAGE)}"
+                    android:padding="@dimen/text_style_option_choice_padding" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</layout>

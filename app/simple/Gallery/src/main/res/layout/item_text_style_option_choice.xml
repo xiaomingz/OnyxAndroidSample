@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.onyx.gallery.models.ItemTextStyleOptionChoiceViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/imagebtn_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            setTextViewTypeface="@{viewModel.typeface}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/item_style_option_choice_padding_left"
+            android:text="@{viewModel.name}"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_large_mode" />
+
+        <CheckBox
+            android:layout_width="@dimen/item_checkbox_size"
+            android:layout_height="@dimen/item_checkbox_size"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_checkbox_margin_right"
+            android:background="@drawable/background_item_checkbox"
+            android:button="@null"
+            android:checked="@{viewModel.isChecked}"
+            android:clickable="false" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_dash_line"
+            android:layerType="software" />
+
+    </RelativeLayout>
+</layout>

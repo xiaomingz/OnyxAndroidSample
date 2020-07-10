@@ -1,0 +1,7 @@
+<vector android:height="@dimen/dialog_table_of_content_select_checkbox_size" android:viewportHeight="128"
+    android:viewportWidth="128" android:width="@dimen/dialog_table_of_content_select_checkbox_size" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#00000000"
+        android:pathData="M33.2,2.4l61.6,61.6l-61.6,61.6"
+        android:strokeColor="#000000" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="5"/>
+</vector>

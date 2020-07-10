@@ -373,6 +373,24 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
+    <string name="graffiti">涂鸦</string>
+    <string name="cropMenu">裁剪</string>
+    <string name="mosaic">马赛克</string>
+    <string name="brush">笔刷</string>
+    <string name="color">颜色</string>
+    <string name="scale_min_tips">已缩放到最小值</string>
+    <string name="scale_max_tips">已缩放到最大值</string>
+    <string name="stroke_width">线宽</string>
+    <string name="text_menu_font_size">字号</string>
+    <string name="typeface">字体</string>
+    <string name="default_font">默认</string>
+    <string name="text_style_cn">中文</string>
+    <string name="text_style_en">英文</string>
+    <string name="text_style_customize">自定义</string>
+    <string name="back">返回</string>
+    <string name="total_count">总数：%d</string>
+    <string name="page_index">%d/%d</string>
+    <string name="crop">裁剪</string>
 
     <!--
         Haven't found some strings? There's more at

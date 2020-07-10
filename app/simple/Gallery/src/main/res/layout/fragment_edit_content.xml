@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.onyx.gallery.viewmodel.EditContentViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/fragment_edit_content_margin_top"
+        android:paddingBottom="@dimen/fragment_edit_content_margin_bottom">
+
+        <EditText
+            android:id="@+id/editText"
+            selection="@{viewModel.textInputSelection}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5.5dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:imeOptions="flagNoFullscreen|flagNoExtractUi"
+            android:inputType="textMultiLine"
+            android:text="@{viewModel.textInput}"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:visibility="gone" />
+
+        <SurfaceView
+            android:id="@+id/surfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.onyx.gallery.views.crop.CropImageView
+            android:id="@+id/cropImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@android:color/transparent" />
+
+
+    </FrameLayout>
+
+</layout>

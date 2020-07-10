@@ -1,0 +1,11 @@
+<vector android:height="@dimen/menu_icon_size" android:viewportHeight="128"
+    android:viewportWidth="128" android:width="@dimen/menu_icon_size" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#00000000"
+        android:pathData="M15.8,2.6h96.5c7.3,0 13.2,5.9 13.2,13.2v96.5c0,7.3 -5.9,13.2 -13.2,13.2H15.8c-7.3,0 -13.2,-5.9 -13.2,-13.2V15.8C2.5,8.5 8.5,2.6 15.8,2.6z"
+        android:strokeColor="#000000" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="5"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M102.7,2.9v31c0.1,4.6 -3.6,8.3 -8.1,8.3c0,0 0,0 0,0H33.4c-4.6,-0.1 -8.2,-3.8 -8.1,-8.3c0,0 0,0 0,0v-31"
+        android:strokeColor="#000000" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="5"/>
+</vector>
