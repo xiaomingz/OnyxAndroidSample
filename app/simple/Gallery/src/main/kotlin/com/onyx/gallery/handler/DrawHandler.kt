@@ -15,7 +15,6 @@ import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
 import com.onyx.gallery.views.ImageShapeExpand
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 /**
  * Created by Leung on 2020/6/5
@@ -105,14 +104,17 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun renderToBitmap(shapes: List<Shape>) {
+        touchHelper ?: return
         readerHandler.renderToBitmap(shapes)
     }
 
     fun renderToScreen() {
+        touchHelper ?: return
         readerHandler.renderToSurfaceView(surfaceView)
     }
 
     fun renderShapesToBitmap() {
+        touchHelper ?: return
         val shapes = getAllShapes()
         readerHandler.refreshBitmap(shapes)
     }
@@ -128,6 +130,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         currLimitRect.setEmpty()
         touchHelper?.closeRawDrawing()
         readerHandler.release()
+        touchHelper = null
     }
 
     fun addShape(shape: Shape) {
