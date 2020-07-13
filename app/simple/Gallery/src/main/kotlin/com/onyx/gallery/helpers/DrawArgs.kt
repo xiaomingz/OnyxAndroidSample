@@ -9,6 +9,7 @@ import com.onyx.android.sdk.scribble.shape.ShapeFactory
  */
 class DrawArgs {
     companion object {
+        const val defaultEraserWidth = 20.0f
         const val stepStrokeWidth = 3
         const val maxStrokeWidth = 40
         const val minStrokeWidth = 10
@@ -21,6 +22,7 @@ class DrawArgs {
     var normalizeScale = 1f
     var strokeColor = defaultStrokeColor
     var strokeWidth = defaultStrokeWidth
+    var eraserWidth = defaultEraserWidth
     var strokeStyle = defaultStrokeType
     var lastShapeType = defaultShape
     var currShapeType = defaultShape
@@ -35,6 +37,7 @@ class DrawArgs {
     fun reset() {
         strokeColor = defaultStrokeColor
         strokeWidth = defaultStrokeWidth
+        eraserWidth = defaultEraserWidth
         strokeStyle = defaultStrokeType
         lastShapeType = defaultShape
         currShapeType = defaultShape

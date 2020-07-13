@@ -11,10 +11,10 @@ import com.onyx.gallery.views.WaveLineShape
  */
 object ExpandShapeFactory {
 
-    const val IMAGE_SHAPE_EXPAND = 1
-    const val EDIT_TEXT_SHAPE_EXPAND = 2
-    const val SHAP_DASH_LINE = 3
-    const val SHAP_WAVE_LINE = 4
+    const val IMAGE_SHAPE_EXPAND = 22
+    const val EDIT_TEXT_SHAPE_EXPAND = 23
+    const val SHAP_DASH_LINE = 24
+    const val SHAP_WAVE_LINE = 25
 
     @JvmStatic
     fun createShape(shapeType: Int): Shape {

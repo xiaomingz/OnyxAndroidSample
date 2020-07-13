@@ -19,7 +19,7 @@ import java.util.*
  * Created by Leung on 2020/6/7
  * @description :create different graphics
  */
-class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(globalEditBundle) {
+class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : GraffitiTouchHandler(globalEditBundle) {
 
     companion object {
         private const val TOUCH_POINT_BUFFER_MAX_COUNT = 30

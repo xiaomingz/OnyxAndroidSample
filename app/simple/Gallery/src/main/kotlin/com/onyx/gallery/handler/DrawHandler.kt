@@ -24,7 +24,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     val currLimitRect = Rect()
     val surfaceRect = Rect()
     val drawingArgs = DrawArgs()
-    private val undoRedoHander = globalEditBundle.undoRedoHander
+    private val undoRedoHander = globalEditBundle.undoRedoHandler
     private var readerHandler = RenderHandler(globalEditBundle)
     val renderContext = readerHandler.renderContext
 
@@ -142,7 +142,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         return undoRedoHander.getShapes()
     }
 
-    fun getHandwritingShape(): List<Shape> {
+    fun getHandwritingShape(): MutableList<Shape> {
         val shapeList: MutableList<Shape> = ArrayList()
         for (shape in getAllShapes()) {
             if (shape is ImageShape || shape is ImageShapeExpand) {

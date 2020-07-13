@@ -39,7 +39,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     var initDy = 0f
     var initScaleFactor = 0f
 
-    val undoRedoHander: UndoRedoHandler by lazy { UndoRedoHandler() }
+    val undoRedoHandler: UndoRedoHandler by lazy { UndoRedoHandler() }
     val drawHandler = DrawHandler(context, this, eventBus)
     val rxManager: RxManager by lazy { RxManager.Builder.sharedSingleThreadManager() }
     val touchHandlerManager = TouchHandlerManager(this)
