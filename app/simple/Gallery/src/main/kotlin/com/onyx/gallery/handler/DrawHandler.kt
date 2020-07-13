@@ -34,7 +34,6 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
 
     fun attachHostView(hostView: SurfaceView) {
         checkSizeIsZero(hostView)
-        initDrawArgs()
         surfaceView = hostView
         touchHelper = if (touchHelper == null) {
             TouchHelper.create(surfaceView, rawInputCallback)
@@ -45,6 +44,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
             bindHostView(surfaceView, rawInputCallback)
             openRawDrawing()
             setRawDrawingEnabled(false)
+            initDrawArgs()
         }
         surfaceView.run {
             getLocalVisibleRect(surfaceRect)
@@ -104,17 +104,14 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun renderToBitmap(shapes: List<Shape>) {
-        touchHelper ?: return
         readerHandler.renderToBitmap(shapes)
     }
 
     fun renderToScreen() {
-        touchHelper ?: return
         readerHandler.renderToSurfaceView(surfaceView)
     }
 
     fun renderShapesToBitmap() {
-        touchHelper ?: return
         val shapes = getAllShapes()
         readerHandler.refreshBitmap(shapes)
     }

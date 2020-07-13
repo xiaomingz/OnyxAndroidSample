@@ -17,8 +17,7 @@ class TouchHandlerManager(globalEditBundle: GlobalEditBundle) {
 
     init {
         touchHandlerMap[TouchHandlerType.SCRIBBLE] = ScribbleTouchHandler(globalEditBundle)
-        touchHandlerMap[TouchHandlerType.GRAPHICS] = GraphicsTouchHandler(globalEditBundle)
-        touchHandlerMap[TouchHandlerType.TEXT_INSERTION] = InsertTextTouchHandler(globalEditBundle)
+        touchHandlerMap[TouchHandlerType.GRAPHICS] = NormalShapeTouchHandler(globalEditBundle)
         touchHandlerMap[TouchHandlerType.TEXT_INSERTION] = InsertTextTouchHandler(globalEditBundle)
         touchHandlerMap[TouchHandlerType.CROP] = CropTouchHandler(globalEditBundle)
         touchHandlerMap[TouchHandlerType.MOSAIC] = MosaicTouchHandler(globalEditBundle)

@@ -39,8 +39,8 @@ class GraffitiMenuViewModel : BaseMenuViewModel() {
             MenuAction.SCRIBBLE_CIRCLE,
             MenuAction.SCRIBBLE_RECTANGLE,
             MenuAction.SCRIBBLE_TRIANGLE,
-            MenuAction.SCRIBBLE_DOTTED_LINE,
-            MenuAction.SCRIBBLE_WAVY_LINE,
+            MenuAction.SCRIBBLE_DASH_LINE,
+            MenuAction.SCRIBBLE_WAVE_LINE,
             MenuAction.SCRIBBLE_LINE -> onSelectShape(action)
             MenuAction.NOTE_COLOR_BLACK,
             MenuAction.NOTE_COLOR_DARK_GREY,

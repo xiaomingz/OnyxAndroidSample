@@ -16,7 +16,7 @@ import com.onyx.gallery.R
 import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.handler.InsertTextHandler
-import com.onyx.gallery.handler.UndoRedoHander
+import com.onyx.gallery.handler.UndoRedoHandler
 import com.onyx.gallery.handler.touch.TouchHandlerManager
 import com.simplemobiletools.commons.extensions.getRealPathFromURI
 import com.simplemobiletools.commons.extensions.isPathOnOTG
@@ -39,7 +39,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     var initDy = 0f
     var initScaleFactor = 0f
 
-    val undoRedoHander: UndoRedoHander by lazy { UndoRedoHander() }
+    val undoRedoHander: UndoRedoHandler by lazy { UndoRedoHandler() }
     val drawHandler = DrawHandler(context, this, eventBus)
     val rxManager: RxManager by lazy { RxManager.Builder.sharedSingleThreadManager() }
     val touchHandlerManager = TouchHandlerManager(this)

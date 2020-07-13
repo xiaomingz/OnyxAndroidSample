@@ -67,8 +67,8 @@ open class BaseMenuViewModel : BaseViewModel() {
                 MenuAction.SCRIBBLE_TRIANGLE -> ShapeFactory.SHAPE_TRIANGLE
                 MenuAction.SCRIBBLE_CIRCLE -> ShapeFactory.SHAPE_CIRCLE
                 MenuAction.SCRIBBLE_RECTANGLE -> ShapeFactory.SHAPE_RECTANGLE
-                MenuAction.SCRIBBLE_DOTTED_LINE -> ExpandShapeFactory.SHAP_DOTTED_LINE
-                MenuAction.SCRIBBLE_WAVY_LINE-> ExpandShapeFactory.SHAP_WAVE_LINE
+                MenuAction.SCRIBBLE_DASH_LINE -> ExpandShapeFactory.SHAP_DASH_LINE
+                MenuAction.SCRIBBLE_WAVE_LINE-> ExpandShapeFactory.SHAP_WAVE_LINE
                 else -> defaultShape()
             }
 

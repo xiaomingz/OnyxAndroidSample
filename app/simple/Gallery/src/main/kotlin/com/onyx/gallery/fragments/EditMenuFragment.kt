@@ -7,16 +7,21 @@ import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuBinding
 import com.onyx.gallery.event.ui.CloseCropEvent
+import com.onyx.gallery.event.ui.InitMenuEvent
 import com.onyx.gallery.event.ui.OpenCropEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.request.RestoreTransformRequest
 import com.onyx.gallery.viewmodel.EditMenuViewModel
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 /**
  * Created by Leung on 2020/4/30
  */
 class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel>(), Observer<EditMenuViewModel.MenuStyle> {
+
+    override fun useEventBus(): Boolean = true
 
     private val menuFragmentMap = HashMap<EditMenuViewModel.MenuStyle, BaseFragment<*, *>>()
 
@@ -37,6 +42,11 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
         super.onDestroyView()
         viewModel.currItemMenuStyle.removeObservers(this)
         menuFragmentMap.clear()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onInitMenuEvent(event: InitMenuEvent) {
+        viewModel.initMenu()
     }
 
     override fun onChanged(menuStyle: EditMenuViewModel.MenuStyle?) {

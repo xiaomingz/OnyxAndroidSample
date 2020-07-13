@@ -8,7 +8,7 @@ import com.onyx.gallery.views.ImageShapeExpand
 /**
  * Created by Leung 2020/7/10 15:27
  **/
-class UndoRedoHander {
+class UndoRedoHandler {
     private val shapeOperationHandler = OperationHandler<Shape>()
     private val mosaicOperationHandler = OperationHandler<Path>()
 

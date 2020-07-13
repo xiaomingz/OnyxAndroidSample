@@ -9,10 +9,10 @@ import com.onyx.gallery.utils.ExpandShapeFactory
 /**
  * Created by Leung 2020/7/11 11:30
  **/
-class DottedLineShape : BaseLineShape() {
+class DashLineShape : BaseLineShape() {
     private val intervalFactor = 1.3f
 
-    override fun getType(): Int = ExpandShapeFactory.SHAP_DOTTED_LINE
+    override fun getType(): Int = ExpandShapeFactory.SHAP_DASH_LINE
 
     override fun render(renderContext: RenderContext) {
         val path = Path().apply {

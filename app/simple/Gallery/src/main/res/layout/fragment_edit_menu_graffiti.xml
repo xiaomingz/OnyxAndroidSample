@@ -129,14 +129,14 @@
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_DOTTED_LINE}"
-                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_DOTTED_LINE)}"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_DASH_LINE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_DASH_LINE)}"
                 app:srcCompat="@drawable/ic_dotted_line" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_WAVY_LINE}"
-                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_WAVY_LINE)}"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_WAVE_LINE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_WAVE_LINE)}"
                 app:srcCompat="@drawable/ic_wave" />
 
         </LinearLayout>

@@ -132,6 +132,10 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         }
     }
 
+    private fun initMenu() {
+        postEvent(InitMenuEvent())
+    }
+
     private fun openHandwriting() = drawHandler.touchHelper?.setRawDrawingEnabled(true)
 
     private fun getCropHandler(): CropHandler = globalEditBundle.cropHandler
@@ -159,6 +163,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLoadImageResultEvent(event: LoadImageResultEvent) {
         if (event.isSuccess()) {
+            initMenu()
             openHandwriting()
         }
     }

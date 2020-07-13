@@ -31,7 +31,7 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
             case ShapeFactory.SHAPE_RECTANGLE:
             case ShapeFactory.SHAPE_TRIANGLE:
             case ShapeFactory.SHAPE_LINE:
-            case ExpandShapeFactory.SHAP_DOTTED_LINE:
+            case ExpandShapeFactory.SHAP_DASH_LINE:
             case ExpandShapeFactory.SHAP_WAVE_LINE:
                 drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.GRAPHICS;
