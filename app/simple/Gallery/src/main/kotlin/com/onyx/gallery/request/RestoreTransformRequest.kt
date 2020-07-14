@@ -11,6 +11,7 @@ class RestoreTransformRequest(val refresh: Boolean = true) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
         val renderContext = drawHandler.renderContext
+        renderContext.selectionRect = null
         renderContext.setMatrix(Matrix())
         renderShapesToBitmap = refresh
         renderToScreen = refresh

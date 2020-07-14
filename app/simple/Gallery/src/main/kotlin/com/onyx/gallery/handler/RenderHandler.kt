@@ -53,6 +53,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     }
 
     fun resetRenderContext() {
+        renderContext.selectionRect = null
         renderContext.reset()
         renderContext.matrix.reset()
     }
