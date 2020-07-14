@@ -55,6 +55,14 @@ class UndoRedoHandler {
     fun redoMosaic(): Path? {
         return mosaicOperationHandler.redo()
     }
+
+    fun eraseShapes(removeShapes: List<Shape>) {
+        shapeOperationHandler.undo(removeShapes)
+    }
+
+    fun eraseMosaics(removedMosaicPaths: MutableList<Path>) {
+        mosaicOperationHandler.undo(removedMosaicPaths)
+    }
 }
 
 class OperationHandler<T> {
@@ -91,6 +99,17 @@ class OperationHandler<T> {
             return operation
         }
         return null
+    }
+
+    fun undo(removeOperationList: List<T>) {
+        for (operation in removeOperationList) {
+            val indexOf = operations.indexOf(operation)
+            if (indexOf < 0) {
+                continue
+            }
+            val removeOperation = operations.removeAt(indexOf)
+            redoOperations.add(removeOperation)
+        }
     }
 
     fun redo(): T? {

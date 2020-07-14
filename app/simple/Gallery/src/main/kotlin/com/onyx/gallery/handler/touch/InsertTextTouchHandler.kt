@@ -15,7 +15,7 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Created by Leung on 2020/6/8
  */
-class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(globalEditBundle) {
+class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
     private val insertTextHandler: InsertTextHandler by lazy { globalEditBundle.insertTextHandler }
 
     override fun onActivate() {

@@ -1,6 +1,5 @@
 package com.onyx.gallery.request.shape
 
-import android.util.Log
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.shape.Shape
@@ -17,10 +16,10 @@ class EraseShapeRequest(private val touchPointList: TouchPointList) : BaseReques
         val drawRadius = drawHandler.drawingArgs.eraserWidth / 2
         val handwritingShape = drawHandler.getHandwritingShape()
         val removeShapes = removeShapes(handwritingShape, touchPointList, drawRadius)
-        Log.d("leung", "EraseShapeRequest removeShapes.size=${removeShapes.size}")
-        removeShapes.isEmpty() ?: return
-        handwritingShape.removeAll(removeShapes)
-        undoRedoHandler.getShapes().removeAll(removeShapes)
+        if (removeShapes.isEmpty()) {
+            return
+        }
+        undoRedoHandler.eraseShapes(removeShapes)
         renderShapesToBitmap = true
         renderToScreen = true
     }
