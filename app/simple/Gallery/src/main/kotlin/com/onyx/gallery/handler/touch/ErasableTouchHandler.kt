@@ -50,7 +50,9 @@ open class ErasableTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchH
     }
 
     private fun erasingShape(pointList: TouchPointList) {
-        pointList.points.isEmpty() ?: return
+        if (pointList.points.isEmpty()) {
+            return
+        }
         globalEditBundle.enqueue(EraseShapeRequest(pointList), null)
     }
 

@@ -33,6 +33,7 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
             case ShapeFactory.SHAPE_LINE:
             case ExpandShapeFactory.SHAP_DASH_LINE:
             case ExpandShapeFactory.SHAP_WAVE_LINE:
+            case ExpandShapeFactory.SHAP_ARROW_LINE:
                 drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.GRAPHICS;
                 break;

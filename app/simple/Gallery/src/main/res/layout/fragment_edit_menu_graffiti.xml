@@ -117,8 +117,8 @@
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_ARROW}"
-                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_ARROW)}"
+                setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_ARROW_LINE}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_ARROW_LINE)}"
                 app:srcCompat="@drawable/ic_arrow" />
 
             <ImageView

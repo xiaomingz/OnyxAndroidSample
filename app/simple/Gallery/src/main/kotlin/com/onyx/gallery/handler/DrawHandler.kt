@@ -248,7 +248,6 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     fun redoMosaic() {
         val redoMosaic = undoRedoHander.redoMosaic()
         redoMosaic?.let { readerHandler.currMosaicPath.set(redoMosaic) }
-
     }
 }
 

@@ -81,7 +81,9 @@ class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHand
     }
 
     override fun handlerErasePoints(pointList: TouchPointList) {
-        pointList.points.isEmpty() ?: return
+        if (pointList.points.isEmpty()) {
+            return
+        }
         globalEditBundle.enqueue(EraseMosaicRequest(pointList), null)
     }
 

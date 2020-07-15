@@ -25,7 +25,7 @@ class DashLineShape : BaseLineShape() {
         val dashPathEffect = DashPathEffect(floatArrayOf(interval, interval), 0f)
         renderContext.run {
             paint.setPathEffect(dashPathEffect)
-            canvas.drawPath(path, renderContext.paint)
+            canvas.drawPath(path, paint)
             paint.setPathEffect(null)
         }
     }
