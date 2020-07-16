@@ -109,12 +109,14 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         if (CollectionUtils.isNullOrEmpty(shapes)) {
             return false
         }
-        return renderToSurfaceViewImp(surfaceView) {
+        return renderToSurfaceViewImp(surfaceView) { canvas ->
             val rect = RendererUtils.checkSurfaceView(surfaceView)
-            renderBackground(surfaceView.context, it, renderContext, rect)
-            it.drawBitmap(renderContext.bitmap, 0f, 0f, null)
-            drawSelectionRect(it, renderContext)
-            renderShapeToCanvas(shapes, it)
+            renderBackground(surfaceView.context, canvas, renderContext, rect)
+            canvas.drawBitmap(renderContext.bitmap, 0f, 0f, null)
+            drawSelectionRect(canvas, renderContext)
+            renderShapeToCanvas(shapes, canvas)
+            renderMosaic(canvas)
+            true
         }
     }
 
