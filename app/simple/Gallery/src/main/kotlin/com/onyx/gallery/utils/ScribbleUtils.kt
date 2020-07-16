@@ -15,7 +15,7 @@ import com.onyx.gallery.handler.DrawHandler
 object ScribbleUtils {
 
     @WorkerThread
-    fun drawScribbleToImgae(drawHandler: DrawHandler, imagePath: String, normalizedMatrix: Matrix): Bitmap {
+    fun drawScribbleToImage(drawHandler: DrawHandler, imagePath: String, normalizedMatrix: Matrix): Bitmap {
         val newBitmap = createBitmap(imagePath)
         val imageBitmap = decodeFile(imagePath)
         val shapeBitmap = createShapeBitmap(drawHandler, normalizedMatrix, imageBitmap)

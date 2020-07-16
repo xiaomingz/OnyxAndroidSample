@@ -11,7 +11,7 @@ import com.onyx.gallery.utils.ScribbleUtils
 class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
-        val imageBitmap = ScribbleUtils.drawScribbleToImgae(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
+        val imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
         BitmapUtils.saveBitmapToFile(context, filePath, imageBitmap)
         imageBitmap.recycle()
     }

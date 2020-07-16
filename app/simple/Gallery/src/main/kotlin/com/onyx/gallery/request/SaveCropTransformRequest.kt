@@ -36,7 +36,7 @@ class SaveCropTransformRequest : BaseRequest() {
     }
 
     private fun cropImage(filePath: String, orgCropRect: RectF): Bitmap {
-        var imageBitmap = ScribbleUtils.drawScribbleToImgae(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
+        var imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
         val cropRect = RectF(orgCropRect)
         if (cropHandler.hasRotateChange()) {
             imageBitmap = imageRotateChange(imageBitmap)

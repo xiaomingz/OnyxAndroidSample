@@ -16,8 +16,9 @@ object MosaicUtils {
     fun renderMosaicToCanvas(drawHandler: DrawHandler, canvas: Canvas, normalizedMatrix: Matrix, imageBitmap: Bitmap) {
         val mosaicPathList = drawHandler.getMosaicPathList()
         if (mosaicPathList.isEmpty()) return
-        val mosaicPath = getMosaicPath(mosaicPathList)
-        mosaicPath.transform(normalizedMatrix)
+        val mosaicPath = getMosaicPath(mosaicPathList).apply {
+            transform(normalizedMatrix)
+        }
         val pathPaint = getSavePathPaint(drawHandler, normalizedMatrix)
         val scaleFactor = normalizedMatrix.values()[Matrix.MSCALE_X]
         val mosaicScaleFactor = scaleFactor * MOSAIC_SCALE_FACTOR

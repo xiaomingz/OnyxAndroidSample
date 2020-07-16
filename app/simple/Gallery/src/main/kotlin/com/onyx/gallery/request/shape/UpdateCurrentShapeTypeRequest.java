@@ -35,7 +35,7 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
             case ExpandShapeFactory.SHAP_WAVE_LINE:
             case ExpandShapeFactory.SHAP_ARROW_LINE:
                 drawHandler.setRawDrawingRenderEnabled(false);
-                touchHandlerType = TouchHandlerType.GRAPHICS;
+                touchHandlerType = TouchHandlerType.NORMAL_SHAPE;
                 break;
             case ShapeFactory.SHAPE_EDIT_TEXT_SHAPE:
                 drawHandler.setRawDrawingRenderEnabled(false);
@@ -43,10 +43,9 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
                 break;
             default:
                 drawHandler.setRawDrawingRenderEnabled(true);
-                touchHandlerType = TouchHandlerType.SCRIBBLE;
+                touchHandlerType = TouchHandlerType.EPD_SHAPE;
                 break;
         }
-
         getGlobalEditBundle().getTouchHandlerManager().activateHandler(touchHandlerType);
     }
 }
