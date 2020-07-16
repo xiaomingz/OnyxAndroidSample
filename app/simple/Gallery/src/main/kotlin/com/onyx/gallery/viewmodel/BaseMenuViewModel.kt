@@ -7,6 +7,7 @@ import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.models.MenuAction
+import com.onyx.gallery.utils.ExpandShapeFactory
 
 /**
  * Created by Leung on 2020/5/6
@@ -66,7 +67,9 @@ open class BaseMenuViewModel : BaseViewModel() {
                 MenuAction.SCRIBBLE_TRIANGLE -> ShapeFactory.SHAPE_TRIANGLE
                 MenuAction.SCRIBBLE_CIRCLE -> ShapeFactory.SHAPE_CIRCLE
                 MenuAction.SCRIBBLE_RECTANGLE -> ShapeFactory.SHAPE_RECTANGLE
-//                todo SCRIBBLE_ERASER_PART -> type = ShapeFactory.SHAPE_ERASER ,  SCRIBBLE_PENCIL -> type = ShapeFactory.SHAPE_PENCIL_SCRIBBLE
+                MenuAction.SCRIBBLE_DASH_LINE -> ExpandShapeFactory.SHAP_DASH_LINE
+                MenuAction.SCRIBBLE_WAVE_LINE-> ExpandShapeFactory.SHAP_WAVE_LINE
+                MenuAction.SCRIBBLE_ARROW_LINE-> ExpandShapeFactory.SHAP_ARROW_LINE
                 else -> defaultShape()
             }
 

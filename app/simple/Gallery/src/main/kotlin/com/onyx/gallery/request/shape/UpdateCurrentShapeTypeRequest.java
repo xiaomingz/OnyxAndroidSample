@@ -4,6 +4,7 @@ import com.onyx.android.sdk.scribble.shape.ShapeFactory;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.handler.touch.TouchHandlerType;
+import com.onyx.gallery.utils.ExpandShapeFactory;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -30,6 +31,9 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
             case ShapeFactory.SHAPE_RECTANGLE:
             case ShapeFactory.SHAPE_TRIANGLE:
             case ShapeFactory.SHAPE_LINE:
+            case ExpandShapeFactory.SHAP_DASH_LINE:
+            case ExpandShapeFactory.SHAP_WAVE_LINE:
+            case ExpandShapeFactory.SHAP_ARROW_LINE:
                 drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.GRAPHICS;
                 break;

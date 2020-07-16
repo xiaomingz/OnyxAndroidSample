@@ -2,7 +2,7 @@ package com.onyx.gallery.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 
-/**ø
+/**
  * Created by Leung on 2020/5/6
  */
 class EditMenuViewModel : BaseViewModel() {

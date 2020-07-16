@@ -9,13 +9,17 @@ import com.onyx.android.sdk.pen.data.TouchPointList
 interface TouchHandler {
     fun onActivate()
     fun onDeactivate()
-    fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint)
+    fun onBeginRawDrawEvent(shortcutDrawing: Boolean, point: TouchPoint)
     fun onEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint)
     fun onRawDrawingPointsMoveReceived(touchPoint: TouchPoint)
     fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList)
     fun onTouchDown(touchPoint: TouchPoint)
     fun onTouchMove(touchPoint: TouchPoint)
     fun onTouchUp(touchPoint: TouchPoint)
+    fun onBeginRawErasing(shortcutErasing: Boolean, point: TouchPoint)
+    fun onRawErasingTouchPointMoveReceived(point: TouchPoint)
+    fun onRawErasingTouchPointListReceived(pointList: TouchPointList)
+    fun onEndRawErasing(outLimitRegion: Boolean, point: TouchPoint)
     fun undo()
     fun redo()
 }

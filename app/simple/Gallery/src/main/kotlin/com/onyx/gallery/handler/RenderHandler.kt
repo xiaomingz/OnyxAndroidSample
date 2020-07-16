@@ -28,7 +28,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     val surfaceRect = Rect()
     val currMosaicPath = Path()
     private var mosaicBitmap: Bitmap? = null
-    val undoRedoHander = globalEditBundle.undoRedoHander
+    val undoRedoHander = globalEditBundle.undoRedoHandler
     private val pathPaint: Paint by lazy { initPathPaint() }
     private val mosaicPaint: Paint by lazy { initMosaicPaint() }
     private val strokePaint: Paint by lazy { initStrokePaint() }
@@ -53,6 +53,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     }
 
     fun resetRenderContext() {
+        renderContext.selectionRect = null
         renderContext.reset()
         renderContext.matrix.reset()
     }

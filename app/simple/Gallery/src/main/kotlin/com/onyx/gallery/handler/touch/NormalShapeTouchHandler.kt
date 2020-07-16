@@ -9,6 +9,7 @@ import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.action.shape.AddShapesAction
 import com.onyx.gallery.action.shape.RenderVarietyShapeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.utils.ExpandShapeFactory
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.disposables.Disposable
@@ -16,8 +17,9 @@ import java.util.*
 
 /**
  * Created by Leung on 2020/6/7
+ * @description :create different graphics
  */
-class GraphicsTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(globalEditBundle) {
+class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : GraffitiTouchHandler(globalEditBundle) {
 
     companion object {
         private const val TOUCH_POINT_BUFFER_MAX_COUNT = 30
@@ -75,7 +77,7 @@ class GraphicsTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandle
     }
 
     private fun createShape(downTouchPoint: TouchPoint?): Shape {
-        val shape: Shape = ShapeFactory.createShape(drawHandler.getCurrShapeType())
+        val shape: Shape = ExpandShapeFactory.createShape(drawHandler.getCurrShapeType())
         shape.layoutType = ShapeFactory.LayoutType.FREE.ordinal
         shape.strokeWidth = drawHandler.getStrokeWidth()
         shape.color = drawHandler.getStrokeColor()

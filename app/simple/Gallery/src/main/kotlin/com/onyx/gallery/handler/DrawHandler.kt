@@ -15,7 +15,6 @@ import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
 import com.onyx.gallery.views.ImageShapeExpand
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 /**
  * Created by Leung on 2020/6/5
@@ -25,7 +24,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     val currLimitRect = Rect()
     val surfaceRect = Rect()
     val drawingArgs = DrawArgs()
-    private val undoRedoHander = globalEditBundle.undoRedoHander
+    private val undoRedoHander = globalEditBundle.undoRedoHandler
     private var readerHandler = RenderHandler(globalEditBundle)
     val renderContext = readerHandler.renderContext
 
@@ -35,7 +34,6 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
 
     fun attachHostView(hostView: SurfaceView) {
         checkSizeIsZero(hostView)
-        initDrawArgs()
         surfaceView = hostView
         touchHelper = if (touchHelper == null) {
             TouchHelper.create(surfaceView, rawInputCallback)
@@ -46,6 +44,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
             bindHostView(surfaceView, rawInputCallback)
             openRawDrawing()
             setRawDrawingEnabled(false)
+            initDrawArgs()
         }
         surfaceView.run {
             getLocalVisibleRect(surfaceRect)
@@ -128,6 +127,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         currLimitRect.setEmpty()
         touchHelper?.closeRawDrawing()
         readerHandler.release()
+        touchHelper = null
     }
 
     fun addShape(shape: Shape) {
@@ -142,7 +142,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         return undoRedoHander.getShapes()
     }
 
-    fun getHandwritingShape(): List<Shape> {
+    fun getHandwritingShape(): MutableList<Shape> {
         val shapeList: MutableList<Shape> = ArrayList()
         for (shape in getAllShapes()) {
             if (shape is ImageShape || shape is ImageShapeExpand) {
@@ -248,7 +248,6 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     fun redoMosaic() {
         val redoMosaic = undoRedoHander.redoMosaic()
         redoMosaic?.let { readerHandler.currMosaicPath.set(redoMosaic) }
-
     }
 }
 

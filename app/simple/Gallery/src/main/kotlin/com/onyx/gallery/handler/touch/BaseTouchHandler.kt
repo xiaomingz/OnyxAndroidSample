@@ -9,9 +9,13 @@ import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.raw.BeginRawDrawEvent
+import com.onyx.gallery.event.raw.BeginRawErasingEvent
 import com.onyx.gallery.event.raw.EndRawDrawingEvent
+import com.onyx.gallery.event.raw.EndRawErasingEvent
 import com.onyx.gallery.event.raw.RawDrawingPointsMoveReceivedEvent
 import com.onyx.gallery.event.raw.RawDrawingPointsReceivedEvent
+import com.onyx.gallery.event.raw.RawErasingPointMoveEvent
+import com.onyx.gallery.event.raw.RawErasingPointsReceived
 import com.onyx.gallery.event.touch.TouchDownEvent
 import com.onyx.gallery.event.touch.TouchMoveEvent
 import com.onyx.gallery.event.touch.TouchUpEvent
@@ -67,6 +71,18 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
         onTouchUp(TouchPoint(motionEvent.x, motionEvent.y))
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onBeginRawErasingEvent(event: BeginRawErasingEvent) = onBeginRawErasing(event.shortcutErasing, event.point)
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRawErasingPointMoveEvent(event: RawErasingPointMoveEvent) = onRawErasingTouchPointMoveReceived(event.touchPoint)
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRawErasingPointsReceived(event: RawErasingPointsReceived) = onRawErasingTouchPointListReceived(event.touchPointList)
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEndRawErasingEvent(event: EndRawErasingEvent) = onEndRawErasing(event.outLimitRegion, event.point)
+
     override fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint) {
 
     }
@@ -90,6 +106,21 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
     }
 
     override fun onTouchUp(touchPoint: TouchPoint) {
+    }
+
+    override fun onEndRawErasing(outLimitRegion: Boolean, point: TouchPoint) {
+
+    }
+
+    override fun onRawErasingTouchPointMoveReceived(point: TouchPoint) {
+    }
+
+    override fun onRawErasingTouchPointListReceived(pointList: TouchPointList) {
+
+    }
+
+    override fun onBeginRawErasing(shortcutErasing: Boolean, point: TouchPoint) {
+
     }
 
     fun invertShapeStrokeWidth(shape: Shape) {

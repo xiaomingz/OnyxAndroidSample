@@ -8,7 +8,7 @@ import com.onyx.gallery.views.ImageShapeExpand
 /**
  * Created by Leung 2020/7/10 15:27
  **/
-class UndoRedoHander {
+class UndoRedoHandler {
     private val shapeOperationHandler = OperationHandler<Shape>()
     private val mosaicOperationHandler = OperationHandler<Path>()
 
@@ -55,6 +55,14 @@ class UndoRedoHander {
     fun redoMosaic(): Path? {
         return mosaicOperationHandler.redo()
     }
+
+    fun eraseShapes(removeShapes: List<Shape>) {
+        shapeOperationHandler.undoList(removeShapes)
+    }
+
+    fun eraseMosaics(removedMosaicPaths: MutableList<Path>) {
+        mosaicOperationHandler.undoList(removedMosaicPaths)
+    }
 }
 
 class OperationHandler<T> {
@@ -91,6 +99,17 @@ class OperationHandler<T> {
             return operation
         }
         return null
+    }
+
+    fun undoList(removeOperationList: List<T>) {
+        for (operation in removeOperationList) {
+            val indexOf = operations.indexOf(operation)
+            if (indexOf < 0) {
+                continue
+            }
+            val removeOperation = operations.removeAt(indexOf)
+            redoOperations.add(removeOperation)
+        }
     }
 
     fun redo(): T? {

@@ -1,6 +1,5 @@
 package com.onyx.gallery.request
 
-import android.graphics.Matrix
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 
@@ -11,7 +10,10 @@ class RestoreTransformRequest(val refresh: Boolean = true) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
         val renderContext = drawHandler.renderContext
-        renderContext.setMatrix(Matrix())
+        renderContext.selectionRect = null
+        renderContext.viewPortScale = 1.0f
+        renderContext.matrix.reset()
+        drawHandler.updateLimitRect()
         renderShapesToBitmap = refresh
         renderToScreen = refresh
     }

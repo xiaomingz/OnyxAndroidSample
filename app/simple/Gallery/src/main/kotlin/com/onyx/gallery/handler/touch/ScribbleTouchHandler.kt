@@ -11,7 +11,7 @@ import com.onyx.gallery.bundle.GlobalEditBundle
 /**
  * Created by Leung on 2020/6/7
  */
-class ScribbleTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(globalEditBundle) {
+class ScribbleTouchHandler(globalEditBundle: GlobalEditBundle) : GraffitiTouchHandler(globalEditBundle) {
 
     override fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList) {
         val normalTouchPointList = getNormalTouchPoint(touchPointList)
