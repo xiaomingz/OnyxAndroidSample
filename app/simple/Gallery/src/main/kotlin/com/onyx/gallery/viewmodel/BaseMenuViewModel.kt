@@ -68,8 +68,8 @@ open class BaseMenuViewModel : BaseViewModel() {
                 MenuAction.SCRIBBLE_CIRCLE -> ShapeFactory.SHAPE_CIRCLE
                 MenuAction.SCRIBBLE_RECTANGLE -> ShapeFactory.SHAPE_RECTANGLE
                 MenuAction.SCRIBBLE_DASH_LINE -> ExpandShapeFactory.SHAP_DASH_LINE
-                MenuAction.SCRIBBLE_WAVE_LINE-> ExpandShapeFactory.SHAP_WAVE_LINE
-                MenuAction.SCRIBBLE_ARROW_LINE-> ExpandShapeFactory.SHAP_ARROW_LINE
+                MenuAction.SCRIBBLE_WAVE_LINE -> ExpandShapeFactory.SHAP_WAVE_LINE
+                MenuAction.SCRIBBLE_ARROW_LINE -> ExpandShapeFactory.SHAP_ARROW_LINE
                 else -> defaultShape()
             }
 
