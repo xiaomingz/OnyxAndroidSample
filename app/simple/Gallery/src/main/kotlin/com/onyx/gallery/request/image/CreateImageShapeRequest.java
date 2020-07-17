@@ -14,6 +14,7 @@ import com.onyx.android.sdk.utils.BitmapUtils;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.ExpandShapeFactory;
+import com.onyx.gallery.views.ImageShapeExpand;
 
 /**
  * <pre>
@@ -57,6 +58,7 @@ public class CreateImageShapeRequest extends BaseRequest {
         getGlobalEditBundle().setInitDy(dy);
         getGlobalEditBundle().setInitScaleFactor(scaleFactor);
         drawHandler.updateLimitRect();
+        drawHandler.makeCropSnapshot(imageFilePath, (ImageShapeExpand) imageShape);
         setRenderToScreen(true);
     }
 

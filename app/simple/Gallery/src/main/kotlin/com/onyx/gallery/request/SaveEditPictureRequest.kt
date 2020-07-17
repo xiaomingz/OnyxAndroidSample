@@ -13,6 +13,7 @@ class SaveEditPictureRequest(private val filePath: String) : BaseRequest() {
     override fun execute(drawHandler: DrawHandler) {
         val imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
         BitmapUtils.saveBitmapToFile(context, filePath, imageBitmap)
+        drawHandler.updateSaveCropSnapshotIndex()
         imageBitmap.recycle()
     }
 

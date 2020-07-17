@@ -38,7 +38,9 @@ object ScribbleUtils {
     private fun createShapeBitmap(drawHandler: DrawHandler, normalizedMatrix: Matrix, imageBitmap: Bitmap): Bitmap {
         val renderContext = createRenderContext(imageBitmap.width, imageBitmap.height)
         val handwritingShape = drawHandler.getHandwritingShape()
-        handwritingShape.forEach { it.postConcat(normalizedMatrix) }
+        handwritingShape.forEach { shape ->
+            shape.postConcat(normalizedMatrix)
+        }
         updateShapeStrokeWidth(handwritingShape, normalizedMatrix)
         ShapeUtils.renderShapes(handwritingShape, renderContext, true)
         if (drawHandler.hasMosaic()) {

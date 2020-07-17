@@ -1,9 +1,9 @@
-package com.onyx.gallery.action
+package com.onyx.gallery.action.shape
 
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.rx.RxRequest
 import com.onyx.gallery.common.BaseEditAction
-import com.onyx.gallery.request.UndoShapeRequest
+import com.onyx.gallery.request.shape.UndoShapeRequest
 
 /**
  * Created by Leung 2020/7/10 16:41

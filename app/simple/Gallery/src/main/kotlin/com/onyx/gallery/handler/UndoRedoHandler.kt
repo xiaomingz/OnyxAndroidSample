@@ -3,6 +3,8 @@ package com.onyx.gallery.handler
 import android.graphics.Path
 import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.gallery.models.CropSnapshot
+import com.onyx.gallery.utils.FileUtils
 import com.onyx.gallery.views.ImageShapeExpand
 
 /**
@@ -11,6 +13,9 @@ import com.onyx.gallery.views.ImageShapeExpand
 class UndoRedoHandler {
     private val shapeOperationHandler = OperationHandler<Shape>()
     private val mosaicOperationHandler = OperationHandler<Path>()
+    private val cropSnapshotList = mutableListOf<CropSnapshot>()
+    private var currCropSnapshotIndex = -1
+    private var saveCropSnapshotIndex = -1
 
     fun addShape(shape: Shape) {
         shapeOperationHandler.add(shape)
@@ -62,6 +67,51 @@ class UndoRedoHandler {
 
     fun eraseMosaics(removedMosaicPaths: MutableList<Path>) {
         mosaicOperationHandler.undoList(removedMosaicPaths)
+    }
+
+    fun addCropSnapshot(cropSnapshot: CropSnapshot) {
+        currCropSnapshotIndex += 1
+        cropSnapshotList.add(currCropSnapshotIndex, cropSnapshot)
+    }
+
+    fun undoCrop(): CropSnapshot? {
+        currCropSnapshotIndex -= 1
+        if (currCropSnapshotIndex < 0) {
+            currCropSnapshotIndex = 0
+        }
+        return cropSnapshotList[currCropSnapshotIndex]
+    }
+
+    fun redoCrop(): CropSnapshot? {
+        currCropSnapshotIndex += 1
+        if (currCropSnapshotIndex > cropSnapshotList.size - 1) {
+            currCropSnapshotIndex = cropSnapshotList.size - 1
+        }
+        return cropSnapshotList[currCropSnapshotIndex]
+    }
+
+    fun cleardCropSnapshot() {
+        cropSnapshotList.forEachIndexed { index, cropSnapshot ->
+            if (index != 0 && index != saveCropSnapshotIndex) {
+                FileUtils.deleteFile(cropSnapshot.imagePath)
+            }
+        }
+        currCropSnapshotIndex = -1
+        cropSnapshotList.clear()
+    }
+
+    fun getCurrCropSnapshot(): CropSnapshot {
+        if (cropSnapshotList.isEmpty() || currCropSnapshotIndex < 0) {
+            throw RuntimeException("load image finsh mast be makeCropSnapshot")
+        }
+        if (currCropSnapshotIndex > cropSnapshotList.size - 1) {
+            throw RuntimeException("current cropSnapshot index error")
+        }
+        return cropSnapshotList[currCropSnapshotIndex]
+    }
+
+    fun updateSaveCropSnapshotIndex() {
+        saveCropSnapshotIndex = currCropSnapshotIndex
     }
 }
 

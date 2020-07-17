@@ -1,8 +1,6 @@
 package com.onyx.gallery.handler.touch
 
-import android.graphics.Matrix
 import androidx.annotation.CallSuper
-import androidx.core.graphics.values
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.shape.Shape
@@ -123,11 +121,8 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
 
     }
 
-    fun invertShapeStrokeWidth(shape: Shape) {
-        val matrix = Matrix()
-        drawHandler.renderContext.matrix.invert(matrix)
-        val scaleFactor = matrix.values()[Matrix.MSCALE_X]
-        shape.strokeWidth *= scaleFactor
+    fun invertRenderStrokeWidth(shape: Shape) {
+        drawHandler.invertRenderStrokeWidth(shape)
     }
 
     override fun undo() {

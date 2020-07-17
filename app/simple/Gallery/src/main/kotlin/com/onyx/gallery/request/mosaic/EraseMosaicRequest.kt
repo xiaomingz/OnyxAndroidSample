@@ -1,4 +1,4 @@
-package com.onyx.gallery.request
+package com.onyx.gallery.request.mosaic
 
 import android.graphics.Path
 import android.graphics.RectF

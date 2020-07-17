@@ -13,10 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.utils.Debug
 import com.onyx.gallery.R
-import com.onyx.gallery.action.RedoMosaicAction
-import com.onyx.gallery.action.RedoShapeAction
-import com.onyx.gallery.action.UndoMosaicAction
-import com.onyx.gallery.action.UndoShapeAction
+import com.onyx.gallery.action.crop.RedoCropAction
+import com.onyx.gallery.action.crop.UndoCropAction
+import com.onyx.gallery.action.mosaic.RedoMosaicAction
+import com.onyx.gallery.action.mosaic.UndoMosaicAction
+import com.onyx.gallery.action.shape.RedoShapeAction
+import com.onyx.gallery.action.shape.UndoShapeAction
 import com.onyx.gallery.databinding.FragmentEditContentBinding
 import com.onyx.gallery.event.result.LoadImageResultEvent
 import com.onyx.gallery.event.result.SaveCropTransformResultEvent
@@ -151,13 +153,23 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onUndoShapeEvent(event: UndoMosaicEvent) {
+    fun onUndoMosaicEvent(event: UndoMosaicEvent) {
         UndoMosaicAction().execute(null)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRedoShapeEvent(event: RedoMosaicEvent) {
         RedoMosaicAction().execute(null)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUndoCropEvent(event: UndoCropEvent) {
+        UndoCropAction().execute(null)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRedoCropEvent(event: RedoCropEvent) {
+        RedoCropAction().execute(null)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

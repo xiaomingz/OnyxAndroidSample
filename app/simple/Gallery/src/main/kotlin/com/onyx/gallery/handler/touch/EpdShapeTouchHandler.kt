@@ -40,7 +40,7 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
     }
 
     private fun addShap(shape: Shape) {
-        invertShapeStrokeWidth(shape)
+        invertRenderStrokeWidth(shape)
         AddShapesAction().setShape(shape).execute(null)
     }
 

@@ -1,4 +1,4 @@
-package com.onyx.gallery.request
+package com.onyx.gallery.request.shape
 
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler

@@ -1,7 +1,7 @@
 package com.onyx.gallery.handler
 
 import android.app.Activity
-import com.onyx.gallery.action.SaveCropTransformAction
+import com.onyx.gallery.action.crop.SaveCropTransformAction
 import com.onyx.gallery.action.SaveEditPictureAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 

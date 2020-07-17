@@ -72,7 +72,7 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
     }
 
     private fun addShape(renderShape: Shape) {
-        invertShapeStrokeWidth(renderShape)
+        invertRenderStrokeWidth(renderShape)
         AddShapesAction().setShape(renderShape).execute(null)
     }
 

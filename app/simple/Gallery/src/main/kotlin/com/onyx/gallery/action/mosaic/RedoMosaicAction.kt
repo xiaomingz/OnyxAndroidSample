@@ -1,9 +1,9 @@
-package com.onyx.gallery.action
+package com.onyx.gallery.action.mosaic
 
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.rx.RxRequest
 import com.onyx.gallery.common.BaseEditAction
-import com.onyx.gallery.request.RedoMosaicRequest
+import com.onyx.gallery.request.mosaic.RedoMosaicRequest
 
 /**
  * Created by Leung 2020/7/10 16:41

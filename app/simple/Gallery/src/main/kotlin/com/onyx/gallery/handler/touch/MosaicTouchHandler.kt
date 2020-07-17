@@ -4,12 +4,12 @@ import android.graphics.Path
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.rx.SingleThreadScheduler
-import com.onyx.gallery.action.AddMosaicPathAction
-import com.onyx.gallery.action.RenderMosaicAction
+import com.onyx.gallery.action.mosaic.AddMosaicPathAction
+import com.onyx.gallery.action.mosaic.RenderMosaicAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.ui.RedoMosaicEvent
 import com.onyx.gallery.event.ui.UndoMosaicEvent
-import com.onyx.gallery.request.EraseMosaicRequest
+import com.onyx.gallery.request.mosaic.EraseMosaicRequest
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.disposables.Disposable
