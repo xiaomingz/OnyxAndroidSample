@@ -47,5 +47,6 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
                 break;
         }
         getGlobalEditBundle().getTouchHandlerManager().activateHandler(touchHandlerType);
+        setRenderToScreen(true);
     }
 }

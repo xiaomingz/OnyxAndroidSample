@@ -6,6 +6,7 @@ import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.action.shape.AddShapesAction
+import com.onyx.gallery.action.shape.AddShapesInBackgroundAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 
 /**
@@ -16,7 +17,7 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
     override fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList) {
         val normalTouchPointList = getNormalTouchPointList(touchPointList)
         val shape = createEpdShape(normalTouchPointList)
-        addShap(shape)
+        addShapInBackground(shape)
     }
 
     private fun createEpdShape(touchPointList: TouchPointList): Shape {
@@ -39,9 +40,9 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
         return newTouchPointList
     }
 
-    private fun addShap(shape: Shape) {
+    private fun addShapInBackground(shape: Shape) {
         invertRenderStrokeWidth(shape)
-        AddShapesAction().setShape(shape).execute(null)
+        AddShapesInBackgroundAction(mutableListOf(shape)).execute(null)
     }
 
 }

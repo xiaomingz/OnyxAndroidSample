@@ -7,6 +7,7 @@ import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.action.shape.AddShapesAction
+import com.onyx.gallery.action.shape.AddShapesInBackgroundAction
 import com.onyx.gallery.action.shape.RenderVarietyShapeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.utils.ExpandShapeFactory
@@ -61,7 +62,7 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
         val renderShape = createShape(downPoint)
         renderShape.onUp(point, point)
         disposeAction()
-        addShape(renderShape)
+        addShapBackground(renderShape)
     }
 
     private fun normalMatrixMapPoint(downPoint: TouchPoint, upPoint: TouchPoint) {
@@ -71,9 +72,9 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
         upPoint.set(ShapeUtils.matrixTouchPoint(upPoint, normalizedMatrix))
     }
 
-    private fun addShape(renderShape: Shape) {
-        invertRenderStrokeWidth(renderShape)
-        AddShapesAction().setShape(renderShape).execute(null)
+    private fun addShapBackground(shape: Shape) {
+        invertRenderStrokeWidth(shape)
+        AddShapesInBackgroundAction(mutableListOf(shape)).execute(null)
     }
 
     private fun createShape(downTouchPoint: TouchPoint?): Shape {

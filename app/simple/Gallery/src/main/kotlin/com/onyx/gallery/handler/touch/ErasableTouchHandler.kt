@@ -31,7 +31,7 @@ open class ErasableTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchH
                         for (touchPoint in touchPoints) {
                             pointList.add(touchPoint)
                         }
-                        handlerErasePoints(pointList)
+                        onHandlerErasePoints(pointList)
                     }))
                     .onNext(point)
         }
@@ -45,7 +45,7 @@ open class ErasableTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchH
         removeEraseObserver()
     }
 
-    open fun handlerErasePoints(pointList: TouchPointList) {
+    open fun onHandlerErasePoints(pointList: TouchPointList) {
         erasingShape(pointList)
     }
 

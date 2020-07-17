@@ -24,7 +24,7 @@ public class AddShapesRequest extends BaseRequest {
             return;
         }
         drawHandler.addShapes(shapes);
-        setRenderShapesToBitmap(true);
+        drawHandler.renderToBitmap(shapes);
         setRenderToScreen(true);
     }
 }

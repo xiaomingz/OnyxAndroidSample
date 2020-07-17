@@ -80,7 +80,7 @@ class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHand
         postEvent(RedoMosaicEvent())
     }
 
-    override fun handlerErasePoints(pointList: TouchPointList) {
+    override fun onHandlerErasePoints(pointList: TouchPointList) {
         if (pointList.points.isEmpty()) {
             return
         }

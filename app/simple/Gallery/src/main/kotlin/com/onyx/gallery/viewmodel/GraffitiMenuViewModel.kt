@@ -65,7 +65,7 @@ class GraffitiMenuViewModel : BaseMenuViewModel() {
 
     private fun onSelectShape(action: MenuAction) {
         selectShapeAction.value = action
-        ShapeChangeAction().setShapeType(getShapeTypeFromNoteMenuAction(action)).execute(null)
+        ShapeChangeAction(getShapeTypeFromNoteMenuAction(action)).execute(null)
     }
 
     private fun onStrokeWidthAdd() = currStrokeWidth.run { value = value?.plus(stepStrokeWidth)?.coerceAtMost(maxStrokeWidth) }
