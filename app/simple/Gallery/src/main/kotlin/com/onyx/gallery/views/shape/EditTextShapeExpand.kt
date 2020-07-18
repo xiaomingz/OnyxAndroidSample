@@ -1,4 +1,4 @@
-package com.onyx.gallery.views
+package com.onyx.gallery.views.shape
 
 import android.graphics.Matrix
 import android.text.TextPaint

@@ -8,6 +8,7 @@ import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.handler.DrawHandler
+import com.onyx.gallery.views.shape.MosaicShape
 
 /**
  * Created by Leung on 2020/7/9
@@ -38,14 +39,21 @@ object ScribbleUtils {
     private fun createShapeBitmap(drawHandler: DrawHandler, normalizedMatrix: Matrix, imageBitmap: Bitmap): Bitmap {
         val renderContext = createRenderContext(imageBitmap.width, imageBitmap.height)
         val handwritingShape = drawHandler.getHandwritingShape()
+        if (drawHandler.hasMosaic()) {
+            val scaleFactor = normalizedMatrix.values()[Matrix.MSCALE_X]
+            val mosaicScaleFactor = scaleFactor * MosaicUtils.MOSAIC_SCALE_FACTOR
+            val mosaicBitmap = MosaicUtils.getMosaicBitmap(imageBitmap, mosaicScaleFactor)
+            handwritingShape.forEach { shape ->
+                if (shape is MosaicShape) {
+                    shape.mosaicBitmap = mosaicBitmap
+                }
+            }
+        }
         handwritingShape.forEach { shape ->
             shape.postConcat(normalizedMatrix)
         }
         updateShapeStrokeWidth(handwritingShape, normalizedMatrix)
         ShapeUtils.renderShapes(handwritingShape, renderContext, true)
-        if (drawHandler.hasMosaic()) {
-            MosaicUtils.renderMosaicToCanvas(drawHandler, renderContext.canvas, normalizedMatrix, imageBitmap)
-        }
         return renderContext.getBitmap()
     }
 

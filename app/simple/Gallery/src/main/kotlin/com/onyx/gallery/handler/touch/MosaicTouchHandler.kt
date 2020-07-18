@@ -1,19 +1,19 @@
 package com.onyx.gallery.handler.touch
 
-import android.graphics.Path
+import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.rx.SingleThreadScheduler
-import com.onyx.gallery.action.mosaic.AddMosaicPathAction
-import com.onyx.gallery.action.mosaic.RenderMosaicAction
+import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.android.sdk.scribble.shape.ShapeFactory
+import com.onyx.gallery.action.shape.AddShapesInBackgroundAction
+import com.onyx.gallery.action.shape.RenderVarietyShapeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
-import com.onyx.gallery.event.ui.RedoMosaicEvent
-import com.onyx.gallery.event.ui.UndoMosaicEvent
-import com.onyx.gallery.request.mosaic.EraseMosaicRequest
+import com.onyx.gallery.utils.ExpandShapeFactory
+import com.onyx.gallery.views.shape.MosaicShape
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.disposables.Disposable
-import java.util.*
 
 /**¬
  * Created by Leung on 2020/7/8
@@ -23,14 +23,14 @@ class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHand
         private const val TOUCH_POINT_BUFFER_MAX_COUNT = 30
     }
 
-    private var path = Path()
+    private lateinit var mosaicShape: MosaicShape
     private var disposable: Disposable? = null
-    private val actionDisposables: MutableList<Disposable> = ArrayList()
     private var drawEmitter: ObservableEmitter<TouchPoint?>? = null
 
     override fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint) {
-        path = Path()
-        path.moveTo(point.x, point.y)
+        mosaicShape = createShape() as MosaicShape
+        mosaicShape.mosaicBitmap = drawHandler.getMosaicBitmap()
+        mosaicShape.imageSize = Size(drawHandler.surfaceRect.width(), drawHandler.surfaceRect.height())
         disposable = Observable.create<TouchPoint> { e ->
             drawEmitter = e
             drawEmitter!!.onNext(point)
@@ -39,10 +39,12 @@ class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHand
                 .observeOn(SingleThreadScheduler.scheduler())
                 .subscribeOn(SingleThreadScheduler.scheduler())
                 .subscribe { touchPoints ->
-                    for (point in touchPoints) {
-                        path.lineTo(point.x, point.y)
+                    val pointList = TouchPointList()
+                    for (touchPoint in touchPoints) {
+                        pointList.add(touchPoint)
                     }
-                    drawMosaic(path)
+                    mosaicShape.addPoints(pointList)
+                    renderVarietyShape(mosaicShape)
                 }
     }
 
@@ -52,41 +54,23 @@ class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHand
 
     override fun onEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint) {
         disposable?.run { dispose() }
-        disposeAction()
-        addMosaicPath(path)
-        drawMosaic(path)
+        addShapInBackground(mosaicShape)
     }
 
-    private fun addMosaicPath(path: Path) {
-        AddMosaicPathAction(path).execute(null)
-    }
-
-    private fun drawMosaic(path: Path) {
-        RenderMosaicAction(path).execute(null)
-    }
-
-    private fun disposeAction() {
-        for (d in actionDisposables) {
-            d.dispose()
+    private fun createShape(): Shape {
+        return ExpandShapeFactory.createShape(drawHandler.getCurrShapeType()).apply {
+            layoutType = ShapeFactory.LayoutType.FREE.ordinal
+            strokeWidth = drawHandler.getStrokeWidth()
+            color = drawHandler.getStrokeColor()
         }
-        actionDisposables.clear()
     }
 
-    override fun undo() {
-        postEvent(UndoMosaicEvent())
+    private fun renderVarietyShape(shape: Shape) {
+        RenderVarietyShapeAction().addShape(shape).execute(null)
     }
 
-    override fun redo() {
-        postEvent(RedoMosaicEvent())
+    private fun addShapInBackground(shape: Shape) {
+        invertRenderStrokeWidth(shape)
+        AddShapesInBackgroundAction(mutableListOf(shape)).execute(null)
     }
-
-    override fun onHandlerErasePoints(pointList: TouchPointList) {
-        if (pointList.points.isEmpty()) {
-            return
-        }
-        globalEditBundle.enqueue(EraseMosaicRequest(pointList), null)
-    }
-
 }
-
-

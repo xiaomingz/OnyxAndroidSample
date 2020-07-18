@@ -13,7 +13,7 @@ import com.onyx.gallery.handler.MirrorModel
 import com.onyx.gallery.utils.BitmapUtils
 import com.onyx.gallery.utils.ExpandShapeFactory
 import com.onyx.gallery.utils.ScribbleUtils
-import com.onyx.gallery.views.ImageShapeExpand
+import com.onyx.gallery.views.shape.ImageShapeExpand
 import java.io.File
 
 /**
@@ -47,7 +47,6 @@ class SaveCropTransformRequest : BaseRequest() {
         cropBitmap.recycle()
         cropHandler.resetCropState()
         drawHandler.clearHandwritingData()
-        drawHandler.clearMosaicData()
         drawHandler.setRawDrawingRenderEnabled(false)
     }
 
@@ -89,12 +88,12 @@ class SaveCropTransformRequest : BaseRequest() {
         when (mirrorModel) {
             MirrorModel.RIGHT -> {
                 val dx = imageBitmap.width.toFloat()
-                matrix.postTranslate(-dx, 0f);
+                matrix.postTranslate(-dx, 0f)
                 matrix.postScale(-1f, 1f)
             }
             MirrorModel.BOTTOM -> {
                 val dy = imageBitmap.height.toFloat()
-                matrix.postTranslate(0f, -dy);
+                matrix.postTranslate(0f, -dy)
                 matrix.postScale(1f, -1f)
             }
         }

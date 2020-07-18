@@ -15,8 +15,6 @@ import com.onyx.android.sdk.utils.Debug
 import com.onyx.gallery.R
 import com.onyx.gallery.action.crop.RedoCropAction
 import com.onyx.gallery.action.crop.UndoCropAction
-import com.onyx.gallery.action.mosaic.RedoMosaicAction
-import com.onyx.gallery.action.mosaic.UndoMosaicAction
 import com.onyx.gallery.action.shape.RedoShapeAction
 import com.onyx.gallery.action.shape.UndoShapeAction
 import com.onyx.gallery.databinding.FragmentEditContentBinding
@@ -150,16 +148,6 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRedoShapeEvent(event: RedoShapeEvent) {
         RedoShapeAction().execute(null)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onUndoMosaicEvent(event: UndoMosaicEvent) {
-        UndoMosaicAction().execute(null)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onRedoShapeEvent(event: RedoMosaicEvent) {
-        RedoMosaicAction().execute(null)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

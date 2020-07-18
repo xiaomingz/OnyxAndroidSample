@@ -15,7 +15,8 @@ import com.onyx.gallery.event.raw.SelectionBundleEvent
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
 import com.onyx.gallery.models.CropSnapshot
-import com.onyx.gallery.views.ImageShapeExpand
+import com.onyx.gallery.views.shape.ImageShapeExpand
+import com.onyx.gallery.views.shape.MosaicShape
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -154,7 +155,6 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
                 iterator.remove()
             }
         }
-        undoRedoHander.clearMosaic()
     }
 
     fun getHandwritingShape(): MutableList<Shape> {
@@ -231,42 +231,12 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         return null
     }
 
-    fun addMosaicPath(path: Path) {
-        readerHandler.addMosaicPath(path)
-    }
-
-    fun setCurrMosaicPath(currPath: Path) {
-        readerHandler.currMosaicPath.set(currPath)
-    }
-
-    fun getMosaicPathList(): MutableList<Path> {
-        return readerHandler.getAllMosaicPath()
-    }
-
-    fun hasMosaic(): Boolean {
-        return !readerHandler.getAllMosaicPath().isEmpty()
-    }
-
-    fun clearMosaicData() {
-        undoRedoHander.clearMosaic()
-    }
-
     fun undoShapes() {
         undoRedoHander.undoShapes()
     }
 
-    fun undoMosaic() {
-        readerHandler.currMosaicPath.reset()
-        undoRedoHander.undoMosaic()
-    }
-
     fun redoShapes() {
         undoRedoHander.redoShapes()
-    }
-
-    fun redoMosaic() {
-        val redoMosaic = undoRedoHander.redoMosaic()
-        redoMosaic?.let { readerHandler.currMosaicPath.set(redoMosaic) }
     }
 
     private fun addCropSnapshot(cropSnapshot: CropSnapshot) {
@@ -315,19 +285,16 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     fun saveHandwritingDataToCropSnapshot() {
         val cropSnapshot = undoRedoHander.getCurrCropSnapshot()
         val handwritingShape = getHandwritingShape()
-        val mosaicPathList = getMosaicPathList()
         val matrix = globalEditBundle.getNormalizedMatrix()
         val scaleFactor = matrix.values()[Matrix.MSCALE_X]
         handwritingShape.forEach { shape ->
             shape.strokeWidth /= scaleFactor
         }
         cropSnapshot.handwritingShape.addAll(handwritingShape)
-        cropSnapshot.mosaicPathList.addAll(mosaicPathList)
     }
 
     fun restoreCropSnapshot(cropSnapshot: CropSnapshot) {
         clearHandwritingData()
-        clearMosaicData()
         cropSnapshot.run {
             globalEditBundle.filePath = imagePath
             globalEditBundle.initDx = initDx
@@ -335,19 +302,32 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
             globalEditBundle.initScaleFactor = initScaleFactor
             updateImageShape(imageShape)
             updateLimitRect(orgLimitRect)
+            val restoreMosaicBitmap = readerHandler.restoreMosaicBitmap(imageShape)
             val matrix = globalEditBundle.getInitMatrix()
             val matrixValues = matrix.values()
             handwritingShape.forEach { shape ->
                 shape.matrix.setScale(matrixValues[Matrix.MSCALE_X], matrixValues[Matrix.MSCALE_Y])
                 shape.matrix.setTranslate(matrixValues[Matrix.MTRANS_X], matrixValues[Matrix.MTRANS_Y])
                 shape.strokeWidth * matrixValues[Matrix.MSCALE_X]
+                if (shape is MosaicShape) {
+                    shape.mosaicBitmap = restoreMosaicBitmap
+                }
             }
             addShapes(handwritingShape)
-            mosaicPathList.forEach { path ->
-                addMosaicPath(path)
-            }
         }
         setRawDrawingRenderEnabled(false)
+    }
+
+    fun getMosaicBitmap(): Bitmap = readerHandler.getMosaicBitmap()
+
+    fun hasMosaic(): Boolean {
+        val handwritingShape = getHandwritingShape()
+        handwritingShape.forEach { shape ->
+            if (shape is MosaicShape) {
+                return true
+            }
+        }
+        return false
     }
 
 }

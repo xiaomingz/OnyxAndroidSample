@@ -6,8 +6,5 @@ package com.onyx.gallery.event.ui
 class UndoShapeEvent
 class RedoShapeEvent
 
-class UndoMosaicEvent
-class RedoMosaicEvent
-
 class UndoCropEvent
 class RedoCropEvent

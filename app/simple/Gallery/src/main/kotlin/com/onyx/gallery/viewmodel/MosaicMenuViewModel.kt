@@ -2,9 +2,11 @@ package com.onyx.gallery.viewmodel
 
 import android.widget.SeekBar
 import androidx.lifecycle.MutableLiveData
+import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.handler.touch.TouchHandlerType
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.models.MenuAction
+import com.onyx.gallery.utils.ExpandShapeFactory
 
 /**
  * Created by Leung on 2020/6/8
@@ -18,6 +20,7 @@ class MosaicMenuViewModel : BaseMenuViewModel() {
 
     override fun updateTouchHandler() {
         globalEditBundle.touchHandlerManager.activateHandler(TouchHandlerType.MOSAIC)
+        ShapeChangeAction(ExpandShapeFactory.SHAP_MOSAIC).execute(null)
         globalEditBundle.drawHandler.setRawDrawingRenderEnabled(false)
     }
 

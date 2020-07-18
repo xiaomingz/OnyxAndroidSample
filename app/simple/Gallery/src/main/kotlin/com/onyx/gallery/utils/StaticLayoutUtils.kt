@@ -11,7 +11,7 @@ import android.text.TextPaint
 import android.text.style.LeadingMarginSpan
 import com.onyx.android.sdk.scribble.data.ShapeTextStyle
 import com.onyx.android.sdk.scribble.utils.TextLayoutUtils
-import com.onyx.gallery.views.EditTextShapeExpand
+import com.onyx.gallery.views.shape.EditTextShapeExpand
 
 
 /**

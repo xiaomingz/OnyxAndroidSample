@@ -41,6 +41,10 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
                 drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.TEXT_INSERTION;
                 break;
+            case ExpandShapeFactory.SHAP_MOSAIC:
+                drawHandler.setRawDrawingRenderEnabled(false);
+                touchHandlerType = TouchHandlerType.MOSAIC;
+                break;
             default:
                 drawHandler.setRawDrawingRenderEnabled(true);
                 touchHandlerType = TouchHandlerType.EPD_SHAPE;

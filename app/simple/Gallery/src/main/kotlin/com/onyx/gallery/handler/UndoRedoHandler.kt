@@ -1,18 +1,16 @@
 package com.onyx.gallery.handler
 
-import android.graphics.Path
 import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.gallery.models.CropSnapshot
 import com.onyx.gallery.utils.FileUtils
-import com.onyx.gallery.views.ImageShapeExpand
+import com.onyx.gallery.views.shape.ImageShapeExpand
 
 /**
  * Created by Leung 2020/7/10 15:27
  **/
 class UndoRedoHandler {
     private val shapeOperationHandler = OperationHandler<Shape>()
-    private val mosaicOperationHandler = OperationHandler<Path>()
     private val cropSnapshotList = mutableListOf<CropSnapshot>()
     private var currCropSnapshotIndex = -1
     private var saveCropSnapshotIndex = -1
@@ -31,16 +29,6 @@ class UndoRedoHandler {
         shapeOperationHandler.clear()
     }
 
-    fun addMosaic(path: Path) {
-        mosaicOperationHandler.add(path)
-    }
-
-    fun getMocais(): MutableList<Path> = mosaicOperationHandler.getAllOperation()
-
-    fun clearMosaic() {
-        mosaicOperationHandler.clear()
-    }
-
     fun undoShapes(): Shape? {
         val prepareUndoOperation = shapeOperationHandler.getPrepareUndoOperation()
         if (prepareUndoOperation is ImageShape || prepareUndoOperation is ImageShapeExpand) {
@@ -53,20 +41,8 @@ class UndoRedoHandler {
         return shapeOperationHandler.redo()
     }
 
-    fun undoMosaic(): Path? {
-        return mosaicOperationHandler.undo()
-    }
-
-    fun redoMosaic(): Path? {
-        return mosaicOperationHandler.redo()
-    }
-
     fun eraseShapes(removeShapes: List<Shape>) {
         shapeOperationHandler.undoList(removeShapes)
-    }
-
-    fun eraseMosaics(removedMosaicPaths: MutableList<Path>) {
-        mosaicOperationHandler.undoList(removedMosaicPaths)
     }
 
     fun addCropSnapshot(cropSnapshot: CropSnapshot) {

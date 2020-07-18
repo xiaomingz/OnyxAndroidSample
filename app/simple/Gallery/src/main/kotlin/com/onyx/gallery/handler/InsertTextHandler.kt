@@ -31,7 +31,7 @@ import com.onyx.gallery.request.textInput.AdjustTextInputWidthRequest
 import com.onyx.gallery.request.textInput.RenderInputTextShapeRequest
 import com.onyx.gallery.request.textInput.SaveTextShapesRequest
 import com.onyx.gallery.request.transform.TranslateRequest
-import com.onyx.gallery.views.EditTextShapeExpand
+import com.onyx.gallery.views.shape.EditTextShapeExpand
 import java.util.*
 import kotlin.math.abs
 

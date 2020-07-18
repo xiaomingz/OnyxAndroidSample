@@ -10,7 +10,7 @@ import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.RenderHandlerUtils;
 import com.onyx.gallery.utils.StaticLayoutUtils;
-import com.onyx.gallery.views.EditTextShapeExpand;
+import com.onyx.gallery.views.shape.EditTextShapeExpand;
 
 /**
  * <pre>

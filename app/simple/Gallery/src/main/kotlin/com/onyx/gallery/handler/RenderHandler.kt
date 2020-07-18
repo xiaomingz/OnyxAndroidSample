@@ -5,7 +5,6 @@ import android.graphics.*
 import android.view.SurfaceView
 import androidx.annotation.WorkerThread
 import com.onyx.android.sdk.api.device.epd.EpdController
-import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.scribble.data.RenderColorConfig
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.shape.Shape
@@ -15,6 +14,7 @@ import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.utils.MosaicUtils
 import com.onyx.gallery.utils.RendererUtils
+import com.onyx.gallery.views.shape.ImageShapeExpand
 
 /**
  * Created by Leung on 2020/6/5
@@ -26,31 +26,12 @@ enum class MirrorModel {
 
 class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     val surfaceRect = Rect()
-    val currMosaicPath = Path()
     private var mosaicBitmap: Bitmap? = null
-    val undoRedoHander = globalEditBundle.undoRedoHandler
-    private val pathPaint: Paint by lazy { initPathPaint() }
-    private val mosaicPaint: Paint by lazy { initMosaicPaint() }
     private val strokePaint: Paint by lazy { initStrokePaint() }
 
     var renderContext: RenderContext = RendererUtils.createRenderContext()
             .setEnableBitmapCache(true)
             .setRenderColorConfig(RenderColorConfig.RAW_RENDER_COLOR)
-
-    fun initPathPaint(): Paint {
-        val pathPaint = MosaicUtils.getPathPaint(globalEditBundle.drawHandler)
-        updateMosaicStrokeWidth(pathPaint)
-        return pathPaint
-    }
-
-    private fun updateMosaicStrokeWidth(pathPaint: Paint) {
-        val strokeWidth = globalEditBundle.drawHandler.getStrokeWidth()
-        pathPaint.setStrokeWidth(strokeWidth)
-    }
-
-    fun initMosaicPaint(): Paint {
-        return MosaicUtils.getMosaicPaint()
-    }
 
     fun resetRenderContext() {
         renderContext.selectionRect = null
@@ -74,10 +55,6 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
 
     private fun recycleRendererBitmap() {
         renderContext.recycleBitmap()
-    }
-
-    fun addMosaicPath(path: Path) {
-        undoRedoHander.addMosaic(path)
     }
 
     @WorkerThread
@@ -115,7 +92,6 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
             canvas.drawBitmap(renderContext.bitmap, 0f, 0f, null)
             drawSelectionRect(canvas, renderContext)
             renderShapeToCanvas(shapes, canvas)
-            renderMosaic(canvas)
             true
         }
     }
@@ -140,40 +116,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         val rect = RendererUtils.checkSurfaceView(surfaceView)
         renderBackground(surfaceView.context, canvas, renderContext, rect)
         canvas.drawBitmap(renderContext.getBitmap(), 0f, 0f, null)
-        renderMosaic(canvas)
         true
-    }
-
-    private fun renderMosaic(canvas: Canvas) {
-        val mosaicPathList = getAllMosaicPath()
-        if (mosaicPathList.isEmpty() && currMosaicPath.isEmpty) {
-            return
-        }
-        val benchmark = Benchmark()
-        mosaicBitmap ?: updateMosaicBitmap()
-        val imageSize = getImageSize()
-        val left = (surfaceRect.width() - imageSize.width) / 2f
-        val top = (surfaceRect.height() - imageSize.height) / 2f
-        val layerCount = canvas.saveLayer(
-                left,
-                top,
-                left + imageSize.width.toFloat(),
-                top + imageSize.height.toFloat(),
-                null,
-                Canvas.ALL_SAVE_FLAG
-        )
-        updateMosaicStrokeWidth(pathPaint)
-        val mosaicPath = Path()
-        mosaicPath.addPath(currMosaicPath)
-        for (path in mosaicPathList) {
-            mosaicPath.addPath(path)
-        }
-        canvas.drawPath(mosaicPath, pathPaint)
-        canvas.drawBitmap(mosaicBitmap, left, top, mosaicPaint)
-        canvas.restoreToCount(layerCount)
-        if (BuildConfig.DEBUG) {
-            benchmark.report(javaClass.simpleName + " -->> renderMosaic ")
-        }
     }
 
     @WorkerThread
@@ -259,24 +202,22 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         return strokePaint
     }
 
+    fun getMosaicBitmap(): Bitmap {
+        mosaicBitmap ?: updateMosaicBitmap()
+        return mosaicBitmap!!
+    }
+
+    fun restoreMosaicBitmap(imageShape: ImageShapeExpand): Bitmap {
+        mosaicBitmap?.recycle()
+        mosaicBitmap = MosaicUtils.getMosaicBitmap(imageShape.getImageBitmap())
+        return mosaicBitmap!!
+    }
+
     private fun updateMosaicBitmap() {
-        val mosaicPathList = getAllMosaicPath()
-        if (mosaicPathList.isEmpty() && currMosaicPath.isEmpty) return
         mosaicBitmap = MosaicUtils.getMosaicBitmap(renderContext.bitmap)
     }
 
-    fun getImageSize(): Size {
-        val bitmap = renderContext.bitmap
-        return Size(bitmap.width, bitmap.height)
-    }
-
-    fun getAllMosaicPath(): MutableList<Path> {
-        return undoRedoHander.getMocais()
-    }
-
     fun release() {
-        currMosaicPath.set(Path())
-        undoRedoHander.clearMosaic()
         mosaicBitmap?.let { it.recycle() }
         mosaicBitmap = null
         resetRenderContext()
