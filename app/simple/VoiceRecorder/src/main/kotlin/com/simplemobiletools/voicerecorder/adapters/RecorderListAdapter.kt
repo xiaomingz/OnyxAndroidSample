@@ -128,6 +128,7 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
                 RenameItemsDialog(activity, getSelectedPaths()) {
                     FilesLoadAction().execute(activity) {
                         addItems(it, true)
+                        finishActMode();
                     }
                 }
             }
