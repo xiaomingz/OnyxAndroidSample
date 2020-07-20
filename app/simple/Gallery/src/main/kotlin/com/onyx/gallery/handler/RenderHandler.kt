@@ -6,6 +6,7 @@ import android.view.SurfaceView
 import androidx.annotation.WorkerThread
 import com.onyx.android.sdk.api.device.epd.EpdController
 import com.onyx.android.sdk.scribble.data.RenderColorConfig
+import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.Benchmark
@@ -15,6 +16,7 @@ import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.utils.MosaicUtils
 import com.onyx.gallery.utils.RendererUtils
 import com.onyx.gallery.views.shape.ImageShapeExpand
+import java.util.*
 
 /**
  * Created by Leung on 2020/6/5
@@ -28,6 +30,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     val surfaceRect = Rect()
     private var mosaicBitmap: Bitmap? = null
     private val strokePaint: Paint by lazy { initStrokePaint() }
+    private val fillPaint: Paint by lazy { initFillPaint() }
 
     var renderContext: RenderContext = RendererUtils.createRenderContext()
             .setEnableBitmapCache(true)
@@ -190,16 +193,37 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
             path.transform(renderContext.matrix)
         }
         canvas.drawPath(path, strokePaint)
+        drawScalePoint(canvas, selectionRect)
     }
 
-    private fun initStrokePaint(): Paint {
-        val strokePaint = Paint()
-        strokePaint.apply {
-            style = Paint.Style.STROKE
-            color = Color.BLACK
-            strokeWidth = 2f
+    private fun drawScalePoint(canvas: Canvas, selectionRect: SelectionRect) {
+        val scalePointList = ArrayList<PointF>()
+        val originRect = selectionRect.originRect
+        if (!selectionRect.isTextSelection) {
+            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.left, originRect.top))
+            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.centerX(), originRect.top))
+            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.right, originRect.top))
+            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.left, originRect.bottom))
+            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.centerX(), originRect.bottom))
+            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.right, originRect.bottom))
         }
-        return strokePaint
+        scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.left, originRect.centerY()))
+        scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.right, originRect.centerY()))
+        for (pointF in scalePointList) {
+            canvas.drawCircle(pointF.x, pointF.y, SelectionRect.SELECTION_CIRCLE_RADIUS, fillPaint)
+            canvas.drawCircle(pointF.x, pointF.y, SelectionRect.SELECTION_CIRCLE_RADIUS, strokePaint)
+        }
+    }
+
+    private fun initStrokePaint(): Paint = Paint().apply {
+        style = Paint.Style.STROKE
+        color = Color.BLACK
+        strokeWidth = 2f
+    }
+
+    private fun initFillPaint(): Paint = Paint().apply {
+        style = Paint.Style.FILL
+        color = Color.WHITE
     }
 
     fun getMosaicBitmap(): Bitmap {
