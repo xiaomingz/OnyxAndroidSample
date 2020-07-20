@@ -21,7 +21,7 @@ import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.helpers.DrawArgs;
 import com.onyx.gallery.helpers.InsertTextConfig;
 import com.onyx.gallery.utils.ExpandShapeFactory;
-import com.onyx.gallery.views.EditTextShapeExpand;
+import com.onyx.gallery.views.shape.EditTextShapeExpand;
 
 import java.util.ArrayList;
 import java.util.List;

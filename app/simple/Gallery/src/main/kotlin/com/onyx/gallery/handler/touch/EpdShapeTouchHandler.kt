@@ -6,20 +6,21 @@ import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.action.shape.AddShapesAction
+import com.onyx.gallery.action.shape.AddShapesInBackgroundAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 
 /**
  * Created by Leung on 2020/6/7
  */
-class ScribbleTouchHandler(globalEditBundle: GlobalEditBundle) : GraffitiTouchHandler(globalEditBundle) {
+class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
 
     override fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList) {
-        val normalTouchPointList = getNormalTouchPoint(touchPointList)
-        val shape = createEraseShape(normalTouchPointList)
-        addShape(shape)
+        val normalTouchPointList = getNormalTouchPointList(touchPointList)
+        val shape = createEpdShape(normalTouchPointList)
+        addShapeInBackground(shape)
     }
 
-    private fun createEraseShape(touchPointList: TouchPointList): Shape {
+    private fun createEpdShape(touchPointList: TouchPointList): Shape {
         val shape = ShapeFactory.createShape(drawHandler.getCurrShapeType())
         shape.layoutType = ShapeFactory.LayoutType.FREE.ordinal
         shape.strokeWidth = drawHandler.getStrokeWidth()
@@ -28,7 +29,7 @@ class ScribbleTouchHandler(globalEditBundle: GlobalEditBundle) : GraffitiTouchHa
         return shape
     }
 
-    private fun getNormalTouchPoint(touchPointList: TouchPointList): TouchPointList {
+    private fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {
         val normalizedMatrix = Matrix()
         drawHandler.renderContext.matrix.invert(normalizedMatrix)
         val newTouchPointList = TouchPointList()
@@ -39,9 +40,9 @@ class ScribbleTouchHandler(globalEditBundle: GlobalEditBundle) : GraffitiTouchHa
         return newTouchPointList
     }
 
-    private fun addShape(shape: Shape) {
-        invertShapeStrokeWidth(shape)
-        AddShapesAction().setShape(shape).execute(null)
+    private fun addShapeInBackground(shape: Shape) {
+        invertRenderStrokeWidth(shape)
+        AddShapesInBackgroundAction(mutableListOf(shape)).execute(null)
     }
 
 }

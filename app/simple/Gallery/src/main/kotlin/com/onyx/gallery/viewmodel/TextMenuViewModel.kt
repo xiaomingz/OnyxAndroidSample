@@ -32,7 +32,7 @@ class TextMenuViewModel : BaseMenuViewModel() {
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
 
     override fun updateTouchHandler() {
-        ShapeChangeAction().setShapeType(ShapeFactory.SHAPE_EDIT_TEXT_SHAPE).execute(null)
+        ShapeChangeAction(ShapeFactory.SHAPE_EDIT_TEXT_SHAPE).execute(null)
     }
 
     private fun initOnSeekBarChangeListener(): SeekBar.OnSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {

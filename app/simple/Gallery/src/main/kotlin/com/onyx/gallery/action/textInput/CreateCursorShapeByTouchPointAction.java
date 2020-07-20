@@ -16,7 +16,7 @@ import com.onyx.android.sdk.scribble.utils.TextLayoutUtils;
 import com.onyx.android.sdk.utils.RectUtils;
 import com.onyx.gallery.common.BaseEditAction;
 import com.onyx.gallery.utils.StaticLayoutUtils;
-import com.onyx.gallery.views.EditTextShapeExpand;
+import com.onyx.gallery.views.shape.EditTextShapeExpand;
 
 /**
  * <pre>

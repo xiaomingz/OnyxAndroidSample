@@ -1,14 +1,20 @@
-package com.onyx.gallery.request
+package com.onyx.gallery.request.crop
 
 import android.graphics.*
 import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.pen.data.TouchPoint
+import com.onyx.android.sdk.scribble.data.bean.ResourceType
+import com.onyx.android.sdk.scribble.data.bean.ShapeResource
+import com.onyx.android.sdk.utils.DateTimeUtil
+import com.onyx.android.sdk.utils.FileUtils
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.handler.MirrorModel
 import com.onyx.gallery.utils.BitmapUtils
+import com.onyx.gallery.utils.ExpandShapeFactory
 import com.onyx.gallery.utils.ScribbleUtils
-import com.onyx.gallery.views.ImageShapeExpand
+import com.onyx.gallery.views.shape.ImageShapeExpand
+import java.io.File
 
 /**
  * Created by Leung on 2020/6/29
@@ -16,27 +22,36 @@ import com.onyx.gallery.views.ImageShapeExpand
 class SaveCropTransformRequest : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
-        val imageShape = drawHandler.getImageShape() ?: return
+        drawHandler.getImageShape() ?: return
         val cropRect = RectF(cropHandler.cropBoxRect)
         if (cropRect.isEmpty) {
             return
         }
+        drawHandler.saveHandwritingDataToCropSnapshot()
+
         val filePath = globalEditBundle.filePath
         val cropBitmap = cropImage(filePath, cropRect)
 
         val imageSize = Size(cropBitmap.width, cropBitmap.height)
-        val scaleFactor: Float = globalEditBundle.scaleToContainer(imageSize).apply {
-            globalEditBundle.initScaleFactor = this
-        }
-        updateImageShape(imageShape, imageSize, cropBitmap)
-        updateLimitRect(imageSize, imageShape.downPoint)
-        BitmapUtils.saveBitmapToFile(context, globalEditBundle.filePath, cropBitmap)
+        globalEditBundle.initScaleFactor = globalEditBundle.scaleToContainer(imageSize)
+
+        val newPath = File(FileUtils.getParent(globalEditBundle.filePath), "crop_${DateTimeUtil.getCurrentTime()}.png").absolutePath
+        val newImageShape = createImageShape(newPath, imageSize, cropBitmap)
+        drawHandler.updateImageShape(newImageShape)
+        updateLimitRect(imageSize, newImageShape.downPoint)
+
+        BitmapUtils.saveBitmapToFile(context, newPath, cropBitmap)
+        drawHandler.makeCropSnapshot(newPath, newImageShape)
+        globalEditBundle.filePath = newPath
+
         cropBitmap.recycle()
         cropHandler.resetCropState()
+        drawHandler.clearHandwritingData()
+        drawHandler.setRawDrawingRenderEnabled(false)
     }
 
     private fun cropImage(filePath: String, orgCropRect: RectF): Bitmap {
-        var imageBitmap = ScribbleUtils.drawScribbleToImgae(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
+        var imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
         val cropRect = RectF(orgCropRect)
         if (cropHandler.hasRotateChange()) {
             imageBitmap = imageRotateChange(imageBitmap)
@@ -73,12 +88,12 @@ class SaveCropTransformRequest : BaseRequest() {
         when (mirrorModel) {
             MirrorModel.RIGHT -> {
                 val dx = imageBitmap.width.toFloat()
-                matrix.postTranslate(-dx, 0f);
+                matrix.postTranslate(-dx, 0f)
                 matrix.postScale(-1f, 1f)
             }
             MirrorModel.BOTTOM -> {
                 val dy = imageBitmap.height.toFloat()
-                matrix.postTranslate(0f, -dy);
+                matrix.postTranslate(0f, -dy)
                 matrix.postScale(1f, -1f)
             }
         }
@@ -87,10 +102,18 @@ class SaveCropTransformRequest : BaseRequest() {
         return newBitmap
     }
 
-    private fun updateImageShape(imageShape: ImageShapeExpand, imageSize: Size, cropBitmap: Bitmap) {
-        val newBitmap = Bitmap.createScaledBitmap(cropBitmap, imageSize.width, imageSize.height, true)
-        imageShape.setResourceBitmap(newBitmap)
+    private fun updateLimitRect(imageSize: Size, downPoint: TouchPoint) {
+        val newLimitRect = Rect(downPoint.x.toInt(), downPoint.y.toInt(),
+                (downPoint.x + imageSize.width).toInt(),
+                (downPoint.y + imageSize.height).toInt())
+        drawHandler.updateLimitRect(newLimitRect)
+    }
 
+    private fun createImageShape(path: String, imageSize: Size, cropBitmap: Bitmap): ImageShapeExpand {
+        val newBitmap = Bitmap.createScaledBitmap(cropBitmap, imageSize.width, imageSize.height, true)
+        val imageShape = ExpandShapeFactory.createShape(ExpandShapeFactory.IMAGE_SHAPE_EXPAND) as ImageShapeExpand
+        imageShape.setResourceBitmap(newBitmap)
+        imageShape.setResource(createImageResource(path))
         val surfaceRect = drawHandler.surfaceRect
         val dx: Float = surfaceRect.width() / 2 - imageSize.width / 2.toFloat()
         val dy: Float = surfaceRect.height() / 2 - imageSize.height / 2.toFloat()
@@ -109,15 +132,15 @@ class SaveCropTransformRequest : BaseRequest() {
         drawHandler.orgLimitRect = rect
         globalEditBundle.initDx = dx
         globalEditBundle.initDy = dy
+
+        return imageShape
     }
 
-    private fun updateLimitRect(imageSize: Size, downPoint: TouchPoint) {
-        val newLimitRect = Rect(downPoint.x.toInt(), downPoint.y.toInt(),
-                (downPoint.x + imageSize.width).toInt(),
-                (downPoint.y + imageSize.height).toInt())
-        drawHandler.updateLimitRect(newLimitRect)
-        drawHandler.setRawDrawingRenderEnabled(false)
+    private fun createImageResource(localPath: String): ShapeResource {
+        val shapeResource = ShapeResource()
+        shapeResource.localPath = localPath
+        shapeResource.type = ResourceType.IMAGE
+        return shapeResource
     }
-
 
 }

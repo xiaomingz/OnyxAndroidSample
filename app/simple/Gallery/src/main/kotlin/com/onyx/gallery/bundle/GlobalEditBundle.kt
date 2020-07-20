@@ -114,6 +114,13 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
         return scaleFactor
     }
 
+    fun getInitMatrix(): Matrix {
+        val matrix = Matrix()
+        matrix.postScale(initScaleFactor, initScaleFactor)
+        matrix.postTranslate(initDx, initDy)
+        return matrix
+    }
+
     fun getNormalizedMatrix(): Matrix {
         val matrix = Matrix()
         val normalizedMatrix = Matrix()

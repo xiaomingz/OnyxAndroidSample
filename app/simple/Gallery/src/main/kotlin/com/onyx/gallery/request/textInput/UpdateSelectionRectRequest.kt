@@ -21,7 +21,9 @@ class UpdateSelectionRectRequest(private val textShape: EditTextShape) : BaseReq
         val normalizeScale = drawHandler.drawingArgs.normalizeScale
         val limitRect = RectF(drawHandler.currLimitRect)
         RectUtils.scale(limitRect, normalizeScale, normalizeScale)
-        renderContext.selectionRect = SelectionRect.buildSelectionRect(shapes, renderContext, limitRect)
+        renderContext.selectionRect = SelectionRect.buildSelectionRect(shapes, renderContext, limitRect)?.apply {
+            isTextSelection = true
+        }
     }
 
 }

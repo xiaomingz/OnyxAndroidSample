@@ -1,4 +1,4 @@
-package com.onyx.gallery.views
+package com.onyx.gallery.views.shape
 
 import com.onyx.android.sdk.scribble.shape.BaseShape
 import com.onyx.android.sdk.scribble.utils.ShapeUtils

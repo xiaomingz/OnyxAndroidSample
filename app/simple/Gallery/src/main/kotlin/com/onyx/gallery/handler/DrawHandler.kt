@@ -3,6 +3,7 @@ package com.onyx.gallery.handler
 import android.content.Context
 import android.graphics.*
 import android.view.SurfaceView
+import androidx.core.graphics.values
 import com.onyx.android.sdk.pen.TouchHelper
 import com.onyx.android.sdk.scribble.data.SelectionBundle
 import com.onyx.android.sdk.scribble.data.SelectionRect
@@ -13,7 +14,9 @@ import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.raw.SelectionBundleEvent
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
-import com.onyx.gallery.views.ImageShapeExpand
+import com.onyx.gallery.models.CropSnapshot
+import com.onyx.gallery.views.shape.ImageShapeExpand
+import com.onyx.gallery.views.shape.MosaicShape
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -123,6 +126,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     fun release() {
         drawingArgs.reset()
         undoRedoHander.clearShapes()
+        undoRedoHander.cleardCropSnapshot()
         orgLimitRect.setEmpty()
         currLimitRect.setEmpty()
         touchHelper?.closeRawDrawing()
@@ -140,6 +144,17 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
 
     fun getAllShapes(): MutableList<Shape> {
         return undoRedoHander.getShapes()
+    }
+
+    fun clearHandwritingData() {
+        val allShapes = getAllShapes()
+        val iterator = allShapes.iterator()
+        while (iterator.hasNext()) {
+            val shape = iterator.next()
+            if (shape !is ImageShapeExpand && shape !is ImageShapeExpand) {
+                iterator.remove()
+            }
+        }
     }
 
     fun getHandwritingShape(): MutableList<Shape> {
@@ -216,38 +231,104 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         return null
     }
 
-    fun addMosaicPath(path: Path) {
-        readerHandler.addMosaicPath(path)
-    }
-
-    fun setCurrMosaicPath(currPath: Path) {
-        readerHandler.currMosaicPath.set(currPath)
-    }
-
-    fun getMosaicPathList(): MutableList<Path> {
-        return readerHandler.getAllMosaicPath()
-    }
-
-    fun hasMosaic(): Boolean {
-        return !readerHandler.getAllMosaicPath().isEmpty()
-    }
-
     fun undoShapes() {
         undoRedoHander.undoShapes()
-    }
-
-    fun undoMosaic() {
-        readerHandler.currMosaicPath.reset()
-        undoRedoHander.undoMosaic()
     }
 
     fun redoShapes() {
         undoRedoHander.redoShapes()
     }
 
-    fun redoMosaic() {
-        val redoMosaic = undoRedoHander.redoMosaic()
-        redoMosaic?.let { readerHandler.currMosaicPath.set(redoMosaic) }
+    private fun addCropSnapshot(cropSnapshot: CropSnapshot) {
+        undoRedoHander.addCropSnapshot(cropSnapshot)
     }
+
+    fun undoCrop() = undoRedoHander.undoCrop()
+
+    fun redoCrop() = undoRedoHander.redoCrop()
+
+    fun updateImageShape(imageShape: ImageShapeExpand) {
+        val shapes = getAllShapes()
+        shapes.forEachIndexed { index, shape ->
+            if (shape is ImageShapeExpand || shape is ImageShape) {
+                shapes.set(index, imageShape)
+                return@forEachIndexed
+            }
+        }
+    }
+
+    fun invertRenderStrokeWidth(shape: Shape) {
+        val matrix = Matrix()
+        renderContext.matrix.invert(matrix)
+        val scaleFactor = matrix.values()[Matrix.MSCALE_X]
+        shape.strokeWidth *= scaleFactor
+    }
+
+    fun updateSaveCropSnapshotIndex() {
+        undoRedoHander.updateSaveCropSnapshotIndex()
+    }
+
+    fun makeCropSnapshot(path: String, imageShape: ImageShapeExpand) {
+        val cropSnapshot = CropSnapshot(
+                globalEditBundle.initDx,
+                globalEditBundle.initDy,
+                globalEditBundle.initScaleFactor,
+                path,
+                orgLimitRect,
+                currLimitRect,
+                globalEditBundle.cropHandler.cropBoxRect,
+                imageShape
+        )
+        addCropSnapshot(cropSnapshot)
+    }
+
+    fun saveHandwritingDataToCropSnapshot() {
+        val cropSnapshot = undoRedoHander.getCurrCropSnapshot()
+        val handwritingShape = getHandwritingShape()
+        val matrix = globalEditBundle.getNormalizedMatrix()
+        val scaleFactor = matrix.values()[Matrix.MSCALE_X]
+        handwritingShape.forEach { shape ->
+            shape.strokeWidth /= scaleFactor
+        }
+        cropSnapshot.handwritingShape.addAll(handwritingShape)
+    }
+
+    fun restoreCropSnapshot(cropSnapshot: CropSnapshot) {
+        clearHandwritingData()
+        cropSnapshot.run {
+            globalEditBundle.filePath = imagePath
+            globalEditBundle.initDx = initDx
+            globalEditBundle.initDy = initDy
+            globalEditBundle.initScaleFactor = initScaleFactor
+            updateImageShape(imageShape)
+            updateLimitRect(orgLimitRect)
+            val restoreMosaicBitmap = readerHandler.restoreMosaicBitmap(imageShape)
+            val matrix = globalEditBundle.getInitMatrix()
+            val matrixValues = matrix.values()
+            handwritingShape.forEach { shape ->
+                shape.matrix.setScale(matrixValues[Matrix.MSCALE_X], matrixValues[Matrix.MSCALE_Y])
+                shape.matrix.setTranslate(matrixValues[Matrix.MTRANS_X], matrixValues[Matrix.MTRANS_Y])
+                shape.strokeWidth * matrixValues[Matrix.MSCALE_X]
+                if (shape is MosaicShape) {
+                    shape.mosaicBitmap = restoreMosaicBitmap
+                }
+            }
+            addShapes(handwritingShape)
+        }
+        setRawDrawingRenderEnabled(false)
+    }
+
+    fun getMosaicBitmap(): Bitmap = readerHandler.getMosaicBitmap()
+
+    fun hasMosaic(): Boolean {
+        val handwritingShape = getHandwritingShape()
+        handwritingShape.forEach { shape ->
+            if (shape is MosaicShape) {
+                return true
+            }
+        }
+        return false
+    }
+
 }
 

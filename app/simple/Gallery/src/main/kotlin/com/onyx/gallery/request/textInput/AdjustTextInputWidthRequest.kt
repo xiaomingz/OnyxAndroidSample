@@ -1,13 +1,16 @@
 package com.onyx.gallery.request.textInput
 
+import android.graphics.PointF
+import android.graphics.RectF
 import com.onyx.android.sdk.pen.data.TouchPoint
-import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.utils.RenderHandlerUtils
+import com.onyx.gallery.utils.StaticLayoutUtils.createTextLayout
+import com.onyx.gallery.views.shape.EditTextShapeExpand
 
-/**¬
+/**
  * Created by Leung on 2020/6/11
  */
 class AdjustTextInputWidthRequest(private val shape: Shape,
@@ -16,22 +19,41 @@ class AdjustTextInputWidthRequest(private val shape: Shape,
                                   private val lastPoint: TouchPoint) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
-        val rectF = shape.boundingRect
+        val shapeRectF = shape.boundingRect
         val textStyle = shape.textStyle ?: return
-        val up = shape.points[1]
-        val down = shape.points[0]
-        val x = movedPoint.x - lastPoint.x
-        val selectionRect: SelectionRect = drawHandler.renderContext.selectionRect
-        if (movedPoint.x > rectF.centerX()) {
-            up.x = up.x + x
-            selectionRect.originRect.right = movedPoint.x
-        } else {
-            down.x = down.x + x
-            selectionRect.originRect.left = movedPoint.x
+        val limitRect = drawHandler.currLimitRect
+        if (!limitRect.contains(movedPoint.x.toInt(), movedPoint.y.toInt())) {
+            return
         }
-        textStyle.textWidth = RenderHandlerUtils.getMatrixNormalValue(drawHandler.renderContext, up.x - down.x) as Int
-        shape.updatePoints()
+        val orgDown = shape.points[0]
+        val down = PointF(orgDown.x, orgDown.y)
+        val orgUp = shape.points[1]
+        val up = PointF(orgUp.x, orgUp.y)
+
+        calculatePoint(shapeRectF, up, down)
+        updateTextShape(down, up)
+        textStyle.textWidth = RenderHandlerUtils.getMatrixNormalValue(drawHandler.renderContext, up.x - down.x).toInt()
         RenderHandlerUtils.renderSelectionRect(drawHandler, shape, cursorShape)
+    }
+
+    private fun calculatePoint(shapeRectF: RectF, up: PointF, down: PointF) {
+        val x = movedPoint.x - lastPoint.x
+        if (movedPoint.x > shapeRectF.centerX()) {
+            up.x += x
+        } else {
+            down.x += x
+        }
+    }
+
+    private fun updateTextShape(down: PointF, up: PointF) {
+        shape.points[0].x = down.x
+        shape.points[0].y = down.y
+        shape.points[1].x = up.x
+        shape.points[1].y = up.y
+        shape.updatePoints()
+        val staticLayout = createTextLayout(shape as EditTextShapeExpand)
+        val originRect = shape.originRect
+        originRect.bottom = originRect.top + staticLayout.height
     }
 
 }
