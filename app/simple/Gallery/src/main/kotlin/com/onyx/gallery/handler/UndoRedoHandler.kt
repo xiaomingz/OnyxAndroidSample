@@ -2,8 +2,8 @@ package com.onyx.gallery.handler
 
 import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.android.sdk.utils.FileUtils
 import com.onyx.gallery.models.CropSnapshot
-import com.onyx.gallery.utils.FileUtils
 import com.onyx.gallery.views.shape.ImageShapeExpand
 
 /**

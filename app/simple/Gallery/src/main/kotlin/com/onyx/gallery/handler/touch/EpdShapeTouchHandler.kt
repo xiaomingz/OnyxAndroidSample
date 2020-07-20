@@ -17,7 +17,7 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
     override fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList) {
         val normalTouchPointList = getNormalTouchPointList(touchPointList)
         val shape = createEpdShape(normalTouchPointList)
-        addShapInBackground(shape)
+        addShapeInBackground(shape)
     }
 
     private fun createEpdShape(touchPointList: TouchPointList): Shape {
@@ -40,7 +40,7 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
         return newTouchPointList
     }
 
-    private fun addShapInBackground(shape: Shape) {
+    private fun addShapeInBackground(shape: Shape) {
         invertRenderStrokeWidth(shape)
         AddShapesInBackgroundAction(mutableListOf(shape)).execute(null)
     }

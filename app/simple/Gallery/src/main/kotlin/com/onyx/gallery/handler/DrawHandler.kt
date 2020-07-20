@@ -151,7 +151,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         val iterator = allShapes.iterator()
         while (iterator.hasNext()) {
             val shape = iterator.next()
-            if (!(shape is ImageShapeExpand) && !(shape is ImageShapeExpand)) {
+            if (shape !is ImageShapeExpand && shape !is ImageShapeExpand) {
                 iterator.remove()
             }
         }
