@@ -1,4 +1,4 @@
-package com.onyx.gallery.request;
+package com.onyx.gallery.request.shape;
 
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
@@ -24,5 +24,6 @@ public class StrokeColorChangeRequest extends BaseRequest {
     @Override
     public void execute(@NotNull DrawHandler drawHandler) throws Exception {
         drawHandler.setStrokeColor(color);
+        setRenderToScreen(true);
     }
 }
