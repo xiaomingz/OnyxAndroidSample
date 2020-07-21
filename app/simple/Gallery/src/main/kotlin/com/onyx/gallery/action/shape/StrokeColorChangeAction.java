@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.onyx.android.sdk.rx.RxCallback;
 import com.onyx.gallery.common.BaseEditAction;
-import com.onyx.gallery.request.StrokeColorChangeRequest;
+import com.onyx.gallery.request.shape.StrokeColorChangeRequest;
 
 /**
  * <pre>

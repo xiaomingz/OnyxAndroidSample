@@ -5,6 +5,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.lifecycle.MutableLiveData
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.action.shape.StrokeColorChangeAction
+import com.onyx.gallery.action.shape.StrokeWidthChangeAction
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.models.MenuAction
 
@@ -22,7 +23,7 @@ class GraffitiMenuViewModel : BaseMenuViewModel() {
     private fun initOnSeekBarChangeListener(): OnSeekBarChangeListener = object : OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, strokeWidth: Int, fromUser: Boolean) {
             currStrokeWidth.value = strokeWidth
-            globalEditBundle.drawHandler.setStrokeWidth(strokeWidth.toFloat())
+            StrokeWidthChangeAction(strokeWidth.toFloat()).execute(null)
         }
 
         override fun onStartTrackingTouch(seekBar: SeekBar) {
