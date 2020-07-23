@@ -484,9 +484,8 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         Handler(Looper.getMainLooper()).postDelayed({
             if (!getIsPlaying()) {
                 stopForeground(false)
-            } else {
-                notify(notification.build())
             }
+            notify(notification.build())
         }, 200L)
 
         val playbackState = if (getIsPlaying()) PlaybackStateCompat.STATE_PLAYING else PlaybackStateCompat.STATE_PAUSED
