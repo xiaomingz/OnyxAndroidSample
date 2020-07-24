@@ -57,7 +57,7 @@ public class TranslateViewPortRequest extends BaseRequest {
         translateRenderMatrix(drawHandler);
         renderToBitmap(drawHandler, hRenderShapes, translateHRect);
         renderToBitmap(drawHandler, vRenderShapes, translateVRect);
-        drawHandler.updateLimitRect();
+        drawHandler.updateLimitRect(true);
         setRenderToScreen(true);
     }
 

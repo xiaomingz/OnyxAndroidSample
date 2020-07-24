@@ -11,6 +11,8 @@ import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.NoteUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * <pre>
  *     author : lxw
@@ -44,9 +46,14 @@ public class ZoomFinishRequest extends BaseRequest {
         renderContext.canvas.drawColor(Color.WHITE);
         setRenderShapesToBitmap(true);
         isViewScaling = renderContext.isViewScaling();
-        drawHandler.setRawDrawingEnabled(true);
-        drawHandler.updateLimitRect();
+        drawHandler.updateLimitRect(false);
         setRenderToScreen(true);
+    }
+
+    @Override
+    public void afterExecute(@NotNull DrawHandler drawHandler) {
+        super.afterExecute(drawHandler);
+        drawHandler.setRawDrawingEnabled(true);
     }
 
     private RectF getDrawRect() {

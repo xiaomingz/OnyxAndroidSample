@@ -210,7 +210,9 @@
 
         <activity
             android:name=".activities.NewEditActivity"
-            android:label="@string/editor">
+            android:label="@string/editor"
+            android:screenOrientation="portrait"
+            >
             <intent-filter android:name="foss-editor">
 
                 <action android:name="android.intent.action.EDIT" />

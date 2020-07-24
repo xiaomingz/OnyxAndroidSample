@@ -10,6 +10,8 @@ import android.os.Bundle
 import android.view.SurfaceHolder
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import com.onyx.android.sdk.api.device.epd.EpdController
+import com.onyx.android.sdk.api.device.epd.UpdateMode
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.utils.Debug
 import com.onyx.gallery.R
@@ -37,7 +39,7 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by Leung on 2020/4/30
  */
 class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContentViewModel>() {
-
+    private var inFastMode = false
     private var uri: Uri? = null
     private val surfaceCallback: SurfaceHolder.Callback by lazy { initSurfaceCallback() }
 
@@ -88,6 +90,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     override fun onDestroyView() {
         super.onDestroyView()
+        ensureQuitFastMode()
         globalEditBundle.release()
         binding.surfaceView.holder.removeCallback(surfaceCallback)
     }
@@ -136,9 +139,29 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         postEvent(InitMenuEvent())
     }
 
+    private fun ensureQuitFastMode() {
+        if (!inFastMode) {
+            return
+        }
+        EpdController.applyApplicationFastMode(TAG, false, true)
+        inFastMode = false
+    }
+
     private fun openHandwriting() = drawHandler.touchHelper?.setRawDrawingEnabled(true)
 
     private fun getCropHandler(): CropHandler = globalEditBundle.cropHandler
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onApplyFastModeEvent(event: ApplyFastModeEvent) {
+        if (event.enable && !inFastMode) {
+            EpdController.applyApplicationFastMode(TAG, true, false, UpdateMode.ANIMATION_X, Int.MAX_VALUE)
+            inFastMode = true
+        }
+        if (!event.enable && inFastMode) {
+            EpdController.applyApplicationFastMode(TAG, false, true, UpdateMode.ANIMATION_X, Int.MAX_VALUE)
+            inFastMode = false
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUndoShapeEvent(event: UndoShapeEvent) {

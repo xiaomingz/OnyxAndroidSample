@@ -71,7 +71,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         updateLimitRect()
     }
 
-    fun updateLimitRect() {
+    fun updateLimitRect(rawDrawingEnabled: Boolean = true) {
         touchHelper?.run {
             val dstLimitRect = RectF()
             val srcLimitRect = RectF(orgLimitRect)
@@ -82,7 +82,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
                 currLimitRect.set(newLimit)
                 setRawDrawingEnabled(false)
                 setLimitRect(listOf(currLimitRect))
-                setRawDrawingEnabled(true)
+                setRawDrawingEnabled(rawDrawingEnabled)
             }
         }
     }

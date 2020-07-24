@@ -2,7 +2,8 @@ package com.onyx.gallery.action.zoom;
 
 import com.onyx.android.sdk.rx.RxCallback;
 import com.onyx.gallery.common.BaseEditAction;
-import com.onyx.gallery.request.RendererToScreenRequest;
+import com.onyx.gallery.event.ui.ApplyFastModeEvent;
+import com.onyx.gallery.request.zoom.ZoomBeginRequest;
 
 /**
  * <pre>
@@ -15,11 +16,12 @@ public class ZoomBeginAction extends BaseEditAction {
 
     @Override
     public void execute(final RxCallback callback) {
-        RendererToScreenRequest request = new RendererToScreenRequest();
-        getGlobalEditBundle().enqueue(request, new RxCallback<RendererToScreenRequest>() {
+        getEventBus().post(new ApplyFastModeEvent(true));
+        ZoomBeginRequest zoomBeginRequest = new ZoomBeginRequest();
+        getGlobalEditBundle().enqueue(zoomBeginRequest, new RxCallback<ZoomBeginRequest>() {
             @Override
-            public void onNext(RendererToScreenRequest rendererToScreenRequest) {
-                RxCallback.onNext(callback, rendererToScreenRequest);
+            public void onNext(ZoomBeginRequest request) {
+                RxCallback.onNext(callback, request);
             }
 
             @Override
