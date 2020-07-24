@@ -25,10 +25,10 @@ abstract class BaseRequest : RxRequest() {
     var renderShapesToBitmap = false
 
     @Volatile
-    var pauseRawDrawingRender = false
+    private var pauseRawDrawingRender = false
 
     @Volatile
-    var pauseRawInputReader = false
+    private var pauseRawInputReader = false
 
     @WorkerThread
     @Throws(Exception::class)

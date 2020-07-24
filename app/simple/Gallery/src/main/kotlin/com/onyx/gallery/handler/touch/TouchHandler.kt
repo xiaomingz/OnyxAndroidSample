@@ -1,5 +1,6 @@
 package com.onyx.gallery.handler.touch
 
+import android.graphics.RectF
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 
@@ -20,6 +21,7 @@ interface TouchHandler {
     fun onRawErasingTouchPointMoveReceived(point: TouchPoint)
     fun onRawErasingTouchPointListReceived(pointList: TouchPointList)
     fun onEndRawErasing(outLimitRegion: Boolean, point: TouchPoint)
+    fun onPenUpRefresh(refreshRect: RectF)
     fun undo()
     fun redo()
 }

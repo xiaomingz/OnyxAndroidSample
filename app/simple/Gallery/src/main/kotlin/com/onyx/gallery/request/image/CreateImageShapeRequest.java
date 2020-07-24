@@ -57,7 +57,7 @@ public class CreateImageShapeRequest extends BaseRequest {
         getGlobalEditBundle().setInitDx(dx);
         getGlobalEditBundle().setInitDy(dy);
         getGlobalEditBundle().setInitScaleFactor(scaleFactor);
-        drawHandler.updateLimitRect();
+        drawHandler.updateLimitRect(true);
         drawHandler.makeCropSnapshot(imageFilePath, (ImageShapeExpand) imageShape);
         setRenderToScreen(true);
     }

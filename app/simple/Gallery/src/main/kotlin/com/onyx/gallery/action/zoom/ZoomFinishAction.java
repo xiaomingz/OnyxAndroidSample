@@ -3,6 +3,7 @@ package com.onyx.gallery.action.zoom;
 import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.rx.RxCallback;
 import com.onyx.gallery.common.BaseEditAction;
+import com.onyx.gallery.event.ui.ApplyFastModeEvent;
 import com.onyx.gallery.event.ui.PenEvent;
 import com.onyx.gallery.request.zoom.ZoomFinishRequest;
 
@@ -40,6 +41,12 @@ public class ZoomFinishAction extends BaseEditAction {
             public void onError(Throwable e) {
                 super.onError(e);
                 RxCallback.onError(callback, e);
+            }
+
+            @Override
+            public void onFinally() {
+                super.onFinally();
+                getEventBus().post(new ApplyFastModeEvent(false));
             }
         });
     }

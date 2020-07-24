@@ -1,5 +1,6 @@
 package com.onyx.gallery.handler.touch
 
+import android.graphics.RectF
 import androidx.annotation.CallSuper
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
@@ -10,6 +11,7 @@ import com.onyx.gallery.event.raw.BeginRawDrawEvent
 import com.onyx.gallery.event.raw.BeginRawErasingEvent
 import com.onyx.gallery.event.raw.EndRawDrawingEvent
 import com.onyx.gallery.event.raw.EndRawErasingEvent
+import com.onyx.gallery.event.raw.PenUpRefreshEvent
 import com.onyx.gallery.event.raw.RawDrawingPointsMoveReceivedEvent
 import com.onyx.gallery.event.raw.RawDrawingPointsReceivedEvent
 import com.onyx.gallery.event.raw.RawErasingPointMoveEvent
@@ -81,6 +83,9 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEndRawErasingEvent(event: EndRawErasingEvent) = onEndRawErasing(event.outLimitRegion, event.point)
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPenUpRefreshEvent(event: PenUpRefreshEvent) = onPenUpRefresh(event.refreshRect)
+
     override fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint) {
 
     }
@@ -118,6 +123,10 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
     }
 
     override fun onBeginRawErasing(shortcutErasing: Boolean, point: TouchPoint) {
+
+    }
+
+    override fun onPenUpRefresh(refreshRect: RectF) {
 
     }
 

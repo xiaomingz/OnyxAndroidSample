@@ -8,6 +8,7 @@ import com.onyx.android.sdk.rx.RxCallback;
 import com.onyx.android.sdk.utils.ResManager;
 import com.onyx.android.sdk.utils.TouchUtils;
 import com.onyx.gallery.R;
+import com.onyx.gallery.event.ui.ApplyFastModeEvent;
 import com.onyx.gallery.request.zoom.TranslateViewPortRequest;
 
 import static android.view.MotionEvent.INVALID_POINTER_ID;
@@ -64,6 +65,7 @@ public class MoveGestureDetector extends BaseTouchDetector {
         lastMoveX = ev.getX();
         lastMoveY = ev.getY();
         activePointerId = ev.getPointerId(0);
+        getEventBus().post(new ApplyFastModeEvent(true));
     }
 
     private void onTouchUp(MotionEvent ev) {
@@ -73,6 +75,7 @@ public class MoveGestureDetector extends BaseTouchDetector {
         }
         activePointerId = INVALID_POINTER_ID;
         onMove(ev);
+        getEventBus().post(new ApplyFastModeEvent(false));
     }
 
     private boolean isPointerInvalid() {
