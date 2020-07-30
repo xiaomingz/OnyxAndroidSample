@@ -391,7 +391,8 @@
     <string name="total_count">总数：%d</string>
     <string name="page_index">%d/%d</string>
     <string name="crop">裁剪</string>
-
+    <string name="is_save_image_edit">保存对图片的修改？</string>
+    <string name="dialog_save_as">另存</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

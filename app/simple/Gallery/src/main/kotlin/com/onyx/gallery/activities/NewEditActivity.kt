@@ -6,11 +6,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.R
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.databinding.ActivityNewEditBinding
-import com.onyx.gallery.event.result.SaveEditPictureResultEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.fragments.EditContentFragment
 import com.onyx.gallery.fragments.EditMenuFragment
@@ -18,8 +16,6 @@ import com.onyx.gallery.handler.ActionType
 import com.onyx.gallery.handler.AppBarHandler
 import com.simplemobiletools.commons.extensions.checkAppSideloading
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by Leung on 2020/4/30
@@ -38,7 +34,6 @@ class NewEditActivity : AppCompatActivity() {
         globalEditBundle = GlobalEditBundle.instance
         globalEditBundle?.run {
             parseIntent(this@NewEditActivity)
-            EventBusUtils.ensureRegister(eventBus, this@NewEditActivity)
             replaceLoadFragment(R.id.content_layout, EditContentFragment.instance(uri))
             replaceLoadFragment(R.id.menu_layout, EditMenuFragment())
         }
@@ -46,9 +41,6 @@ class NewEditActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        globalEditBundle?.eventBus.let {
-            EventBusUtils.ensureUnregister(it, this)
-        }
         globalEditBundle = null
     }
 
@@ -79,8 +71,5 @@ class NewEditActivity : AppCompatActivity() {
         appBarHandler.onHandleAction(actionType)
         return true
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onSaveEditPictureResultEvent(event: SaveEditPictureResultEvent) = finish()
 
 }

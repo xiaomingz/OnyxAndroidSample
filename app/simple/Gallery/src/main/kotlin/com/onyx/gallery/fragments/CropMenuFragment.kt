@@ -15,8 +15,6 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class CropMenuFragment : BaseMenuFragment<FragmentEditMenuCropBinding, CropMenuViewModel>() {
 
-    override fun useEventBus(): Boolean = true
-
     override fun getLayoutId(): Int = R.layout.fragment_edit_menu_crop
 
     override fun onInitView(binding: FragmentEditMenuCropBinding, contentView: View) {

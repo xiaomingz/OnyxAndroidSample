@@ -330,5 +330,9 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         return false
     }
 
+    fun hasModify(): Boolean {
+        return !getHandwritingShape().isEmpty()
+    }
+
 }
 

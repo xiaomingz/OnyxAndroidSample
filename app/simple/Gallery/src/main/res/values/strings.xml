@@ -394,6 +394,8 @@
     <string name="total_count">Total:%d</string>
     <string name="page_index">%d/%d</string>
     <string name="crop">crop</string>
+    <string name="is_save_image_edit">Do you want to save changes to the picture？</string>
+    <string name="dialog_save_as">save as</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
