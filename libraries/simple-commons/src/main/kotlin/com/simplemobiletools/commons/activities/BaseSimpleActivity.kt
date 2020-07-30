@@ -140,16 +140,15 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
             return
         }
 
-        val color = baseColor.getContrastColor()
         for (i in 0 until menu.size()) {
             try {
-                menu.getItem(i)?.icon?.setTint(color)
+                menu.getItem(i)?.icon?.setTint(baseColor)
             } catch (ignored: Exception) {
             }
         }
 
         val drawableId = if (useCrossAsBack) R.drawable.ic_cross_vector else R.drawable.ic_arrow_left_vector
-        val icon = resources.getColoredDrawableWithColor(drawableId, color)
+        val icon = resources.getColoredDrawableWithColor(drawableId, baseColor)
         supportActionBar?.setHomeAsUpIndicator(icon)
     }
 
