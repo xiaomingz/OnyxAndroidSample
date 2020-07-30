@@ -68,6 +68,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         if (config.blackBackground) {
             updateStatusbarColor(Color.BLACK)
         }
+        configActionBar()
     }
 
     private fun checkIntent(savedInstanceState: Bundle? = null) {
@@ -258,6 +259,13 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
 
         updateMenuItemColors(menu)
         return true
+    }
+
+    private fun configActionBar() {
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(resources.getColoredDrawableWithColor(R.drawable.ic_arrow_left_vector, Color.BLACK))
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
