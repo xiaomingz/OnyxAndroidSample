@@ -257,7 +257,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
             findItem(R.id.menu_show_on_map).isVisible = visibleBottomActions and BOTTOM_ACTION_SHOW_ON_MAP == 0
         }
 
-        updateMenuItemColors(menu)
+        updateMenuItemColors(menu, false, Color.BLACK)
         return true
     }
 
