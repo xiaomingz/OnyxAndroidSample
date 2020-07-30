@@ -315,7 +315,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         bottom_edit.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_EDIT != 0 && mMedium?.isImage() == true)
         bottom_edit.setOnClickListener {
             if (mUri != null && bottom_actions.alpha == 1f) {
-                openEditor(mUri!!.toString())
+                mMedium?.path?.let { path -> openEditor(path) }
             }
         }
 
