@@ -396,7 +396,7 @@
     <string name="crop">crop</string>
     <string name="is_save_image_edit">Do you want to save changes to the picture？</string>
     <string name="dialog_save_as">save as</string>
-    <string name="is_confirm_delete_file">is Confirm Delete File?</string>
+    <string name="is_confirm_delete_file">Do you want to delete the file?</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
