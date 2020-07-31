@@ -80,6 +80,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
             dstLimitRect.round(newLimit)
             if (newLimit.intersect(surfaceRect)) {
                 currLimitRect.set(newLimit)
+                readerHandler.limitRect.set(currLimitRect)
                 setRawDrawingEnabled(false)
                 setLimitRect(listOf(currLimitRect))
                 setRawDrawingEnabled(rawDrawingEnabled)
