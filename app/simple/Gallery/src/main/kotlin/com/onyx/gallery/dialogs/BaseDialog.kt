@@ -38,6 +38,7 @@ abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
 
     open fun onCancelClick() {
         dialog.dismiss()
+        onCancelCallback()
     }
 
 }
