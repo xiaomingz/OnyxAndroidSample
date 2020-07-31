@@ -1,6 +1,7 @@
 package com.onyx.gallery.handler.touch
 
 import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.event.ui.UpdateOptionsMenuEvent
 
 /**
  * Created by Leung on 2020/6/5
@@ -10,7 +11,7 @@ enum class TouchHandlerType {
     EPD_SHAPE, NORMAL_SHAPE, TEXT_INSERTION, CROP, MOSAIC
 }
 
-class TouchHandlerManager(globalEditBundle: GlobalEditBundle) {
+class TouchHandlerManager(private val globalEditBundle: GlobalEditBundle) {
 
     var activateHandler: TouchHandler? = null
     private val touchHandlerMap = mutableMapOf<TouchHandlerType, TouchHandler>()
@@ -29,6 +30,7 @@ class TouchHandlerManager(globalEditBundle: GlobalEditBundle) {
     fun activateHandler(touchHandlerType: TouchHandlerType) {
         deactivateHandler()
         activateHandler = getTouchHandler(touchHandlerType)?.apply { onActivate() }
+        globalEditBundle.eventBus.post(UpdateOptionsMenuEvent())
     }
 
     fun deactivateHandler() {

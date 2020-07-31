@@ -34,18 +34,22 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
             case ExpandShapeFactory.SHAP_DASH_LINE:
             case ExpandShapeFactory.SHAP_WAVE_LINE:
             case ExpandShapeFactory.SHAP_ARROW_LINE:
+                drawHandler.setRawInputReaderEnable(true);
                 drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.NORMAL_SHAPE;
                 break;
             case ShapeFactory.SHAPE_EDIT_TEXT_SHAPE:
+                drawHandler.setRawInputReaderEnable(true);
                 drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.TEXT_INSERTION;
                 break;
             case ExpandShapeFactory.SHAP_MOSAIC:
+                drawHandler.setRawInputReaderEnable(true);
                 drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.MOSAIC;
                 break;
             default:
+                drawHandler.setRawInputReaderEnable(true);
                 drawHandler.setRawDrawingRenderEnabled(true);
                 touchHandlerType = TouchHandlerType.EPD_SHAPE;
                 break;

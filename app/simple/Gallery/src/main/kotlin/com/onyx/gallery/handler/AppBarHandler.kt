@@ -1,6 +1,7 @@
 package com.onyx.gallery.handler
 
 import androidx.appcompat.app.AppCompatActivity
+import com.onyx.gallery.action.DeleteFileAction
 import com.onyx.gallery.action.SaveEditPictureAction
 import com.onyx.gallery.action.crop.SaveCropTransformAction
 import com.onyx.gallery.bundle.GlobalEditBundle
@@ -34,7 +35,7 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
     }
 
     private fun delete() {
-
+        globalEditBundle.filePath?.let { DeleteFileAction(hostActivity, it).execute(null) }
     }
 
     private fun undo() {
