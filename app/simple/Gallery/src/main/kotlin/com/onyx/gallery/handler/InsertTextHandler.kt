@@ -174,7 +174,7 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         shapes.add(shape).apply {
             cursorShape?.run { shapes.add(this) }
         }
-        val request = TranslateRequest(shapes, PointF(dx, dy))
+        val request = TranslateRequest(shapes, movedPoint, PointF(dx, dy))
         globalEditBundle.enqueue(request, null)
     }
 

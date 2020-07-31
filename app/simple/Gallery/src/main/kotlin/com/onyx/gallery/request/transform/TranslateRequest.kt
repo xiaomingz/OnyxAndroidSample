@@ -13,7 +13,7 @@ import com.onyx.gallery.utils.RenderHandlerUtils
 /**
  * Created by Leung on 2020/6/11
  */
-class TranslateRequest(val shapes: MutableList<Shape>, private val offsetPoint: PointF) : BaseRequest() {
+class TranslateRequest(private val shapes: MutableList<Shape>, private val movedPoint: TouchPoint, private val offsetPoint: PointF) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
         if (CollectionUtils.isNullOrEmpty(shapes)) {
@@ -21,6 +21,9 @@ class TranslateRequest(val shapes: MutableList<Shape>, private val offsetPoint: 
         }
         val renderContext: RenderContext = drawHandler.renderContext
         val selectionRect = renderContext.selectionRect ?: return
+        if (!drawHandler.currLimitRect.contains(movedPoint.x.toInt(), movedPoint.y.toInt())) {
+            return
+        }
         val translatePoint: TouchPoint = RenderHandlerUtils.onTranslate(selectionRect, offsetPoint.x, offsetPoint.y)
         ShapeUtils.translate(shapes, translatePoint.x, translatePoint.y)
         drawHandler.renderVarietyShapesToScreen(shapes)
