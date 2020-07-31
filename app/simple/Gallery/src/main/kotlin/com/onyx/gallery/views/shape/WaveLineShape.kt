@@ -3,6 +3,7 @@ package com.onyx.gallery.views.shape
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.PathMeasure
+import android.graphics.Rect
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.gallery.utils.ExpandShapeFactory
 
@@ -13,6 +14,7 @@ import com.onyx.gallery.utils.ExpandShapeFactory
 class WaveLineShape : BaseLineShape() {
     private val waveHeightFactor = 1.2f
     private val waveLengthFactor = 1.5f
+    val limitRect = Rect()
 
     override fun getType(): Int = ExpandShapeFactory.SHAP_WAVE_LINE
 
@@ -31,9 +33,9 @@ class WaveLineShape : BaseLineShape() {
         val waveLength = strokeWidth * waveLengthFactor
         val waveHeight = strokeWidth * waveHeightFactor
         val distance = Math.abs(downPoint.x - currentPoint.x)
-        var waveCount = distance / waveLength
+        val waveCount = (distance / waveLength).toInt()
         val pathMeasure = PathMeasure()
-        while (waveCount > 0) {
+        for (i in 1..waveCount / 2) {
             pathMeasure.setPath(path, false)
             if (downPoint.x > currentPoint.x) {
                 path.rQuadTo(-waveLength / 2, -waveHeight, -waveLength, 0f);
@@ -42,11 +44,22 @@ class WaveLineShape : BaseLineShape() {
                 path.rQuadTo(waveLength / 2, -waveHeight, waveLength, 0f);
                 path.rQuadTo(waveLength / 2, waveHeight, waveLength, 0f);
             }
-            if (pathMeasure.length >= distance) {
+            if (checkBeyondLimitRect(waveLength) && i == waveCount / 2) {
                 break
             }
-            waveCount -= 1
         }
+    }
+
+    private fun checkBeyondLimitRect(waveLength: Float): Boolean {
+        if (limitRect.isEmpty) {
+            return false
+        }
+        if (downPoint.x > currentPoint.x) {
+            val x = currentPoint.getX() - waveLength * 2
+            return x < limitRect.left
+        }
+        val x = currentPoint.getX() + waveLength * 2
+        return x > limitRect.right
     }
 
 }

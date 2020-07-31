@@ -27,6 +27,7 @@ enum class MirrorModel {
 }
 
 class RenderHandler(val globalEditBundle: GlobalEditBundle) {
+    val limitRect = Rect()
     val surfaceRect = Rect()
     private var mosaicBitmap: Bitmap? = null
     private val strokePaint: Paint by lazy { initStrokePaint() }
@@ -95,6 +96,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
             canvas.drawBitmap(renderContext.bitmap, 0f, 0f, null)
             drawSelectionRect(canvas, renderContext)
             renderShapeToCanvas(shapes, canvas)
+            drawLimitRect(canvas)
             true
         }
     }
@@ -119,6 +121,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         val rect = RendererUtils.checkSurfaceView(surfaceView)
         renderBackground(surfaceView.context, canvas, renderContext, rect)
         canvas.drawBitmap(renderContext.getBitmap(), 0f, 0f, null)
+        drawLimitRect(canvas)
         true
     }
 
@@ -181,6 +184,13 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
 
     private fun beforeUnlockCanvas(surfaceView: SurfaceView) {
         EpdController.enablePost(surfaceView, 1)
+    }
+
+    private fun drawLimitRect(canvas: Canvas) {
+        if (limitRect.isEmpty) {
+            return
+        }
+        canvas.drawRect(limitRect, strokePaint)
     }
 
     private fun drawSelectionRect(canvas: Canvas, renderContext: RenderContext) {
