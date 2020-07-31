@@ -6,16 +6,22 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.R
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.databinding.ActivityNewEditBinding
+import com.onyx.gallery.event.ui.UpdateOptionsMenuEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.fragments.EditContentFragment
 import com.onyx.gallery.fragments.EditMenuFragment
 import com.onyx.gallery.handler.ActionType
 import com.onyx.gallery.handler.AppBarHandler
+import com.onyx.gallery.handler.touch.CropTouchHandler
 import com.simplemobiletools.commons.extensions.checkAppSideloading
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+
 
 /**
  * Created by Leung on 2020/4/30
@@ -34,13 +40,20 @@ class NewEditActivity : AppCompatActivity() {
         globalEditBundle = GlobalEditBundle.instance
         globalEditBundle?.run {
             parseIntent(this@NewEditActivity)
+            EventBusUtils.ensureRegister(eventBus, this@NewEditActivity)
             replaceLoadFragment(R.id.content_layout, EditContentFragment.instance(uri))
             replaceLoadFragment(R.id.menu_layout, EditMenuFragment())
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdateOptionsMenuEvent(event: UpdateOptionsMenuEvent) {
+        invalidateOptionsMenu()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        EventBusUtils.ensureUnregister(globalEditBundle?.eventBus, this)
         globalEditBundle = null
     }
 
@@ -54,7 +67,15 @@ class NewEditActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menu.clear()
         menuInflater.inflate(R.menu.menu_new_editor, menu)
+        globalEditBundle?.run {
+            val deleteMenuItem = menu.findItem(R.id.ok)
+            val saveMenuItem = menu.findItem(R.id.save)
+            val showCropMenu = touchHandlerManager.activateHandler is CropTouchHandler
+            deleteMenuItem.setVisible(showCropMenu)
+            saveMenuItem.setVisible(!showCropMenu)
+        }
         return true
     }
 
