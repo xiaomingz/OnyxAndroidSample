@@ -11,6 +11,7 @@ import com.onyx.gallery.action.shape.AddShapesInBackgroundAction
 import com.onyx.gallery.action.shape.RenderVarietyShapeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.utils.ExpandShapeFactory
+import com.onyx.gallery.views.shape.WaveLineShape
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.disposables.Disposable
@@ -83,6 +84,9 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
         shape.strokeWidth = drawHandler.getStrokeWidth()
         shape.color = drawHandler.getStrokeColor()
         shape.onDown(downTouchPoint, downTouchPoint)
+        if (shape is WaveLineShape) {
+            shape.limitRect.set(drawHandler.currLimitRect)
+        }
         return shape
     }
 
