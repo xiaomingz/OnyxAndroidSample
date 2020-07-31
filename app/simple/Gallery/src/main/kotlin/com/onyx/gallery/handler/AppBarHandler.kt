@@ -1,7 +1,6 @@
 package com.onyx.gallery.handler
 
 import androidx.appcompat.app.AppCompatActivity
-import com.onyx.gallery.action.DeleteFileAction
 import com.onyx.gallery.action.SaveEditPictureAction
 import com.onyx.gallery.action.crop.SaveCropTransformAction
 import com.onyx.gallery.bundle.GlobalEditBundle
@@ -11,7 +10,7 @@ import com.onyx.gallery.bundle.GlobalEditBundle
  */
 
 enum class ActionType {
-    BACK, OK, SAVE_EDIT, DELETE, REDO, UNDO
+    BACK, OK, SAVE_EDIT, REDO, UNDO
 }
 
 class AppBarHandler(private val hostActivity: AppCompatActivity) {
@@ -21,7 +20,6 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
         ActionType.BACK -> hostActivity.finish()
         ActionType.OK -> saveTransform()
         ActionType.SAVE_EDIT -> saveEdit()
-        ActionType.DELETE -> delete()
         ActionType.UNDO -> undo()
         ActionType.REDO -> redo()
     }
@@ -32,10 +30,6 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
 
     private fun saveEdit() {
         globalEditBundle.filePath?.let { SaveEditPictureAction(hostActivity, it).execute(null) }
-    }
-
-    private fun delete() {
-        globalEditBundle.filePath?.let { DeleteFileAction(hostActivity, it).execute(null) }
     }
 
     private fun undo() {

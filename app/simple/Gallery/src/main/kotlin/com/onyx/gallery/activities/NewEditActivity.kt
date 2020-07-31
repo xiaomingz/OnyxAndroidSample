@@ -84,7 +84,6 @@ class NewEditActivity : AppCompatActivity() {
             android.R.id.home -> ActionType.BACK
             R.id.ok -> ActionType.OK
             R.id.save -> ActionType.SAVE_EDIT
-            R.id.delete -> ActionType.DELETE
             R.id.undo -> ActionType.UNDO
             R.id.redo -> ActionType.REDO
             else -> return super.onOptionsItemSelected(item)
