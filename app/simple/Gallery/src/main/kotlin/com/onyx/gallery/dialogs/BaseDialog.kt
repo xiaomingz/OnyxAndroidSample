@@ -24,7 +24,7 @@ abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
             requireActivity().setupDialogStuff(binding.root, this)
             setCanceledOnTouchOutside(false)
         }
-        configDialog(dialog)
+        afterDialogCreated(dialog)
         return dialog
     }
 
@@ -32,7 +32,7 @@ abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
 
     abstract fun initBinding(binding: T)
 
-    open protected fun configDialog(dialog: AlertDialog) {
+    protected open fun afterDialogCreated(dialog: AlertDialog) {
 
     }
 

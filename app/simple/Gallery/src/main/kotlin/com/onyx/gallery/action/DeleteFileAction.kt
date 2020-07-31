@@ -16,7 +16,7 @@ class DeleteFileAction(private val hostActivity: AppCompatActivity, private val 
 
     override fun execute(rxCallback: RxCallback<RxRequest>?) {
         drawHandler.setRawDrawingEnabled(false)
-        ConfirmDialog(R.string.isConfirmDeleteFile) { deleteFile() }
+        ConfirmDialog(R.string.is_confirm_delete_file) { deleteFile() }
                 .apply { onCancelCallback = { updateTouchHandler() } }
                 .apply { show(hostActivity.supportFragmentManager, ConfirmDialog::class.java.simpleName) }
     }
