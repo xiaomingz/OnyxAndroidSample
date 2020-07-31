@@ -205,6 +205,10 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         return currMirrot == MirrorModel.RIGHT || currMirrot == MirrorModel.BOTTOM
     }
 
+    fun hasModify(): Boolean {
+        return hasRotateChange() || hasMirrorChange()
+    }
+
     private fun postEvent(event: Any) {
         globalEditBundle.postEvent(event)
     }

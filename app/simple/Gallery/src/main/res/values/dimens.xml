@@ -90,5 +90,7 @@
     <dimen name="crop_menu_action_size">70dp</dimen>
     <dimen name="graffiti_menu_action_size">70dp</dimen>
     <dimen name="text_menu_action_size">70dp</dimen>
+    <dimen name="dialog_confirm_save_message_height">120dp</dimen>
+    <dimen name="dialog_confirm_save_button_height">50dp</dimen>
 
 </resources>

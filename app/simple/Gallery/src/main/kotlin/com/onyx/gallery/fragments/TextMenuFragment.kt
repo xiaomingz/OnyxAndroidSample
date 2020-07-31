@@ -21,8 +21,6 @@ class TextMenuFragment : BaseMenuFragment<FragmentEditMenuTextBinding, TextMenuV
 
     private val fontSelectFragment: FontSelectFragment by lazy { FontSelectFragment() }
 
-    override fun useEventBus(): Boolean = true
-
     override fun getLayoutId(): Int = R.layout.fragment_edit_menu_text
 
     override fun onInitView(binding: FragmentEditMenuTextBinding, contentView: View) {
