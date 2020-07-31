@@ -15,7 +15,6 @@ import com.simplemobiletools.commons.extensions.setupDialogStuff
 class ConfirmSaveDialog(val onConfirmCallback: (isSaveAs: Boolean) -> Unit) : DialogFragment() {
     private lateinit var dialog: AlertDialog
     private lateinit var binding: DialogConfirmSaveBinding
-    private var isSaveAs = false
     lateinit var onCancelCallback: () -> Unit
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -36,16 +35,14 @@ class ConfirmSaveDialog(val onConfirmCallback: (isSaveAs: Boolean) -> Unit) : Di
     }
 
     fun onSaveAsClick() {
-        isSaveAs = true
-        onConfirmClick()
+        onConfirmClick(true)
     }
 
     fun onSaveClick() {
-        isSaveAs = false
-        onConfirmClick()
+        onConfirmClick(false)
     }
 
-    fun onConfirmClick() {
+    fun onConfirmClick(isSaveAs: Boolean) {
         dialog.dismiss()
         onConfirmCallback(isSaveAs)
     }
