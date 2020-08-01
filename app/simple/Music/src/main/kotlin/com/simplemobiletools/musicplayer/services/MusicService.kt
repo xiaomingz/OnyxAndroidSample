@@ -9,6 +9,7 @@ import android.content.IntentFilter
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.media.AudioManager
 import android.media.AudioManager.*
 import android.media.MediaMetadataRetriever
@@ -454,7 +455,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         }
 
         if (mCurrSongCover?.isRecycled == true) {
-            mCurrSongCover = resources.getColoredBitmap(R.drawable.ic_music_disc, config.textColor)
+            mCurrSongCover = getDefaultAlbumImage()
         }
 
         val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
@@ -758,7 +759,11 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
             }
         }
 
-        return Pair(resources.getColoredBitmap(R.drawable.ic_music_disc, config.textColor), false)
+        return Pair(getDefaultAlbumImage(), false)
+    }
+
+    private fun getDefaultAlbumImage(): Bitmap {
+        return resources.getBitmap(R.drawable.ic_music_disc)
     }
 
     private fun destroyPlayer() {
