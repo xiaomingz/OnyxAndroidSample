@@ -3,6 +3,8 @@
     <string name="app_launcher_name">Voice Recorder</string>
     <string name="recording_saved_successfully">Recording saved successfully as\n\"%s\"</string>
     <string name="recording">Recording</string>
+    <string name="current_the_first_recording">This is the first recording</string>
+    <string name="current_the_last_recording">This is the last recording</string>
 
     <!-- Settings -->
     <string name="try_hiding_notification">Try hiding the recording notification</string>

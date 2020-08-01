@@ -134,4 +134,18 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
             }
         }
     }
+
+    fun isLastOne(file: File): Boolean {
+        val lastFile = itemList.lastOrNull();
+        return isSameFile(lastFile, file);
+    }
+
+    fun isFirstOne(file: File): Boolean {
+        val firstFile = itemList.firstOrNull();
+        return isSameFile(firstFile, file);
+    }
+
+    private fun isSameFile(firstFile: File?, secondFile: File?): Boolean {
+        return firstFile == null || secondFile == null || firstFile.absolutePath == secondFile.absolutePath
+    }
 }

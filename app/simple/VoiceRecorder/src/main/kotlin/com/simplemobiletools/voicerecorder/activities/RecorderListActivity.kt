@@ -3,6 +3,7 @@ package com.simplemobiletools.voicerecorder.activities
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.views.DashLineItemDivider
 import com.simplemobiletools.voicerecorder.R
 import com.simplemobiletools.voicerecorder.actions.FilesLoadAction
@@ -44,12 +45,22 @@ class RecorderListActivity : SimpleActivity() {
         DialogMediaPlayer(this, targetFile).apply {
             listener = object : PlayListener {
                 override fun prev() {
+                    if (adapter?.isFirstOne(file) == true) {
+                        toast(R.string.current_the_first_recording)
+                        return
+                    }
                     play(adapter?.getPrevItem(file))
                 }
 
                 override fun next() {
+                    if (adapter?.isLastOne(file) == true) {
+                        toast(R.string.current_the_last_recording)
+                        return
+                    }
                     play(adapter?.getNextItem(file))
                 }
+
+
             }
             show()
         }
