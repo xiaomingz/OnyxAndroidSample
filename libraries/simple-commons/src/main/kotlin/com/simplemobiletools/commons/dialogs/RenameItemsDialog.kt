@@ -25,7 +25,6 @@ class RenameItemsDialog(val activity: BaseSimpleActivity, val paths: ArrayList<S
                             }
 
                             val valueToAdd = view.rename_items_value.value
-                            val append = view.rename_items_radio_group.checkedRadioButtonId == rename_items_radio_append.id
 
                             if (valueToAdd.isEmpty()) {
                                 callback()
@@ -53,6 +52,8 @@ class RenameItemsDialog(val activity: BaseSimpleActivity, val paths: ArrayList<S
 
                                 ignoreClicks = true
                                 var pathsCnt = validPaths.size
+                                var index = 1
+                                val totalCnt = pathsCnt;
                                 for (path in validPaths) {
                                     val fullName = path.getFilenameFromPath()
                                     var dotAt = fullName.lastIndexOf(".")
@@ -62,11 +63,21 @@ class RenameItemsDialog(val activity: BaseSimpleActivity, val paths: ArrayList<S
 
                                     val name = fullName.substring(0, dotAt)
                                     val extension = if (fullName.contains(".")) ".${fullName.getFilenameExtension()}" else ""
-
-                                    val newName = if (append) {
-                                        "$name$valueToAdd$extension"
-                                    } else {
-                                        "$valueToAdd$fullName"
+                                    var newName = "";
+                                    when(view.rename_items_radio_group.checkedRadioButtonId) {
+                                        rename_items_radio_full.id -> {
+                                            if (totalCnt == 1) {
+                                                newName = "$valueToAdd$extension"
+                                            } else {
+                                                do {
+                                                    newName = "$valueToAdd($index)$extension"
+                                                    val testPath = "${path.getParentPath()}/$newName"
+                                                    index++
+                                                } while (activity.getDoesFilePathExist(testPath))
+                                            }
+                                        }
+                                        rename_items_radio_append.id -> newName = "$name$valueToAdd$extension"
+                                        rename_items_radio_prepend.id -> newName = "$valueToAdd$fullName"
                                     }
 
                                     val newPath = "${path.getParentPath()}/$newName"

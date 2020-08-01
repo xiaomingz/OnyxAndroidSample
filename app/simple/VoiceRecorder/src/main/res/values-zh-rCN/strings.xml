@@ -2,6 +2,8 @@
     <string name="app_launcher_name">录音机</string>
     <string name="audio_recorder">录音记录</string>
     <string name="content_is_empty">内容为空</string>
+    <string name="current_the_first_recording">当前为第一个录音</string>
+    <string name="current_the_last_recording">当前为最后一个录音</string>
 
     <!-- Settings -->
     <string name="try_hiding_notification">尝试关闭状态栏录音通知</string>
