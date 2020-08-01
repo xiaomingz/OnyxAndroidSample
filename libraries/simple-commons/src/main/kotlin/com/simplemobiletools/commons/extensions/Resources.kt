@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
+import android.graphics.Color
 import java.io.InputStream
 
 fun Resources.getColoredBitmap(resourceId: Int, newColor: Int): Bitmap {
@@ -14,6 +15,16 @@ fun Resources.getColoredBitmap(resourceId: Int, newColor: Int): Bitmap {
     val canvas = Canvas(bitmap)
     drawable.setBounds(0, 0, canvas.width, canvas.height)
     drawable.colorFilter = PorterDuffColorFilter(newColor, PorterDuff.Mode.SRC_IN)
+    drawable.draw(canvas)
+    return bitmap
+}
+
+fun Resources.getBitmap(resourceId: Int, backgroundColor : Int = Color.WHITE): Bitmap {
+    val drawable = getDrawable(resourceId)
+    val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    canvas.drawColor(backgroundColor)
+    drawable.setBounds(0, 0, canvas.width, canvas.height)
     drawable.draw(canvas)
     return bitmap
 }
