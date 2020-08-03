@@ -47,4 +47,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
     api ('com.onyx.android.sdk:onyxsdk-device:1.0.4')
+    api "io.reactivex.rxjava2:rxjava:$rootProject.rxjava"
 }
