@@ -11,7 +11,7 @@ fun Long.formatStopwatchTime(useLongerMSFormat: Boolean): String {
     val seconds = TimeUnit.MILLISECONDS.toSeconds(this) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(this))
     var ms = this % 1000
     if (!useLongerMSFormat) {
-        ms /= 100
+        ms /= 10
     }
 
     return when {
