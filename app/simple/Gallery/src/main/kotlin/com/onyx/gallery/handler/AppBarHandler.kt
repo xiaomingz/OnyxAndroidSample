@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.onyx.gallery.action.SaveEditPictureAction
 import com.onyx.gallery.action.crop.SaveCropTransformAction
 import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.event.ui.UpdateTouchHandlerEvent
 
 /**
  * Created by Leung on 2020/6/5
@@ -25,7 +26,11 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
     }
 
     fun onBackPressed() {
-        globalEditBundle?.filePath?.let { SaveEditPictureAction(hostActivity, it, true).execute(null) }
+        globalEditBundle?.filePath?.let {
+            SaveEditPictureAction(hostActivity, it, {
+                hostActivity.finish()
+            }).execute(null)
+        }
     }
 
     private fun saveTransform() {
@@ -33,7 +38,11 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
     }
 
     private fun saveEdit() {
-        globalEditBundle.filePath?.let { SaveEditPictureAction(hostActivity, it, false).execute(null) }
+        globalEditBundle.filePath?.let {
+            SaveEditPictureAction(hostActivity, it, {
+                globalEditBundle.eventBus.post(UpdateTouchHandlerEvent())
+            }).execute(null)
+        }
     }
 
     private fun undo() {
