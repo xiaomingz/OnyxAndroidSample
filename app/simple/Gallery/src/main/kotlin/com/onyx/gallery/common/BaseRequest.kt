@@ -70,5 +70,9 @@ abstract class BaseRequest : RxRequest() {
         return this
     }
 
+    open fun canRawDrawingRenderEnabled(): Boolean {
+        val touchHandler = globalEditBundle.touchHandlerManager.activateHandler ?: return false
+        return touchHandler.canRawDrawingRenderEnabled()
+    }
 
 }

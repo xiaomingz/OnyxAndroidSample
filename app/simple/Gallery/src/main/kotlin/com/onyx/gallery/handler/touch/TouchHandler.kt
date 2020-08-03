@@ -24,4 +24,5 @@ interface TouchHandler {
     fun onPenUpRefresh(refreshRect: RectF)
     fun undo()
     fun redo()
+    fun canRawDrawingRenderEnabled(): Boolean
 }

@@ -6,7 +6,6 @@ import com.onyx.android.sdk.rx.SingleThreadScheduler
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
-import com.onyx.gallery.action.shape.AddShapesAction
 import com.onyx.gallery.action.shape.AddShapesInBackgroundAction
 import com.onyx.gallery.action.shape.RenderVarietyShapeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
@@ -31,6 +30,8 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
     private val actionDisposables: MutableList<Disposable> = ArrayList()
     private var drawEmitter: ObservableEmitter<TouchPoint?>? = null
     private var downPoint: TouchPoint? = null
+
+    override fun canRawDrawingRenderEnabled(): Boolean = false
 
     override fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint) {
         downPoint = point

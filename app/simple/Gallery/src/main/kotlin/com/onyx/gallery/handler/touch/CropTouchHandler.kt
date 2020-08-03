@@ -17,4 +17,6 @@ class CropTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(gl
         postEvent(RedoCropEvent())
     }
 
+    override fun canRawDrawingRenderEnabled(): Boolean = false
+
 }

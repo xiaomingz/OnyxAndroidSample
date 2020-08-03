@@ -1,8 +1,11 @@
 package com.onyx.gallery.views.shape
 
 import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.Matrix.MSCALE_X
 import android.graphics.Paint
 import android.graphics.Path
+import androidx.core.graphics.values
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.gallery.utils.ExpandShapeFactory
 
@@ -18,19 +21,25 @@ class ArrowLineShape : BaseLineShape() {
 
     override fun render(renderContext: RenderContext) {
         applyStrokeStyle(renderContext)
+        val renderMatrix = getRenderMatrix(renderContext)
         val paint = renderContext.paint
         val canvas = renderContext.canvas
         val path = Path().apply {
             moveTo(downPoint.x, downPoint.y)
             lineTo(currentPoint.x, currentPoint.y)
-            transform(getRenderMatrix(renderContext))
+            transform(renderMatrix)
         }
         canvas.drawPath(path, paint)
         val arrowLen = paint.strokeWidth * arrowLenFactor
-        drawArrows(canvas, paint, arrowLen, downPoint.x, downPoint.y, currentPoint.x, currentPoint.y)
+        drawArrows(renderMatrix, canvas, paint, arrowLen, downPoint.x, downPoint.y, currentPoint.x, currentPoint.y)
     }
 
-    private fun drawArrows(canvas: Canvas, paint: Paint, arrowLen: Float, x1: Float, y1: Float, x2: Float, y2: Float) {
+    private fun drawArrows(renderMatrix: Matrix, canvas: Canvas, paint: Paint, arrowLen: Float, x1: Float, y1: Float, x2: Float, y2: Float) {
+        val matrix = Matrix()
+        renderMatrix.invert(matrix)
+        val arrowLen = matrix.values()[MSCALE_X] * arrowLen
+        val halfBottomLine = renderMatrix.values()[MSCALE_X] * halfBottomLine
+        val arrowHeight = renderMatrix.values()[MSCALE_X] * arrowHeight
         val awrad = Math.atan(halfBottomLine / arrowHeight)
         val arrXY_3 = rotateVector(x2 - x1, y2 - y1, awrad, arrowLen.toDouble())
         val arrXY_4 = rotateVector(x2 - x1, y2 - y1, -awrad, arrowLen.toDouble())
@@ -46,6 +55,7 @@ class ArrowLineShape : BaseLineShape() {
         arrowsPath.lineTo(x3, y3)
         arrowsPath.moveTo(x2, y2)
         arrowsPath.lineTo(x4, y4)
+        arrowsPath.transform(renderMatrix)
         canvas.drawPath(arrowsPath, paint)
     }
 

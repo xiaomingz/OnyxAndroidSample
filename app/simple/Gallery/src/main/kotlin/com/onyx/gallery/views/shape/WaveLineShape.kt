@@ -1,9 +1,7 @@
 package com.onyx.gallery.views.shape
 
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.PathMeasure
-import android.graphics.Rect
+import android.graphics.*
+import androidx.core.graphics.values
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.gallery.utils.ExpandShapeFactory
 
@@ -20,19 +18,26 @@ class WaveLineShape : BaseLineShape() {
 
     override fun render(renderContext: RenderContext) {
         applyStrokeStyle(renderContext)
+        val renderMatrix = getRenderMatrix(renderContext)
         val path = Path().apply {
-            applyWave(this, renderContext.paint)
-            transform(getRenderMatrix(renderContext))
+            applyWave(this, renderContext.paint, renderMatrix)
+            transform(renderMatrix)
         }
         renderContext.canvas.drawPath(path, renderContext.paint)
     }
 
-    private fun applyWave(path: Path, paint: Paint) {
+    private fun applyWave(path: Path, paint: Paint, renderMatrix: Matrix) {
         path.moveTo(downPoint.getX(), downPoint.getY())
         val strokeWidth = paint.strokeWidth
-        val waveLength = strokeWidth * waveLengthFactor
-        val waveHeight = strokeWidth * waveHeightFactor
+        var waveLength = strokeWidth * waveLengthFactor
+        var waveHeight = strokeWidth * waveHeightFactor
         val distance = Math.abs(downPoint.x - currentPoint.x)
+
+        val matrix = Matrix()
+        renderMatrix.invert(matrix)
+        waveLength = matrix.values()[Matrix.MSCALE_X] * waveLength
+        waveHeight = matrix.values()[Matrix.MSCALE_X] * waveHeight
+
         val waveCount = (distance / waveLength).toInt()
         val pathMeasure = PathMeasure()
         for (i in 1..waveCount / 2) {
