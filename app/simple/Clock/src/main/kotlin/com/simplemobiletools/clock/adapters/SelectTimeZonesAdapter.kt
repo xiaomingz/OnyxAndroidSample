@@ -11,7 +11,7 @@ import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import kotlinx.android.synthetic.main.item_add_time_zone.view.*
 import java.util.*
 
-class SelectTimeZonesAdapter(val activity: SimpleActivity, val timeZones: List<MyTimeZone>) : RecyclerView.Adapter<SelectTimeZonesAdapter.ViewHolder>() {
+class SelectTimeZonesAdapter(val activity: SimpleActivity, var timeZones: MutableList<MyTimeZone>) : RecyclerView.Adapter<SelectTimeZonesAdapter.ViewHolder>() {
     private val config = activity.config
     private val textColor = config.textColor
     private val backgroundColor = config.backgroundColor
@@ -37,6 +37,14 @@ class SelectTimeZonesAdapter(val activity: SimpleActivity, val timeZones: List<M
         }
 
         notifyItemChanged(pos)
+    }
+
+    fun updateTimeZoneData(list: MutableList<MyTimeZone>) {
+        timeZones.clear()
+        if (list.isNotEmpty()) {
+            timeZones.addAll(list)
+        }
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
