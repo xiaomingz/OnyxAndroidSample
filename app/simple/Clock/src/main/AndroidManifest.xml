@@ -45,7 +45,8 @@
 
         <activity
             android:name=".activities.MainActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustNothing" />
 
         <activity
             android:name=".activities.ReminderActivity"
