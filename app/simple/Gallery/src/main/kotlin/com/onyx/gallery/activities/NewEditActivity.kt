@@ -55,6 +55,13 @@ class NewEditActivity : AppCompatActivity() {
         invalidateOptionsMenu()
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSaveEditPictureResultEvent(event: SaveEditPictureResultEvent) {
+        val intent = Intent()
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         EventBusUtils.ensureUnregister(globalEditBundle?.eventBus, this)
