@@ -18,6 +18,8 @@ import org.greenrobot.eventbus.ThreadMode
 class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
     private val insertTextHandler: InsertTextHandler by lazy { globalEditBundle.insertTextHandler }
 
+    override fun canRawDrawingRenderEnabled(): Boolean = false
+
     override fun onActivate() {
         super.onActivate()
         showInitInputEdit()

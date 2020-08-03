@@ -13,6 +13,8 @@ import com.onyx.android.sdk.utils.RectUtils;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,8 +59,15 @@ public class TranslateViewPortRequest extends BaseRequest {
         translateRenderMatrix(drawHandler);
         renderToBitmap(drawHandler, hRenderShapes, translateHRect);
         renderToBitmap(drawHandler, vRenderShapes, translateVRect);
-        drawHandler.updateLimitRect(true);
+        drawHandler.updateLimitRect(false);
         setRenderToScreen(true);
+    }
+
+    @Override
+    public void afterExecute(@NotNull DrawHandler drawHandler) {
+        super.afterExecute(drawHandler);
+        drawHandler.setRawInputReaderEnable(true);
+        drawHandler.setRawDrawingRenderEnabled(canRawDrawingRenderEnabled());
     }
 
     private void renderToBitmap(DrawHandler drawHandler, @NonNull List<Shape> shapes, RectF clipRect) {

@@ -53,7 +53,8 @@ public class ZoomFinishRequest extends BaseRequest {
     @Override
     public void afterExecute(@NotNull DrawHandler drawHandler) {
         super.afterExecute(drawHandler);
-        drawHandler.setRawDrawingEnabled(true);
+        drawHandler.setRawInputReaderEnable(true);
+        drawHandler.setRawDrawingRenderEnabled(canRawDrawingRenderEnabled());
     }
 
     private RectF getDrawRect() {

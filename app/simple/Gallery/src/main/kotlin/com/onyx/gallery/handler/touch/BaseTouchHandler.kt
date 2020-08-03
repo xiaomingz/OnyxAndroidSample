@@ -7,15 +7,7 @@ import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.bundle.GlobalEditBundle
-import com.onyx.gallery.event.raw.BeginRawDrawEvent
-import com.onyx.gallery.event.raw.BeginRawErasingEvent
-import com.onyx.gallery.event.raw.EndRawDrawingEvent
-import com.onyx.gallery.event.raw.EndRawErasingEvent
-import com.onyx.gallery.event.raw.PenUpRefreshEvent
-import com.onyx.gallery.event.raw.RawDrawingPointsMoveReceivedEvent
-import com.onyx.gallery.event.raw.RawDrawingPointsReceivedEvent
-import com.onyx.gallery.event.raw.RawErasingPointMoveEvent
-import com.onyx.gallery.event.raw.RawErasingPointsReceived
+import com.onyx.gallery.event.raw.*
 import com.onyx.gallery.event.touch.TouchDownEvent
 import com.onyx.gallery.event.touch.TouchMoveEvent
 import com.onyx.gallery.event.touch.TouchUpEvent
@@ -142,4 +134,5 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
         postEvent(RedoShapeEvent())
     }
 
+    override fun canRawDrawingRenderEnabled(): Boolean = true
 }
