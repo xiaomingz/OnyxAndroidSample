@@ -17,11 +17,15 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
     private val globalEditBundle: GlobalEditBundle = GlobalEditBundle.instance
 
     fun onHandleAction(actionType: ActionType) = when (actionType) {
-        ActionType.BACK -> hostActivity.finish()
+        ActionType.BACK -> goBack()
         ActionType.OK -> saveTransform()
         ActionType.SAVE_EDIT -> saveEdit()
         ActionType.UNDO -> undo()
         ActionType.REDO -> redo()
+    }
+
+    fun goBack() {
+        globalEditBundle?.filePath?.let { SaveEditPictureAction(hostActivity, it, true).execute(null) }
     }
 
     private fun saveTransform() {
@@ -29,7 +33,7 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
     }
 
     private fun saveEdit() {
-        globalEditBundle.filePath?.let { SaveEditPictureAction(hostActivity, it).execute(null) }
+        globalEditBundle.filePath?.let { SaveEditPictureAction(hostActivity, it, false).execute(null) }
     }
 
     private fun undo() {

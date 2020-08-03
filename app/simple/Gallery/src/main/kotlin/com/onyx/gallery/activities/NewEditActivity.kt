@@ -1,7 +1,10 @@
 package com.onyx.gallery.activities
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +13,7 @@ import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.R
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.databinding.ActivityNewEditBinding
+import com.onyx.gallery.event.result.SaveEditPictureResultEvent
 import com.onyx.gallery.event.ui.UpdateOptionsMenuEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.fragments.EditContentFragment
@@ -90,6 +94,14 @@ class NewEditActivity : AppCompatActivity() {
         }
         appBarHandler.onHandleAction(actionType)
         return true
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+            appBarHandler.goBack()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
 }
