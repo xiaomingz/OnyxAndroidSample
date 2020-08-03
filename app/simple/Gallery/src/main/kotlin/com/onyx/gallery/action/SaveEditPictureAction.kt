@@ -12,7 +12,7 @@ import com.onyx.gallery.request.SaveEditPictureRequest
 /**
  * Created by Leung on 2020/5/20
  */
-class SaveEditPictureAction(private val hostActivity: AppCompatActivity, private val filePath: String) : BaseEditAction<RxRequest>() {
+class SaveEditPictureAction(private val hostActivity: AppCompatActivity, private val filePath: String, private val onCancelCallback: () -> Unit) : BaseEditAction<RxRequest>() {
 
     override fun execute(rxCallback: RxCallback<RxRequest>?) {
         if (!hasModify()) {
@@ -20,7 +20,7 @@ class SaveEditPictureAction(private val hostActivity: AppCompatActivity, private
         }
         drawHandler.setRawDrawingEnabled(false)
         ConfirmSaveDialog { isSaveAs -> saveImage(isSaveAs, rxCallback) }
-                .apply { onCancelCallback = { updateTouchHandler() } }
+                .apply { onCancelCallback = this@SaveEditPictureAction.onCancelCallback }
                 .apply { show(hostActivity.supportFragmentManager, ConfirmSaveDialog::class.java.simpleName) }
     }
 
