@@ -105,7 +105,7 @@ class NewEditActivity : AppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
-            appBarHandler.goBack()
+            appBarHandler.onBackPressed()
             return true
         }
         return super.onKeyDown(keyCode, event)
