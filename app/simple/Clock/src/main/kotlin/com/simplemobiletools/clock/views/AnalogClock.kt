@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.Handler
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
@@ -52,6 +53,7 @@ class AnalogClock : View {
     private var hour = 0
     private var minute = 0
     private var second = 0
+    private val myHandler = Handler();
 
     constructor(context: Context) : this(context, null)
 
@@ -191,13 +193,13 @@ class AnalogClock : View {
         minute = Calendar.getInstance().get(Calendar.MINUTE)
         second = Calendar.getInstance().get(Calendar.SECOND)
         invalidate()
-        postDelayed({
+        myHandler.postDelayed({
             updateTime()
         }, ONE_SECOND)
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        handler?.removeCallbacksAndMessages(null)
+        myHandler.removeCallbacksAndMessages(null)
     }
 }
