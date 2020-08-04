@@ -8,6 +8,8 @@ import android.graphics.PointF
 import android.net.Uri
 import android.provider.MediaStore
 import com.onyx.android.sdk.data.Size
+import com.onyx.android.sdk.data.model.account.OnyxAccountModel
+import com.onyx.android.sdk.data.provider.DataProviderManager
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.rx.RxManager
 import com.onyx.android.sdk.rx.RxRequest
@@ -86,6 +88,13 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     private fun parseSaveUri(intent: Intent): Uri? = when {
         intent.extras?.containsKey(MediaStore.EXTRA_OUTPUT) == true -> intent.extras!!.get(MediaStore.EXTRA_OUTPUT) as Uri
         else -> uri!!
+    }
+
+    fun isLogIn(): Boolean = getOnyxAccountModel() != null
+
+    fun getOnyxAccountModel(): OnyxAccountModel? {
+        val accountProvider = DataProviderManager.getRemoteAccountProvider()
+        return accountProvider.loggedInAccount
     }
 
     fun <T : RxRequest?> enqueue(request: T, callback: RxCallback<T>?) {

@@ -6,11 +6,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuBinding
+import com.onyx.gallery.dialogs.DialogShare
 import com.onyx.gallery.event.ui.CloseCropEvent
 import com.onyx.gallery.event.ui.InitMenuEvent
 import com.onyx.gallery.event.ui.OpenCropEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.request.RestoreTransformRequest
+import com.onyx.gallery.utils.ToastUtils
 import com.onyx.gallery.viewmodel.EditMenuViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -35,6 +37,11 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
         binding.viewModel = editMenuViewModel
         binding.lifecycleOwner = this
         editMenuViewModel.currItemMenuStyle.observe(this, this)
+        editMenuViewModel.shareToCloud.observe(this, Observer { isShareToCloud ->
+            if (isShareToCloud) {
+                shareToCloud()
+            }
+        })
         return editMenuViewModel
     }
 
@@ -112,6 +119,16 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
 
     private fun closeCropMenu() {
         postEvent(CloseCropEvent())
+    }
+
+    private fun shareToCloud() {
+        if (!globalEditBundle.isLogIn()) {
+            ToastUtils.showScreenCenterToast(requireActivity(), R.string.share_with_no_account_tips)
+            return
+        }
+        DialogShare(requireActivity())
+                .setShareFilePath(globalEditBundle.filePath)
+                .show()
     }
 
 }

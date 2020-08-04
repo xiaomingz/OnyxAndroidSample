@@ -397,6 +397,22 @@
     <string name="is_save_image_edit">Do you want to save changes to the picture？</string>
     <string name="dialog_save_as">save as</string>
     <string name="is_confirm_delete_file">Do you want to delete the file?</string>
+    <string name="share_tips">Scan the QR code to share</string>
+    <string name="scan_share">Scan the QR code to share</string>
+    <string name="loading">Loading…</string>
+    <string name="empty_result">No Content</string>
+    <string name="retry_underline">Retry</string>
+    <string name="network_or_server_error">Network or server error.  please retry later. </string>
+    <string name="network_not_connected">The network is not connected</string>
+    <string name="open_wifi_underline">turn WiFi on</string>
+    <string name="enable_wifi_tip">Turning WiFi on. Please wait.</string>
+    <string name="generating_qr_code">Generating QR code. Please wait...</string>
+    <string name="file_name_des">File Name:</string>
+    <string name="file_size_des">File Size:</string>
+    <string name="file_expired_time_des">Expiry Date:</string>
+    <string name="network_exception_retry">Current Network status is abnormal. Please try again later!</string>
+    <string name="return_underline">Back</string>
+    <string name="share_with_no_account_tips">Please log in to your ONYX account before share!</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
