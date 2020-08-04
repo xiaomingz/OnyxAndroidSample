@@ -37,6 +37,7 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
     var actionOnPermission: ((granted: Boolean) -> Unit)? = null
     var isAskingPermissions = false
     var useDynamicTheme = true
+    var displayHomeAsUp = true
     var checkedDocumentPath = ""
     var configItemsToExport = LinkedHashMap<String, Any>()
 
@@ -54,6 +55,7 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
         if (useDynamicTheme) {
             setTheme(getThemeId())
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(displayHomeAsUp)
         super.onCreate(savedInstanceState)
     }
 

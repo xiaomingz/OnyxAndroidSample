@@ -11,8 +11,8 @@
     <dimen name="min_widget_width">180dp</dimen>
     <dimen name="min_widget_resize_width">110dp</dimen>
 
-    <dimen name="clock_text_size">70sp</dimen>
-    <dimen name="clock_text_size_smaller">60sp</dimen>
+    <dimen name="clock_text_size">54sp</dimen>
+    <dimen name="clock_text_size_smaller">44sp</dimen>
     <dimen name="alarm_text_size">44sp</dimen>
     <dimen name="stopwatch_text_size">35sp</dimen>
     <dimen name="widget_time_text_size_small">48sp</dimen>
@@ -20,9 +20,9 @@
     <dimen name="reminder_activity_title_size">32sp</dimen>
     <dimen name="reminder_activity_text_size">26sp</dimen>
     <dimen name="tab_layout_height">48dp</dimen>
-    <dimen name="tab_item_icon_size">24dp</dimen>
+    <dimen name="tab_item_icon_size">34dp</dimen>
     <dimen name="time_zone_layout_height">400dp</dimen>
-    <dimen name="analog_clock_view_size">220dp</dimen>
+    <dimen name="analog_clock_view_size">350dp</dimen>
     <dimen name="analog_clock_stoke">2dp</dimen>
     <dimen name="analog_clock_hour_stoke_width">5dp</dimen>
     <dimen name="analog_clock_minutes_stoke_width">4dp</dimen>
