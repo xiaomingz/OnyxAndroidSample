@@ -13,8 +13,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/fragment_edit_content_margin_top"
-        android:paddingBottom="@dimen/fragment_edit_content_margin_bottom">
+        android:layout_marginTop="@dimen/fragment_edit_content_margin_top"
+        android:layout_marginBottom="@dimen/fragment_edit_content_margin_bottom">
 
         <EditText
             android:id="@+id/editText"
