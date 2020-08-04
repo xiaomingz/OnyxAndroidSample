@@ -4,6 +4,7 @@ import android.graphics.*
 import androidx.annotation.WorkerThread
 import androidx.core.graphics.values
 import com.onyx.android.sdk.scribble.data.RenderColorConfig
+import com.onyx.android.sdk.scribble.shape.EditTextShape
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
@@ -53,8 +54,21 @@ object ScribbleUtils {
             shape.postConcat(normalizedMatrix)
         }
         updateShapeStrokeWidth(handwritingShape, normalizedMatrix)
+        updateEditTextShape(handwritingShape, normalizedMatrix)
         ShapeUtils.renderShapes(handwritingShape, renderContext, true)
         return renderContext.getBitmap()
+    }
+
+    private fun updateEditTextShape(shapes: MutableList<Shape>, normalizedMatrix: Matrix) {
+        val actualScale = normalizedMatrix.values()[Matrix.MSCALE_X]
+        shapes.filter { it is EditTextShape }.forEach { shape ->
+            if (shape is EditTextShape) {
+                val textStyle = shape.textStyle
+                textStyle.textSize = textStyle.textSize * actualScale
+                val targetRenderTextWidth = textStyle.textWidth.toFloat()
+                textStyle.textWidth = (targetRenderTextWidth * actualScale).toInt()
+            }
+        }
     }
 
     private fun updateShapeStrokeWidth(shapes: List<Shape>, normalizedMatrix: Matrix) {
