@@ -36,11 +36,6 @@ class SettingsActivity : SimpleActivity() {
         invalidateOptionsMenu()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        updateMenuItemColors(menu, baseColor = getActionbarColor())
-        return super.onCreateOptionsMenu(menu)
-    }
-
     private fun setupManagePlaylists() {
         settings_manage_playlists_holder.setOnClickListener {
             startActivity(Intent(this, PlaylistsActivity::class.java))
