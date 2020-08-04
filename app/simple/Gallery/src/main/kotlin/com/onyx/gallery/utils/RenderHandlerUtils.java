@@ -58,10 +58,6 @@ public class RenderHandlerUtils {
         if (limitRect == null || limitRect.isEmpty()) {
             return translatePoint;
         }
-        // if origin Rect is out of limit rect, can translate
-        if (!limitRect.contains(originRect)) {
-            return translatePoint;
-        }
         RectF rectF = new RectF(originRect);
         matrix.mapRect(rectF);
         if (!limitRect.contains(rectF)) {

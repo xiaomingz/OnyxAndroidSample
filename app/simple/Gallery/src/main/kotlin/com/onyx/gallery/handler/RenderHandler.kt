@@ -93,6 +93,9 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         return renderToSurfaceViewImp(surfaceView) { canvas ->
             val rect = RendererUtils.checkSurfaceView(surfaceView)
             renderBackground(surfaceView.context, canvas, renderContext, rect)
+            if (!limitRect.isEmpty) {
+                canvas.clipRect(limitRect)
+            }
             canvas.drawBitmap(renderContext.bitmap, 0f, 0f, null)
             drawSelectionRect(canvas, renderContext)
             renderShapeToCanvas(shapes, canvas)
@@ -120,6 +123,9 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         renderContext.scalingMatrix?.let { canvas.matrix = it }
         val rect = RendererUtils.checkSurfaceView(surfaceView)
         renderBackground(surfaceView.context, canvas, renderContext, rect)
+        if (!limitRect.isEmpty) {
+            canvas.clipRect(limitRect)
+        }
         canvas.drawBitmap(renderContext.getBitmap(), 0f, 0f, null)
         drawLimitRect(canvas)
         true
