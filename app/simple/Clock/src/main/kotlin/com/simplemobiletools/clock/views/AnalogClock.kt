@@ -31,6 +31,7 @@ class AnalogClock : View {
     private val HOUR_POINTER_LENGTH = 0.5
     private val MIN_POINTER_LENGTH = 0.65
     private val SECOND_POINTER_LENGTH = 0.85
+    private val LARGE_TEXT_LENGTH = 0.76f
     private val TEXT_LENGTH = 0.78f
 
     private val CLOCK_LENGTH_SCALE = 2.2f
@@ -162,8 +163,9 @@ class AnalogClock : View {
         val offset = (fontMetrics.descent - fontMetrics.ascent) / 2 - fontMetrics.descent;
         val degree = 360f / SCALE_HOUR_COUNT;
         for (i in 0..SCALE_HOUR_COUNT) {
-            val y = (Math.cos(Math.PI * i * degree / RADIAN) * -clockLength * TEXT_LENGTH).toFloat()
-            val x = (Math.sin(Math.PI * i * degree / RADIAN) * clockLength * TEXT_LENGTH).toFloat()
+            val textLength = if (i % SCALE_HOUR_COUNT  >= 10) LARGE_TEXT_LENGTH else TEXT_LENGTH
+            val y = (Math.cos(Math.PI * i * degree / RADIAN) * -clockLength * textLength).toFloat()
+            val x = (Math.sin(Math.PI * i * degree / RADIAN) * clockLength * textLength).toFloat()
             canvas.drawText("${if (i == 0) SCALE_HOUR_COUNT else i}", x, y + offset, digitalPaint)
         }
     }
