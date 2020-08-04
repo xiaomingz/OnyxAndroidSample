@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_msg"
+        android:text="@string/network_not_connected"
+        style="@style/status_text_view"/>
+
+    <TextView
+        android:id="@+id/tv_open_wifi"
+        android:layout_below="@id/tv_msg"
+        android:paddingTop="@dimen/retry_button_padding"
+        android:text="@string/open_wifi_underline"
+        style="@style/status_text_view_under_line"
+        android:focusable="true"/>
+
+</LinearLayout>

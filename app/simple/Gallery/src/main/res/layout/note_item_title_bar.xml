@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/title_bar_minheight"
+        android:layout_marginTop="@dimen/title_bar_margin_top"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:background="@drawable/imagebtn_underline_bg"
+            android:id="@+id/text_title"
+            android:ellipsize="middle"
+            android:layout_centerVertical="true"
+            style="@style/title_bar_item_back_text"
+            android:layout_marginLeft="@dimen/common_fragment_content_padding"
+            android:focusable="true"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_fragment_content_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:visibility="gone"
+                style="@style/note_title_bar_image_view"
+                android:id="@+id/cloud_backup"
+                app:srcCompat="@drawable/ic_cloud_backup" />
+
+            <ImageView
+                android:visibility="gone"
+                style="@style/note_title_bar_image_view"
+                android:id="@+id/local_backup"
+                app:srcCompat="@drawable/ic_local_backup" />
+
+            <TextView
+                android:visibility="gone"
+                android:background="@drawable/square_bg"
+                android:id="@+id/verification"
+                android:padding="@dimen/image_btn_padding"
+                android:textSize="@dimen/menu_text_size"
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="true"/>
+
+            <ImageView
+                android:visibility="gone"
+                style="@style/background_btn"
+                android:id="@+id/tips"
+                app:srcCompat="@drawable/ic_note_tips" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</layout>

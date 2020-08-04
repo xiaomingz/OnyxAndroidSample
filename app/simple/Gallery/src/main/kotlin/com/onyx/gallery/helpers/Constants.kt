@@ -2,6 +2,9 @@ package com.onyx.gallery.helpers
 
 import com.simplemobiletools.commons.helpers.MONTH_SECONDS
 
+//oss
+const val OSS_SHARE_FILE_EXPIRED_TIME_SECOND = 60 * 60 * 24
+
 //zoom
 const val MAX_VIEW_SCALE = 16
 const val MIN_VIEW_SCALE = 1

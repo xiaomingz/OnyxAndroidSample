@@ -1,0 +1,9 @@
+<vector android:height="@dimen/menu_icon_size" android:viewportHeight="128"
+    android:viewportWidth="128" android:width="@dimen/menu_icon_size" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#00000000"
+        android:pathData="M64,64m-61.3,0a61.3,61.3 0,1 1,122.6 0a61.3,61.3 0,1 1,-122.6 0"
+        android:strokeColor="#000000" android:strokeLineCap="round"
+        android:strokeLineJoin="round" android:strokeWidth="5"/>
+    <path android:fillColor="#FF000000" android:pathData="M64,97.9m-3.9,0a3.9,3.9 0,1 1,7.8 0a3.9,3.9 0,1 1,-7.8 0"/>
+    <path android:fillColor="#FF000000" android:pathData="M64,26.2L64,26.2c1.9,0 3.4,1.5 3.4,3.4v56.9c0,1.9 -1.5,3.4 -3.4,3.4h0c-1.9,0 -3.4,-1.5 -3.4,-3.4V29.6C60.6,27.7 62.1,26.2 64,26.2z"/>
+</vector>

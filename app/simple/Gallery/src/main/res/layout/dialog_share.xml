@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.onyx.gallery.viewmodel.ShareViewModel" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/title_bar"
+            layout="@layout/note_item_title_bar" />
+
+        <TextView
+            android:id="@+id/tips"
+            style="@style/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dialog_share_margin_top"
+            android:layout_marginBottom="@dimen/share_view_padding"
+            android:gravity="center"
+            android:text="@string/share_tips"
+            android:textSize="@dimen/menu_text_size"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/qr_view"
+            android:layout_width="@dimen/share_note_qr_image_size"
+            android:layout_height="@dimen/share_note_qr_image_size"
+            android:layout_below="@+id/tips"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/share_view_padding" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/qr_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/share_view_padding"
+            android:gravity="left"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dialog_share_text_margin"
+                android:text="@{model.fileTitle}"
+                android:textSize="@dimen/menu_text_size" />
+
+            <TextView
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dialog_share_text_margin"
+                android:text="@{model.fileSize}"
+                android:textSize="@dimen/menu_text_size" />
+
+            <TextView
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dialog_share_text_margin"
+                android:text="@{model.filePageCounts}"
+                android:textSize="@dimen/menu_text_size" />
+
+            <TextView
+                style="@style/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dialog_share_text_margin"
+                android:text="@{model.fileTime}"
+                android:textSize="@dimen/menu_text_size" />
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:id="@+id/status_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</layout>

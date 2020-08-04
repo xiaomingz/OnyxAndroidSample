@@ -394,6 +394,19 @@
     <string name="is_save_image_edit">保存对图片的修改？</string>
     <string name="dialog_save_as">另存</string>
     <string name="is_confirm_delete_file">是否删除文件？</string>
+    <string name="share_tips">扫描二维码即可分享</string>
+    <string name="scan_share">扫码分享</string>
+    <string name="loading">正在加载…</string>
+    <string name="retry_underline">重试</string>
+    <string name="network_or_server_error">网络或者服务器出错，稍等会再试</string>
+    <string name="network_not_connected">网络未连接</string>
+    <string name="open_wifi_underline">要查看可用网络，请打开Wi-Fi</string>
+    <string name="generating_qr_code">正在生成二维码，请稍后...</string>
+    <string name="file_name_des">文件名：</string>
+    <string name="file_size_des" >大&#12288;小：</string>
+    <string name="file_expired_time_des">有效期：截止</string>
+    <string name="return_underline">返回</string>
+    <string name="share_with_no_account_tips">请先登录ONYX账号再分享！</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

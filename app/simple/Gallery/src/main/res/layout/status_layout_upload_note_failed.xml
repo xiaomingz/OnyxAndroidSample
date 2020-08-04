@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="@string/network_exception_retry"
+        style="@style/status_text_view" />
+
+    <TextView
+        android:id="@+id/quit"
+        android:layout_marginTop="@dimen/retry_button_padding"
+        android:text="@string/return_underline"
+        style="@style/status_text_view_under_line"/>
+
+</LinearLayout>

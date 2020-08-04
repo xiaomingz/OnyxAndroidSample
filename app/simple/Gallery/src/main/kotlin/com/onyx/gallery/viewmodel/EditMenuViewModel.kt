@@ -12,10 +12,15 @@ class EditMenuViewModel : BaseViewModel() {
     }
 
     var currItemMenuStyle = MutableLiveData<MenuStyle>()
+    var shareToCloud = MutableLiveData<Boolean>(false)
 
     fun onClickMenu(menuStyle: MenuStyle) = updateItemMenuLayout(menuStyle)
 
     private fun updateItemMenuLayout(menuStyle: MenuStyle) {
+        shareToCloud.value = menuStyle == MenuStyle.SHARE
+        if (shareToCloud.value!!) {
+            return
+        }
         currItemMenuStyle.value = menuStyle
     }
 
