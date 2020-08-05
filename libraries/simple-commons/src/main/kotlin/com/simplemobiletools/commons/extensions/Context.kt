@@ -749,3 +749,7 @@ fun Context.hasVibrator(): Boolean {
     val vibrator = getSystemService(Service.VIBRATOR_SERVICE) as? Vibrator
     return vibrator?.hasVibrator() ?: false
 }
+
+fun Context.isPortraitOrientation(): Boolean {
+    return resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT;
+}
