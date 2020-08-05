@@ -9,6 +9,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.voicerecorder.BuildConfig
 import com.simplemobiletools.voicerecorder.R
+import com.simplemobiletools.voicerecorder.extensions.getSaveRootPath
 import com.simplemobiletools.voicerecorder.helpers.GET_RECORDER_INFO
 import com.simplemobiletools.voicerecorder.helpers.PAUSE_RECORDER
 import com.simplemobiletools.voicerecorder.helpers.RESUME_RECORDER
@@ -154,7 +155,8 @@ class MainActivity : SimpleActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRecordingDoneEvent(event: Events.RecordingDone) {
-        recording_status.setText(resources.getString(R.string.recording_saved_successfully, event.path))
+        val showPathText = event.path.replace("${getSaveRootPath()}/", "")
+        recording_status.text = resources.getString(R.string.recording_saved_successfully, showPathText)
     }
 
     private fun launchSettings() {
