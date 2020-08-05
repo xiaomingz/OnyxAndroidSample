@@ -29,6 +29,8 @@ import java.util.*
 
 class RecorderService : Service() {
     private val AMPLITUDE_UPDATE_MS = 75L
+    private val SAMPLING_RATE = 44100
+    private val ENCODING_BITRATE = 128000
 
     private var currFilePath = ""
     private var duration = 0
@@ -68,6 +70,8 @@ class RecorderService : Service() {
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
             setOutputFile(currFilePath)
+            setAudioSamplingRate(SAMPLING_RATE)
+            setAudioEncodingBitRate(ENCODING_BITRATE)
 
             try {
                 prepare()
