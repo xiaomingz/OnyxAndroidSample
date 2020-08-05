@@ -12,6 +12,7 @@ import android.media.AudioManager.STREAM_ALARM
 import android.net.Uri
 import android.os.PowerManager
 import android.text.SpannableString
+import android.text.TextUtils
 import android.text.style.RelativeSizeSpan
 import android.widget.Toast
 import androidx.core.app.AlarmManagerCompat
@@ -277,10 +278,13 @@ fun Context.getTimerNotification(pendingIntent: PendingIntent, addDeleteIntent: 
             notificationManager.createNotificationChannel(this)
         }
     }
-
+    var title = getString(R.string.timer);
+    if (!TextUtils.isEmpty(config.timerLabel)) {
+        title += " ${config.timerLabel}"
+    }
     val reminderActivityIntent = getReminderActivityIntent()
     val builder = NotificationCompat.Builder(this)
-            .setContentTitle(getString(R.string.timer))
+            .setContentTitle(title)
             .setContentText(getString(R.string.time_expired))
             .setSmallIcon(R.drawable.ic_timer)
             .setContentIntent(pendingIntent)

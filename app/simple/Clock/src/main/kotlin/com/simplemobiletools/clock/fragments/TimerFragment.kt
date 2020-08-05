@@ -44,6 +44,7 @@ class TimerFragment : Fragment() {
 
             timer_time.text = config.timerSeconds.getFormattedDuration()
             timer_label.setText(config.timerLabel)
+            timer_label.setSelection(config.timerLabel?.length ?: 0)
 
             requiredActivity.updateTextColors(timer_fragment)
             timer_reset.applyColorFilter(textColor)
@@ -63,7 +64,7 @@ class TimerFragment : Fragment() {
 
             timer_play_pause.setOnClickListener {
                 val state = config.timerState
-
+                timer_label_layout.requestFocus()
                 when (state) {
                     is TimerState.Idle -> EventBus.getDefault().post(TimerState.Start(config.timerSeconds.secondsToMillis))
                     is TimerState.Paused -> EventBus.getDefault().post(TimerState.Start(state.tick))
@@ -120,6 +121,7 @@ class TimerFragment : Fragment() {
     }
 
     private fun stopTimer() {
+        timer_label_layout.requestFocus()
         EventBus.getDefault().post(TimerState.Idle)
         requiredActivity.hideTimerNotification()
         view.timer_time.text = requiredActivity.config.timerSeconds.getFormattedDuration()

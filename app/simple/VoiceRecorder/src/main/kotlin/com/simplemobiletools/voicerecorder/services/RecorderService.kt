@@ -8,8 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaRecorder
 import android.media.MediaScannerConnection
-import android.os.Build
-import android.os.IBinder
+import android.os.*
 import android.provider.MediaStore
 import androidx.core.app.NotificationCompat
 import com.simplemobiletools.commons.extensions.*
@@ -23,8 +22,10 @@ import com.simplemobiletools.voicerecorder.extensions.getDefaultSaveFolder
 import com.simplemobiletools.voicerecorder.helpers.*
 import com.simplemobiletools.voicerecorder.models.Events
 import org.greenrobot.eventbus.EventBus
+import java.io.File
 import java.io.IOException
 import java.util.*
+
 
 class RecorderService : Service() {
     private val AMPLITUDE_UPDATE_MS = 75L
@@ -35,12 +36,12 @@ class RecorderService : Service() {
     private var durationTimer = Timer()
     private var amplitudeTimer = Timer()
     private var recorder: MediaRecorder? = null
+    private var handler = Handler(Looper.getMainLooper())
 
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-
         when (intent.action) {
             GET_RECORDER_INFO -> broadcastRecorderInfo()
             STOP_AMPLITUDE_UPDATE -> amplitudeTimer.cancel()
@@ -73,14 +74,16 @@ class RecorderService : Service() {
                 start()
                 duration = 0
                 isRecording = true
+                recorder = this
                 broadcastRecorderInfo()
-                startForeground(RECORDER_RUNNING_NOTIF_ID, showNotification())
+                updateNotification(false, isRecording)
 
                 durationTimer = Timer()
                 durationTimer.scheduleAtFixedRate(getDurationUpdateTask(), 1000, 1000)
 
                 startAmplitudeUpdates()
             } catch (e: IOException) {
+                e.printStackTrace()
                 showErrorToast(e)
                 stopRecording()
             }
@@ -91,20 +94,24 @@ class RecorderService : Service() {
         durationTimer.cancel()
         amplitudeTimer.cancel()
         isRecording = false
+        try {
+            recorder?.apply {
+                stop()
+                release()
 
-        recorder?.apply {
-            stop()
-            release()
-
-            ensureBackgroundThread {
-                if (isQPlus()) {
-                    addFileInNewMediaStore()
-                } else {
-                    addFileInLegacyMediaStore()
+                ensureBackgroundThread {
+                    if (isQPlus()) {
+                        addFileInNewMediaStore()
+                    } else {
+                        addFileInLegacyMediaStore()
+                    }
                 }
             }
+        } catch (ignored: Exception) {
         }
         recorder = null
+        updateNotification(true, isRecording)
+        broadcastStatus()
     }
 
     private fun broadcastRecorderInfo() {
@@ -129,12 +136,16 @@ class RecorderService : Service() {
         }
         recorder?.pause()
         isRecording = false
+        broadcastStatus()
+        updateNotification(recorder == null, isRecording)
     }
 
     @TargetApi(Build.VERSION_CODES.N)
     private fun resumeRecorder() {
         recorder?.resume()
         isRecording = true
+        broadcastStatus()
+        updateNotification(recorder == null, isRecording)
     }
 
     @SuppressLint("InlinedApi")
@@ -192,11 +203,15 @@ class RecorderService : Service() {
     }
 
     @TargetApi(Build.VERSION_CODES.O)
-    private fun showNotification(): Notification {
+    private fun updateNotification(stop: Boolean, recording: Boolean) {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (stop) {
+            notificationManager.cancel(RECORDER_RUNNING_NOTIF_ID)
+            return
+        }
         val hideNotification = config.hideNotification
         val channelId = "simple_recorder"
         val label = getString(R.string.app_name)
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (isOreoPlus()) {
             val importance = if (hideNotification) NotificationManager.IMPORTANCE_MIN else NotificationManager.IMPORTANCE_DEFAULT
             NotificationChannel(channelId, label, importance).apply {
@@ -208,7 +223,7 @@ class RecorderService : Service() {
         var priority = Notification.PRIORITY_DEFAULT
         var icon = R.drawable.ic_microphone_small
         var title = label
-        var text = getString(R.string.recording)
+        var text = if (recording) getString(R.string.recording) else getString(R.string.pause_recording)
         var visibility = NotificationCompat.VISIBILITY_PUBLIC
 
         if (hideNotification) {
@@ -219,19 +234,27 @@ class RecorderService : Service() {
             visibility = NotificationCompat.VISIBILITY_SECRET
         }
 
-        val builder = NotificationCompat.Builder(this)
-            .setContentTitle(title)
-            .setContentText(text)
-            .setSmallIcon(icon)
-            .setContentIntent(getOpenAppIntent())
-            .setPriority(priority)
-            .setVisibility(visibility)
-            .setSound(null)
-            .setOngoing(true)
-            .setAutoCancel(true)
-            .setChannelId(channelId)
+        val pendIntent = PendingIntent.getActivity(this, System.currentTimeMillis().toInt(),
+                Intent(this, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT)
 
-        return builder.build()
+        val builder = NotificationCompat.Builder(this)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setSmallIcon(icon)
+                .setContentIntent(getOpenAppIntent())
+                .setPriority(priority)
+                .setVisibility(visibility)
+                .setSound(null)
+                .setOngoing(true)
+                .setAutoCancel(false)
+                .setChannelId(channelId)
+                .setContentIntent(pendIntent)
+
+        val notification = builder.build()
+        startForeground(RECORDER_RUNNING_NOTIF_ID, notification)
+        handler.post {
+            notificationManager.notify(RECORDER_RUNNING_NOTIF_ID, notification)
+        }
     }
 
     private fun getOpenAppIntent(): PendingIntent {
@@ -244,7 +267,11 @@ class RecorderService : Service() {
     }
 
     private fun broadcastStatus() {
-        EventBus.getDefault().post(Events.RecordingStatus(isRecording))
+        var status = Events.RecordingStatus.STATUS_STOP
+        if (recorder != null) {
+            status = if (isRecording) Events.RecordingStatus.STATUS_RECORDING else Events.RecordingStatus.STATUS_PAUSE
+        }
+        EventBus.getDefault().post(Events.RecordingStatus(status))
     }
 
     private fun broadcastRecordingDone(path: String) {
