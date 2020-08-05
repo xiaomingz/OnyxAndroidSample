@@ -56,7 +56,6 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
     }
 
     override fun onEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint) {
-        disposable?.run { dispose() }
         drawEmitter?.onNext(point)
 
         normalMatrixMapPoint(downPoint!!, point)
@@ -100,6 +99,7 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
             d.dispose()
         }
         actionDisposables.clear()
+        disposable?.run { dispose() }
     }
 
 }
