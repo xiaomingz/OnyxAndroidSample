@@ -5,12 +5,14 @@ import android.graphics.*
 import android.view.SurfaceView
 import androidx.annotation.WorkerThread
 import com.onyx.android.sdk.api.device.epd.EpdController
+import com.onyx.android.sdk.api.device.epd.UpdateMode
 import com.onyx.android.sdk.scribble.data.RenderColorConfig
 import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.Benchmark
 import com.onyx.android.sdk.utils.CollectionUtils
+import com.onyx.android.sdk.utils.RectUtils
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.utils.MosaicUtils
@@ -129,6 +131,24 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         canvas.drawBitmap(renderContext.getBitmap(), 0f, 0f, null)
         drawLimitRect(canvas)
         true
+    }
+
+    @WorkerThread
+    fun partialRefreshSurfaceView(surfaceView: SurfaceView) {
+        val renderRect = RectUtils.toRect(renderContext.clipRect)
+        val viewRect = RendererUtils.checkSurfaceView(surfaceView)
+        EpdController.setViewDefaultUpdateMode(surfaceView, UpdateMode.HAND_WRITING_REPAINT_MODE)
+        val canvas = surfaceView.holder.lockCanvas(renderRect) ?: return
+        try {
+            canvas.clipRect(renderRect)
+            RendererUtils.renderBackground(surfaceView.context, canvas, renderContext, viewRect)
+            canvas.drawBitmap(renderContext.getBitmap(), 0f, 0f, null)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        } finally {
+            surfaceView.holder.unlockCanvasAndPost(canvas)
+            EpdController.resetViewUpdateMode(surfaceView)
+        }
     }
 
     @WorkerThread

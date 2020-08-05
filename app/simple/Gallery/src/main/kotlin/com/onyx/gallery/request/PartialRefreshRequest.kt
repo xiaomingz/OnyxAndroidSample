@@ -11,7 +11,7 @@ class PartialRefreshRequest(private val refreshRect: RectF) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
         drawHandler.renderContext.setClipRect(refreshRect)
-        drawHandler.renderToScreen()
+        drawHandler.partialRefreshScreen()
         drawHandler.renderContext.resetClipRect()
     }
 
