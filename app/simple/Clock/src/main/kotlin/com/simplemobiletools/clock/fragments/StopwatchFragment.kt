@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_stopwatch.view.*
 
 class StopwatchFragment : Fragment() {
     private var UPDATE_INTERVAL = 10L
+    private var UPDATE_PER_MULTIPLE_TICKS = 7
     private val WAS_RUNNING = "was_running"
     private val TOTAL_TICKS = "total_ticks"
     private val CURRENT_TICKS = "current_ticks"
@@ -56,6 +57,7 @@ class StopwatchFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         UPDATE_INTERVAL = requireContext().getInteger(R.integer.tick_update_interval).toLong()
+        UPDATE_PER_MULTIPLE_TICKS = requireContext().getInteger(R.integer.update_per_multiple_ticks)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -231,7 +233,7 @@ class StopwatchFragment : Fragment() {
             val prevSessionsMS = (totalTicks - currentTicks) * UPDATE_INTERVAL
             val totalDuration = SystemClock.uptimeMillis() - uptimeAtStart + prevSessionsMS
             updateHandler.removeCallbacksAndMessages(null)
-            view.stopwatch_time.text = totalDuration.formatStopwatchTime(true)
+            view.stopwatch_time.text = totalDuration.formatStopwatchTime(false)
             currentTicks = 0
             totalTicks--
         }
@@ -315,7 +317,7 @@ class StopwatchFragment : Fragment() {
     private val updateRunnable = object : Runnable {
         override fun run() {
             if (isRunning) {
-                if (totalTicks % 10 == 0) {
+                if (totalTicks % UPDATE_PER_MULTIPLE_TICKS == 0) {
                     updateDisplayedText()
                 }
                 totalTicks++
