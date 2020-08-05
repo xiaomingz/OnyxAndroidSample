@@ -20,6 +20,10 @@ import kotlin.collections.ArrayList
 class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
         SimpleBaseAdapter(activity, recyclerView, itemClick) {
 
+    init {
+        finishWhenSelectionEmpty = false
+    }
+
     private val itemList = ArrayList<File>()
     private val dateFormat = SimpleDateFormat(DATE_FORMAT_FOUR + " " + TIME_FORMAT_24, Locale.getDefault());
 
@@ -60,11 +64,8 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
     override fun getActionMenuId() = R.menu.recorder_list_menu
 
     override fun actionItemPressed(id: Int) {
-        if (selectedKeys.isEmpty()) {
-            return
-        }
         when (id) {
-            R.id.cab_select_all -> selectAll()
+            R.id.cab_select_all -> toggleSelectAll()
             R.id.cab_delete -> deleteFiles()
             R.id.cab_share -> shareFiles()
             R.id.cab_rename -> renameFiles()
@@ -97,20 +98,22 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
     }
 
     private fun deleteFiles() {
-        if (selectedKeys.isEmpty()) {
-            return
+        when (selectedKeys.size) {
+            0 -> activity.toast(R.string.no_files_selected)
+            else -> {
+                AlertDialog.Builder(activity)
+                        .setMessage(R.string.are_you_sure_delete)
+                        .setPositiveButton(R.string.ok) { dialog, which ->
+                            getSelectedItems().forEach {
+                                if (it.delete()) {
+                                    val index = itemList.indexOf(it);
+                                    itemList.remove(it)
+                                    removeSelectedItems(arrayListOf(index));
+                                }
+                            }
+                        }.show()
+            }
         }
-        AlertDialog.Builder(activity)
-                .setMessage(R.string.are_you_sure_delete)
-                .setPositiveButton(R.string.ok) { dialog, which ->
-                    getSelectedItems().forEach {
-                        if (it.delete()) {
-                            val index = itemList.indexOf(it);
-                            itemList.remove(it)
-                            removeSelectedItems(arrayListOf(index));
-                        }
-                    }
-                }.show()
     }
 
     private fun shareFiles() {

@@ -28,6 +28,7 @@ abstract class MyRecyclerViewAdapter(val activity: BaseSimpleActivity, val recyc
     protected var actModeCallback: MyActionModeCallback
     protected var selectedKeys = LinkedHashSet<Int>()
     protected var positionOffset = 0
+    protected var finishWhenSelectionEmpty = true
 
     private var actMode: ActionMode? = null
     private var actBarTextView: TextView? = null
@@ -125,7 +126,7 @@ abstract class MyRecyclerViewAdapter(val activity: BaseSimpleActivity, val recyc
             updateTitle()
         }
 
-        if (selectedKeys.isEmpty()) {
+        if (finishWhenSelectionEmpty && selectedKeys.isEmpty()) {
             finishActMode()
         }
     }
@@ -172,10 +173,18 @@ abstract class MyRecyclerViewAdapter(val activity: BaseSimpleActivity, val recyc
         return positions
     }
 
+    protected fun toggleSelectAll() {
+        selectAll(getSelectableItemCount() != selectedKeys.size)
+    }
+
     protected fun selectAll() {
+        selectAll(true)
+    }
+
+    private fun selectAll(select: Boolean) {
         val cnt = itemCount - positionOffset
         for (i in 0 until cnt) {
-            toggleItemSelection(true, i, false)
+            toggleItemSelection(select, i, false)
         }
         lastLongPressedItem = -1
         updateTitle()
