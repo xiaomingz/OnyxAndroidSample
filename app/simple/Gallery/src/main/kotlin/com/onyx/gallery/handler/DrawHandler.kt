@@ -115,6 +115,10 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         readerHandler.renderToSurfaceView(surfaceView)
     }
 
+    fun partialRefreshScreen() {
+        readerHandler.partialRefreshSurfaceView(surfaceView)
+    }
+
     fun renderShapesToBitmap() {
         val shapes = getAllShapes()
         readerHandler.refreshBitmap(shapes)
