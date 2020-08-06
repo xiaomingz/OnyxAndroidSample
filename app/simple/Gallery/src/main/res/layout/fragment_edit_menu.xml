@@ -51,21 +51,6 @@
 
             <LinearLayout
                 style="@style/main_menu_bottom_progress_light_layout"
-                setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.SHARE}"
-                android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.SHARE)}">
-
-                <ImageView
-                    style="@style/main_menu_bottom_iv_style"
-                    setHint="@{com.onyx.gallery.R.drawable.ic_read_share}" />
-
-                <TextView
-                    style="@style/main_menu_bottom_progress_light_text"
-                    android:layout_alignParentLeft="true"
-                    android:text="@string/share" />
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/main_menu_bottom_progress_light_layout"
                 setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.GRAFFITI}"
                 android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.GRAFFITI)}">
 

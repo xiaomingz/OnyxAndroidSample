@@ -329,8 +329,8 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
 
         bottom_share.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_SHARE != 0)
         bottom_share.setOnClickListener {
-            if (mUri != null && bottom_actions.alpha == 1f) {
-                sharePath(mUri!!.toString())
+            if (mMedium != null && bottom_actions.alpha == 1f) {
+                shareToCloud(mMedium!!.path)
             }
         }
 

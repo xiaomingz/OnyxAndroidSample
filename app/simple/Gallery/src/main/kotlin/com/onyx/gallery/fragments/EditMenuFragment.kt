@@ -37,11 +37,6 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
         binding.viewModel = editMenuViewModel
         binding.lifecycleOwner = this
         editMenuViewModel.currItemMenuStyle.observe(this, this)
-        editMenuViewModel.shareToCloud.observe(this, Observer { isShareToCloud ->
-            if (isShareToCloud) {
-                shareToCloud()
-            }
-        })
         return editMenuViewModel
     }
 
@@ -71,7 +66,6 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
     }
 
     private fun createSubMenuFragment(menuStyle: EditMenuViewModel.MenuStyle): BaseFragment<*, *> = when (menuStyle) {
-        EditMenuViewModel.MenuStyle.SHARE -> ShareMenuFragment()
         EditMenuViewModel.MenuStyle.GRAFFITI -> GraffitiMenuFragment()
         EditMenuViewModel.MenuStyle.TEXT -> TextMenuFragment()
         EditMenuViewModel.MenuStyle.CROP -> CropMenuFragment()
@@ -119,16 +113,6 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
 
     private fun closeCropMenu() {
         postEvent(CloseCropEvent())
-    }
-
-    private fun shareToCloud() {
-        if (!globalEditBundle.isLogIn()) {
-            ToastUtils.showScreenCenterToast(requireActivity(), R.string.share_with_no_account_tips)
-            return
-        }
-        DialogShare(requireActivity())
-                .setShareFilePath(globalEditBundle.filePath)
-                .show()
     }
 
 }
