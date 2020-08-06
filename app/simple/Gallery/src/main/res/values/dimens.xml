@@ -129,5 +129,9 @@
     <dimen name="action_bar_size">48dp</dimen>
     <dimen name="fillet_radius">10dp</dimen>
     <dimen name="activity_media_list_margin_top">30dp</dimen>
-    <dimen name="photo_video_item_grid_name_margin">6dp</dimen>
+    <dimen name="photo_video_item_grid_name_margin">2dp</dimen>
+    <dimen name="dash_line_height">3dp</dimen>
+    <dimen name="photo_item_list_dash_line_margin_top">20dp</dimen>
+    <dimen name="photo_item_list_content_margin_left">26dp</dimen>
+    <dimen name="photo_item_list_content_margin_bottom">16dp</dimen>
 </resources>

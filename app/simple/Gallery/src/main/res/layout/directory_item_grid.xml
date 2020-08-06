@@ -8,7 +8,6 @@
     android:layout_marginBottom="@dimen/directory_item_grid_margin_top_bottom"
     android:layout_marginLeft="@dimen/directory_item_grid_margin_left_right"
     android:layout_marginRight="@dimen/directory_item_grid_margin_left_right"
-    android:layout_marginTop="@dimen/directory_item_grid_margin_top_bottom"
     android:clickable="true"
     android:focusable="true"
     android:padding="1px">
@@ -63,6 +62,8 @@
 
     <TextView
         android:id="@+id/dir_name"
+        android:layout_marginTop="@dimen/photo_video_item_grid_name_margin"
+        android:layout_marginBottom="@dimen/photo_video_item_grid_name_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/dir_thumbnail"

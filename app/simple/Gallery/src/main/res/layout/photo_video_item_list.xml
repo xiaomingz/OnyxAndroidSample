@@ -10,6 +10,8 @@
     android:focusable="true"
     android:paddingStart="@dimen/medium_margin"
     android:paddingTop="@dimen/small_margin"
+    android:layout_marginLeft="@dimen/photo_item_list_content_margin_left"
+    android:layout_marginBottom="@dimen/photo_item_list_content_margin_bottom"
     android:paddingBottom="@dimen/small_margin">
 
     <com.onyx.gallery.views.MySquareImageView
@@ -87,5 +89,13 @@
         android:textSize="@dimen/normal_text_size"
         android:background="@color/background_black"
         tools:text="00:05"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dash_line_height"
+        android:layout_below="@+id/medium_thumbnail"
+        android:layout_marginTop="@dimen/photo_item_list_dash_line_margin_top"
+        android:background="@drawable/dash_line"
+        android:layerType="software" />
 
 </RelativeLayout>
