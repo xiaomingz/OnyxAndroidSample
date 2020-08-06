@@ -74,6 +74,8 @@
         android:visibility="gone"/>
 
     <TextView
+        android:layout_marginTop="@dimen/photo_video_item_grid_name_margin"
+        android:layout_marginBottom="@dimen/photo_video_item_grid_name_margin"
         android:id="@+id/medium_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

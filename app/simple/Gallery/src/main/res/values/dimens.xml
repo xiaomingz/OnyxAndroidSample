@@ -128,4 +128,6 @@
     <dimen name="sub_menu_item_right_align_margin_size">14dp</dimen>
     <dimen name="action_bar_size">48dp</dimen>
     <dimen name="fillet_radius">10dp</dimen>
+    <dimen name="activity_media_list_margin_top">30dp</dimen>
+    <dimen name="photo_video_item_grid_name_margin">6dp</dimen>
 </resources>
