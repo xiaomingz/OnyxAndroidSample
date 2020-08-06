@@ -37,13 +37,9 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.simplemobiletools.commons.dialogs.PropertiesDialog
-import com.simplemobiletools.commons.dialogs.RenameItemDialog
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
-import com.simplemobiletools.commons.models.FileDirItem
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
+import com.onyx.gallery.action.ShareAction
 import com.onyx.gallery.adapters.MyPagerAdapter
 import com.onyx.gallery.asynctasks.GetMediaAsynctask
 import com.onyx.gallery.dialogs.DeleteWithRememberDialog
@@ -57,6 +53,11 @@ import com.onyx.gallery.fragments.ViewPagerFragment
 import com.onyx.gallery.helpers.*
 import com.onyx.gallery.models.Medium
 import com.onyx.gallery.models.ThumbnailItem
+import com.simplemobiletools.commons.dialogs.PropertiesDialog
+import com.simplemobiletools.commons.dialogs.RenameItemDialog
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.models.FileDirItem
 import kotlinx.android.synthetic.main.activity_medium.*
 import kotlinx.android.synthetic.main.bottom_actions.*
 import java.io.File
@@ -771,7 +772,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
 
         bottom_share.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_SHARE != 0)
         bottom_share.setOnClickListener {
-            shareMediumPath(getCurrentPath())
+            ShareAction(this@ViewPagerActivity, getCurrentPath()).execute(null)
         }
 
         bottom_delete.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_DELETE != 0)

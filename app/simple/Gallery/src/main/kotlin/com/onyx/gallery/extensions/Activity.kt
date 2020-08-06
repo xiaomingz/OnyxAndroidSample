@@ -22,8 +22,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.onyx.android.sdk.data.model.account.OnyxAccountModel
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
+import com.onyx.gallery.dialogs.DialogShare
 import com.onyx.gallery.dialogs.PickDirectoryDialog
 import com.onyx.gallery.helpers.RECYCLE_BIN
 import com.onyx.gallery.models.DateTaken
@@ -55,6 +57,13 @@ fun Activity.sharePath(path: String) {
 
 fun Activity.sharePaths(paths: ArrayList<String>) {
     sharePathsIntent(paths, BuildConfig.APPLICATION_ID)
+}
+
+fun Activity.shareToCloud(filePath: String, accountModel: OnyxAccountModel) {
+    DialogShare(this)
+            .setShareFilePath(filePath)
+            .setAccountModel(accountModel)
+            .show()
 }
 
 fun Activity.shareMediumPath(path: String) {

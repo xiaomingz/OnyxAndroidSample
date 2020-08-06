@@ -18,17 +18,15 @@ import com.onyx.gallery.request.ShareToCloudRequest;
 public class ShareToCloudAction extends BaseEditAction<ShareToCloudRequest> {
 
     private String filePath;
+    private OnyxAccountModel accountModel;
 
-    public ShareToCloudAction(String filePath) {
+    public ShareToCloudAction(String filePath, OnyxAccountModel accountModel) {
         this.filePath = filePath;
+        this.accountModel = accountModel;
     }
 
     @Override
     public void execute(RxCallback<ShareToCloudRequest> callback) {
-        OnyxAccountModel accountModel = getOnyxAccountModel();
-        if (accountModel == null) {
-            return;
-        }
         CloudManager cloudManager = new CloudManager().useContentCloudConf();
         ShareToCloudRequest request = new ShareToCloudRequest(cloudManager, filePath)
                 .setToken(accountModel.getToken())
@@ -36,7 +34,4 @@ public class ShareToCloudAction extends BaseEditAction<ShareToCloudRequest> {
         cloudManager.submitRequest(ResManager.getAppContext(), request, callback);
     }
 
-    private OnyxAccountModel getOnyxAccountModel() {
-        return GlobalEditBundle.Companion.getInstance().getOnyxAccountModel();
-    }
 }
