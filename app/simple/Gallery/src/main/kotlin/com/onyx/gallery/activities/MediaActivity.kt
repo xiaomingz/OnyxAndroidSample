@@ -6,6 +6,7 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -121,6 +122,10 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
 
     override fun onResume() {
         super.onResume()
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(resources.getColoredDrawableWithColor(R.drawable.ic_arrow_left_vector, Color.BLACK))
+        }
         if (mStoredAnimateGifs != config.animateGifs) {
             getMediaAdapter()?.updateAnimateGifs(config.animateGifs)
         }
@@ -226,7 +231,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         }
 
         setupSearch(menu)
-        updateMenuItemColors(menu, baseColor = getActionbarColor())
+        updateMenuItemColors(menu, baseColor = Color.BLACK)
         return true
     }
 
