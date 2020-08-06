@@ -5,6 +5,7 @@ import android.app.SearchManager
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -150,6 +151,10 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
 
     override fun onResume() {
         super.onResume()
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(resources.getColoredDrawableWithColor(R.drawable.ic_arrow_left_vector, Color.BLACK))
+        }
         config.isThirdPartyIntent = false
 
         if (mStoredAnimateGifs != config.animateGifs) {
@@ -259,23 +264,13 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menu.clear()
         if (mIsThirdPartyIntent) {
             menuInflater.inflate(R.menu.menu_main_intent, menu)
         } else {
             menuInflater.inflate(R.menu.menu_main, menu)
-            val useBin = config.useRecycleBin
-            menu.apply {
-                findItem(R.id.hide_the_recycle_bin).isVisible = useBin && config.showRecycleBinAtFolders
-                findItem(R.id.show_the_recycle_bin).isVisible = useBin && !config.showRecycleBinAtFolders
-                findItem(R.id.open_camera).isVisible = config.hasCamera
-                setupSearch(this)
-            }
         }
-
-        menu.findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
-        menu.findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
-
-        updateMenuItemColors(menu, baseColor = getActionbarColor())
+        updateMenuItemColors(menu, baseColor = Color.BLACK)
         return true
     }
 
