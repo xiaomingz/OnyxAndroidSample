@@ -44,6 +44,7 @@
 
                 <ImageView
                     style="@style/dialog_text_style_radio_button"
+                    android:layout_marginLeft="@dimen/sub_menu_item_left_align_margin_size"
                     android:layout_weight="0"
                     android:onClick="@{()->viewModel.onHandleMenu(MenuAction.FONT_SIZE_SUBTRACTION)}"
                     app:srcCompat="@drawable/ic_subtraction_font_size" />
@@ -52,23 +53,19 @@
                     style="@style/seek_bar_layout"
                     onSeekBarChangeListener="@{viewModel.onChangeListener}"
                     android:layout_width="0dp"
+                    android:layout_marginLeft="@dimen/seek_bar_margin"
+                    android:layout_marginRight="@dimen/seek_bar_margin"
                     android:layout_weight="1"
                     android:max="@{viewModel.maxFontSize}"
                     android:min="@{viewModel.minFontSize}"
                     android:progress="@{viewModel.currFontSize}" />
 
                 <ImageView
+                    android:layout_marginRight="@dimen/sub_menu_item_right_align_margin_size"
                     style="@style/dialog_text_style_radio_button"
                     android:layout_weight="0"
                     android:onClick="@{()->viewModel.onHandleMenu(MenuAction.FONT_SIZE_ADDITION)}"
                     app:srcCompat="@drawable/ic_addition_font_size" />
-
-                <ImageView
-                    style="@style/dialog_text_style_radio_button"
-                    setViewActivated="@{viewModel.bold}"
-                    android:layout_weight="0"
-                    android:onClick="@{()->viewModel.onHandleMenu(MenuAction.FONT_BOLD)}"
-                    app:srcCompat="@drawable/ic_bold" />
 
             </LinearLayout>
 
@@ -86,7 +83,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="@dimen/sub_menu_item_left_align_margin_face"
                     android:layout_weight="1"
                     android:onClick="@{()->viewModel.onHandleMenu(MenuAction.FONT_SELECT)}"
                     android:singleLine="true"
@@ -94,12 +91,22 @@
                     android:textSize="@dimen/text_size_large_mode" />
 
                 <ImageView
+                    android:layout_marginRight="@dimen/more_margin"
                     style="@style/dialog_text_style_radio_button"
                     android:layout_weight="0"
                     android:onClick="@{()->viewModel.onHandleMenu(MenuAction.FONT_SELECT)}"
-                    app:srcCompat="@drawable/ic_config" />
+                    app:srcCompat="@drawable/ic_more" />
 
                 <ImageView
+                    android:layout_marginRight="@dimen/bold_margin"
+                    style="@style/dialog_text_style_radio_button"
+                    setViewActivated="@{viewModel.bold}"
+                    android:layout_weight="0"
+                    android:onClick="@{()->viewModel.onHandleMenu(MenuAction.FONT_BOLD)}"
+                    app:srcCompat="@drawable/ic_bold" />
+
+                <ImageView
+                    android:layout_marginRight="@dimen/text_indentation_margin"
                     style="@style/dialog_text_style_radio_button"
                     setViewActivated="@{viewModel.indentation}"
                     android:layout_weight="0"
@@ -107,10 +114,10 @@
                     app:srcCompat="@drawable/ic_indentation" />
 
                 <ImageView
+                    android:layout_marginRight="@dimen/text_traditional_margin"
                     style="@style/dialog_text_style_radio_button"
                     setViewActivated="@{viewModel.traditional}"
                     android:layout_weight="0"
-
                     android:onClick="@{()->viewModel.onHandleMenu(MenuAction.TRADITIONAL)}"
                     app:srcCompat="@drawable/ic_traditional" />
 
@@ -131,6 +138,7 @@
                 <ImageView
                     style="@style/dialog_text_style_radio_button"
                     setViewActivated="@{viewModel.selectColorAction == MenuAction.NOTE_COLOR_BLACK}"
+                    android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
                     android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NOTE_COLOR_BLACK)}"
                     app:srcCompat="@drawable/s_note_color_black" />
 

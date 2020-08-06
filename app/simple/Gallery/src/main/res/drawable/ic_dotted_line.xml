@@ -1,6 +1,6 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="@dimen/note_res_size"
-    android:height="@dimen/note_res_size"
+    android:width="@dimen/graffiti_menu_action_size"
+    android:height="@dimen/graffiti_menu_action_size"
     android:viewportWidth="128"
     android:viewportHeight="128">
     <path

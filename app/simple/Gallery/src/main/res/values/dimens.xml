@@ -117,4 +117,14 @@
     <dimen name="global_dialog_corners">30dp</dimen>
     <dimen name="title_bar_item_back_width">10dp</dimen>
     <dimen name="title_bar_item_back_height">18dp</dimen>
+    <dimen name="sub_menu_item_margini_left">70dp</dimen>
+    <dimen name="seek_bar_margin">10dp</dimen>
+    <dimen name="sub_menu_item_left_align_margin_size">93dp</dimen>
+    <dimen name="sub_menu_item_left_align_margin_face">93dp</dimen>
+    <dimen name="text_indentation_margin">35dp</dimen>
+    <dimen name="bold_margin">35dp</dimen>
+    <dimen name="more_margin">35dp</dimen>
+    <dimen name="text_traditional_margin" >14.5dp</dimen>
+    <dimen name="sub_menu_item_right_align_margin_size">14dp</dimen>
+    <dimen name="action_bar_size">48dp</dimen>
 </resources>

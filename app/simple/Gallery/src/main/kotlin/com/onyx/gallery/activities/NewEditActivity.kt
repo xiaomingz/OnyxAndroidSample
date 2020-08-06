@@ -70,7 +70,7 @@ class NewEditActivity : AppCompatActivity() {
 
     private fun configActionBar() {
         appBarHandler = AppBarHandler(this)
-        window.statusBarColor = Color.WHITE
+        window.statusBarColor = Color.TRANSPARENT
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(resources.getColoredDrawableWithColor(R.drawable.ic_arrow_left_vector, Color.BLACK))

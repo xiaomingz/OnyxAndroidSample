@@ -31,6 +31,7 @@
                 android:text="@string/color" />
 
             <ImageView
+                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
                 style="@style/dialog_text_style_radio_button"
                 setViewActivated="@{viewModel.selectColorAction == MenuAction.NOTE_COLOR_BLACK}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.NOTE_COLOR_BLACK)}"
@@ -92,6 +93,7 @@
                 android:text="@string/brush" />
 
             <ImageView
+                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
                 style="@style/dialog_text_style_radio_button"
                 setViewActivated="@{viewModel.selectShapeAction == MenuAction.SCRIBBLE_BRUSH}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.SCRIBBLE_BRUSH)}"
@@ -154,12 +156,15 @@
                 android:text="@string/stroke_width" />
 
             <ImageView
+                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
                 style="@style/dialog_text_style_radio_button"
                 android:layout_weight="0"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.STROKE_WIDTH_SUBTRACTION)}"
                 app:srcCompat="@drawable/ic_subtraction" />
 
             <SeekBar
+                android:layout_marginLeft="@dimen/seek_bar_margin"
+                android:layout_marginRight="@dimen/seek_bar_margin"
                 style="@style/seek_bar_layout"
                 onSeekBarChangeListener="@{viewModel.onChangeListener}"
                 android:layout_width="0dp"
