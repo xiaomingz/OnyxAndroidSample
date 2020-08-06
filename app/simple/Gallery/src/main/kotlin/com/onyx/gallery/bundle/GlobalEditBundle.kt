@@ -90,13 +90,6 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
         else -> uri!!
     }
 
-    fun isLogIn(): Boolean = getOnyxAccountModel() != null
-
-    fun getOnyxAccountModel(): OnyxAccountModel? {
-        val accountProvider = DataProviderManager.getRemoteAccountProvider()
-        return accountProvider.loggedInAccount
-    }
-
     fun <T : RxRequest?> enqueue(request: T, callback: RxCallback<T>?) {
         rxManager.enqueue(request, callback)
     }

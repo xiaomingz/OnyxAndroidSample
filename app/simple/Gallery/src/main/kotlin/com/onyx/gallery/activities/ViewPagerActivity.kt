@@ -39,6 +39,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
+import com.onyx.gallery.action.ShareAction
 import com.onyx.gallery.adapters.MyPagerAdapter
 import com.onyx.gallery.asynctasks.GetMediaAsynctask
 import com.onyx.gallery.dialogs.DeleteWithRememberDialog
@@ -771,7 +772,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
 
         bottom_share.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_SHARE != 0)
         bottom_share.setOnClickListener {
-            shareToCloud(getCurrentPath())
+            ShareAction(this@ViewPagerActivity, getCurrentPath()).execute(null)
         }
 
         bottom_delete.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_DELETE != 0)

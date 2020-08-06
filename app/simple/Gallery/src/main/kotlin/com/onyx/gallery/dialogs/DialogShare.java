@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 
+import com.onyx.android.sdk.data.model.account.OnyxAccountModel;
 import com.onyx.android.sdk.rx.RxCallback;
 import com.onyx.android.sdk.rx.rxbroadcast.RxBroadcast;
 import com.onyx.android.sdk.utils.DateTimeUtil;
@@ -46,6 +47,7 @@ public class DialogShare extends BaseNoteDialog implements OnStatusChildClickLis
     private StatusLayoutManager statusLayoutManager;
     private ShareViewModel viewModel;
     private Disposable networkDisposable;
+    private OnyxAccountModel accountModel;
 
     public DialogShare(@NonNull Context context) {
         super(context, R.style.FullScreenDialog);
@@ -150,7 +152,7 @@ public class DialogShare extends BaseNoteDialog implements OnStatusChildClickLis
 
     private void shareToCloud() {
         statusLayoutManager.showCustomLayout(R.layout.status_layout_generating_qr_code);
-        new ShareToCloudAction(shareFilePath).execute(new RxCallback<ShareToCloudRequest>() {
+        new ShareToCloudAction(shareFilePath, accountModel).execute(new RxCallback<ShareToCloudRequest>() {
             @Override
             public void onNext(@NonNull ShareToCloudRequest shareToCloudRequest) {
                 showShareQRCode(shareToCloudRequest.getShareUrl());
@@ -207,5 +209,10 @@ public class DialogShare extends BaseNoteDialog implements OnStatusChildClickLis
             NetworkUtil.enableWifiOpenAndDetect(getContext());
             StatusLayoutManagerUtils.showWifiOpeningLayout(statusLayoutManager);
         }
+    }
+
+    public DialogShare setAccountModel(OnyxAccountModel accountModel) {
+        this.accountModel = accountModel;
+        return this;
     }
 }

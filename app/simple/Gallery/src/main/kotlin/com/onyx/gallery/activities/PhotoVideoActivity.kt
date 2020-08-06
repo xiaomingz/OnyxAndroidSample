@@ -16,6 +16,7 @@ import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
+import com.onyx.gallery.action.ShareAction
 import com.onyx.gallery.extensions.*
 import com.onyx.gallery.fragments.PhotoFragment
 import com.onyx.gallery.fragments.VideoFragment
@@ -330,7 +331,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         bottom_share.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_SHARE != 0)
         bottom_share.setOnClickListener {
             if (mMedium != null && bottom_actions.alpha == 1f) {
-                shareToCloud(mMedium!!.path)
+                ShareAction(this, mMedium!!.path).execute(null)
             }
         }
 
