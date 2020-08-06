@@ -78,29 +78,7 @@ class DirectoryAdapter(activity: BaseSimpleActivity, var dirs: ArrayList<Directo
 
     override fun getItemCount() = dirs.size
 
-    override fun prepareActionMode(menu: Menu) {
-        val selectedPaths = getSelectedPaths()
-        if (selectedPaths.isEmpty()) {
-            return
-        }
-
-        val isOneItemSelected = isOneItemSelected()
-        menu.apply {
-            findItem(R.id.cab_rename).isVisible = !selectedPaths.contains(FAVORITES) && !selectedPaths.contains(RECYCLE_BIN)
-            findItem(R.id.cab_change_cover_image).isVisible = isOneItemSelected
-
-            findItem(R.id.cab_lock).isVisible = selectedPaths.any { !config.isFolderProtected(it) }
-            findItem(R.id.cab_unlock).isVisible = selectedPaths.any { config.isFolderProtected(it) }
-
-            findItem(R.id.cab_empty_recycle_bin).isVisible = isOneItemSelected && selectedPaths.first() == RECYCLE_BIN
-            findItem(R.id.cab_empty_disable_recycle_bin).isVisible = isOneItemSelected && selectedPaths.first() == RECYCLE_BIN
-
-            findItem(R.id.cab_create_shortcut).isVisible = isOreoPlus() && isOneItemSelected
-
-            checkHideBtnVisibility(this, selectedPaths)
-            checkPinBtnVisibility(this, selectedPaths)
-        }
-    }
+    override fun prepareActionMode(menu: Menu) {}
 
     override fun actionItemPressed(id: Int) {
         if (selectedKeys.isEmpty()) {
@@ -146,17 +124,6 @@ class DirectoryAdapter(activity: BaseSimpleActivity, var dirs: ArrayList<Directo
         if (!activity.isDestroyed) {
             Glide.with(activity).clear(holder.itemView.dir_thumbnail!!)
         }
-    }
-
-    private fun checkHideBtnVisibility(menu: Menu, selectedPaths: ArrayList<String>) {
-        menu.findItem(R.id.cab_hide).isVisible = selectedPaths.any { !it.doesThisOrParentHaveNoMedia() }
-        menu.findItem(R.id.cab_unhide).isVisible = selectedPaths.any { it.doesThisOrParentHaveNoMedia() }
-    }
-
-    private fun checkPinBtnVisibility(menu: Menu, selectedPaths: ArrayList<String>) {
-        val pinnedFolders = config.pinnedFolders
-        menu.findItem(R.id.cab_pin).isVisible = selectedPaths.any { !pinnedFolders.contains(it) }
-        menu.findItem(R.id.cab_unpin).isVisible = selectedPaths.any { pinnedFolders.contains(it) }
     }
 
     private fun showProperties() {

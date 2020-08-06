@@ -112,5 +112,6 @@
     <dimen name="photo_item_list_dash_line_margin_top">30dp</dimen>
     <dimen name="photo_item_list_content_margin_left">40dp</dimen>
     <dimen name="photo_item_list_content_margin_bottom">25dp</dimen>
-
+    <dimen name="default_status_action_height">106dp</dimen>
+    <dimen name="bottom_actions_height">96dp</dimen>
 </resources>

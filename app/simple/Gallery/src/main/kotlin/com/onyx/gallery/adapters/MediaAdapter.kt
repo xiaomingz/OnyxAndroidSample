@@ -114,23 +114,6 @@ class MediaAdapter(activity: BaseSimpleActivity, var media: MutableList<Thumbnai
         if (selectedItems.isEmpty()) {
             return
         }
-
-        val isOneItemSelected = isOneItemSelected()
-        val selectedPaths = selectedItems.map { it.path } as ArrayList<String>
-        val isInRecycleBin = selectedItems.firstOrNull()?.getIsInRecycleBin() == true
-        menu.apply {
-            findItem(R.id.cab_rename).isVisible = !isInRecycleBin
-            findItem(R.id.cab_add_to_favorites).isVisible = !isInRecycleBin
-            findItem(R.id.cab_fix_date_taken).isVisible = !isInRecycleBin
-            findItem(R.id.cab_move_to).isVisible = !isInRecycleBin
-            findItem(R.id.cab_open_with).isVisible = isOneItemSelected
-            findItem(R.id.cab_confirm_selection).isVisible = isAGetIntent && allowMultiplePicks && selectedKeys.isNotEmpty()
-            findItem(R.id.cab_restore_recycle_bin_files).isVisible = selectedPaths.all { it.startsWith(activity.recycleBinPath) }
-            findItem(R.id.cab_create_shortcut).isVisible = isOreoPlus() && isOneItemSelected
-
-            checkHideBtnVisibility(this, selectedItems)
-            checkFavoriteBtnVisibility(this, selectedItems)
-        }
     }
 
     override fun actionItemPressed(id: Int) {
@@ -185,17 +168,6 @@ class MediaAdapter(activity: BaseSimpleActivity, var media: MutableList<Thumbnai
     }
 
     fun isASectionTitle(position: Int) = media.getOrNull(position) is ThumbnailSection
-
-    private fun checkHideBtnVisibility(menu: Menu, selectedItems: ArrayList<Medium>) {
-        val isInRecycleBin = selectedItems.firstOrNull()?.getIsInRecycleBin() == true
-        menu.findItem(R.id.cab_hide).isVisible = !isInRecycleBin && selectedItems.any { !it.isHidden() }
-        menu.findItem(R.id.cab_unhide).isVisible = !isInRecycleBin && selectedItems.any { it.isHidden() }
-    }
-
-    private fun checkFavoriteBtnVisibility(menu: Menu, selectedItems: ArrayList<Medium>) {
-        menu.findItem(R.id.cab_add_to_favorites).isVisible = selectedItems.none { it.getIsInRecycleBin() } && selectedItems.any { !it.isFavorite }
-        menu.findItem(R.id.cab_remove_from_favorites).isVisible = selectedItems.none { it.getIsInRecycleBin() } && selectedItems.any { it.isFavorite }
-    }
 
     private fun confirmSelection() {
         listener?.selectedPaths(getSelectedPaths())

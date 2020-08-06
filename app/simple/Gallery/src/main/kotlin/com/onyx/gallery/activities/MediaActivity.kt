@@ -209,28 +209,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_media, menu)
-
-        val isFolderHidden = mPath.containsNoMedia()
-        menu.apply {
-            findItem(R.id.group).isVisible = !config.scrollHorizontally
-
-            findItem(R.id.hide_folder).isVisible = !isFolderHidden && !mShowAll && mPath != FAVORITES && mPath != RECYCLE_BIN
-            findItem(R.id.unhide_folder).isVisible = isFolderHidden && !mShowAll && mPath != FAVORITES && mPath != RECYCLE_BIN
-            findItem(R.id.exclude_folder).isVisible = !mShowAll && mPath != FAVORITES && mPath != RECYCLE_BIN
-
-            findItem(R.id.empty_recycle_bin).isVisible = mPath == RECYCLE_BIN
-            findItem(R.id.empty_disable_recycle_bin).isVisible = mPath == RECYCLE_BIN
-            findItem(R.id.restore_all_files).isVisible = mPath == RECYCLE_BIN
-
-            findItem(R.id.folder_view).isVisible = mShowAll
-            findItem(R.id.open_camera).isVisible = mShowAll && config.hasCamera
-            findItem(R.id.create_new_folder).isVisible = !mShowAll && mPath != RECYCLE_BIN && mPath != FAVORITES
-
-            findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
-            findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
-        }
-
-        setupSearch(menu)
         updateMenuItemColors(menu, baseColor = Color.BLACK)
         return true
     }
