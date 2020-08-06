@@ -11,6 +11,7 @@
     android:paddingStart="@dimen/medium_margin"
     android:paddingTop="@dimen/small_margin"
     android:layout_marginLeft="@dimen/photo_item_list_content_margin_left"
+    android:layout_marginRight="@dimen/photo_item_list_content_margin_left"
     android:layout_marginBottom="@dimen/photo_item_list_content_margin_bottom"
     android:paddingBottom="@dimen/small_margin">
 
@@ -26,9 +27,8 @@
         android:layout_width="@dimen/selection_check_size"
         android:layout_height="@dimen/selection_check_size"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/photo_video_item_list_point_margin_top"
         android:layout_marginEnd="@dimen/medium_margin"
-        android:layout_marginTop="@dimen/small_margin"
         android:background="@drawable/circle_background"
         android:contentDescription="@null"
         android:padding="@dimen/tiny_margin"
