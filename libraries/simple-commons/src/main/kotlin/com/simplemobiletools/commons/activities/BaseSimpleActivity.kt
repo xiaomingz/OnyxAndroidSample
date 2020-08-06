@@ -106,7 +106,7 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
     }
 
     fun updateStatusbarColor(color: Int) {
-        window.statusBarColor = color.darkenColor()
+        window.statusBarColor = color
     }
 
     fun updateNavigationBarColor(color: Int = baseConfig.navigationBarColor) {
