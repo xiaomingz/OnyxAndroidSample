@@ -134,4 +134,5 @@
     <dimen name="photo_item_list_dash_line_margin_top">20dp</dimen>
     <dimen name="photo_item_list_content_margin_left">26dp</dimen>
     <dimen name="photo_item_list_content_margin_bottom">16dp</dimen>
+    <dimen name="photo_video_item_list_point_margin_top">33dp</dimen>
 </resources>
