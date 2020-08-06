@@ -127,4 +127,5 @@
     <dimen name="text_traditional_margin" >14.5dp</dimen>
     <dimen name="sub_menu_item_right_align_margin_size">14dp</dimen>
     <dimen name="action_bar_size">48dp</dimen>
+    <dimen name="fillet_radius">10dp</dimen>
 </resources>

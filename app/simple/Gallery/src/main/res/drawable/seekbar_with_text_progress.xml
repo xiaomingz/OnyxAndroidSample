@@ -7,6 +7,7 @@
                 android:color="@color/normal_black" />
             <solid android:color="@color/white"/>
             <size android:height="@dimen/progress_seek_bar_height"/>
+            <corners android:radius="@dimen/fillet_radius" />
         </shape>
     </item>
     <item android:id="@android:id/progress" android:gravity="center">
@@ -14,6 +15,7 @@
             <shape android:shape="rectangle">
                 <solid android:color="@color/normal_black"/>
                 <size android:height="@dimen/progress_seek_bar_height"/>
+                <corners android:radius="@dimen/fillet_radius" />
             </shape>
         </clip>
     </item>
@@ -24,6 +26,7 @@
                     android:color="@color/normal_black" />
                 <solid android:color="@color/white"/>
                 <size android:height="@dimen/progress_seek_bar_height"/>
+                <corners android:radius="@dimen/fillet_radius" />
             </shape>
         </clip>
     </item>
