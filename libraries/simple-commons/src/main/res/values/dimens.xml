@@ -55,9 +55,8 @@
     <dimen name="action_mode_close_item_margin_right">16dp</dimen>
     <dimen name="action_mode_close_item_padding_left">8dp</dimen>
 
-
-    <dimen name="reader_main_menu_bottom_image_width">70px</dimen>
-
+    <dimen name="reader_main_menu_bottom_image_width">50px</dimen>
     <dimen name="image_btn_rect_radius">20dp</dimen>
+    <dimen name="back_arrow_size">34dp</dimen>
 
 </resources>
