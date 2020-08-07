@@ -32,4 +32,5 @@
     <dimen name="stopwatch_stoke">2dp</dimen>
     <dimen name="stopwatch_circle">3dp</dimen>
     <dimen name="stopwatch_point_radius">15dp</dimen>
+    <dimen name="ic_launcher_size">100dp</dimen>
 </resources>
