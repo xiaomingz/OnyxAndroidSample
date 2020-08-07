@@ -153,7 +153,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
         super.onResume()
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(resources.getColoredDrawableWithColor(R.drawable.ic_arrow_left_vector, Color.BLACK))
         }
         config.isThirdPartyIntent = false
 

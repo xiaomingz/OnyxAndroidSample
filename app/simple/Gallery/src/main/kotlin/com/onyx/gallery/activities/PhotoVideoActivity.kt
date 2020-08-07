@@ -1,28 +1,29 @@
 package com.onyx.gallery.activities
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import com.simplemobiletools.commons.dialogs.PropertiesDialog
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.IS_FROM_GALLERY
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
-import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
 import com.onyx.gallery.action.ShareAction
+import com.onyx.gallery.dialogs.DeleteWithRememberDialog
 import com.onyx.gallery.extensions.*
 import com.onyx.gallery.fragments.PhotoFragment
 import com.onyx.gallery.fragments.VideoFragment
 import com.onyx.gallery.fragments.ViewPagerFragment
 import com.onyx.gallery.helpers.*
 import com.onyx.gallery.models.Medium
+import com.simplemobiletools.commons.dialogs.PropertiesDialog
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.IS_FROM_GALLERY
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
+import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.models.FileDirItem
 import kotlinx.android.synthetic.main.bottom_actions.*
 import kotlinx.android.synthetic.main.fragment_holder.*
 import java.io.File
@@ -59,16 +60,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         super.onResume()
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window.statusBarColor = Color.TRANSPARENT
-
-        if (config.bottomActions) {
-            window.navigationBarColor = Color.TRANSPARENT
-        } else {
-            setTranslucentNavigation()
-        }
-
-        if (config.blackBackground) {
-            updateStatusbarColor(Color.BLACK)
-        }
         configActionBar()
     }
 
@@ -149,7 +140,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         }
 
         checkNotchSupport()
-        showSystemUI(true)
         val bundle = Bundle()
         val file = File(mUri.toString())
         val type = when {
@@ -182,12 +172,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
             attributes.screenBrightness = 1f
             window.attributes = attributes
         }
-
-        window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
-            val isFullscreen = visibility and View.SYSTEM_UI_FLAG_FULLSCREEN != 0
-            mFragment?.fullscreenToggled(isFullscreen)
-        }
-
         initBottomActions()
     }
 
@@ -231,11 +215,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         finish()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        initBottomActionsLayout()
-    }
-
     private fun sendViewPagerIntent(path: String) {
         Intent(this, ViewPagerActivity::class.java).apply {
             putExtra(SHOW_FAVORITES, intent.getBooleanExtra(SHOW_FAVORITES, false))
@@ -248,6 +227,10 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.photo_video_menu, menu)
+        mMedium?.apply {
+            menu.findItem(R.id.menu_add_to_favorites).isVisible = !isFavorite
+            menu.findItem(R.id.menu_remove_from_favorites).isVisible = isFavorite
+        }
         updateMenuItemColors(menu, false, Color.BLACK)
         return true
     }
@@ -255,7 +238,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     private fun configActionBar() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(resources.getColoredDrawableWithColor(R.drawable.ic_arrow_left_vector, Color.BLACK))
         }
     }
 
@@ -265,10 +247,14 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         }
 
         when (item.itemId) {
+            R.id.menu_add_to_favorites -> toggleFavorite()
+            R.id.menu_remove_from_favorites -> toggleFavorite()
+            R.id.menu_edit -> openImageEditor()
+            R.id.menu_properties -> showProperties()
+            R.id.menu_share -> shareImage()
+            R.id.menu_delete -> checkDeleteConfirmation()
             R.id.menu_set_as -> setAs(mUri!!.toString())
             R.id.menu_open_with -> openPath(mUri!!.toString(), true)
-            R.id.menu_share -> sharePath(mUri!!.toString())
-            R.id.menu_edit -> openEditor(mUri!!.toString())
             R.id.menu_properties -> showProperties()
             R.id.menu_show_on_map -> showFileOnMap(mUri!!.toString())
             else -> return super.onOptionsItemSelected(item)
@@ -276,8 +262,90 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         return true
     }
 
+    private fun openImageEditor() {
+        mMedium?.run { openEditor(path) }
+    }
+
+    private fun checkDeleteConfirmation() {
+        val medium = mMedium ?: return
+        if (config.isDeletePasswordProtectionOn) {
+            handleDeletePasswordProtection {
+                deleteConfirmed(medium)
+            }
+        } else if (config.tempSkipDeleteConfirmation || config.skipDeleteConfirmation) {
+            deleteConfirmed(medium)
+        } else {
+            askConfirmDelete()
+        }
+    }
+
+    private fun askConfirmDelete() {
+        val medium = mMedium ?: return
+        val filename = "\"${medium.path.getFilenameFromPath()}\""
+
+        val baseString = if (config.useRecycleBin && !medium.getIsInRecycleBin()) {
+            R.string.move_to_recycle_bin_confirmation
+        } else {
+            R.string.deletion_confirmation
+        }
+
+        val message = String.format(resources.getString(baseString), filename)
+        DeleteWithRememberDialog(this, message) {
+            config.tempSkipDeleteConfirmation = it
+            deleteConfirmed(medium)
+        }
+    }
+
+    private fun deleteConfirmed(medium: Medium) {
+        val path = medium.path
+        if (getIsPathDirectory(path) || !path.isMediaFile()) {
+            return
+        }
+
+        val fileDirItem = FileDirItem(path, path.getFilenameFromPath())
+        if (config.useRecycleBin && !medium.getIsInRecycleBin()) {
+            movePathsInRecycleBin(arrayListOf(path)) {
+                if (it) {
+                    tryDeleteFileDirItem(fileDirItem, false, false) {
+                        deleteDirectoryIfEmpty(fileDirItem)
+                    }
+                } else {
+                    toast(R.string.unknown_error_occurred)
+                }
+            }
+        } else {
+            handleDeletion(fileDirItem)
+        }
+    }
+
+    private fun deleteDirectoryIfEmpty(fileDirItem: FileDirItem) {
+        if (config.deleteEmptyFolders && !fileDirItem.isDownloadsFolder() && fileDirItem.isDirectory && fileDirItem.getProperFileCount(this, true) == 0) {
+            tryDeleteFileDirItem(fileDirItem, true, true)
+        }
+    }
+
+    private fun handleDeletion(fileDirItem: FileDirItem) {
+        tryDeleteFileDirItem(fileDirItem, false, true) {
+            deleteDirectoryIfEmpty(fileDirItem)
+        }
+    }
+
+    private fun shareImage() {
+        val medium = mMedium ?: return
+        ShareAction(this, medium.path).execute(null)
+    }
+
     private fun showProperties() {
-        PropertiesDialog(this, mUri!!.path!!)
+        mMedium?.path?.let { PropertiesDialog(this, it) }
+    }
+
+    private fun toggleFavorite() {
+        val medium = mMedium ?: return
+        medium.isFavorite = !medium.isFavorite
+        ensureBackgroundThread {
+            updateFavorite(medium.path, medium.isFavorite)
+            invalidateOptionsMenu()
+        }
     }
 
     private fun isFileTypeVisible(path: String): Boolean {
@@ -291,18 +359,9 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     }
 
     private fun initBottomActions() {
-        initBottomActionsLayout()
         initBottomActionButtons()
     }
 
-    private fun initBottomActionsLayout() {
-        bottom_actions.layoutParams.height = resources.getDimension(R.dimen.bottom_actions_height).toInt() + navigationBarHeight
-        if (config.bottomActions) {
-            bottom_actions.beVisible()
-        } else {
-            bottom_actions.beGone()
-        }
-    }
 
     private fun initBottomActionButtons() {
         arrayListOf(bottom_favorite, bottom_delete, bottom_rotate, bottom_properties, bottom_change_orientation, bottom_slideshow, bottom_show_on_map,
