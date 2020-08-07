@@ -2,23 +2,41 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_share"
-        android:icon="@drawable/ic_share_vector"
-        android:title="@string/share"
-        android:visible="false"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/menu_add_to_favorites"
+        android:icon="@drawable/ic_star_off_vector"
+        android:title="@string/add_to_favorites"
+        app:showAsAction="always" />
     <item
-        android:id="@+id/menu_properties"
-        android:icon="@drawable/ic_info_vector"
-        android:title="@string/properties"
+        android:id="@+id/menu_remove_from_favorites"
+        android:icon="@drawable/ic_star_on_vector"
+        android:title="@string/remove_from_favorites"
         android:visible="false"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_restore_file"
+        android:title="@string/restore_this_file"
+        android:visible="false"
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_edit"
         android:icon="@drawable/ic_edit_vector"
         android:title="@string/edit"
-        android:visible="false"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_properties"
+        android:icon="@drawable/ic_properties_vector"
+        android:title="@string/edit"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_share"
+        android:icon="@drawable/ic_share_vector"
+        android:title="@string/share"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_delete"
+        android:icon="@drawable/ic_delete_vector"
+        android:title="@string/delete"
+        app:showAsAction="always" />
     <item
         android:id="@+id/menu_set_as"
         android:icon="@drawable/ic_set_as_vector"

@@ -18,6 +18,7 @@
         android:background="@drawable/gradient_background_flipped"/>
 
     <include
+        android:visibility="gone"
         android:id="@+id/bottom_actions"
         layout="@layout/bottom_actions"/>
 
