@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="OnyxAppCompat.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_border</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/bg_border_focus</item>
+        <item name="buttonBarButtonStyle">@style/OnyxAppCompat.ButtonBarButtonStyle</item>
+        <item name="colorAccent">@android:color/black</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
+         <item name="colorControlNormal">@android:color/black</item>
+        <item name="android:textSize">@dimen/global_dialog_msg_text_size</item>
+    </style>
+    <style name="OnyxAppCompat.ButtonBarButtonStyle" parent="OnyxAppCompat.ButtonStyle">
+        <item name="android:background">@drawable/bg_border_focus</item>
+    </style>
+    <style name="OnyxAppCompat.ButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/default_button_background</item>
+        <item name="android:textAppearance">@style/OnyxAppCompat.TextAppearance.Light.Medium</item>
+    </style>
+    <style name="OnyxAppCompat.TextAppearance.Light.Medium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/primary_text_device_default_light</item>
+    </style>
+    <style name="global_dialog_tittle_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="global_dialog_tittle_bar_textView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/global_dialog_title_bar_padding</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/dialog_normal_font_size</item>
+    </style>
+    <style name="single_line_X_axis_View">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@android:color/black</item>
+    </style>
+</resources>

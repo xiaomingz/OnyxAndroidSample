@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="button_minHeight">32dp</dimen>
+    <dimen name="dialog_border_width">1dp</dimen>
+    <dimen name="image_btn_rect_radius">20dp</dimen>
+    <dimen name="dialog_delete_message_padding">10dp</dimen>
+    <dimen name="title_bar_margin_top">20dp</dimen>
+    <dimen name="search_bar_intput_eidttext_height">32dp</dimen>
+    <dimen name="setting_switch_btn_width">38dp</dimen>
+    <dimen name="setting_switch_btn_height">22dp</dimen>
+    <dimen name="dialog_close_width_and_height">30dp</dimen>
+    <dimen name="custom_seek_bar_thumb_size">18dp</dimen>
+    <dimen name="dialog_input_number_width">40dp</dimen>
+    <dimen name="dialog_input_number_height">40dp</dimen>
+    <dimen name="dialog_input_number_recyclerview_margin">20dp</dimen>
+    <dimen name="dialog_content_maxHeight">180dp</dimen>
+    <dimen name="dialog_title_text_size">@dimen/text_size_large_mode</dimen>
+    <dimen name="seek_bar_thumb_size">16dp</dimen>
+    <dimen name="pop_offset_x">21dp</dimen>
+    <dimen name="pop_offset_y">21dp</dimen>
+    <dimen name="status_bar_height_portrait">28dp</dimen>
+    <dimen name="button_min_width">80dp</dimen>
+</resources>

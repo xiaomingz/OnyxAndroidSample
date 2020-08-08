@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="text_size_level_1">32px</dimen>
+    <dimen name="text_size_level_2">28px</dimen>
+    <dimen name="text_size_level_3">32px</dimen>
+</resources>
