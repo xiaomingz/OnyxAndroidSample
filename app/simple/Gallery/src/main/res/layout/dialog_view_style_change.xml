@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_confirm_delete_folder_holder">
+
+    <data>
+
+        <variable
+            name="dialog"
+            type="com.onyx.gallery.dialogs.ViewStyleChangeDialog" />
+
+        <import type="com.onyx.gallery.dialogs.ViewStyle" />
+
+        <variable
+            name="viewModel"
+            type="com.onyx.gallery.dialogs.ViewStyleChangeDialogViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/alert_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_view_style_change_line_height"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/grid"
+                android:textSize="@dimen/normal_text_size" />
+
+            <ImageView
+                android:clickable="true"
+                setViewActivated="@{viewModel.viewStyle == ViewStyle.GRID}"
+                android:layout_width="@dimen/circular_box_size"
+                android:layout_height="@dimen/circular_box_size"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector_circular_check_box"
+                android:button="@null"
+                android:onClick="@{()->viewModel.onViewStyleChange(ViewStyle.GRID)}" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dash_line_height"
+            android:layout_below="@+id/dir_thumbnail"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:background="@drawable/dash_line"
+            android:layerType="software" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_view_style_change_line_height"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/list"
+                android:textSize="@dimen/normal_text_size" />
+
+            <ImageView
+                android:clickable="true"
+                setViewActivated="@{viewModel.viewStyle == ViewStyle.LIST}"
+                android:layout_width="@dimen/circular_box_size"
+                android:layout_height="@dimen/circular_box_size"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector_circular_check_box"
+                android:onClick="@{()->viewModel.onViewStyleChange(ViewStyle.LIST)}" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            visibleOrGone="@{viewModel.isShowGroupByDirectory()}"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_view_style_change_box_height"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:clickable="true"
+                setViewActivated="@{viewModel.isGroupByDirectory()}"
+                android:layout_width="@dimen/rectangle_box_size"
+                android:layout_height="@dimen/rectangle_box_size"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector_check_box"
+                android:onClick="@{()->viewModel.onGroupByDirectoryClick()}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dialog_view_style_change_box_text_margin"
+                android:text="@string/group_direct_subfolders"
+                android:textSize="@dimen/normal_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            visibleOrGone="@{viewModel.isShowUseForThisFolder()}"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_view_style_change_box_height"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:clickable="true"
+                setViewActivated="@{viewModel.isUseForThisFolder()}"
+                android:layout_width="@dimen/rectangle_box_size"
+                android:layout_height="@dimen/rectangle_box_size"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector_check_box"
+                android:onClick="@{()->viewModel.onUseForThisFolderClick()}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dialog_view_style_change_box_text_margin"
+                android:text="@string/use_for_this_folder"
+                android:textSize="@dimen/normal_text_size" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_confirm_save_button_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->dialog.onCancelClick()}"
+                android:text="@string/cancel"
+                android:textSize="@dimen/normal_text_size" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->dialog.onConfirmClick()}"
+                android:text="@string/ok"
+                android:textSize="@dimen/normal_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</layout>

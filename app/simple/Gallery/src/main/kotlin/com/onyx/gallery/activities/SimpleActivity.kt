@@ -5,19 +5,18 @@ import android.database.ContentObserver
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.view.WindowManager
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.dialogs.FilePickerDialog
-import com.simplemobiletools.commons.extensions.getParentPath
-import com.simplemobiletools.commons.extensions.getRealPathFromURI
-import com.simplemobiletools.commons.extensions.scanPathRecursively
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.helpers.isPiePlus
 import com.onyx.gallery.R
 import com.onyx.gallery.extensions.addPathToDB
 import com.onyx.gallery.extensions.config
 import com.onyx.gallery.extensions.updateDirectoryPath
-import com.simplemobiletools.commons.extensions.baseConfig
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.isPiePlus
+import kotlinx.android.synthetic.main.view_action_bar.*
 
 @SuppressLint("Registered")
 open class SimpleActivity : BaseSimpleActivity() {
@@ -95,4 +94,45 @@ open class SimpleActivity : BaseSimpleActivity() {
             }
         }
     }
+
+    fun showCropMenu(isShowCropMenu: Boolean) {
+        ivSave.beVisibleIf(!isShowCropMenu)
+        ivOk.beVisibleIf(isShowCropMenu)
+    }
+
+    fun showImageListMenu() {
+        hideAllMenu()
+        ivMore.beVisibleIf(true)
+    }
+
+    fun showImageBrowseMenu() {
+        hideAllMenu()
+        arrayOf(ivFavorites, ivEdit, ivProperties, ivShare, ivDelete).forEach { it.beVisibleIf(true) }
+    }
+
+    fun showImageEditMenu() {
+        hideAllMenu()
+        arrayOf(ivUndo, ivRedo, ivSave ).forEach { it.beVisibleIf(true) }
+    }
+
+    fun hideAllMenu() {
+        arrayOf(ivUndo, ivRedo, ivSave, ivOk,
+                ivFavorites, ivEdit, ivProperties, ivShare, ivDelete, ivMore).forEach { it.beVisibleIf(false) }
+    }
+
+    open fun onBlackClick(view: View) {
+        finish()
+    }
+
+    open fun onUndoClick(view: View) {}
+    open fun onRedoClick(view: View) {}
+    open fun onSaveClick(view: View) {}
+    open fun onOkClick(view: View) {}
+    open fun onFavoritesClick(view: View) {}
+    open fun onEditClick(view: View) {}
+    open fun onPropertiesClick(view: View) {}
+    open fun onShareClick(view: View) {}
+    open fun onDeleteClick(view: View) {}
+    open fun onMoreClick(view: View) {}
+
 }

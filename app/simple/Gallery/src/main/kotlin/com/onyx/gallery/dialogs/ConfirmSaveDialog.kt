@@ -15,8 +15,8 @@ class ConfirmSaveDialog(private val onConfirmCallback: (isSaveAs: Boolean) -> Un
     }
 
     override fun onCancelClick() {
+        super.onCancelClick()
         dialog.dismiss()
-        onCancelCallback()
     }
 
     fun onSaveAsClick() {

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_confirm_delete_folder_holder">
+
+    <data>
+
+        <variable
+            name="dialog"
+            type="com.onyx.gallery.dialogs.PropertiesDialog" />
+
+        <variable
+            name="viewModel"
+            type="com.onyx.gallery.dialogs.PropertiesDialogViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/alert_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_confirm_save_button_height"
+            android:gravity="center"
+            android:text="@string/properties"
+            android:textSize="@dimen/normal_text_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_properties_line_height"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/name"
+                android:textSize="@dimen/normal_text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@{viewModel.name}"
+                android:textSize="@dimen/normal_text_size" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dash_line_height"
+            android:layout_below="@+id/dir_thumbnail"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:background="@drawable/dash_line"
+            android:layerType="software" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_properties_line_height"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/path"
+                android:textSize="@dimen/normal_text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@{viewModel.path}"
+                android:textSize="@dimen/normal_text_size" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dash_line_height"
+            android:layout_below="@+id/dir_thumbnail"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:background="@drawable/dash_line"
+            android:layerType="software" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_properties_line_height"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/size"
+                android:textSize="@dimen/normal_text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@{viewModel.size}"
+                android:textSize="@dimen/normal_text_size" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dash_line_height"
+            android:layout_below="@+id/dir_thumbnail"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:background="@drawable/dash_line"
+            android:layerType="software" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_properties_line_height"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/resolution"
+                android:textSize="@dimen/normal_text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@{viewModel.resolution}"
+                android:textSize="@dimen/normal_text_size" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dash_line_height"
+            android:layout_below="@+id/dir_thumbnail"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:background="@drawable/dash_line"
+            android:layerType="software" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_properties_line_height"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/last_modified"
+                android:textSize="@dimen/normal_text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@{viewModel.lastModified}"
+                android:textSize="@dimen/normal_text_size" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/dialog_view_style_change_line_view_margin"
+            android:layout_marginRight="@dimen/dialog_view_style_change_line_view_margin"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_confirm_save_button_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->dialog.onCancelClick()}"
+                android:text="@string/cancel"
+                android:textSize="@dimen/normal_text_size" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="@android:color/black" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->dialog.onConfirmClick()}"
+                android:text="@string/ok"
+                android:textSize="@dimen/normal_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</layout>

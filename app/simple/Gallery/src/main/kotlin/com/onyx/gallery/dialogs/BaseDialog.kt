@@ -2,6 +2,8 @@ package com.onyx.gallery.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -14,7 +16,7 @@ import com.simplemobiletools.commons.extensions.setupDialogStuff
 abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
     protected lateinit var dialog: AlertDialog
     protected lateinit var binding: T
-    lateinit var onCancelCallback: () -> Unit
+    var onCancelCallback: (() -> Unit)? = null
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = DataBindingUtil.inflate(requireActivity().layoutInflater, getLayoutRes(), null, false)
         initBinding(binding)
@@ -33,12 +35,12 @@ abstract class BaseDialog<T : ViewDataBinding> : DialogFragment() {
     abstract fun initBinding(binding: T)
 
     protected open fun afterDialogCreated(dialog: AlertDialog) {
-
+        dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     open fun onCancelClick() {
         dialog.dismiss()
-        onCancelCallback()
+        onCancelCallback?.let { it() }
     }
 
 }

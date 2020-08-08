@@ -47,7 +47,7 @@ class ManageFoldersAdapter(activity: BaseSimpleActivity, var folders: ArrayList<
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val folder = folders[position]
-        holder.bindView(folder, true, true) { itemView, adapterPosition ->
+        holder.bindView(folder, true, false) { itemView, adapterPosition ->
             setupView(itemView, folder)
         }
         bindViewHolder(holder)
