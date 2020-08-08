@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--dimens value for dialog_loading-->
+    <dimen name="dialog_loading_min_width">250dp</dimen>
+    <dimen name="dialog_loading_text_area_minHeight">80dp</dimen>
+    <dimen name="dialog_loading_close_button_image_size">72dp</dimen>
+    <dimen name="dialog_loading_text_size">24sp</dimen>
+    <dimen name="preference_title_text_size">16sp</dimen>
+    <dimen name="preference_category_text_size">14sp</dimen>
+    <dimen name="ic_dialog_reader_menu_bookstore_cart_width">80px</dimen>
+    <dimen name="ic_dialog_reader_menu_bookstore_cart_height">80px</dimen>
+    <dimen name="dialog_title_padding_top">60dp</dimen>
+    <dimen name="dialog_button_height">55dp</dimen>
+    <dimen name="dialog_button_view_margin_left">20dp</dimen>
+    <dimen name="common_dialog_height">90px</dimen>
+    <dimen name="reader_navigation_radius">20dp</dimen>
+</resources>

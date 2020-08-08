@@ -12,6 +12,7 @@ import android.os.Handler
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
@@ -19,6 +20,20 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.onyx.android.sdk.kui.dialog.ContextPopMenuView
+import com.onyx.android.sdk.utils.ResManager
+import com.onyx.gallery.BuildConfig
+import com.onyx.gallery.R
+import com.onyx.gallery.adapters.DirectoryAdapter
+import com.onyx.gallery.databases.GalleryDatabase
+import com.onyx.gallery.dialogs.*
+import com.onyx.gallery.extensions.*
+import com.onyx.gallery.helpers.*
+import com.onyx.gallery.interfaces.DirectoryOperationsListener
+import com.onyx.gallery.jobs.NewPhotoFetcher
+import com.onyx.gallery.models.Directory
+import com.onyx.gallery.models.Medium
+import com.onyx.gallery.viewmodel.ActionBarViewModel
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.CreateNewFolderDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
@@ -26,22 +41,8 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
-import com.simplemobiletools.commons.views.MyRecyclerView
-import com.onyx.gallery.BuildConfig
-import com.onyx.gallery.R
-import com.onyx.gallery.action.ShowWhatsNewDialogAction
-import com.onyx.gallery.adapters.DirectoryAdapter
-import com.onyx.gallery.databases.GalleryDatabase
-import com.onyx.gallery.dialogs.ChangeSortingDialog
-import com.onyx.gallery.dialogs.ChangeViewTypeDialog
-import com.onyx.gallery.dialogs.FilterMediaDialog
-import com.onyx.gallery.extensions.*
-import com.onyx.gallery.helpers.*
-import com.onyx.gallery.interfaces.DirectoryOperationsListener
-import com.onyx.gallery.jobs.NewPhotoFetcher
-import com.onyx.gallery.models.Directory
-import com.onyx.gallery.models.Medium
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.view_action_bar.*
 import java.io.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -87,8 +88,9 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        showImageListMenu()
         appLaunched(BuildConfig.APPLICATION_ID)
-
+        tvTitle.setText(R.string.app_name)
         if (savedInstanceState == null) {
             config.temporarilyShowHidden = false
             config.tempSkipDeleteConfirmation = false
@@ -96,7 +98,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             checkRecycleBinItems()
             startNewPhotoFetcher()
         }
-
+        config.enablePullToRefresh = false
         mIsPickImageIntent = isPickImageIntent(intent)
         mIsPickVideoIntent = isPickVideoIntent(intent)
         mIsGetImageContentIntent = isGetImageContentIntent(intent)
@@ -151,9 +153,6 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
 
     override fun onResume() {
         super.onResume()
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-        }
         config.isThirdPartyIntent = false
 
         if (mStoredAnimateGifs != config.animateGifs) {
@@ -278,13 +277,10 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             R.id.sort -> showSortingDialog()
             R.id.filter -> showFilterMediaDialog()
             R.id.open_camera -> launchCamera()
-            R.id.show_all -> showAllMedia()
             R.id.change_view_type -> changeViewType()
             R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
             R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
             R.id.create_new_folder -> createNewFolder()
-            R.id.show_the_recycle_bin -> toggleRecycleBin(true)
-            R.id.hide_the_recycle_bin -> toggleRecycleBin(false)
             R.id.settings -> launchSettings()
             else -> return super.onOptionsItemSelected(item)
         }
@@ -1241,5 +1237,31 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             storeDirectoryItems(directories)
             removeInvalidDBDirectories()
         }
+    }
+
+    override fun onMoreClick(view: View) {
+        val builder = ContextPopMenuView.Builder(this)
+        builder.setMenuLayoutId(R.menu.menu_main)
+                .setOffsetXY(ResManager.getDimens(R.dimen.more_pop_offset_x), ResManager.getDimens(R.dimen.more_pop_offset_y))
+                .setTarget(ivMore)
+                .setItemListener { parent, view, position, id ->
+                    showViewStyleChangeDialog()
+                }
+                .create()
+                .showPopView()
+    }
+
+    private fun showViewStyleChangeDialog() {
+        var viewStyle = ViewStyle.GRID
+        if (config.viewTypeFolders == VIEW_TYPE_LIST) {
+            viewStyle = ViewStyle.LIST
+        }
+        ViewStyleChangeDialog(ViewStyleChangeDialogType.WITH_GROUP_BY_DIRECTORY, viewStyle, config.groupDirectSubfolders) { viewStyle, isGroupByDirectory, isUseForThisFolder ->
+            config.groupDirectSubfolders = isGroupByDirectory
+            config.viewTypeFolders = if (viewStyle == ViewStyle.GRID) VIEW_TYPE_GRID else VIEW_TYPE_LIST
+            setupLayoutManager()
+            directories_grid.adapter = null
+            setupAdapter(mDirs)
+        }.show(supportFragmentManager, ViewStyleChangeDialog::class.java.simpleName)
     }
 }

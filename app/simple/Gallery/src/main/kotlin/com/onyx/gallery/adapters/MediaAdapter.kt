@@ -88,7 +88,7 @@ class MediaAdapter(activity: BaseSimpleActivity, var media: MutableList<Thumbnai
         }
 
         val allowLongPress = (!isAGetIntent || allowMultiplePicks) && tmbItem is Medium
-        holder.bindView(tmbItem, tmbItem is Medium, allowLongPress) { itemView, adapterPosition ->
+        holder.bindView(tmbItem, tmbItem is Medium, false) { itemView, adapterPosition ->
             if (tmbItem is Medium) {
                 setupThumbnail(itemView, tmbItem)
             } else {

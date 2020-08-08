@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
@@ -23,6 +24,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
+import com.onyx.android.sdk.kui.dialog.ContextPopMenuView
+import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.CreateNewFolderDialog
@@ -45,6 +48,7 @@ import com.onyx.gallery.models.Medium
 import com.onyx.gallery.models.ThumbnailItem
 import com.onyx.gallery.models.ThumbnailSection
 import kotlinx.android.synthetic.main.activity_media.*
+import kotlinx.android.synthetic.main.view_action_bar.*
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -84,7 +88,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_media)
-
+        showImageListMenu()
         intent.apply {
             mIsGetImageIntent = getBooleanExtra(GET_IMAGE_INTENT, false)
             mIsGetVideoIntent = getBooleanExtra(GET_VIDEO_INTENT, false)
@@ -95,6 +99,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         media_refresh_layout.setOnRefreshListener { getMedia() }
         try {
             mPath = intent.getStringExtra(DIRECTORY)
+            tvTitle.setText(mPath)
         } catch (e: Exception) {
             showErrorToast(e)
             finish()
@@ -333,7 +338,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
                     mPath == config.OTGPath -> getString(R.string.usb)
                     else -> getHumanizedFilename(mPath)
                 }
-                updateActionBarTitle(if (mShowAll) resources.getString(R.string.all_folders) else dirName, getActionbarColor())
+                tvTitle.setText(if (mShowAll) resources.getString(R.string.all_folders) else dirName)
                 getMedia()
                 setupLayoutManager()
             } else {
@@ -901,4 +906,38 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         }
         finish()
     }
+
+    override fun onMoreClick(view: View) {
+        val builder = ContextPopMenuView.Builder(this)
+        builder.setMenuLayoutId(R.menu.menu_main)
+                .setOffsetXY(ResManager.getDimens(R.dimen.more_pop_offset_x), ResManager.getDimens(R.dimen.more_pop_offset_y))
+                .setTarget(ivMore)
+                .setItemListener { parent, view, position, id ->
+                    showViewStyleChangeDialog()
+                }
+                .create()
+                .showPopView()
+    }
+
+    private fun showViewStyleChangeDialog() {
+        var viewStyle = ViewStyle.GRID
+        val currViewType = config.getFolderViewType(mPath)
+        if (currViewType == VIEW_TYPE_LIST) {
+            viewStyle = ViewStyle.LIST
+        }
+        ViewStyleChangeDialog(ViewStyleChangeDialogType.WITH_USE_FOR_THIS_FOLDER, viewStyle, isUseForThisFolder = config.hasCustomViewType(mPath)) { viewStyle, isGroupByDirectory, isUseForThisFolder ->
+            val viewType = if (viewStyle == ViewStyle.GRID) VIEW_TYPE_GRID else VIEW_TYPE_LIST
+            if (isUseForThisFolder) {
+                config.saveFolderViewType(mPath, viewType)
+            } else {
+                config.removeFolderViewType(mPath)
+            }
+            config.viewTypeFiles = viewType
+            invalidateOptionsMenu()
+            setupLayoutManager()
+            media_grid.adapter = null
+            setupAdapter()
+        }.show(supportFragmentManager, ViewStyleChangeDialog::class.java.simpleName)
+    }
+
 }

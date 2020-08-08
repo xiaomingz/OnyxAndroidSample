@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_divider_line_width">1dp</dimen>
+    <dimen name="list_divider_height">2.5dp</dimen>
+    <dimen name="edit_text_underline_width">2dp</dimen>
+    <dimen name="function_bar_layout_height">80dp</dimen>
+    <!-- this is no scale with system font size scale -->
+    <dimen name="text_size_large_mode_fix">16px</dimen>
+    <dimen name="function_bar_item_title_size">@dimen/text_size_level_1</dimen>
+    <dimen name="kcb_item_title_text_size">@dimen/text_size_level_1</dimen>
+    <dimen name="kcb_item_sub_title_text_size">@dimen/text_size_level_2</dimen>
+    <dimen name="dialog_normal_font_size">@dimen/text_size_level_1</dimen>
+    <dimen name="setting_account_text_level_tow">@dimen/text_size_level_2</dimen>
+    <dimen name="pop_simple_item_text_size">@dimen/text_size_level_1</dimen>
+    <dimen name="status_text_view_font_size">@dimen/text_size_level_1</dimen>
+    <dimen name="page_indicator_page_text_size">@dimen/text_size_level_2</dimen>
+    <dimen name="search_view_edit_text_font_size">@dimen/text_size_level_1</dimen>
+    <dimen name="global_dialog_msg_text_size">@dimen/text_size_level_1</dimen>
+    <dimen name="custom_alert_dialog_button_text_size">@dimen/text_size_level_1</dimen>
+</resources>

@@ -37,9 +37,7 @@ import com.onyx.gallery.R
 import com.onyx.gallery.action.ShareAction
 import com.onyx.gallery.adapters.MyPagerAdapter
 import com.onyx.gallery.asynctasks.GetMediaAsynctask
-import com.onyx.gallery.dialogs.DeleteWithRememberDialog
-import com.onyx.gallery.dialogs.ResizeWithPathDialog
-import com.onyx.gallery.dialogs.SaveAsDialog
+import com.onyx.gallery.dialogs.*
 import com.onyx.gallery.extensions.*
 import com.onyx.gallery.fragments.PhotoFragment
 import com.onyx.gallery.fragments.VideoFragment
@@ -47,13 +45,13 @@ import com.onyx.gallery.fragments.ViewPagerFragment
 import com.onyx.gallery.helpers.*
 import com.onyx.gallery.models.Medium
 import com.onyx.gallery.models.ThumbnailItem
-import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.dialogs.RenameItemDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FileDirItem
 import kotlinx.android.synthetic.main.activity_medium.*
 import kotlinx.android.synthetic.main.bottom_actions.*
+import kotlinx.android.synthetic.main.view_action_bar.*
 import java.io.File
 import java.io.OutputStream
 import java.util.*
@@ -84,7 +82,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_medium)
-
+        showImageBrowseMenu()
         top_shadow.layoutParams.height = statusBarHeight + actionBarHeight
         (MediaActivity.mMedia.clone() as ArrayList<ThumbnailItem>).filter { it is Medium }.mapTo(mMediaFiles) { it as Medium }
 
@@ -577,7 +575,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
 
     private fun showProperties() {
         if (getCurrentMedium() != null) {
-            PropertiesDialog(this, getCurrentPath(), false)
+            PropertiesDialog(this, getCurrentPath()).show(supportFragmentManager, PropertiesDialog::class.java.simpleName)
         }
     }
 
@@ -661,6 +659,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
     private fun toggleFavorite() {
         val medium = getCurrentMedium() ?: return
         medium.isFavorite = !medium.isFavorite
+        ivFavorites.isActivated = medium.isFavorite
         ensureBackgroundThread {
             updateFavorite(medium.path, medium.isFavorite)
             if (medium.isFavorite) {
@@ -815,10 +814,10 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         }
 
         val message = String.format(resources.getString(baseString), filename)
-        DeleteWithRememberDialog(this, message) {
-            config.tempSkipDeleteConfirmation = it
+        ConfirmDialog(message) {
+            config.tempSkipDeleteConfirmation = false
             deleteConfirmed()
-        }
+        }.show(supportFragmentManager, ConfirmDialog::class.java.simpleName)
     }
 
     private fun deleteConfirmed() {
@@ -919,6 +918,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
 
         updateActionbarTitle()
         updatePagerItems(mMediaFiles.toMutableList())
+        updateFavorites()
         invalidateOptionsMenu()
         checkOrientation()
         initBottomActions()
@@ -1026,7 +1026,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
     private fun updateActionbarTitle() {
         runOnUiThread {
             if (mPos < getCurrentMedia().size) {
-                supportActionBar?.title = getCurrentMedia()[mPos].path.getFilenameFromPath()
+                tvTitle.setText(getCurrentMedia()[mPos].path.getFilenameFromPath())
             }
         }
     }
@@ -1049,8 +1049,15 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         if (mPos != position) {
             mPos = position
             updateActionbarTitle()
+            updateFavorites()
             invalidateOptionsMenu()
             scheduleSwipe()
+        }
+    }
+
+    private fun updateFavorites() {
+        getCurrentMedium()?.run {
+            ivFavorites.isActivated = isFavorite
         }
     }
 
@@ -1059,4 +1066,30 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
             checkOrientation()
         }
     }
+
+    override fun onFavoritesClick(view: View) {
+        super.onFavoritesClick(view)
+        toggleFavorite()
+    }
+
+    override fun onEditClick(view: View) {
+        super.onEditClick(view)
+        openEditor(getCurrentPath())
+    }
+
+    override fun onPropertiesClick(view: View) {
+        super.onPropertiesClick(view)
+        showProperties()
+    }
+
+    override fun onShareClick(view: View) {
+        super.onShareClick(view)
+        shareImage(getCurrentPath())
+    }
+
+    override fun onDeleteClick(view: View) {
+        super.onDeleteClick(view)
+        checkDeleteConfirmation()
+    }
+
 }

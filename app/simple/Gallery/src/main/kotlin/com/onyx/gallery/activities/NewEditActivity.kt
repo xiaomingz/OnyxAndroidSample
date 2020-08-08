@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.R
@@ -22,7 +22,7 @@ import com.onyx.gallery.handler.ActionType
 import com.onyx.gallery.handler.AppBarHandler
 import com.onyx.gallery.handler.touch.CropTouchHandler
 import com.simplemobiletools.commons.extensions.checkAppSideloading
-import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
+import kotlinx.android.synthetic.main.view_action_bar.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -30,7 +30,7 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Created by Leung on 2020/4/30
  */
-class NewEditActivity : AppCompatActivity() {
+class NewEditActivity : SimpleActivity() {
     private lateinit var binding: ActivityNewEditBinding
     private lateinit var appBarHandler: AppBarHandler
     private var globalEditBundle: GlobalEditBundle? = null
@@ -38,6 +38,7 @@ class NewEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_edit)
         configActionBar()
+        showImageEditMenu()
         if (checkAppSideloading()) {
             return
         }
@@ -52,7 +53,7 @@ class NewEditActivity : AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpdateOptionsMenuEvent(event: UpdateOptionsMenuEvent) {
-        invalidateOptionsMenu()
+        updateMenu()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -74,6 +75,7 @@ class NewEditActivity : AppCompatActivity() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
         }
+        tvTitle.setText(R.string.editor)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -108,6 +110,33 @@ class NewEditActivity : AppCompatActivity() {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    private fun updateMenu() {
+        globalEditBundle?.run {
+            val isShowCropMenu = touchHandlerManager.activateHandler is CropTouchHandler
+            showCropMenu(isShowCropMenu)
+        }
+    }
+
+    override fun onUndoClick(view: View) {
+        super.onUndoClick(view)
+        appBarHandler.onHandleAction(ActionType.UNDO)
+    }
+
+    override fun onRedoClick(view: View) {
+        super.onRedoClick(view)
+        appBarHandler.onHandleAction(ActionType.REDO)
+    }
+
+    override fun onSaveClick(view: View) {
+        super.onSaveClick(view)
+        appBarHandler.onHandleAction(ActionType.SAVE_EDIT)
+    }
+
+    override fun onOkClick(view: View) {
+        super.onOkClick(view)
+        appBarHandler.onHandleAction(ActionType.OK)
     }
 
 }

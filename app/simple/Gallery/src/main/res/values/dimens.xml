@@ -135,4 +135,20 @@
     <dimen name="photo_item_list_content_margin_left">26dp</dimen>
     <dimen name="photo_item_list_content_margin_bottom">16dp</dimen>
     <dimen name="photo_video_item_list_point_margin_top">33dp</dimen>
+    <dimen name="black_size">20dp</dimen>
+    <dimen name="view_action_bar_title_margin">15dp</dimen>
+    <dimen name="view_action_bar_title_tv_margin">16dp</dimen>
+    <dimen name="view_action_bar_title_size">18sp</dimen>
+    <dimen name="rectangle_box_size">25dp</dimen>
+    <dimen name="circular_box_size">25dp</dimen>
+    <dimen name="view_action_bar_menu_margin">23dp</dimen>
+    <dimen name="dialog_view_style_change_line_height">60dp</dimen>
+    <dimen name="dialog_view_style_change_box_height">57dp</dimen>
+    <dimen name="dialog_view_style_change_line_margin">27dp</dimen>
+    <dimen name="dialog_view_style_change_line_view_margin">20dp</dimen>
+    <dimen name="dialog_view_style_change_box_text_margin">10dp</dimen>
+    <dimen name="dialog_properties_line_height">60dp</dimen>
+    <dimen name="more_pop_offset_x">13px</dimen>
+    <dimen name="more_pop_offset_y">33px</dimen>
+    <dimen name="ic_circular_size">52dp</dimen>
 </resources>

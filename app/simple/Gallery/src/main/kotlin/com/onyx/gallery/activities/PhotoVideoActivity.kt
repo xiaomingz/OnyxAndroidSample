@@ -7,6 +7,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import com.onyx.android.sdk.utils.StringUtils
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
 import com.onyx.gallery.action.ShareAction
@@ -26,6 +28,7 @@ import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import kotlinx.android.synthetic.main.bottom_actions.*
 import kotlinx.android.synthetic.main.fragment_holder.*
+import kotlinx.android.synthetic.main.view_action_bar.*
 import java.io.File
 import java.io.FileInputStream
 
@@ -41,7 +44,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_holder)
-
+        showImageBrowseMenu()
         if (checkAppSideloading()) {
             return
         }
@@ -153,7 +156,8 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
 
         mIsVideo = type == TYPE_VIDEOS
         mMedium = Medium(null, filename, mUri.toString(), mUri!!.path!!.getParentPath(), 0, 0, file.length(), type, 0, false, 0L)
-        supportActionBar?.title = mMedium!!.name
+        tvTitle.setText(mMedium!!.name)
+        initFavorites(mMedium!!)
         bundle.putSerializable(MEDIUM, mMedium)
 
         if (savedInstanceState == null) {
@@ -173,6 +177,16 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
             window.attributes = attributes
         }
         initBottomActions()
+    }
+
+    private fun initFavorites(medium: Medium) {
+        ensureBackgroundThread {
+            getFavoritePaths().forEach { favoritePath ->
+                if (StringUtils.isEquals(favoritePath, medium.path)) {
+                    runOnUiThread { ivFavorites.isActivated = true }
+                }
+            }
+        }
     }
 
     private fun launchVideoPlayer() {
@@ -342,6 +356,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     private fun toggleFavorite() {
         val medium = mMedium ?: return
         medium.isFavorite = !medium.isFavorite
+        updateFavorites()
         ensureBackgroundThread {
             updateFavorite(medium.path, medium.isFavorite)
             invalidateOptionsMenu()
@@ -419,4 +434,35 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     override fun launchViewVideoIntent(path: String) {}
 
     override fun isSlideShowActive() = false
+
+    private fun updateFavorites() {
+        mMedium?.run {
+            ivFavorites.isActivated = isFavorite
+        }
+    }
+
+    override fun onFavoritesClick(view: View) {
+        super.onFavoritesClick(view)
+        toggleFavorite()
+    }
+
+    override fun onEditClick(view: View) {
+        super.onEditClick(view)
+        mMedium?.path?.let { openEditor(it) }
+    }
+
+    override fun onPropertiesClick(view: View) {
+        super.onPropertiesClick(view)
+        showProperties()
+    }
+
+    override fun onShareClick(view: View) {
+        super.onShareClick(view)
+        shareImage()
+    }
+
+    override fun onDeleteClick(view: View) {
+        super.onDeleteClick(view)
+        checkDeleteConfirmation()
+    }
 }

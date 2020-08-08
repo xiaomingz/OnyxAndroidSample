@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="text_size_level_1">28sp</dimen>
+    <dimen name="text_size_level_2">26sp</dimen>
+    <dimen name="text_size_level_3">21sp</dimen>
+</resources>

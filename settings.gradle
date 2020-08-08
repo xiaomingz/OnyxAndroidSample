@@ -13,4 +13,5 @@ include ':app:calculator',
         ':libraries:dialer-common',
         ':libraries:onyx-phonecloud',
         ':libraries:dialer-contacts',
-        ':libraries:simple-commons'
+        ':libraries:simple-commons',
+        ':libraries:onyxsdk-kui'
