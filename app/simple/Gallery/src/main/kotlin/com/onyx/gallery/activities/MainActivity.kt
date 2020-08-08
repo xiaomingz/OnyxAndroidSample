@@ -1241,7 +1241,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     override fun onMoreClick(view: View) {
         val builder = ContextPopMenuView.Builder(this)
         builder.setMenuLayoutId(R.menu.menu_main)
-                .setOffsetXY(20, 50)
+                .setOffsetXY(R.dimen.more_pop_offset_x, R.dimen.more_pop_offset_y)
                 .setTarget(ivMore)
                 .setItemListener { parent, view, position, id ->
                     showViewStyleChangeDialog()
