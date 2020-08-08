@@ -21,6 +21,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.onyx.android.sdk.kui.dialog.ContextPopMenuView
+import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
 import com.onyx.gallery.adapters.DirectoryAdapter
@@ -1241,7 +1242,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     override fun onMoreClick(view: View) {
         val builder = ContextPopMenuView.Builder(this)
         builder.setMenuLayoutId(R.menu.menu_main)
-                .setOffsetXY(R.dimen.more_pop_offset_x, R.dimen.more_pop_offset_y)
+                .setOffsetXY(ResManager.getDimens(R.dimen.more_pop_offset_x), ResManager.getDimens(R.dimen.more_pop_offset_y))
                 .setTarget(ivMore)
                 .setItemListener { parent, view, position, id ->
                     showViewStyleChangeDialog()

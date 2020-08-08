@@ -25,6 +25,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.onyx.android.sdk.kui.dialog.ContextPopMenuView
+import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.CreateNewFolderDialog
@@ -909,7 +910,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
     override fun onMoreClick(view: View) {
         val builder = ContextPopMenuView.Builder(this)
         builder.setMenuLayoutId(R.menu.menu_main)
-                .setOffsetXY(R.dimen.more_pop_offset_x, R.dimen.more_pop_offset_y)
+                .setOffsetXY(ResManager.getDimens(R.dimen.more_pop_offset_x), ResManager.getDimens(R.dimen.more_pop_offset_y))
                 .setTarget(ivMore)
                 .setItemListener { parent, view, position, id ->
                     showViewStyleChangeDialog()
