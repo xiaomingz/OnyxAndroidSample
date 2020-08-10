@@ -55,7 +55,7 @@ object ScribbleUtils {
         }
         updateShapeStrokeWidth(handwritingShape, normalizedMatrix)
         updateEditTextShape(handwritingShape, normalizedMatrix)
-        ShapeUtils.renderShapes(handwritingShape, renderContext, true)
+        ShapeUtils.renderShapes(handwritingShape, renderContext, false)
         return renderContext.getBitmap()
     }
 
@@ -83,7 +83,7 @@ object ScribbleUtils {
         val renderContext = RenderContext.create(Paint(), Matrix())
         renderContext.createBitmap(pngRect)
         renderContext.updateCanvas()
-        renderContext.renderColorConfig = RenderColorConfig.EPD_RENDER_COLOR
+        renderContext.renderColorConfig = RenderColorConfig.RAW_RENDER_COLOR
         return renderContext
     }
 
