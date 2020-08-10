@@ -13,13 +13,13 @@ import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
 import com.onyx.gallery.action.ShareAction
 import com.onyx.gallery.dialogs.DeleteWithRememberDialog
+import com.onyx.gallery.dialogs.PropertiesDialog
 import com.onyx.gallery.extensions.*
 import com.onyx.gallery.fragments.PhotoFragment
 import com.onyx.gallery.fragments.VideoFragment
 import com.onyx.gallery.fragments.ViewPagerFragment
 import com.onyx.gallery.helpers.*
 import com.onyx.gallery.models.Medium
-import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.IS_FROM_GALLERY
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
@@ -350,7 +350,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     }
 
     private fun showProperties() {
-        mMedium?.path?.let { PropertiesDialog(this, it) }
+        mMedium?.path?.let { PropertiesDialog(this, it).show(supportFragmentManager, PropertiesDialog::class.java.simpleName) }
     }
 
     private fun toggleFavorite() {
