@@ -44,7 +44,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_holder)
-        showVideoBrowseMenu()
+        showExternalVideoBrowseMenu()
         if (checkAppSideloading()) {
             return
         }
