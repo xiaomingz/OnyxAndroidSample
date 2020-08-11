@@ -27,6 +27,8 @@ import com.onyx.gallery.extensions.hideSoftInput
 import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.helpers.PATH_URI
 import com.onyx.gallery.request.AttachNoteViewRequest
+import com.onyx.gallery.request.PartialRefreshRequest
+import com.onyx.gallery.request.RendererToScreenRequest
 import com.onyx.gallery.touch.ScribbleTouchDistributor
 import com.onyx.gallery.viewmodel.EditContentViewModel
 import com.onyx.gallery.views.crop.HighlightView
@@ -165,12 +167,15 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFloatButtonChangedEvent(event: FloatButtonChangedEvent) {
+        globalEditBundle.enqueue(RendererToScreenRequest(), null)
         drawHandler.setRawDrawingEnabled(!event.active)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFloatButtonMenuStateChangedEvent(event: FloatButtonMenuStateChangedEvent) {
-        drawHandler.setRawDrawingEnabled(!event.open)
+        if (!event.open) {
+            globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
