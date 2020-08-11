@@ -144,7 +144,7 @@
 
         <activity android:name=".dictionarypack.DictionarySettingsActivity"
                 android:label="@string/dictionary_settings_title"
-                android:theme="@android:style/Theme.DeviceDefault.Light"
+                android:theme="@style/AppTheme"
                 android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

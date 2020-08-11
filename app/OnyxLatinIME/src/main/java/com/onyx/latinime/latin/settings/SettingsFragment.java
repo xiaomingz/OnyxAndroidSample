@@ -49,6 +49,7 @@ import com.onyx.latinime.latin.userdictionary.UserDictionarySettings;
 import com.onyx.latinime.latin.utils.AdditionalSubtypeUtils;
 import com.onyx.latinime.latin.utils.ApplicationUtils;
 import com.onyx.latinime.latin.utils.FeedbackUtils;
+import com.onyx.latinime.latin.utils.StringUtils;
 import com.onyx.latinime.latin.utils.SubtypeLocaleUtils;
 import com.onyx.latinime.research.ResearchLogger;
 
@@ -92,6 +93,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment
         setInputMethodSettingsCategoryTitle(R.string.language_selection_title);
         setSubtypeEnablerTitle(R.string.select_language);
         addPreferencesFromResource(R.xml.prefs);
+        setActivityIntent(getActivity().getIntent());
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         if (preferenceScreen != null) {
             preferenceScreen.setTitle(
@@ -132,14 +134,14 @@ public final class SettingsFragment extends InputMethodSettingsFragment
                 debugSettingsIntent.setClassName(
                         context.getPackageName(), DebugSettingsActivity.class.getName());
                 debugSettings.setIntent(debugSettingsIntent);
-            } else {
+            } else if (miscSettings != null){
                 miscSettings.removePreference(debugSettings);
             }
         }
 
         final Preference feedbackSettings = findPreference(Settings.PREF_SEND_FEEDBACK);
         final Preference aboutSettings = findPreference(Settings.PREF_ABOUT_KEYBOARD);
-        if (feedbackSettings != null) {
+        if (feedbackSettings != null && aboutSettings != null) {
             if (FeedbackUtils.isFeedbackFormSupported()) {
                 feedbackSettings.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -167,7 +169,9 @@ public final class SettingsFragment extends InputMethodSettingsFragment
 
         final boolean showVoiceKeyOption = res.getBoolean(
                 R.bool.config_enable_show_voice_key_option);
-        if (!showVoiceKeyOption) {
+        if (!showVoiceKeyOption
+                && mVoiceInputKeyPreference != null
+                && generalSettings != null) {
             generalSettings.removePreference(mVoiceInputKeyPreference);
         }
 
@@ -180,27 +184,28 @@ public final class SettingsFragment extends InputMethodSettingsFragment
 
         mKeyPreviewPopupDismissDelay =
                 (ListPreference) findPreference(Settings.PREF_KEY_PREVIEW_POPUP_DISMISS_DELAY);
-        if (!Settings.readFromBuildConfigIfToShowKeyPreviewPopupSettingsOption(res)) {
-            removePreference(Settings.PREF_POPUP_ON, generalSettings);
-            removePreference(Settings.PREF_KEY_PREVIEW_POPUP_DISMISS_DELAY, advancedSettings);
-        } else {
-            final String popupDismissDelayDefaultValue = Integer.toString(res.getInteger(
-                    R.integer.config_key_preview_linger_timeout));
-            mKeyPreviewPopupDismissDelay.setEntries(new String[] {
-                    res.getString(R.string.key_preview_popup_dismiss_no_delay),
-                    res.getString(R.string.key_preview_popup_dismiss_default_delay),
-            });
-            mKeyPreviewPopupDismissDelay.setEntryValues(new String[] {
-                    "0",
-                    popupDismissDelayDefaultValue
-            });
-            if (null == mKeyPreviewPopupDismissDelay.getValue()) {
-                mKeyPreviewPopupDismissDelay.setValue(popupDismissDelayDefaultValue);
+        if (mKeyPreviewPopupDismissDelay != null) {
+            if (!Settings.readFromBuildConfigIfToShowKeyPreviewPopupSettingsOption(res)) {
+                removePreference(Settings.PREF_POPUP_ON, generalSettings);
+                removePreference(Settings.PREF_KEY_PREVIEW_POPUP_DISMISS_DELAY, advancedSettings);
+            } else {
+                final String popupDismissDelayDefaultValue = Integer.toString(res.getInteger(
+                        R.integer.config_key_preview_linger_timeout));
+                mKeyPreviewPopupDismissDelay.setEntries(new String[] {
+                        res.getString(R.string.key_preview_popup_dismiss_no_delay),
+                        res.getString(R.string.key_preview_popup_dismiss_default_delay),
+                });
+                mKeyPreviewPopupDismissDelay.setEntryValues(new String[] {
+                        "0",
+                        popupDismissDelayDefaultValue
+                });
+                if (null == mKeyPreviewPopupDismissDelay.getValue()) {
+                    mKeyPreviewPopupDismissDelay.setValue(popupDismissDelayDefaultValue);
+                }
+                mKeyPreviewPopupDismissDelay.setEnabled(
+                        Settings.readKeyPreviewPopupEnabled(prefs, res));
             }
-            mKeyPreviewPopupDismissDelay.setEnabled(
-                    Settings.readKeyPreviewPopupEnabled(prefs, res));
         }
-
         if (!res.getBoolean(R.bool.config_setup_wizard_available)) {
             removePreference(Settings.PREF_SHOW_SETUP_WIZARD_ICON, advancedSettings);
         }
@@ -212,23 +217,26 @@ public final class SettingsFragment extends InputMethodSettingsFragment
                 (PreferenceGroup) findPreference(Settings.PREF_CORRECTION_SETTINGS);
         final PreferenceScreen dictionaryLink =
                 (PreferenceScreen) findPreference(Settings.PREF_CONFIGURE_DICTIONARIES_KEY);
-        final Intent intent = dictionaryLink.getIntent();
-        intent.setClassName(context.getPackageName(), DictionarySettingsActivity.class.getName());
-        final int number = context.getPackageManager().queryIntentActivities(intent, 0).size();
-        if (0 >= number) {
-            textCorrectionGroup.removePreference(dictionaryLink);
+        if (dictionaryLink != null) {
+            final Intent intent = dictionaryLink.getIntent();
+            intent.setClassName(context.getPackageName(), DictionarySettingsActivity.class.getName());
+            final int number = context.getPackageManager().queryIntentActivities(intent, 0).size();
+            if (0 >= number) {
+                textCorrectionGroup.removePreference(dictionaryLink);
+            }
         }
 
         final Preference editPersonalDictionary =
                 findPreference(Settings.PREF_EDIT_PERSONAL_DICTIONARY);
-        final Intent editPersonalDictionaryIntent = editPersonalDictionary.getIntent();
-        final ResolveInfo ri = USE_INTERNAL_PERSONAL_DICTIONARY_SETTIGS ? null
-                : context.getPackageManager().resolveActivity(
-                        editPersonalDictionaryIntent, PackageManager.MATCH_DEFAULT_ONLY);
-        if (ri == null) {
-            overwriteUserDictionaryPreference(editPersonalDictionary);
+        if (editPersonalDictionary != null) {
+            final Intent editPersonalDictionaryIntent = editPersonalDictionary.getIntent();
+            final ResolveInfo ri = USE_INTERNAL_PERSONAL_DICTIONARY_SETTIGS ? null
+                    : context.getPackageManager().resolveActivity(
+                    editPersonalDictionaryIntent, PackageManager.MATCH_DEFAULT_ONLY);
+            if (ri == null) {
+                overwriteUserDictionaryPreference(editPersonalDictionary);
+            }
         }
-
         if (!Settings.readFromBuildConfigIfGestureInputEnabled(res)) {
             removePreference(Settings.PREF_GESTURE_SETTINGS, getPreferenceScreen());
         }
@@ -245,7 +253,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment
     public void onResume() {
         super.onResume();
         final boolean isShortcutImeEnabled = SubtypeSwitcher.getInstance().isShortcutImeEnabled();
-        if (!isShortcutImeEnabled) {
+        if (!isShortcutImeEnabled && mVoiceInputKeyPreference != null) {
             getPreferenceScreen().removePreference(mVoiceInputKeyPreference);
         }
         final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
@@ -295,6 +303,9 @@ public final class SettingsFragment extends InputMethodSettingsFragment
     }
 
     private void ensureConsistencyOfAutoCorrectionSettings() {
+        if (mAutoCorrectionThresholdPreference == null || mBigramPrediction != null) {
+            return;
+        }
         final String autoCorrectionOff = getResources().getString(
                 R.string.auto_correction_threshold_mode_index_off);
         final String currentSetting = mAutoCorrectionThresholdPreference.getValue();
@@ -302,6 +313,9 @@ public final class SettingsFragment extends InputMethodSettingsFragment
     }
 
     private void updateShowCorrectionSuggestionsSummary() {
+        if (mShowCorrectionSuggestionsPreference == null) {
+            return;
+        }
         mShowCorrectionSuggestionsPreference.setSummary(
                 getResources().getStringArray(R.array.prefs_suggestion_visibilities)
                 [mShowCorrectionSuggestionsPreference.findIndexOfValue(
@@ -330,6 +344,9 @@ public final class SettingsFragment extends InputMethodSettingsFragment
     private void updateCustomInputStylesSummary() {
         final PreferenceScreen customInputStyles =
                 (PreferenceScreen)findPreference(Settings.PREF_CUSTOM_INPUT_STYLES);
+        if (customInputStyles == null) {
+            return;
+        }
         final SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
         final Resources res = getResources();
         final String prefSubtype = Settings.readPrefAdditionalSubtypes(prefs, res);
@@ -344,6 +361,9 @@ public final class SettingsFragment extends InputMethodSettingsFragment
     }
 
     private void updateKeyPreviewPopupDelaySummary() {
+        if (mKeyPreviewPopupDismissDelay == null) {
+            return;
+        }
         final ListPreference lp = mKeyPreviewPopupDismissDelay;
         final CharSequence[] entries = lp.getEntries();
         if (entries == null || entries.length <= 0) return;
@@ -494,6 +514,9 @@ public final class SettingsFragment extends InputMethodSettingsFragment
     }
 
     private void overwriteUserDictionaryPreference(Preference userDictionaryPreference) {
+        if (userDictionaryPreference == null) {
+            return;
+        }
         final Activity activity = getActivity();
         final TreeSet<String> localeList = UserDictionaryList.getUserDictionaryLocalesSet(activity);
         if (null == localeList) {
@@ -514,6 +537,29 @@ public final class SettingsFragment extends InputMethodSettingsFragment
             }
         } else {
             userDictionaryPreference.setFragment(UserDictionaryList.class.getName());
+        }
+    }
+
+    private void setActivityIntent(final Intent activityIntent) {
+        if (Intent.ACTION_VIEW.equals(activityIntent.getAction())) {
+            if (activityIntent.getExtras() != null) {
+                final String page = activityIntent.getExtras().getString("page");
+                if (!StringUtils.isEmptyStringOrWhiteSpaces(page)) {
+                    openPreferenceScreen(page);
+                }
+            }
+        }
+    }
+
+    private void openPreferenceScreen(final String screenName) {
+        final Preference pref = findPreference(screenName);
+        if (pref == null) {
+            return;
+        }
+        if (pref instanceof PreferenceScreen) {
+            final PreferenceScreen preferenceScreen = (PreferenceScreen) pref;
+            ((SettingsActivity) getActivity()).setTitleText(preferenceScreen.getTitle().toString());
+            setPreferenceScreen((PreferenceScreen) pref);
         }
     }
 }
