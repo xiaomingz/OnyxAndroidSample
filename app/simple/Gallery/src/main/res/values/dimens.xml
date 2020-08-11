@@ -151,4 +151,5 @@
     <dimen name="more_pop_offset_x">13px</dimen>
     <dimen name="more_pop_offset_y">33px</dimen>
     <dimen name="ic_circular_size">52dp</dimen>
+    <dimen name="title_width">460dp</dimen>
 </resources>
