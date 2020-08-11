@@ -394,11 +394,11 @@ class OnyxSubsamplingScaleImageView @JvmOverloads constructor(context: Context, 
         val touchCount = event.pointerCount
         when (event.action) {
             MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_1_DOWN, MotionEvent.ACTION_POINTER_2_DOWN -> {
-                App.eventBus.post(ApplyFastModeEvent(true))
                 anim = null
                 parent?.requestDisallowInterceptTouchEvent(true)
                 maxTouchCount = Math.max(maxTouchCount, touchCount)
                 if (touchCount >= 2) {
+                    App.eventBus.post(ApplyFastModeEvent(true))
                     scaleStart = scale
                     vDistStart = distance(event.getX(0), event.getX(1), event.getY(0), event.getY(1))
                     vTranslateStart!!.set(vTranslate!!.x, vTranslate!!.y)
@@ -533,6 +533,7 @@ class OnyxSubsamplingScaleImageView @JvmOverloads constructor(context: Context, 
                             val edgeYSwipe = atYEdge && dyA > dxA && !isPanning
                             if (!edgeXSwipe && !edgeYSwipe && (!atXEdge || !atYEdge || isPanning)) {
                                 isPanning = true
+                                App.eventBus.post(ApplyFastModeEvent(true))
                             } else if ((dxA > offset && atXEdge && dxA > dyA) || (dyA > offset && atYEdge && dyA > dxA)) {
                                 maxTouchCount = 0
                                 parent?.requestDisallowInterceptTouchEvent(false)
