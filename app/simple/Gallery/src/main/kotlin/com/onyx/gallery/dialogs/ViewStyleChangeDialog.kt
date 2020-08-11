@@ -27,11 +27,8 @@ class ViewStyleChangeDialog(private val dialogType: ViewStyleChangeDialogType, v
         binding.dialog = this
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        if (dialogType == ViewStyleChangeDialogType.WITH_GROUP_BY_DIRECTORY) {
-            viewModel.showGroupByDirectory(true)
-        } else {
-            viewModel.showUseForThisFolder(true)
-        }
+        viewModel.showGroupByDirectory(false)
+        viewModel.showUseForThisFolder(false)
     }
 
     fun onConfirmClick() {

@@ -119,6 +119,10 @@ class NewEditActivity : SimpleActivity() {
         }
     }
 
+    override fun onBlackClick(view: View) {
+        appBarHandler.onHandleAction(ActionType.BACK)
+    }
+
     override fun onUndoClick(view: View) {
         super.onUndoClick(view)
         appBarHandler.onHandleAction(ActionType.UNDO)

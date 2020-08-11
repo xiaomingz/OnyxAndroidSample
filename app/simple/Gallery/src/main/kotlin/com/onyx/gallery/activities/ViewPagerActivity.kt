@@ -792,26 +792,13 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         if (getCurrentMedium() == null) {
             return
         }
-
-        if (config.isDeletePasswordProtectionOn) {
-            handleDeletePasswordProtection {
-                deleteConfirmed()
-            }
-        } else if (config.tempSkipDeleteConfirmation || config.skipDeleteConfirmation) {
-            deleteConfirmed()
-        } else {
-            askConfirmDelete()
-        }
+        askConfirmDelete()
     }
 
     private fun askConfirmDelete() {
         val filename = "\"${getCurrentPath().getFilenameFromPath()}\""
 
-        val baseString = if (config.useRecycleBin && !getCurrentMedium()!!.getIsInRecycleBin()) {
-            R.string.move_to_recycle_bin_confirmation
-        } else {
-            R.string.deletion_confirmation
-        }
+        val baseString =  R.string.deletion_confirmation
 
         val message = String.format(resources.getString(baseString), filename)
         ConfirmDialog(message) {
@@ -827,26 +814,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         }
 
         val fileDirItem = FileDirItem(path, path.getFilenameFromPath())
-        if (config.useRecycleBin && !getCurrentMedium()!!.getIsInRecycleBin()) {
-            mIgnoredPaths.add(fileDirItem.path)
-            val media = mMediaFiles.filter { !mIgnoredPaths.contains(it.path) } as ArrayList<ThumbnailItem>
-            runOnUiThread {
-                gotMedia(media, true)
-            }
-
-            movePathsInRecycleBin(arrayListOf(path)) {
-                if (it) {
-                    tryDeleteFileDirItem(fileDirItem, false, false) {
-                        mIgnoredPaths.remove(fileDirItem.path)
-                        deleteDirectoryIfEmpty()
-                    }
-                } else {
-                    toast(R.string.unknown_error_occurred)
-                }
-            }
-        } else {
-            handleDeletion(fileDirItem)
-        }
+        handleDeletion(fileDirItem)
     }
 
     private fun handleDeletion(fileDirItem: FileDirItem) {

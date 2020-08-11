@@ -107,12 +107,17 @@ open class SimpleActivity : BaseSimpleActivity() {
 
     fun showImageBrowseMenu() {
         hideAllMenu()
-        arrayOf(ivFavorites, ivEdit, ivProperties, ivShare, ivDelete).forEach { it.beVisibleIf(true) }
+        arrayOf(ivEdit, ivProperties, ivShare, ivDelete).forEach { it.beVisibleIf(true) }
+    }
+
+    fun showPhotoVideoBrowseMenu() {
+        hideAllMenu()
+        arrayOf(ivEdit, ivProperties, ivShare).forEach { it.beVisibleIf(true) }
     }
 
     fun showImageEditMenu() {
         hideAllMenu()
-        arrayOf(ivUndo, ivRedo, ivSave ).forEach { it.beVisibleIf(true) }
+        arrayOf(ivUndo, ivRedo, ivSave).forEach { it.beVisibleIf(true) }
     }
 
     fun hideAllMenu() {
