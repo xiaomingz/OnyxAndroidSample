@@ -84,6 +84,7 @@ class TimerFragment : Fragment() {
                     val timerSeconds = if (seconds <= 0) 10 else seconds
                     config.timerSeconds = timerSeconds
                     timer_initial_time.text = timerSeconds.getFormattedDuration()
+                    stopTimer()
                 }
             }
 
