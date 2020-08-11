@@ -127,6 +127,12 @@
             android:key="pref_advanced_settings"
             android:title="@string/advanced_settings"
             android:summary="@string/advanced_settings_summary">
+            <intent
+                android:targetPackage="com.onyx.latinime"
+                android:action="android.intent.action.VIEW"
+                android:targetClass="com.onyx.latinime.latin.settings.SettingsActivity">
+                <extra android:name="page" android:value="pref_advanced_settings" />
+            </intent>
             <CheckBoxPreference
                 android:key="pref_key_use_contacts_dict"
                 android:title="@string/use_contacts_dict"

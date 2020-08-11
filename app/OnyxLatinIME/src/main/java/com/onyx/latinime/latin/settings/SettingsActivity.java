@@ -34,6 +34,8 @@ public final class SettingsActivity extends PreferenceActivity {
     private static final String DEFAULT_FRAGMENT = SettingsFragment.class.getName();
 
     LinearLayout headers;
+    private Toolbar bar;
+    private TextView toolbarTitle;
 
     @Override
     public Intent getIntent() {
@@ -63,9 +65,9 @@ public final class SettingsActivity extends PreferenceActivity {
         headers = (LinearLayout) findViewById(android.R.id.list).getParent();
         headers.setPadding(0, 0, 0, 0);
         LinearLayout root = (LinearLayout)headers.getParent().getParent();
-        Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.settings_toolbar, root, false);
+        bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.settings_toolbar, root, false);
         root.addView(bar, 0);
-        TextView toolbarTitle = bar.findViewById(R.id.toolbar_title);
+        toolbarTitle = bar.findViewById(R.id.toolbar_title);
         toolbarTitle.setText(R.string.english_ime_settings);
         toolbarTitle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,5 +94,11 @@ public final class SettingsActivity extends PreferenceActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setTitleText(String titleText){
+        if (toolbarTitle != null) {
+            toolbarTitle.setText(titleText);
+        }
     }
 }

@@ -16,21 +16,33 @@
 
 package com.onyx.latinime.dictionarypack;
 
+import com.onyx.latinime.R;
 import com.onyx.latinime.latin.utils.FragmentUtils;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
 
 /**
  * Preference screen.
  */
 public final class DictionarySettingsActivity extends PreferenceActivity {
     private static final String DEFAULT_FRAGMENT = DictionarySettingsFragment.class.getName();
+    LinearLayout headers;
+    private Toolbar bar;
+    private TextView toolbarTitle;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initToolbar();
+        adjustContentLayout();
     }
 
     @Override
@@ -48,5 +60,27 @@ public final class DictionarySettingsActivity extends PreferenceActivity {
     // @Override
     public boolean isValidFragment(String fragmentName) {
         return FragmentUtils.isValidFragment(fragmentName);
+    }
+
+    private void initToolbar() {
+        headers = (LinearLayout) findViewById(android.R.id.list).getParent();
+        headers.setPadding(0, 0, 0, 0);
+        LinearLayout root = (LinearLayout)headers.getParent().getParent();
+        bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.settings_toolbar, root, false);
+        root.addView(bar, 0);
+        toolbarTitle = bar.findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(R.string.configure_dictionaries_title);
+        toolbarTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    private void adjustContentLayout() {
+        LinearLayout contentLayout = (LinearLayout) headers.getParent();
+        int paddingLeftRight = getResources().getDimensionPixelSize(R.dimen.content_layout_padding);
+        contentLayout.setPadding(paddingLeftRight, 0, paddingLeftRight, 0);
     }
 }
