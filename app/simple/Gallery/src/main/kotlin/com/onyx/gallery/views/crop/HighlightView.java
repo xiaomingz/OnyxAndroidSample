@@ -116,7 +116,7 @@ public class HighlightView {
         outlinePaint.setAntiAlias(true);
         outlineWidth = dpToPx(OUTLINE_DP);
 
-        handlePaint.setColor(highlightColor);
+        handlePaint.setColor(Color.BLACK);
         handlePaint.setStyle(Paint.Style.FILL);
         handlePaint.setAntiAlias(true);
         handleRadius = dpToPx(HANDLE_RADIUS_DP);
@@ -160,10 +160,7 @@ public class HighlightView {
                 drawCircle(canvas);
             }
 
-            if (handleMode == HandleMode.Always ||
-                    (handleMode == HandleMode.Changing && modifyMode == ModifyMode.Grow)) {
-                drawHandles(canvas);
-            }
+            drawHandles(canvas);
         }
     }
 
