@@ -8,11 +8,10 @@ import android.graphics.PointF
 import android.net.Uri
 import android.provider.MediaStore
 import com.onyx.android.sdk.data.Size
-import com.onyx.android.sdk.data.model.account.OnyxAccountModel
-import com.onyx.android.sdk.data.provider.DataProviderManager
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.rx.RxManager
 import com.onyx.android.sdk.rx.RxRequest
+import com.onyx.android.sdk.utils.DeviceReceiver
 import com.onyx.gallery.App
 import com.onyx.gallery.R
 import com.onyx.gallery.handler.CropHandler
@@ -20,6 +19,7 @@ import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.handler.InsertTextHandler
 import com.onyx.gallery.handler.UndoRedoHandler
 import com.onyx.gallery.handler.touch.TouchHandlerManager
+import com.onyx.gallery.helpers.SystemUIChangeReceiver
 import com.simplemobiletools.commons.extensions.getRealPathFromURI
 import com.simplemobiletools.commons.extensions.isPathOnOTG
 import com.simplemobiletools.commons.extensions.toast
@@ -34,6 +34,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     var canFingerTouch = true
     var supportZoom = true
     var uri: Uri? = null
+    lateinit var orgPath: String
     lateinit var filePath: String
     private var saveUri: Uri? = null
 
@@ -48,6 +49,8 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     val insertTextHandler = InsertTextHandler(this)
     val cropHandler = CropHandler(this)
 
+    private val receiver = DeviceReceiver()
+
     companion object {
         val instance: GlobalEditBundle by lazy {
             GlobalEditBundle(App.instance)
@@ -57,6 +60,9 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     fun parseIntent(host: Activity) {
         uri = parseImageUri(host)
         saveUri = parseSaveUri(host.intent)
+        orgPath = filePath
+        receiver.systemUIChangeListener = SystemUIChangeReceiver()
+        receiver.enable(App.instance, true)
     }
 
     private fun parseImageUri(host: Activity): Uri? {
@@ -95,6 +101,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     }
 
     fun release() {
+        receiver.enable(App.instance, false)
         drawHandler.release()
         cropHandler.release()
         insertTextHandler.release()

@@ -164,6 +164,16 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onFloatButtonChangedEvent(event: FloatButtonChangedEvent) {
+        drawHandler.setRawDrawingEnabled(!event.active)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onFloatButtonMenuStateChangedEvent(event: FloatButtonMenuStateChangedEvent) {
+        drawHandler.setRawDrawingEnabled(!event.open)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUndoShapeEvent(event: UndoShapeEvent) {
         UndoShapeAction().execute(null)
     }
