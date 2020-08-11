@@ -347,6 +347,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
                 setCurrentItem(mPos, false)
                 removeOnPageChangeListener(this@ViewPagerActivity)
                 addOnPageChangeListener(this@ViewPagerActivity)
+                updateMenu()
             }
         }
     }

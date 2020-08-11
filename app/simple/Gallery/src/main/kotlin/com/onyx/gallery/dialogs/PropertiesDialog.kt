@@ -2,11 +2,17 @@ package com.onyx.gallery.dialogs
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import com.onyx.android.sdk.utils.DateTimeUtil
+import com.onyx.android.sdk.utils.DateTimeUtil.DATE_FORMAT_YYYYMMDD_HHMMSS
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.DialogPropertiesBinding
 import com.onyx.gallery.viewmodel.BaseViewModel
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.formatAsResolution
+import com.simplemobiletools.commons.extensions.formatSize
+import com.simplemobiletools.commons.extensions.getFilenameFromPath
+import com.simplemobiletools.commons.extensions.getIsPathDirectory
 import com.simplemobiletools.commons.models.FileDirItem
+import java.util.*
 
 /**
  * Created by Leung 2020/8/8 17:40
@@ -23,7 +29,7 @@ class PropertiesDialog(activity: AppCompatActivity, path: String) : BaseDialog<D
         fileDirItem.getResolution(activity)?.let {
             viewModel.resolution.value = it.formatAsResolution()
         }
-        viewModel.lastModified.value = fileDirItem.getLastModified(activity).formatDate(activity)
+        viewModel.lastModified.value = DateTimeUtil.formatDate(Date(fileDirItem.getLastModified(activity)), DATE_FORMAT_YYYYMMDD_HHMMSS)
     }
 
     override fun getLayoutRes(): Int = R.layout.dialog_properties

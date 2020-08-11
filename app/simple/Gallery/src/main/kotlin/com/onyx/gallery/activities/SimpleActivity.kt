@@ -115,6 +115,10 @@ open class SimpleActivity : BaseSimpleActivity() {
         arrayOf(ivEdit, ivProperties, ivShare).forEach { it.beVisibleIf(true) }
     }
 
+    fun showExternalVideoBrowseMenu() {
+        hideAllMenu()
+    }
+
     fun showVideoBrowseMenu() {
         hideAllMenu()
         arrayOf(ivProperties, ivShare).forEach { it.beVisibleIf(true) }
