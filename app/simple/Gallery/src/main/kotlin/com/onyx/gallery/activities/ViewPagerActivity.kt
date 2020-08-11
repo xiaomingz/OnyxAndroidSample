@@ -963,6 +963,15 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         checkOrientation()
     }
 
+    private fun updateMenu() {
+        val medium = mMediaFiles[view_pager.currentItem]
+        if(medium.isVideo()){
+            showVideoBrowseMenu()
+        }else{
+            showImageBrowseMenu()
+        }
+    }
+
     override fun launchViewVideoIntent(path: String) {
         ensureBackgroundThread {
             val newUri = getFinalUriFromPath(path, BuildConfig.APPLICATION_ID) ?: return@ensureBackgroundThread
@@ -1016,6 +1025,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
     override fun onPageSelected(position: Int) {
         if (mPos != position) {
             mPos = position
+            updateMenu()
             updateActionbarTitle()
             updateFavorites()
             invalidateOptionsMenu()
