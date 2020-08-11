@@ -8,10 +8,12 @@ import com.onyx.gallery.helpers.AppContext
 import com.raizlabs.android.dbflow.config.FlowConfig
 import com.raizlabs.android.dbflow.config.FlowManager
 import com.simplemobiletools.commons.extensions.checkUseEnglish
+import org.greenrobot.eventbus.EventBus
 
 class App : MultiDexApplication() {
 
     companion object {
+        val eventBus = EventBus()
         lateinit var instance: Context
             private set
     }

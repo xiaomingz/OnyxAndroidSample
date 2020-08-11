@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.alexvasilkov.gestures.GestureImageView
+    <com.onyx.gallery.views.zoom.OnyxGestureImageView
         android:id="@+id/gestures_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
@@ -26,7 +26,7 @@
 
     </com.alexvasilkov.gestures.GestureFrameLayout>
 
-    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+    <com.onyx.gallery.views.zoom.subsampScale.OnyxSubsamplingScaleImageView
         android:id="@+id/subsampling_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
