@@ -12,17 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
-import com.simplemobiletools.commons.dialogs.PropertiesDialog
-import com.simplemobiletools.commons.dialogs.RenameDialog
-import com.simplemobiletools.commons.dialogs.RenameItemDialog
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.helpers.isOreoPlus
-import com.simplemobiletools.commons.models.FileDirItem
-import com.simplemobiletools.commons.views.FastScroller
-import com.simplemobiletools.commons.views.MyRecyclerView
 import com.onyx.gallery.R
 import com.onyx.gallery.activities.ViewPagerActivity
 import com.onyx.gallery.dialogs.DeleteWithRememberDialog
@@ -32,6 +21,15 @@ import com.onyx.gallery.interfaces.MediaOperationsListener
 import com.onyx.gallery.models.Medium
 import com.onyx.gallery.models.ThumbnailItem
 import com.onyx.gallery.models.ThumbnailSection
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
+import com.simplemobiletools.commons.dialogs.RenameDialog
+import com.simplemobiletools.commons.dialogs.RenameItemDialog
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.views.FastScroller
+import com.simplemobiletools.commons.views.MyRecyclerView
 import kotlinx.android.synthetic.main.photo_video_item_grid.view.*
 import kotlinx.android.synthetic.main.thumbnail_section.view.*
 import java.util.*
@@ -123,7 +121,6 @@ class MediaAdapter(activity: BaseSimpleActivity, var media: MutableList<Thumbnai
 
         when (id) {
             R.id.cab_confirm_selection -> confirmSelection()
-            R.id.cab_properties -> showProperties()
             R.id.cab_rename -> renameFile()
             R.id.cab_edit -> editFile()
             R.id.cab_hide -> toggleFileVisibility(true)
@@ -171,16 +168,6 @@ class MediaAdapter(activity: BaseSimpleActivity, var media: MutableList<Thumbnai
 
     private fun confirmSelection() {
         listener?.selectedPaths(getSelectedPaths())
-    }
-
-    private fun showProperties() {
-        if (selectedKeys.size <= 1) {
-            val path = getFirstSelectedItemPath() ?: return
-            PropertiesDialog(activity, path, config.shouldShowHidden)
-        } else {
-            val paths = getSelectedPaths()
-            PropertiesDialog(activity, paths, config.shouldShowHidden)
-        }
     }
 
     private fun renameFile() {
