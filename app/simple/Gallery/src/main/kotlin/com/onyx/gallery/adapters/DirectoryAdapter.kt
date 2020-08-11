@@ -11,16 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
-import com.simplemobiletools.commons.dialogs.*
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.SHOW_ALL_TABS
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.helpers.isOreoPlus
-import com.simplemobiletools.commons.models.FileDirItem
-import com.simplemobiletools.commons.views.FastScroller
-import com.simplemobiletools.commons.views.MyRecyclerView
 import com.onyx.gallery.R
 import com.onyx.gallery.activities.MediaActivity
 import com.onyx.gallery.dialogs.ConfirmDeleteFolderDialog
@@ -31,6 +21,15 @@ import com.onyx.gallery.helpers.*
 import com.onyx.gallery.interfaces.DirectoryOperationsListener
 import com.onyx.gallery.models.AlbumCover
 import com.onyx.gallery.models.Directory
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
+import com.simplemobiletools.commons.dialogs.*
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.SHOW_ALL_TABS
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.views.FastScroller
+import com.simplemobiletools.commons.views.MyRecyclerView
 import kotlinx.android.synthetic.main.directory_item_grid.view.dir_check
 import kotlinx.android.synthetic.main.directory_item_grid.view.dir_location
 import kotlinx.android.synthetic.main.directory_item_grid.view.dir_lock
@@ -86,7 +85,6 @@ class DirectoryAdapter(activity: BaseSimpleActivity, var dirs: ArrayList<Directo
         }
 
         when (id) {
-            R.id.cab_properties -> showProperties()
             R.id.cab_rename -> renameDir()
             R.id.cab_pin -> pinFolders(true)
             R.id.cab_unpin -> pinFolders(false)
@@ -123,23 +121,6 @@ class DirectoryAdapter(activity: BaseSimpleActivity, var dirs: ArrayList<Directo
         super.onViewRecycled(holder)
         if (!activity.isDestroyed) {
             Glide.with(activity).clear(holder.itemView.dir_thumbnail!!)
-        }
-    }
-
-    private fun showProperties() {
-        if (selectedKeys.size <= 1) {
-            val path = getFirstSelectedItemPath() ?: return
-            if (path != FAVORITES && path != RECYCLE_BIN) {
-                activity.handleLockedFolderOpening(path) { success ->
-                    if (success) {
-                        PropertiesDialog(activity, path, config.shouldShowHidden)
-                    }
-                }
-            }
-        } else {
-            PropertiesDialog(activity, getSelectedPaths().filter {
-                it != FAVORITES && it != RECYCLE_BIN && !activity.config.isFolderProtected(it)
-            }.toMutableList(), config.shouldShowHidden)
         }
     }
 
