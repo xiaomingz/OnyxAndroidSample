@@ -9,20 +9,22 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:onClick="onBlackClick"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/view_action_bar_title_margin"
         android:paddingRight="@dimen/view_action_bar_title_margin">
 
         <ImageView
+            android:onClick="onBlackClick"
             android:id="@+id/ivNavigation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:src="@drawable/ic_black" />
 
         <TextView
+            android:ellipsize = "middle"
+            android:singleLine="true"
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/title_width"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_title_tv_margin"
             android:text=""
