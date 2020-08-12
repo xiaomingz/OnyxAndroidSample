@@ -20,7 +20,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import com.alexvasilkov.gestures.GestureController
 import com.alexvasilkov.gestures.State
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
@@ -35,25 +34,26 @@ import com.bumptech.glide.request.target.Target
 import com.davemorrissey.labs.subscaleview.DecoderFactory
 import com.davemorrissey.labs.subscaleview.ImageDecoder
 import com.davemorrissey.labs.subscaleview.ImageRegionDecoder
-import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.onyx.android.sdk.api.device.epd.EpdController
 import com.onyx.android.sdk.api.device.epd.UpdateMode
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.App
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.onyx.gallery.R
 import com.onyx.gallery.activities.PanoramaPhotoActivity
 import com.onyx.gallery.activities.PhotoActivity
 import com.onyx.gallery.adapters.PortraitPhotosAdapter
 import com.onyx.gallery.event.ui.ApplyFastModeEvent
-import com.onyx.gallery.extensions.*
+import com.onyx.gallery.extensions.config
+import com.onyx.gallery.extensions.saveRotatedImageToFile
+import com.onyx.gallery.extensions.sendFakeClick
 import com.onyx.gallery.helpers.*
 import com.onyx.gallery.models.Medium
 import com.onyx.gallery.svg.SvgSoftwareLayerSetter
 import com.onyx.gallery.views.zoom.OnyxGestureController
 import com.onyx.gallery.views.zoom.subsampScale.OnyxSubsamplingScaleImageView
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import it.sephiroth.android.library.exif2.ExifInterface
@@ -381,7 +381,7 @@ class PhotoFragment : ViewPagerFragment() {
         if (mMedium.isPortrait() && context != null) {
             showPortraitStripe()
         }
-
+        photoType = PhotoType.IMAGE
         mImageOrientation = getImageOrientation()
         when {
             mMedium.isGIF() -> loadGif()
@@ -404,6 +404,7 @@ class PhotoFragment : ViewPagerFragment() {
                 gif_view.setInputSource(source)
                 gif_view_frame.beVisible()
             }
+            photoType = PhotoType.GIF
         } catch (e: Exception) {
             loadBitmap()
         } catch (e: OutOfMemoryError) {
@@ -412,6 +413,7 @@ class PhotoFragment : ViewPagerFragment() {
     }
 
     private fun loadSVG() {
+        photoType = PhotoType.SVG
         Glide.with(context!!)
                 .`as`(PictureDrawable::class.java)
                 .listener(SvgSoftwareLayerSetter())

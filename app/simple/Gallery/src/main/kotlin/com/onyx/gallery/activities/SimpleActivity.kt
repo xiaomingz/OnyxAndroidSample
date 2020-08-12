@@ -124,6 +124,11 @@ open class SimpleActivity : BaseSimpleActivity() {
         arrayOf(ivProperties, ivShare).forEach { it.beVisibleIf(true) }
     }
 
+    fun showGIFBrowseMenu() {
+        hideAllMenu()
+        arrayOf(ivProperties, ivShare).forEach { it.beVisibleIf(true) }
+    }
+
     fun showImageEditMenu() {
         hideAllMenu()
         arrayOf(ivUndo, ivRedo, ivSave).forEach { it.beVisibleIf(true) }

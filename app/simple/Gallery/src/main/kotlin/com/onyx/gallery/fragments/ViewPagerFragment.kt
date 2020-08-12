@@ -10,6 +10,9 @@ import com.onyx.gallery.helpers.*
 import com.onyx.gallery.models.Medium
 import java.io.File
 
+enum class PhotoType {
+    IMAGE, GIF, SVG, VIDEO
+}
 abstract class ViewPagerFragment : Fragment() {
     var listener: FragmentListener? = null
 
@@ -18,6 +21,7 @@ abstract class ViewPagerFragment : Fragment() {
     private var mTouchDownY = 0f
     private var mCloseDownThreshold = 100f
     private var mIgnoreCloseDown = false
+    var photoType = PhotoType.IMAGE
 
     abstract fun fullscreenToggled(isFullscreen: Boolean)
 

@@ -40,6 +40,7 @@ import com.onyx.gallery.asynctasks.GetMediaAsynctask
 import com.onyx.gallery.dialogs.*
 import com.onyx.gallery.extensions.*
 import com.onyx.gallery.fragments.PhotoFragment
+import com.onyx.gallery.fragments.PhotoType
 import com.onyx.gallery.fragments.VideoFragment
 import com.onyx.gallery.fragments.ViewPagerFragment
 import com.onyx.gallery.helpers.*
@@ -965,11 +966,12 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
     }
 
     private fun updateMenu() {
-        val medium = mMediaFiles[view_pager.currentItem]
-        if(medium.isVideo()){
-            showVideoBrowseMenu()
-        }else{
-            showImageBrowseMenu()
+        getCurrentFragment()?.run {
+            when (photoType) {
+                PhotoType.VIDEO -> showVideoBrowseMenu()
+                PhotoType.GIF -> showGIFBrowseMenu()
+                else -> showImageBrowseMenu()
+            }
         }
     }
 
