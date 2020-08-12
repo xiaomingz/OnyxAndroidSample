@@ -72,5 +72,14 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouch
         insertTextHandler.selectionRect = event.bundle.selectionRect
     }
 
+    override fun undo() {
+        super.undo()
+        insertTextHandler.clear()
+    }
+
+    override fun redo() {
+        super.redo()
+        insertTextHandler.clear()
+    }
 
 }

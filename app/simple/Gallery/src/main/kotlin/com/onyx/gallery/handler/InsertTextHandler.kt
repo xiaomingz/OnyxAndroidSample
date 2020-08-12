@@ -326,6 +326,7 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     fun clear() {
         lastPoint = null
         cursorShape = null
+        selectionRect = null
         hideSoftInput()
         clearTextShape()
         editTextView?.setText("")

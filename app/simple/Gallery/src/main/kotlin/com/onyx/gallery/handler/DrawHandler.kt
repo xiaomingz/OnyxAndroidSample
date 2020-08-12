@@ -279,6 +279,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
                 Rect(orgLimitRect),
                 Rect(currLimitRect),
                 RectF(globalEditBundle.cropHandler.cropBoxRect),
+                globalEditBundle.cropHandler.currAngle,
                 imageShape
         )
         addCropSnapshot(cropSnapshot)
@@ -304,6 +305,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
             globalEditBundle.initScaleFactor = initScaleFactor
             updateImageShape(imageShape)
             updateLimitRect(orgLimitRect)
+            globalEditBundle.cropHandler.currAngle = rotateAngle
             val restoreMosaicBitmap = readerHandler.restoreMosaicBitmap(imageShape)
             val matrix = globalEditBundle.getInitMatrix()
             val matrixValues = matrix.values()
