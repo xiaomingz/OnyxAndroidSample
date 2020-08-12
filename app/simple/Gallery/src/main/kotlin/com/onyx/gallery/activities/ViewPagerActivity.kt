@@ -83,7 +83,6 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_medium)
-        showImageBrowseMenu()
         top_shadow.layoutParams.height = statusBarHeight + actionBarHeight
         (MediaActivity.mMedia.clone() as ArrayList<ThumbnailItem>).filter { it is Medium }.mapTo(mMediaFiles) { it as Medium }
 
@@ -966,11 +965,13 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
     }
 
     private fun updateMenu() {
-        getCurrentFragment()?.run {
-            when (photoType) {
-                PhotoType.VIDEO -> showVideoBrowseMenu()
-                PhotoType.GIF -> showGIFBrowseMenu()
-                else -> showImageBrowseMenu()
+        getCurrentMedium()?.run {
+            if (isGIF()) {
+                showGIFBrowseMenu()
+            } else if (isVideo()) {
+                showVideoBrowseMenu()
+            } else {
+                showImageBrowseMenu()
             }
         }
     }

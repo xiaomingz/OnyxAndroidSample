@@ -95,6 +95,11 @@ open class SimpleActivity : BaseSimpleActivity() {
         }
     }
 
+    fun showImageEditMenu() {
+        hideAllMenu()
+        arrayOf(ivUndo, ivRedo, ivSave).forEach { it.beVisibleIf(true) }
+    }
+
     fun showCropMenu(isShowCropMenu: Boolean) {
         ivSave.beVisibleIf(!isShowCropMenu)
         ivOk.beVisibleIf(isShowCropMenu)
@@ -110,28 +115,28 @@ open class SimpleActivity : BaseSimpleActivity() {
         arrayOf(ivEdit, ivProperties, ivShare, ivDelete).forEach { it.beVisibleIf(true) }
     }
 
-    fun showPhotoVideoBrowseMenu() {
+    fun showGIFBrowseMenu() {
         hideAllMenu()
-        arrayOf(ivEdit, ivProperties, ivShare).forEach { it.beVisibleIf(true) }
-    }
-
-    fun showExternalVideoBrowseMenu() {
-        hideAllMenu()
+        arrayOf(ivProperties, ivShare, ivDelete).forEach { it.beVisibleIf(true) }
     }
 
     fun showVideoBrowseMenu() {
         hideAllMenu()
-        arrayOf(ivProperties, ivShare).forEach { it.beVisibleIf(true) }
+        arrayOf(ivProperties, ivShare, ivDelete).forEach { it.beVisibleIf(true) }
     }
 
-    fun showGIFBrowseMenu() {
+    fun showExternalImageBrowseMenu() {
+        hideAllMenu()
+        arrayOf(ivEdit, ivProperties, ivShare).forEach { it.beVisibleIf(true) }
+    }
+
+    fun showExternalGIFBrowseMenu() {
         hideAllMenu()
         arrayOf(ivProperties, ivShare).forEach { it.beVisibleIf(true) }
     }
 
-    fun showImageEditMenu() {
+    fun showExternalVideoBrowseMenu() {
         hideAllMenu()
-        arrayOf(ivUndo, ivRedo, ivSave).forEach { it.beVisibleIf(true) }
     }
 
     fun hideAllMenu() {
