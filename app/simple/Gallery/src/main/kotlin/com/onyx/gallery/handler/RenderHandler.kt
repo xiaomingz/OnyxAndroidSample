@@ -140,9 +140,13 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         EpdController.setViewDefaultUpdateMode(surfaceView, UpdateMode.HAND_WRITING_REPAINT_MODE)
         val canvas = surfaceView.holder.lockCanvas(renderRect) ?: return
         try {
+            if (!limitRect.isEmpty) {
+                canvas.clipRect(limitRect)
+            }
             canvas.clipRect(renderRect)
             RendererUtils.renderBackground(surfaceView.context, canvas, renderContext, viewRect)
             canvas.drawBitmap(renderContext.getBitmap(), 0f, 0f, null)
+            drawLimitRect(canvas)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         } finally {
