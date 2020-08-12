@@ -84,6 +84,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
                 setRawDrawingEnabled(false)
                 setLimitRect(listOf(currLimitRect))
                 setRawDrawingEnabled(rawDrawingEnabled)
+                readerHandler.limitRect.set(currLimitRect)
             }
         }
     }
@@ -269,19 +270,15 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         shape.strokeWidth *= scaleFactor
     }
 
-    fun updateSaveCropSnapshotIndex() {
-        undoRedoHander.updateSaveCropSnapshotIndex()
-    }
-
     fun makeCropSnapshot(path: String, imageShape: ImageShapeExpand) {
         val cropSnapshot = CropSnapshot(
                 globalEditBundle.initDx,
                 globalEditBundle.initDy,
                 globalEditBundle.initScaleFactor,
                 path,
-                orgLimitRect,
-                currLimitRect,
-                globalEditBundle.cropHandler.cropBoxRect,
+                Rect(orgLimitRect),
+                Rect(currLimitRect),
+                RectF(globalEditBundle.cropHandler.cropBoxRect),
                 imageShape
         )
         addCropSnapshot(cropSnapshot)
@@ -301,7 +298,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     fun restoreCropSnapshot(cropSnapshot: CropSnapshot) {
         clearHandwritingData()
         cropSnapshot.run {
-            globalEditBundle.filePath = imagePath
+            globalEditBundle.imagePath = imagePath
             globalEditBundle.initDx = initDx
             globalEditBundle.initDy = initDy
             globalEditBundle.initScaleFactor = initScaleFactor
@@ -336,7 +333,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun hasModify(): Boolean {
-        return !getHandwritingShape().isEmpty()
+        return !getHandwritingShape().isEmpty() || undoRedoHander.hasCropModify()
     }
 
 }

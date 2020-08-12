@@ -16,6 +16,7 @@ abstract class BaseRequest : RxRequest() {
     protected val globalEditBundle = GlobalEditBundle.instance
     val drawHandler = globalEditBundle.drawHandler
     val cropHandler = globalEditBundle.cropHandler
+    val insertTextHandler = globalEditBundle.insertTextHandler
     val undoRedoHandler = globalEditBundle.undoRedoHandler
 
     @Volatile

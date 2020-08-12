@@ -13,7 +13,6 @@ class UndoRedoHandler {
     private val shapeOperationHandler = OperationHandler<Shape>()
     private val cropSnapshotList = mutableListOf<CropSnapshot>()
     private var currCropSnapshotIndex = -1
-    private var saveCropSnapshotIndex = -1
 
     fun addShape(shape: Shape) {
         shapeOperationHandler.add(shape)
@@ -68,7 +67,7 @@ class UndoRedoHandler {
 
     fun cleardCropSnapshot() {
         cropSnapshotList.forEachIndexed { index, cropSnapshot ->
-            if (index != 0 && index != saveCropSnapshotIndex) {
+            if (index != 0) {
                 FileUtils.deleteFile(cropSnapshot.imagePath)
             }
         }
@@ -86,8 +85,8 @@ class UndoRedoHandler {
         return cropSnapshotList[currCropSnapshotIndex]
     }
 
-    fun updateSaveCropSnapshotIndex() {
-        saveCropSnapshotIndex = currCropSnapshotIndex
+    fun hasCropModify(): Boolean {
+        return cropSnapshotList.size > 1 && currCropSnapshotIndex > 0
     }
 }
 
