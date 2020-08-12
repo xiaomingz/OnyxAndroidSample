@@ -17,6 +17,7 @@ data class CropSnapshot(
         val orgLimitRect: Rect,
         val limitRect: Rect,
         val cropRect: RectF,
+        val rotateAngle: Float,
         val imageShape: ImageShapeExpand,
         val handwritingShape: MutableList<Shape> = mutableListOf()
 )
