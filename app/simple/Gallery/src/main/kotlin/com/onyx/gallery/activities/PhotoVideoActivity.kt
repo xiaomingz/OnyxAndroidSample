@@ -44,7 +44,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_holder)
-        showExternalVideoBrowseMenu()
         if (checkAppSideloading()) {
             return
         }
@@ -156,6 +155,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
 
         mIsVideo = type == TYPE_VIDEOS
         mMedium = Medium(null, filename, mUri.toString(), mUri!!.path!!.getParentPath(), 0, 0, file.length(), type, 0, false, 0L)
+        updateMenu()
         tvTitle.setText(mMedium!!.name)
         initFavorites(mMedium!!)
         bundle.putSerializable(MEDIUM, mMedium)
@@ -177,6 +177,17 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
             window.attributes = attributes
         }
         initBottomActions()
+    }
+
+    private fun updateMenu() {
+        val medium = mMedium ?: return
+        if (mIsVideo) {
+            showExternalVideoBrowseMenu()
+        } else if (medium.isGIF()) {
+            showExternalGIFBrowseMenu()
+        } else {
+            showExternalImageBrowseMenu()
+        }
     }
 
     private fun initFavorites(medium: Medium) {
