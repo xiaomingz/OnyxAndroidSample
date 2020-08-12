@@ -90,6 +90,7 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, S
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mMedium = arguments!!.getSerializable(MEDIUM) as Medium
         mConfig = context!!.config
+        photoType = PhotoType.VIDEO
         mView = inflater.inflate(R.layout.pager_video_item, container, false).apply {
             panorama_outline.setOnClickListener { openPanorama() }
             video_curr_time.setOnClickListener { skip(false) }
