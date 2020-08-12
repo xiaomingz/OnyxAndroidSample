@@ -24,7 +24,7 @@ class PropertiesDialog(activity: AppCompatActivity, path: String) : BaseDialog<D
     init {
         val fileDirItem = FileDirItem(path, path.getFilenameFromPath(), activity.getIsPathDirectory(path))
         viewModel.name.value = fileDirItem.name
-        viewModel.path.value = fileDirItem.getParentPath()
+        viewModel.path.value = fileDirItem.getParentPath().replace("emulated/0/", "")
         viewModel.size.value = fileDirItem.getProperSize(activity, false).formatSize()
         fileDirItem.getResolution(activity)?.let {
             viewModel.resolution.value = it.formatAsResolution()
