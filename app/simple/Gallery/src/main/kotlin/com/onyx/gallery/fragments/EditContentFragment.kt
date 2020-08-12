@@ -27,7 +27,6 @@ import com.onyx.gallery.extensions.hideSoftInput
 import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.helpers.PATH_URI
 import com.onyx.gallery.request.AttachNoteViewRequest
-import com.onyx.gallery.request.PartialRefreshRequest
 import com.onyx.gallery.request.RendererToScreenRequest
 import com.onyx.gallery.touch.ScribbleTouchDistributor
 import com.onyx.gallery.viewmodel.EditContentViewModel
@@ -133,7 +132,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     private fun loadImage() {
         binding.surfaceView.run {
             val rect = Rect(left, top, width, height)
-            viewModel.loadImageToHostView(globalEditBundle.filePath, rect)
+            viewModel.loadImageToHostView(globalEditBundle.imagePath, rect)
         }
     }
 

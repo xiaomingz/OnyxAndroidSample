@@ -26,7 +26,7 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
     }
 
     fun onBackPressed() {
-        globalEditBundle?.filePath?.let {
+        globalEditBundle?.imagePath?.let {
             SaveEditPictureAction(hostActivity, it, {
                 hostActivity.finish()
             }).execute(null)
@@ -34,11 +34,11 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
     }
 
     private fun saveTransform() {
-        globalEditBundle.filePath?.let { SaveCropTransformAction(it).execute(null) }
+        globalEditBundle.imagePath?.let { SaveCropTransformAction(it).execute(null) }
     }
 
     private fun saveEdit() {
-        globalEditBundle.filePath?.let {
+        globalEditBundle.imagePath?.let {
             SaveEditPictureAction(hostActivity, it, {
                 globalEditBundle.eventBus.post(UpdateTouchHandlerEvent())
             }).execute(null)

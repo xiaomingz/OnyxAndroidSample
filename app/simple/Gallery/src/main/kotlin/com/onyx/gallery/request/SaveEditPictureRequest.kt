@@ -14,13 +14,17 @@ import java.io.File
 class SaveEditPictureRequest(private var filePath: String, private val isSaveAs: Boolean) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
+        if (insertTextHandler.hasModify()) {
+            insertTextHandler.textShape?.let { drawHandler.addShape(it) }
+        }
         val imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
         if (isSaveAs) {
-            filePath = File(FileUtils.getParent(globalEditBundle.filePath), "save_${DateTimeUtil.getCurrentTime()}.png").absolutePath
-            globalEditBundle.filePath = filePath
+            filePath = File(FileUtils.getParent(globalEditBundle.imagePath), "save_${DateTimeUtil.getCurrentTime()}.png").absolutePath
+            globalEditBundle.imagePath = filePath
+        } else {
+            filePath = globalEditBundle.orgImagePath
         }
         BitmapUtils.saveBitmapToFile(context, filePath, imageBitmap)
-        drawHandler.updateSaveCropSnapshotIndex()
         imageBitmap.recycle()
     }
 

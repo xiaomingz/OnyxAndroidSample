@@ -29,20 +29,20 @@ class SaveCropTransformRequest : BaseRequest() {
         }
         drawHandler.saveHandwritingDataToCropSnapshot()
 
-        val filePath = globalEditBundle.filePath
+        val filePath = globalEditBundle.imagePath
         val cropBitmap = cropImage(filePath, cropRect)
 
         val imageSize = Size(cropBitmap.width, cropBitmap.height)
         globalEditBundle.initScaleFactor = globalEditBundle.scaleToContainer(imageSize)
 
-        val newPath = File(FileUtils.getParent(globalEditBundle.filePath), "crop_${DateTimeUtil.getCurrentTime()}.png").absolutePath
+        val newPath = File(FileUtils.getParent(globalEditBundle.imagePath), "crop_${DateTimeUtil.getCurrentTime()}.png").absolutePath
         val newImageShape = createImageShape(newPath, imageSize, cropBitmap)
         drawHandler.updateImageShape(newImageShape)
         updateLimitRect(imageSize, newImageShape.downPoint)
 
         BitmapUtils.saveBitmapToFile(context, newPath, cropBitmap)
         drawHandler.makeCropSnapshot(newPath, newImageShape)
-        globalEditBundle.filePath = newPath
+        globalEditBundle.imagePath = newPath
 
         cropBitmap.recycle()
         cropHandler.resetCropState()

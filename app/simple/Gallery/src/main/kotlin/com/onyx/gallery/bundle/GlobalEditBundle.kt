@@ -2,11 +2,9 @@ package com.onyx.gallery.bundle
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.graphics.Matrix
 import android.graphics.PointF
 import android.net.Uri
-import android.provider.MediaStore
 import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.rx.RxManager
@@ -34,9 +32,8 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     var canFingerTouch = true
     var supportZoom = true
     var uri: Uri? = null
-    lateinit var orgPath: String
-    lateinit var filePath: String
-    private var saveUri: Uri? = null
+    lateinit var orgImagePath: String
+    lateinit var imagePath: String
 
     var initDx = 0f
     var initDy = 0f
@@ -59,8 +56,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
 
     fun parseIntent(host: Activity) {
         uri = parseImageUri(host)
-        saveUri = parseSaveUri(host.intent)
-        orgPath = filePath
+        orgImagePath = imagePath
         receiver.systemUIChangeListener = SystemUIChangeReceiver()
         receiver.enable(App.instance, true)
     }
@@ -77,23 +73,18 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
         }
         var uri = intent.data!!
         if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
-            filePath = intent.extras!!.getString(REAL_FILE_PATH)
+            imagePath = intent.extras!!.getString(REAL_FILE_PATH)
             uri = when {
-                host.isPathOnOTG(filePath) -> uri
-                filePath.startsWith("file:/") -> Uri.parse(filePath)
-                else -> Uri.fromFile(File(filePath))
+                host.isPathOnOTG(imagePath) -> uri
+                imagePath.startsWith("file:/") -> Uri.parse(imagePath)
+                else -> Uri.fromFile(File(imagePath))
             }
         } else {
-            filePath = host.getRealPathFromURI(uri).apply {
+            imagePath = host.getRealPathFromURI(uri).apply {
                 uri = Uri.fromFile(File(this))
             }
         }
         return uri
-    }
-
-    private fun parseSaveUri(intent: Intent): Uri? = when {
-        intent.extras?.containsKey(MediaStore.EXTRA_OUTPUT) == true -> intent.extras!!.get(MediaStore.EXTRA_OUTPUT) as Uri
-        else -> uri!!
     }
 
     fun <T : RxRequest?> enqueue(request: T, callback: RxCallback<T>?) {

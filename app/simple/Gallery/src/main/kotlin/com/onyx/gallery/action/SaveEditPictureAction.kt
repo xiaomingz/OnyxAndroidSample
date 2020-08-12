@@ -25,7 +25,7 @@ class SaveEditPictureAction(private val hostActivity: AppCompatActivity, private
     }
 
     private fun hasModify(): Boolean {
-        return drawHandler.hasModify() || globalEditBundle.cropHandler.hasModify()
+        return drawHandler.hasModify() || globalEditBundle.cropHandler.hasModify() || globalEditBundle.insertTextHandler.hasModify()
     }
 
     private fun saveImage(isSaveAs: Boolean, rxCallback: RxCallback<RxRequest>?) {
