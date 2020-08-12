@@ -6,12 +6,14 @@ import com.onyx.android.sdk.utils.DateTimeUtil
 import com.onyx.android.sdk.utils.DateTimeUtil.DATE_FORMAT_YYYYMMDD_HHMMSS
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.DialogPropertiesBinding
+import com.onyx.gallery.utils.FormatRootFilePathUtils
 import com.onyx.gallery.viewmodel.BaseViewModel
 import com.simplemobiletools.commons.extensions.formatAsResolution
 import com.simplemobiletools.commons.extensions.formatSize
 import com.simplemobiletools.commons.extensions.getFilenameFromPath
 import com.simplemobiletools.commons.extensions.getIsPathDirectory
 import com.simplemobiletools.commons.models.FileDirItem
+import java.io.File
 import java.util.*
 
 /**
@@ -24,7 +26,7 @@ class PropertiesDialog(activity: AppCompatActivity, path: String) : BaseDialog<D
     init {
         val fileDirItem = FileDirItem(path, path.getFilenameFromPath(), activity.getIsPathDirectory(path))
         viewModel.name.value = fileDirItem.name
-        viewModel.path.value = fileDirItem.getParentPath()
+        viewModel.path.value = FormatRootFilePathUtils.formatPath(File(path), activity)
         viewModel.size.value = fileDirItem.getProperSize(activity, false).formatSize()
         fileDirItem.getResolution(activity)?.let {
             viewModel.resolution.value = it.formatAsResolution()
