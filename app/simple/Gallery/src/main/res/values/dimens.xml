@@ -152,4 +152,6 @@
     <dimen name="more_pop_offset_y">33px</dimen>
     <dimen name="ic_circular_size">52dp</dimen>
     <dimen name="title_width">460dp</dimen>
+    <dimen name="photo_video_item_list_play_margin">33dp</dimen>
+    <dimen name="photo_video_item_list_time_margin">38dp</dimen>
 </resources>
