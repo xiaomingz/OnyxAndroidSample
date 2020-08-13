@@ -15,7 +15,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -35,15 +34,10 @@ import com.bumptech.glide.request.target.Target
 import com.davemorrissey.labs.subscaleview.DecoderFactory
 import com.davemorrissey.labs.subscaleview.ImageDecoder
 import com.davemorrissey.labs.subscaleview.ImageRegionDecoder
-import com.onyx.android.sdk.api.device.epd.EpdController
-import com.onyx.android.sdk.api.device.epd.UpdateMode
-import com.onyx.android.sdk.utils.EventBusUtils
-import com.onyx.gallery.App
 import com.onyx.gallery.R
 import com.onyx.gallery.activities.PanoramaPhotoActivity
 import com.onyx.gallery.activities.PhotoActivity
 import com.onyx.gallery.adapters.PortraitPhotosAdapter
-import com.onyx.gallery.event.ui.ApplyFastModeEvent
 import com.onyx.gallery.extensions.config
 import com.onyx.gallery.extensions.saveRotatedImageToFile
 import com.onyx.gallery.extensions.sendFakeClick
@@ -61,8 +55,6 @@ import it.sephiroth.android.library.exif2.ExifInterface
 import kotlinx.android.synthetic.main.pager_photo_item.view.*
 import org.apache.sanselan.common.byteSources.ByteSourceInputStream
 import org.apache.sanselan.formats.jpeg.JpegImageParser
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import pl.droidsonroids.gif.InputSource
 import java.io.File
 import java.io.FileOutputStream
