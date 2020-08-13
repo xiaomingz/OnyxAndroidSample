@@ -3,8 +3,11 @@ package com.onyx.gallery.request;
 import com.onyx.android.sdk.data.FontInfo;
 import com.onyx.android.sdk.utils.DeviceUtils;
 import com.onyx.android.sdk.utils.FileUtils;
+import com.onyx.android.sdk.utils.StringUtils;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,6 +81,27 @@ public class GetFontsRequest extends BaseRequest {
 
     public boolean isOnyxSystemFontExist() {
         return onyxSystemFontExist;
+    }
+
+    public FontInfo getDetDefaultFont() {
+        FontInfo fontInfo = getDetDefaultFontByList(chineseFontList);
+        if (fontInfo == null) {
+            fontInfo = getDetDefaultFontByList(customizeFontList);
+        }
+        if (fontInfo == null) {
+            fontInfo = getDetDefaultFontByList(englishFontList);
+        }
+        return fontInfo;
+    }
+
+    @Nullable
+    private FontInfo getDetDefaultFontByList(List<FontInfo> fontList) {
+        for (FontInfo fontInfo : fontList) {
+            if (StringUtils.isEquals(DeviceUtils.ONYX_SYSTEM_DEFAULT_SYSTEM_FONT_ID, fontInfo.getId())) {
+                return fontInfo;
+            }
+        }
+        return null;
     }
 
 }
