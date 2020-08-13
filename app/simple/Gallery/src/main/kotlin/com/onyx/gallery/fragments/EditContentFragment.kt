@@ -41,6 +41,7 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContentViewModel>() {
     private var inFastMode = false
+    private var isAttachHostView = false
     private var uri: Uri? = null
     private val surfaceCallback: SurfaceHolder.Callback by lazy { initSurfaceCallback() }
 
@@ -105,6 +106,9 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     private fun initSurfaceCallback(): SurfaceHolder.Callback = object : SurfaceHolder.Callback {
         override fun surfaceCreated(holder: SurfaceHolder) {
             Debug.d(javaClass, "surfaceCreated")
+            if (isAttachHostView) {
+                return
+            }
             attachHostView()
         }
 
@@ -113,7 +117,9 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
             onScribbleLayoutChange()
         }
 
-        override fun surfaceDestroyed(holder: SurfaceHolder) {}
+        override fun surfaceDestroyed(holder: SurfaceHolder) {
+            Debug.d(javaClass, "surfaceDestroyed")
+        }
     }
 
     private fun attachHostView() {
@@ -121,6 +127,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         globalEditBundle.enqueue(request, object : RxCallback<AttachNoteViewRequest>() {
             override fun onNext(startScribbleRequest: AttachNoteViewRequest) {
                 loadImage()
+                isAttachHostView = true
             }
         })
     }
