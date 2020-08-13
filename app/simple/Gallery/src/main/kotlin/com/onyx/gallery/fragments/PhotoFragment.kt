@@ -34,15 +34,10 @@ import com.bumptech.glide.request.target.Target
 import com.davemorrissey.labs.subscaleview.DecoderFactory
 import com.davemorrissey.labs.subscaleview.ImageDecoder
 import com.davemorrissey.labs.subscaleview.ImageRegionDecoder
-import com.onyx.android.sdk.api.device.epd.EpdController
-import com.onyx.android.sdk.api.device.epd.UpdateMode
-import com.onyx.android.sdk.utils.EventBusUtils
-import com.onyx.gallery.App
 import com.onyx.gallery.R
 import com.onyx.gallery.activities.PanoramaPhotoActivity
 import com.onyx.gallery.activities.PhotoActivity
 import com.onyx.gallery.adapters.PortraitPhotosAdapter
-import com.onyx.gallery.event.ui.ApplyFastModeEvent
 import com.onyx.gallery.extensions.config
 import com.onyx.gallery.extensions.saveRotatedImageToFile
 import com.onyx.gallery.extensions.sendFakeClick
@@ -60,8 +55,6 @@ import it.sephiroth.android.library.exif2.ExifInterface
 import kotlinx.android.synthetic.main.pager_photo_item.view.*
 import org.apache.sanselan.common.byteSources.ByteSourceInputStream
 import org.apache.sanselan.formats.jpeg.JpegImageParser
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import pl.droidsonroids.gif.InputSource
 import java.io.File
 import java.io.FileOutputStream
@@ -69,9 +62,6 @@ import java.util.*
 import kotlin.math.ceil
 
 class PhotoFragment : ViewPagerFragment() {
-    private var inFastMode = false
-    private val TAG = this::class.java.simpleName
-
     private val DEFAULT_DOUBLE_TAP_ZOOM = 2f
     private val ZOOMABLE_VIEW_LOAD_DELAY = 100L
     private val SAME_ASPECT_RATIO_THRESHOLD = 0.01
@@ -110,7 +100,6 @@ class PhotoFragment : ViewPagerFragment() {
         if (!arguments!!.getBoolean(SHOULD_INIT_FRAGMENT, true)) {
             return mView
         }
-        EventBusUtils.ensureRegister(App.eventBus, this)
         mMedium = arguments!!.getSerializable(MEDIUM) as Medium
         mOriginalPath = mMedium.path
 
@@ -211,17 +200,6 @@ class PhotoFragment : ViewPagerFragment() {
         return mView
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onApplyFastModeEvent(event: ApplyFastModeEvent) {
-        if (event.enable && !inFastMode) {
-            EpdController.applyApplicationFastMode(TAG, true, false, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
-            inFastMode = true
-        }
-        if (!event.enable && inFastMode) {
-            EpdController.applyApplicationFastMode(TAG, false, true, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
-            inFastMode = false
-        }
-    }
 
     override fun onPause() {
         super.onPause()
@@ -257,18 +235,8 @@ class PhotoFragment : ViewPagerFragment() {
         storeStateVariables()
     }
 
-    private fun ensureQuitFastMode() {
-        if (!inFastMode) {
-            return
-        }
-        EpdController.applyApplicationFastMode(TAG, false, true)
-        inFastMode = false
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        EventBusUtils.ensureUnregister(App.eventBus, this)
-        ensureQuitFastMode()
         if (activity?.isDestroyed == false) {
             mView.subsampling_view.recycle()
 

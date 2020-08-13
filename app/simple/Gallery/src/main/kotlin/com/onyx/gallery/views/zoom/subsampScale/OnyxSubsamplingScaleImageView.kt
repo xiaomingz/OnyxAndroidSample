@@ -663,7 +663,6 @@ class OnyxSubsamplingScaleImageView @JvmOverloads constructor(context: Context, 
             refreshRequiredTiles(finished)
             finished = true
             if (finished) {
-                App.eventBus.post(ApplyFastModeEvent(false))
                 anim = null
                 val degrees = Math.round(Math.toDegrees(imageRotation.toDouble())).toInt()
                 if (degrees != prevDegrees) {

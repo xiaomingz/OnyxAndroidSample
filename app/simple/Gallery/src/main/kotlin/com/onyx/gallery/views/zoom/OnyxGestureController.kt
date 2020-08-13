@@ -305,6 +305,10 @@ class OnyxGestureController(private val targetView: View) : View.OnTouchListener
     }
 
     private fun onUpOrCancel(event: MotionEvent) {
+        if (isScrollDetected) {
+            App.eventBus.post(ApplyFastModeEvent(false))
+        }
+
         isScrollDetected = false
         isScaleDetected = false
         isRotationDetected = false
@@ -340,6 +344,7 @@ class OnyxGestureController(private val targetView: View) : View.OnTouchListener
             isScrollDetected = Math.abs(e2.x - e1.x) > touchSlop || Math.abs(e2.y - e1.y) > touchSlop
 
             if (isScrollDetected) {
+                App.eventBus.post(ApplyFastModeEvent(true))
                 return false
             }
         }

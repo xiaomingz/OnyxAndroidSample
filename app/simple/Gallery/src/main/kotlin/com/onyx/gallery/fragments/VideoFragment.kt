@@ -23,30 +23,26 @@ import com.google.android.exoplayer2.upstream.ContentDataSource
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DataSpec
 import com.google.android.exoplayer2.upstream.FileDataSource
-import com.onyx.android.sdk.api.device.epd.EpdController
-import com.onyx.android.sdk.api.device.epd.UpdateMode
-import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.App
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.onyx.gallery.R
 import com.onyx.gallery.activities.PanoramaVideoActivity
 import com.onyx.gallery.activities.VideoActivity
 import com.onyx.gallery.event.ui.ApplyFastModeEvent
-import com.onyx.gallery.extensions.*
+import com.onyx.gallery.extensions.config
+import com.onyx.gallery.extensions.getVideoDuration
+import com.onyx.gallery.extensions.hasNavBar
+import com.onyx.gallery.extensions.parseFileChannel
 import com.onyx.gallery.helpers.*
 import com.onyx.gallery.models.Medium
 import com.onyx.gallery.views.MediaSideScroll
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import kotlinx.android.synthetic.main.bottom_video_time_holder.view.*
 import kotlinx.android.synthetic.main.pager_video_item.view.*
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 import java.io.FileInputStream
 
 class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, SeekBar.OnSeekBarChangeListener {
-    private var inFastMode = false
-    private val TAG = this::class.java.simpleName
 
     private val PROGRESS = "progress"
 
@@ -169,7 +165,6 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, S
         if (!arguments!!.getBoolean(SHOULD_INIT_FRAGMENT, true)) {
             return mView
         }
-        EventBusUtils.ensureRegister(App.eventBus, this)
         storeStateVariables()
         Glide.with(context!!).load(mMedium.path).into(mView.video_preview)
 
@@ -266,32 +261,6 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, S
         pauseVideo()
         if (mStoredRememberLastVideoPosition && mIsFragmentVisible && mWasVideoStarted) {
             saveVideoProgress()
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        EventBusUtils.ensureUnregister(App.eventBus, this)
-        ensureQuitFastMode()
-    }
-
-    private fun ensureQuitFastMode() {
-        if (!inFastMode) {
-            return
-        }
-        EpdController.applyApplicationFastMode(TAG, false, true)
-        inFastMode = false
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onApplyFastModeEvent(event: ApplyFastModeEvent) {
-        if (event.enable && !inFastMode) {
-            EpdController.applyApplicationFastMode(TAG, true, false, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
-            inFastMode = true
-        }
-        if (!mIsPlaying && !event.enable && inFastMode) {
-            EpdController.applyApplicationFastMode(TAG, false, true, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
-            inFastMode = false
         }
     }
 
