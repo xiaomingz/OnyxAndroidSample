@@ -118,6 +118,8 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
             onSingleTapUp(point)
             updateCursorShapeByTouchPoint(point)
             textShape?.let { renderInputTextShape(it) }
+        } else {
+            hideSoftInput()
         }
     }
 

@@ -167,7 +167,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFloatButtonChangedEvent(event: FloatButtonChangedEvent) {
         globalEditBundle.enqueue(RendererToScreenRequest(), null)
-        drawHandler.setRawDrawingEnabled(!event.active)
+        globalEditBundle.touchHandlerManager.activateHandler?.onFloatButtonChanged(event.active)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

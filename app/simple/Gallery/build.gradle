@@ -97,7 +97,7 @@ dependencies {
         exclude group: 'org.apache.commons.io', module: 'commonsIO'
     }
     implementation('com.onyx.android.sdk:onyxsdk-notedata:1.1.0@aar')
-    implementation('com.onyx.android.sdk:onyxsdk-data:1.1.5@aar')
+    implementation('com.onyx.android.sdk:onyxsdk-data:1.1.6@aar')
     implementation('com.aliyun.dpa:oss-android-sdk:2.3.0')
 
     annotationProcessor('com.github.Raizlabs.DBFlow:dbflow-processor:4.2.2')

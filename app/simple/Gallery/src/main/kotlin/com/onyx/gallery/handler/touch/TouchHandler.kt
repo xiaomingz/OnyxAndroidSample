@@ -25,4 +25,5 @@ interface TouchHandler {
     fun undo()
     fun redo()
     fun canRawDrawingRenderEnabled(): Boolean
+    fun onFloatButtonChanged(active: Boolean)
 }

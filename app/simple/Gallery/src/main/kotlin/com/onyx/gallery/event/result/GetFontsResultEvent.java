@@ -19,6 +19,7 @@ public class GetFontsResultEvent extends BaseResultEvent {
     private List<FontInfo> chineseFontList;
     private List<FontInfo> englishFontList;
     private List<FontInfo> customizeFontList;
+    private boolean onyxSystemFontExist;
 
     public GetFontsResultEvent() {
         super(null);
@@ -54,4 +55,14 @@ public class GetFontsResultEvent extends BaseResultEvent {
         this.customizeFontList = customizeFontList;
         return this;
     }
+
+    public GetFontsResultEvent setOnyxSystemFontExist(boolean onyxSystemFontExist) {
+        this.onyxSystemFontExist = onyxSystemFontExist;
+        return this;
+    }
+
+    public boolean isOnyxSystemFontExist() {
+        return onyxSystemFontExist;
+    }
+
 }

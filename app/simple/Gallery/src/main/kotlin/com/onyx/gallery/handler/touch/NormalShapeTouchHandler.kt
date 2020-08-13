@@ -102,4 +102,8 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
         disposable?.run { dispose() }
     }
 
+    override fun onFloatButtonChanged(active: Boolean) {
+        drawHandler.setRawDrawingEnabled(!active)
+    }
+
 }

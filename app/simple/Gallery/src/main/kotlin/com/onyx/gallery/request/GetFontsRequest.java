@@ -2,6 +2,7 @@ package com.onyx.gallery.request;
 
 import com.onyx.android.sdk.data.FontInfo;
 import com.onyx.android.sdk.utils.DeviceUtils;
+import com.onyx.android.sdk.utils.FileUtils;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 
@@ -11,12 +12,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
+import static com.onyx.android.sdk.utils.DeviceUtils.SYSTEM_FONTS_PATH;
+
 /**
  * Created by ming on 2016/11/18.
  */
 
 public class GetFontsRequest extends BaseRequest {
-
     private static HashSet<String> ignoreFonts = new HashSet<>(Arrays.asList("AndroidClock Regular",
             "AndroidClock-Large Regular",
             "Clockopia"));
@@ -26,6 +28,7 @@ public class GetFontsRequest extends BaseRequest {
     private List<FontInfo> chineseFontList;
     private List<FontInfo> englishFontList;
     private List<FontInfo> customizeFontList;
+    private boolean onyxSystemFontExist;
 
     public GetFontsRequest(String currentFont) {
         this.currentFont = currentFont;
@@ -48,6 +51,7 @@ public class GetFontsRequest extends BaseRequest {
         chineseFontList = requestFontInfoList(DeviceUtils.FontType.CHINESE);
         englishFontList = requestFontInfoList(DeviceUtils.FontType.ENGLISH);
         customizeFontList = requestCustomizeFontInfoList(DeviceUtils.FontType.CUSTOMIZE);
+        onyxSystemFontExist = FileUtils.fileExist(DeviceUtils.ONYX_SYSTEM_DEFAULT_SYSTEM_FONT_ID);
     }
 
     private List<FontInfo> requestCustomizeFontInfoList(DeviceUtils.FontType fontType) {
@@ -57,7 +61,7 @@ public class GetFontsRequest extends BaseRequest {
     }
 
     private List<FontInfo> requestFontInfoList(DeviceUtils.FontType fontType) {
-        List<FontInfo> list = DeviceUtils.buildFontItemAdapter(Collections.singletonList(DeviceUtils.SYSTEM_FONTS_PATH),
+        List<FontInfo> list = DeviceUtils.buildFontItemAdapter(Collections.singletonList(SYSTEM_FONTS_PATH),
                 currentFont, null, fontType);
         return filterIgnoreFonts(list);
     }
@@ -70,6 +74,10 @@ public class GetFontsRequest extends BaseRequest {
             }
         }
         return fontInfoList;
+    }
+
+    public boolean isOnyxSystemFontExist() {
+        return onyxSystemFontExist;
     }
 
 }
