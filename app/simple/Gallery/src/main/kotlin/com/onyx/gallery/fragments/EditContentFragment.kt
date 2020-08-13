@@ -155,11 +155,11 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onApplyFastModeEvent(event: ApplyFastModeEvent) {
         if (event.enable && !inFastMode) {
-            EpdController.applyApplicationFastMode(TAG, true, false, UpdateMode.ANIMATION_X, Int.MAX_VALUE)
+            EpdController.applyApplicationFastMode(TAG, true, false, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
             inFastMode = true
         }
         if (!event.enable && inFastMode) {
-            EpdController.applyApplicationFastMode(TAG, false, true, UpdateMode.ANIMATION_X, Int.MAX_VALUE)
+            EpdController.applyApplicationFastMode(TAG, false, true, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
             inFastMode = false
         }
     }
