@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -45,8 +46,6 @@ import java.io.File
 import java.io.FileInputStream
 
 class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, SeekBar.OnSeekBarChangeListener {
-    private var inFastMode = false
-    private val TAG = this::class.java.simpleName
 
     private val PROGRESS = "progress"
 
@@ -169,7 +168,6 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, S
         if (!arguments!!.getBoolean(SHOULD_INIT_FRAGMENT, true)) {
             return mView
         }
-        EventBusUtils.ensureRegister(App.eventBus, this)
         storeStateVariables()
         Glide.with(context!!).load(mMedium.path).into(mView.video_preview)
 
@@ -266,32 +264,6 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, S
         pauseVideo()
         if (mStoredRememberLastVideoPosition && mIsFragmentVisible && mWasVideoStarted) {
             saveVideoProgress()
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        EventBusUtils.ensureUnregister(App.eventBus, this)
-        ensureQuitFastMode()
-    }
-
-    private fun ensureQuitFastMode() {
-        if (!inFastMode) {
-            return
-        }
-        EpdController.applyApplicationFastMode(TAG, false, true)
-        inFastMode = false
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onApplyFastModeEvent(event: ApplyFastModeEvent) {
-        if (event.enable && !inFastMode) {
-            EpdController.applyApplicationFastMode(TAG, true, false, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
-            inFastMode = true
-        }
-        if (!mIsPlaying && !event.enable && inFastMode) {
-            EpdController.applyApplicationFastMode(TAG, false, true, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
-            inFastMode = false
         }
     }
 

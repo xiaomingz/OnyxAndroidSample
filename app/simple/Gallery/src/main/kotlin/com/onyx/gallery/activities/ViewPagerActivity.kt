@@ -19,6 +19,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import android.text.Html
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -32,15 +33,22 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.onyx.android.sdk.api.device.epd.EpdController
+import com.onyx.android.sdk.api.device.epd.UpdateMode
+import com.onyx.android.sdk.utils.EventBusUtils
+import com.onyx.gallery.App
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
 import com.onyx.gallery.action.ShareAction
 import com.onyx.gallery.adapters.MyPagerAdapter
 import com.onyx.gallery.asynctasks.GetMediaAsynctask
-import com.onyx.gallery.dialogs.*
+import com.onyx.gallery.dialogs.ConfirmDialog
+import com.onyx.gallery.dialogs.PropertiesDialog
+import com.onyx.gallery.dialogs.ResizeWithPathDialog
+import com.onyx.gallery.dialogs.SaveAsDialog
+import com.onyx.gallery.event.ui.ApplyFastModeEvent
 import com.onyx.gallery.extensions.*
 import com.onyx.gallery.fragments.PhotoFragment
-import com.onyx.gallery.fragments.PhotoType
 import com.onyx.gallery.fragments.VideoFragment
 import com.onyx.gallery.fragments.ViewPagerFragment
 import com.onyx.gallery.helpers.*
@@ -53,11 +61,17 @@ import com.simplemobiletools.commons.models.FileDirItem
 import kotlinx.android.synthetic.main.activity_medium.*
 import kotlinx.android.synthetic.main.bottom_actions.*
 import kotlinx.android.synthetic.main.view_action_bar.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 import java.io.OutputStream
 import java.util.*
 
 class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, ViewPagerFragment.FragmentListener {
+    @Volatile
+    private var inFastMode = false
+    private val TAG = this::class.java.simpleName
+
     private val REQUEST_VIEW_VIDEO = 1
 
     private var mPath = ""
@@ -89,6 +103,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         handlePermission(PERMISSION_WRITE_STORAGE) {
             if (it) {
                 initViewPager()
+                EventBusUtils.ensureRegister(App.eventBus, this)
             } else {
                 toast(R.string.no_storage_permissions)
                 finish()
@@ -121,6 +136,8 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
 
     override fun onDestroy() {
         super.onDestroy()
+        EventBusUtils.ensureUnregister(App.eventBus, this)
+        ensureQuitFastMode()
         if (intent.extras?.containsKey(IS_VIEW_INTENT) == true) {
             config.temporarilyShowHidden = false
         }
@@ -131,6 +148,31 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
             if (intent.extras == null || !intent.getBooleanExtra(IS_FROM_GALLERY, false)) {
                 mMediaFiles.clear()
             }
+        }
+    }
+
+    private fun ensureQuitFastMode() {
+        if (!inFastMode) {
+            return
+        }
+        EpdController.applyApplicationFastMode(TAG, false, true)
+        inFastMode = false
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onApplyFastModeEvent(event: ApplyFastModeEvent) {
+        if (event.enable and !inFastMode) {
+            EpdController.applyApplicationFastMode(TAG, true, false, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
+            inFastMode = true
+        }
+        if (!event.enable and inFastMode) {
+            getCurrentFragment()?.let { fragment ->
+                if (fragment is VideoFragment && fragment.mIsPlaying) {
+                    return
+                }
+            }
+            EpdController.applyApplicationFastMode(TAG, false, true, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
+            inFastMode = false
         }
     }
 
@@ -348,6 +390,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
                 removeOnPageChangeListener(this@ViewPagerActivity)
                 addOnPageChangeListener(this@ViewPagerActivity)
                 updateMenu()
+                updateRefreshModel()
             }
         }
     }
@@ -579,7 +622,6 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
             PropertiesDialog(this, getCurrentPath()).show(supportFragmentManager, PropertiesDialog::class.java.simpleName)
         }
     }
-
 
 
     private fun initBottomActionButtons() {
@@ -976,6 +1018,16 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         }
     }
 
+    private fun updateRefreshModel() {
+        getCurrentMedium()?.run {
+            if (isGIF()) {
+                App.eventBus.post(ApplyFastModeEvent(true))
+            } else {
+                App.eventBus.post(ApplyFastModeEvent(false))
+            }
+        }
+    }
+
     override fun launchViewVideoIntent(path: String) {
         ensureBackgroundThread {
             val newUri = getFinalUriFromPath(path, BuildConfig.APPLICATION_ID) ?: return@ensureBackgroundThread
@@ -1030,6 +1082,7 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
         if (mPos != position) {
             mPos = position
             updateMenu()
+            updateRefreshModel()
             updateActionbarTitle()
             updateFavorites()
             invalidateOptionsMenu()
