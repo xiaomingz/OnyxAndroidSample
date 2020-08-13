@@ -135,4 +135,9 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
     }
 
     override fun canRawDrawingRenderEnabled(): Boolean = true
+
+    override fun onFloatButtonChanged(active: Boolean) {
+
+    }
+
 }
