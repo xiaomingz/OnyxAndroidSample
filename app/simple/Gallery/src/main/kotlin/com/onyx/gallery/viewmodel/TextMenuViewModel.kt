@@ -3,15 +3,15 @@ package com.onyx.gallery.viewmodel
 import android.widget.SeekBar
 import androidx.lifecycle.MutableLiveData
 import com.onyx.android.sdk.data.FontInfo
+import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
-import com.onyx.android.sdk.utils.DeviceUtils
-import com.onyx.android.sdk.utils.FileUtils
 import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.event.ui.ShowFontSelectMenuEvent
 import com.onyx.gallery.handler.InsertTextHandler
 import com.onyx.gallery.models.MenuAction
+import com.onyx.gallery.request.GetFontsRequest
 
 
 /**
@@ -25,7 +25,7 @@ class TextMenuViewModel : BaseMenuViewModel() {
     var indentation = MutableLiveData(false)
     var traditional = MutableLiveData(false)
 
-    var currFont = MutableLiveData(ResManager.getString(R.string.default_font))
+    var currFont = MutableLiveData(ResManager.getString(R.string.loading))
 
     private val stepFontSize = ResManager.getAppContext().resources.getDimension(R.dimen.edit_text_shape_text_size_step).toInt()
     val maxFontSize = ResManager.getAppContext().resources.getDimension(R.dimen.edit_text_shape_text_size_max).toInt()
@@ -34,9 +34,18 @@ class TextMenuViewModel : BaseMenuViewModel() {
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
 
     init {
-        if (FileUtils.fileExist(DeviceUtils.ONYX_SYSTEM_DEFAULT_SYSTEM_FONT_ID)) {
-            currFont.value = ResManager.getString(R.string.regular)
-        }
+        globalEditBundle.enqueue(GetFontsRequest(""), object : RxCallback<GetFontsRequest>() {
+            override fun onNext(getFontsRequest: GetFontsRequest) {
+                getFontsRequest.detDefaultFont?.run {
+                    currFont.value = name
+                }
+            }
+
+            override fun onError(e: Throwable) {
+                super.onError(e)
+                currFont.value = ResManager.getString(R.string.default_font)
+            }
+        })
     }
 
     override fun updateTouchHandler() {
