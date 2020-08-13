@@ -4,6 +4,8 @@ import android.widget.SeekBar
 import androidx.lifecycle.MutableLiveData
 import com.onyx.android.sdk.data.FontInfo
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
+import com.onyx.android.sdk.utils.DeviceUtils
+import com.onyx.android.sdk.utils.FileUtils
 import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
 import com.onyx.gallery.action.shape.ShapeChangeAction
@@ -30,6 +32,12 @@ class TextMenuViewModel : BaseMenuViewModel() {
     val minFontSize = ResManager.getAppContext().resources.getDimension(R.dimen.edit_text_shape_text_size_min).toInt()
     val currFontSize = MutableLiveData(ResManager.getAppContext().resources.getDimension(R.dimen.edit_text_shape_text_size).toInt())
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
+
+    init {
+        if (FileUtils.fileExist(DeviceUtils.ONYX_SYSTEM_DEFAULT_SYSTEM_FONT_ID)) {
+            currFont.value = ResManager.getString(R.string.regular)
+        }
+    }
 
     override fun updateTouchHandler() {
         ShapeChangeAction(ShapeFactory.SHAPE_EDIT_TEXT_SHAPE).execute(null)

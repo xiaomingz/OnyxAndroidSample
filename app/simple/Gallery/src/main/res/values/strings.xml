@@ -412,6 +412,7 @@
     <string name="network_exception_retry">Current Network status is abnormal. Please try again later!</string>
     <string name="return_underline">Back</string>
     <string name="share_with_no_account_tips">Please log in to your ONYX account before share!</string>
+    <string name="regular">方正兰亭圆_GBK_准</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
