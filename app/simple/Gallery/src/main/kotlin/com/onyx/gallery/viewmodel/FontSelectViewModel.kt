@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.onyx.android.sdk.data.FontInfo
 import com.onyx.android.sdk.data.GPaginator
 import com.onyx.android.sdk.rx.RxCallback
+import com.onyx.android.sdk.utils.DeviceUtils
 import com.onyx.android.sdk.utils.ResManager
 import com.onyx.android.sdk.utils.StringUtils
 import com.onyx.gallery.R
@@ -27,6 +28,7 @@ class FontSelectViewModel : BaseMenuViewModel() {
     }
 
     val handler = Handler()
+    var isOnyxSystemFontExist = false
     lateinit var gPaginator: GPaginator
     lateinit var fontAdapter: FontSelectAdapter
     val totalCount = MutableLiveData<String>()
@@ -80,6 +82,7 @@ class FontSelectViewModel : BaseMenuViewModel() {
             cnFonts = getFontsRequest.chineseFontList
             enFonts = getFontsRequest.englishFontList
             customizeFonts = getFontsRequest.customizeFonts
+            isOnyxSystemFontExist = getFontsRequest.isOnyxSystemFontExist
             bindFontListData()
         }
     }
@@ -123,16 +126,15 @@ class FontSelectViewModel : BaseMenuViewModel() {
                 currentItem = ItemTextStyleOptionChoiceViewModel(fontInfo.name, true).setTypeface(fontInfo.typeface).setFontInfo(fontInfo)
                 continue
             }
+            if (StringUtils.isNullOrEmpty(getCurrFontName()) && isOnyxSystemFontExist && StringUtils.isEquals(DeviceUtils.ONYX_SYSTEM_DEFAULT_SYSTEM_FONT_ID, fontInfo.id)) {
+                currentItem = ItemTextStyleOptionChoiceViewModel(fontInfo.name, true).setTypeface(fontInfo.typeface).setFontInfo(fontInfo)
+                continue
+            }
             itemFontList.add(ItemTextStyleOptionChoiceViewModel(fontInfo.name, false).setTypeface(fontInfo.typeface).setFontInfo(fontInfo))
         }
         if (currentItem != null) {
             itemFontList.add(0, currentItem)
         }
-        val fontName = ResManager.getString(R.string.default_font)
-        val defaultFont = FontInfo()
-        defaultFont.name = fontName
-        defaultFont.id = ""
-        itemFontList.add(0, ItemTextStyleOptionChoiceViewModel(fontName, currentItem == null).setFontInfo(defaultFont))
         return itemFontList
     }
 

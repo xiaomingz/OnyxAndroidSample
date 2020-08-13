@@ -40,4 +40,8 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
         AddShapesInBackgroundAction(mutableListOf(shape)).execute(null)
     }
 
+    override fun onFloatButtonChanged(active: Boolean) {
+        drawHandler.setRawDrawingEnabled(!active)
+    }
+
 }

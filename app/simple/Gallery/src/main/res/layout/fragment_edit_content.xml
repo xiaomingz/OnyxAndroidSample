@@ -12,6 +12,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/fragment_edit_content_margin_top"
         android:layout_marginBottom="@dimen/fragment_edit_content_margin_bottom">

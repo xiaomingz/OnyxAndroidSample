@@ -63,7 +63,6 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouch
 
     private fun startTransformAction(textShape: EditTextShape) {
         insertTextHandler.textShape = textShape as EditTextShape
-        insertTextHandler.showSoftInput()
         StartTransformAction(mutableListOf(textShape)).execute(null)
     }
 

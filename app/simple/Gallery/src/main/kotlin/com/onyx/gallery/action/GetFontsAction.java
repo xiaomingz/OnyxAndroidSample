@@ -38,6 +38,7 @@ public class GetFontsAction extends BaseEditAction {
                         .setChineseFontList(getFontsRequest.getChineseFontList())
                         .setEnglishFontList(getFontsRequest.getEnglishFontList())
                         .setCustomizeFontList(getFontsRequest.getCustomizeFonts())
+                        .setOnyxSystemFontExist(getFontsRequest.isOnyxSystemFontExist())
                 );
             }
 
