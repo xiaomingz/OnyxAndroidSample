@@ -289,7 +289,7 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, S
             EpdController.applyApplicationFastMode(TAG, true, false, UpdateMode.ANIMATION_X, Int.MAX_VALUE)
             inFastMode = true
         }
-        if (!event.enable && inFastMode) {
+        if (!mIsPlaying && !event.enable && inFastMode) {
             EpdController.applyApplicationFastMode(TAG, false, true, UpdateMode.ANIMATION_X, Int.MAX_VALUE)
             inFastMode = false
         }
@@ -659,7 +659,7 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, S
             mView.video_preview.beGone()
             initExoPlayer()
         }
-        App.eventBus.post(ApplyFastModeEvent(true))
+
         val wasEnded = videoEnded()
         if (wasEnded) {
             setPosition(0)
@@ -685,13 +685,14 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, S
         }
         mExoPlayer?.playWhenReady = true
         activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        App.eventBus.post(ApplyFastModeEvent(true))
     }
 
     private fun pauseVideo() {
         if (mExoPlayer == null) {
             return
         }
-        App.eventBus.post(ApplyFastModeEvent(false))
+
         mIsPlaying = false
         if (!videoEnded()) {
             mExoPlayer?.playWhenReady = false
@@ -701,6 +702,7 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener, S
         activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         mPositionAtPause = mExoPlayer?.currentPosition ?: 0L
         releaseExoPlayer()
+        App.eventBus.post(ApplyFastModeEvent(false))
     }
 
     private fun videoEnded(): Boolean {
