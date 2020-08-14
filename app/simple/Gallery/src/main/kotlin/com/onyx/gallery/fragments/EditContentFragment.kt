@@ -107,6 +107,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         override fun surfaceCreated(holder: SurfaceHolder) {
             Debug.d(javaClass, "surfaceCreated")
             if (isAttachHostView) {
+                globalEditBundle.enqueue(RendererToScreenRequest(), null)
                 return
             }
             attachHostView()
