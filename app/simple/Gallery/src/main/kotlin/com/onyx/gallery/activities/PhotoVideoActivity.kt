@@ -8,12 +8,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.onyx.android.sdk.api.device.epd.EpdController
+import com.onyx.android.sdk.api.device.epd.UpdateMode
+import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.android.sdk.utils.StringUtils
+import com.onyx.gallery.App
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
 import com.onyx.gallery.action.ShareAction
 import com.onyx.gallery.dialogs.DeleteWithRememberDialog
 import com.onyx.gallery.dialogs.PropertiesDialog
+import com.onyx.gallery.event.ui.ApplyFastModeEvent
 import com.onyx.gallery.extensions.*
 import com.onyx.gallery.fragments.PhotoFragment
 import com.onyx.gallery.fragments.VideoFragment
@@ -29,10 +34,16 @@ import com.simplemobiletools.commons.models.FileDirItem
 import kotlinx.android.synthetic.main.bottom_actions.*
 import kotlinx.android.synthetic.main.fragment_holder.*
 import kotlinx.android.synthetic.main.view_action_bar.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 import java.io.FileInputStream
 
 open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentListener {
+    @Volatile
+    private var inFastMode = false
+    private val TAG = this::class.java.simpleName
+
     private var mMedium: Medium? = null
     private var mIsFullScreen = false
     private var mIsFromGallery = false
@@ -63,6 +74,35 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window.statusBarColor = Color.TRANSPARENT
         configActionBar()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBusUtils.ensureUnregister(App.eventBus, this)
+        ensureQuitFastMode()
+    }
+
+    private fun ensureQuitFastMode() {
+        if (!inFastMode) {
+            return
+        }
+        EpdController.applyApplicationFastMode(TAG, false, true)
+        inFastMode = false
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onApplyFastModeEvent(event: ApplyFastModeEvent) {
+        if (event.enable and !inFastMode) {
+            EpdController.applyApplicationFastMode(TAG, true, false, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
+            inFastMode = true
+        }
+        if (!event.enable and inFastMode) {
+            if (mFragment is VideoFragment && (mFragment as VideoFragment).mIsPlaying) {
+                return
+            }
+            EpdController.applyApplicationFastMode(TAG, false, true, UpdateMode.ANIMATION_QUALITY, Int.MAX_VALUE)
+            inFastMode = false
+        }
     }
 
     private fun checkIntent(savedInstanceState: Bundle? = null) {
@@ -177,6 +217,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
             window.attributes = attributes
         }
         initBottomActions()
+        EventBusUtils.ensureRegister(App.eventBus, this)
     }
 
     private fun updateMenu() {
