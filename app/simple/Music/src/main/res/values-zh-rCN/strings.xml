@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">音乐</string>
     <string name="app_launcher_name">音乐</string>
@@ -35,7 +36,6 @@
     <string name="remove_playlist_description">这只会移除选择的播放列表，而不是实际档案。</string>
     <string name="remove_playlist_description_placeholder">这只会移除播放列表\"%s\"，而不是实际档案。</string>
     <string name="remove_from_playlist">从播放列表移除</string>
-    <string name="remove_from_playlist_description">这只会从播放列表\"%s\"移除项目，实际档案并不会被删除。</string>
     <string name="delete_the_files_too">也删除档案</string>
     <string name="open_playlist">开启播放列表</string>
     <string name="all_songs_cannot_be_deleted">播放列表\'全部歌曲\'不能被删除</string>
@@ -53,8 +53,4 @@
     <!-- Settings -->
     <string name="equalizer">等化器</string>
     <string name="swap_prev_next">交换耳机按钮的 上一首/下一首</string>
-
-    <!-- FAQ -->
-    <string name="faq_1_title">我如何快转歌曲?</string>
-    <string name="faq_1_text">你可以点击进度条附近的当前或总时长文字，歌曲就会快进或倒退。</string>
 </resources>
