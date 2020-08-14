@@ -7,11 +7,13 @@ import com.onyx.gallery.handler.DrawHandler
  * Created by Leung 2020/7/16 15:28
  **/
 class RedoCropRequest : BaseRequest() {
+    private var hasRedo = false
     private var redoAngle: Float = 0f
     override fun execute(drawHandler: DrawHandler) {
         drawHandler.redoCrop()?.run {
             drawHandler.restoreCropSnapshot(this)
             redoAngle = rotateAngle
+            hasRedo = false
             renderShapesToBitmap = true
             renderToScreen = true
         }
@@ -19,6 +21,9 @@ class RedoCropRequest : BaseRequest() {
 
     override fun afterExecute(drawHandler: DrawHandler) {
         super.afterExecute(drawHandler)
+        if (!hasRedo) {
+            return
+        }
         drawHandler.clearScreen()
         drawHandler.renderContext.matrix.reset()
         drawHandler.rotateScreen(redoAngle, globalEditBundle.getContainerCenterPoint())

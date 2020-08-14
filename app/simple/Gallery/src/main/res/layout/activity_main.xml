@@ -68,7 +68,6 @@
                 app:spanCount="@integer/directory_columns_vertical_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/directories_switch_searching"
                 android:scrollbars="none" />
 
             <com.simplemobiletools.commons.views.FastScroller

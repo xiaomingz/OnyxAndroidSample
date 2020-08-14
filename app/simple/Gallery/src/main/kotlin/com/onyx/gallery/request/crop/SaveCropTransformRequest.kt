@@ -6,7 +6,6 @@ import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.scribble.data.bean.ResourceType
 import com.onyx.android.sdk.scribble.data.bean.ShapeResource
 import com.onyx.android.sdk.utils.DateTimeUtil
-import com.onyx.android.sdk.utils.FileUtils
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.handler.MirrorModel
@@ -35,7 +34,7 @@ class SaveCropTransformRequest : BaseRequest() {
         val imageSize = Size(cropBitmap.width, cropBitmap.height)
         globalEditBundle.initScaleFactor = globalEditBundle.scaleToContainer(imageSize)
 
-        val newPath = File(FileUtils.getParent(globalEditBundle.imagePath), "crop_${DateTimeUtil.getCurrentTime()}.png").absolutePath
+        val newPath = File(context.cacheDir, "crop_${DateTimeUtil.getCurrentTime()}.png").absolutePath
         val newImageShape = createImageShape(newPath, imageSize, cropBitmap)
         drawHandler.updateImageShape(newImageShape)
         updateLimitRect(imageSize, newImageShape.downPoint)

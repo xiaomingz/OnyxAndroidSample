@@ -19,7 +19,7 @@ class SaveEditPictureRequest(private var filePath: String, private val isSaveAs:
         }
         val imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
         if (isSaveAs) {
-            filePath = File(FileUtils.getParent(globalEditBundle.imagePath), "save_${DateTimeUtil.getCurrentTime()}.png").absolutePath
+            filePath = File(FileUtils.getParent(globalEditBundle.orgImagePath), "save_${DateTimeUtil.getCurrentTime()}.png").absolutePath
             globalEditBundle.imagePath = filePath
         } else {
             filePath = globalEditBundle.orgImagePath
