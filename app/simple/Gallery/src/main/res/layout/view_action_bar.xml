@@ -14,19 +14,20 @@
         android:paddingRight="@dimen/view_action_bar_title_margin">
 
         <ImageView
-            android:onClick="onBlackClick"
             android:id="@+id/ivNavigation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_click_solid"
+            android:onClick="onBlackClick"
             android:src="@drawable/ic_black" />
 
         <TextView
-            android:ellipsize = "middle"
-            android:singleLine="true"
             android:id="@+id/tvTitle"
             android:layout_width="@dimen/title_width"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_title_tv_margin"
+            android:ellipsize="middle"
+            android:singleLine="true"
             android:text=""
             android:textSize="@dimen/view_action_bar_title_size" />
     </LinearLayout>
@@ -44,9 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
-            android:background="@drawable/ic_note_undo"
+            android:background="@drawable/bg_button_click_solid"
             android:clickable="true"
             android:onClick="onUndoClick"
+            android:src="@drawable/ic_note_undo"
             android:visibility="gone" />
 
         <ImageView
@@ -54,9 +56,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
-            android:background="@drawable/ic_note_redo"
+            android:background="@drawable/bg_button_click_solid"
             android:clickable="true"
             android:onClick="onRedoClick"
+            android:src="@drawable/ic_note_redo"
             android:visibility="gone" />
 
         <ImageView
@@ -64,9 +67,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
-            android:background="@drawable/ic_note_save"
+            android:background="@drawable/bg_button_click_solid"
             android:clickable="true"
             android:onClick="onSaveClick"
+            android:src="@drawable/ic_note_save"
             android:visibility="gone" />
 
         <ImageView
@@ -74,9 +78,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
-            android:background="@drawable/ic_ok"
+            android:background="@drawable/bg_button_click_solid"
             android:clickable="true"
             android:onClick="onOkClick"
+            android:src="@drawable/ic_ok"
             android:visibility="gone" />
 
         <ImageView
@@ -84,9 +89,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
-            android:background="@drawable/selector_start"
+            android:background="@drawable/bg_button_click_solid"
             android:clickable="true"
             android:onClick="onFavoritesClick"
+            android:src="@drawable/selector_start"
             android:visibility="gone" />
 
         <ImageView
@@ -94,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
+            android:background="@drawable/bg_button_click_solid"
             android:onClick="onEditClick"
             android:src="@drawable/ic_edit_vector"
             android:visibility="gone" />
@@ -103,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
+            android:background="@drawable/bg_button_click_solid"
             android:onClick="onPropertiesClick"
             android:src="@drawable/ic_properties_vector"
             android:visibility="gone" />
@@ -112,6 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
+            android:background="@drawable/bg_button_click_solid"
             android:onClick="onShareClick"
             android:src="@drawable/ic_share_vector"
             android:visibility="gone" />
@@ -121,7 +130,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
+            android:background="@drawable/bg_button_click_solid"
             android:onClick="onDeleteClick"
+
             android:src="@drawable/ic_delete_vector"
             android:visibility="gone" />
 
@@ -130,6 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
+            android:background="@drawable/bg_button_click_solid"
             android:onClick="onMoreClick"
             android:src="@drawable/ic_more"
             android:visibility="gone" />
