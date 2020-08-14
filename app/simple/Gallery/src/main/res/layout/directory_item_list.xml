@@ -11,7 +11,6 @@
     android:layout_marginRight="@dimen/photo_item_list_content_margin_left"
     android:layout_marginBottom="@dimen/photo_item_list_content_margin_bottom"
     android:paddingStart="@dimen/medium_margin"
-    android:paddingTop="@dimen/smaller_margin"
     android:paddingBottom="@dimen/smaller_margin">
 
     <com.onyx.gallery.views.MySquareImageView
