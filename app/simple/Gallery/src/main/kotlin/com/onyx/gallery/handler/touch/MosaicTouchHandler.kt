@@ -6,7 +6,7 @@ import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.rx.SingleThreadScheduler
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
-import com.onyx.gallery.action.shape.AddShapesInBackgroundAction
+import com.onyx.gallery.action.shape.AddShapesAction
 import com.onyx.gallery.action.shape.RenderVarietyShapeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.utils.ExpandShapeFactory
@@ -54,7 +54,7 @@ class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHand
 
     override fun onEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint) {
         disposable?.run { dispose() }
-        addShapInBackground(mosaicShape)
+        addShape(mosaicShape)
     }
 
     private fun createShape(): Shape {
@@ -69,8 +69,8 @@ class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHand
         RenderVarietyShapeAction().addShape(shape).execute(null)
     }
 
-    private fun addShapInBackground(shape: Shape) {
+    private fun addShape(shape: Shape) {
         invertRenderStrokeWidth(shape)
-        AddShapesInBackgroundAction(mutableListOf(shape)).execute(null)
+        AddShapesAction().setShape(shape).execute(null)
     }
 }
