@@ -2,10 +2,12 @@ package com.onyx.gallery.viewmodel
 
 import android.os.Handler
 import androidx.lifecycle.MutableLiveData
+import com.onyx.android.sdk.scribble.shape.ShapeFactory
+import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.handler.MirrorModel
-import com.onyx.gallery.handler.touch.TouchHandlerType
 import com.onyx.gallery.models.MenuAction
+import com.onyx.gallery.utils.ExpandShapeFactory
 
 /**
  * Created by Leung on 2020/6/8
@@ -19,8 +21,7 @@ class CropMenuViewModel : BaseMenuViewModel() {
     var cropAction = MutableLiveData(MenuAction.CROP_CUSTOMIZE)
 
     override fun updateTouchHandler() {
-        globalEditBundle.touchHandlerManager.activateHandler(TouchHandlerType.CROP)
-        globalEditBundle.drawHandler.setRawDrawingRenderEnabled(false)
+        ShapeChangeAction(ExpandShapeFactory.CROP).execute(null)
         cropAction.value?.let {
             handler.postDelayed({
                 onHandleMenu(it)

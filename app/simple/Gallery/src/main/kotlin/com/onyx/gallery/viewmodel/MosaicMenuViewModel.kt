@@ -4,7 +4,6 @@ import android.widget.SeekBar
 import androidx.lifecycle.MutableLiveData
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.action.shape.StrokeWidthChangeAction
-import com.onyx.gallery.handler.touch.TouchHandlerType
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.models.MenuAction
 import com.onyx.gallery.utils.ExpandShapeFactory
@@ -20,9 +19,7 @@ class MosaicMenuViewModel : BaseMenuViewModel() {
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
 
     override fun updateTouchHandler() {
-        globalEditBundle.touchHandlerManager.activateHandler(TouchHandlerType.MOSAIC)
         ShapeChangeAction(ExpandShapeFactory.SHAP_MOSAIC).execute(null)
-        globalEditBundle.drawHandler.setRawDrawingRenderEnabled(false)
     }
 
     private fun initOnSeekBarChangeListener(): SeekBar.OnSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {

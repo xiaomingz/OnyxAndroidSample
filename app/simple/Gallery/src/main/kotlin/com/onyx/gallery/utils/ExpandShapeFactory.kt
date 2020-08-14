@@ -14,6 +14,7 @@ object ExpandShapeFactory {
     const val SHAP_WAVE_LINE = 25
     const val SHAP_ARROW_LINE = 26
     const val SHAP_MOSAIC = 27
+    const val CROP = 28
 
     @JvmStatic
     fun createShape(shapeType: Int): Shape {
