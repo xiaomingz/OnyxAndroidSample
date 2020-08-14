@@ -277,11 +277,6 @@ open class PanoramaVideoActivity : SimpleActivity(), SeekBar.OnSeekBarChangeList
     private fun handleClick() {
         mIsFullscreen = !mIsFullscreen
         toggleButtonVisibility()
-        if (mIsFullscreen) {
-            hideSystemUI(false)
-        } else {
-            showSystemUI(false)
-        }
     }
 
     private fun skip(forward: Boolean) {

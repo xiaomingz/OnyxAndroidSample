@@ -422,18 +422,7 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     }
 
     override fun fragmentClicked() {
-        mIsFullScreen = !mIsFullScreen
-        if (mIsFullScreen) {
-            hideSystemUI(true)
-        } else {
-            showSystemUI(true)
-        }
 
-        val newAlpha = if (mIsFullScreen) 0f else 1f
-        top_shadow.animate().alpha(newAlpha).start()
-        if (!bottom_actions.isGone()) {
-            bottom_actions.animate().alpha(newAlpha).start()
-        }
     }
 
     override fun videoEnded() = false
