@@ -48,6 +48,11 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
                 drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.MOSAIC;
                 break;
+            case ExpandShapeFactory.CROP:
+                drawHandler.setRawInputReaderEnable(true);
+                drawHandler.setRawDrawingRenderEnabled(false);
+                touchHandlerType = TouchHandlerType.CROP;
+                break;
             default:
                 drawHandler.setRawInputReaderEnable(true);
                 drawHandler.setRawDrawingRenderEnabled(true);

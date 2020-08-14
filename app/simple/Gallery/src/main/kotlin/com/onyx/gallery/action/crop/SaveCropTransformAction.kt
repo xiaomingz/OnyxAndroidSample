@@ -17,7 +17,7 @@ class SaveCropTransformAction(private val filePath: String) : BaseEditAction<RxR
     override fun execute(rxCallback: RxCallback<RxRequest>?) {
         val requestChain = object : RequestChain<BaseRequest>() {}
         requestChain.addRequest(SaveCropTransformRequest())
-        requestChain.addRequest(RestoreTransformRequest(true, false))
+        requestChain.addRequest(RestoreTransformRequest(true))
         globalEditBundle.enqueue(requestChain, object : RxCallback<RxRequest>() {
             override fun onNext(request: RxRequest) {
                 RxCallback.onNext(rxCallback, request)
