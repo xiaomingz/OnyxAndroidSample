@@ -53,6 +53,7 @@ class UndoRedoHandler {
         currCropSnapshotIndex -= 1
         if (currCropSnapshotIndex < 0) {
             currCropSnapshotIndex = 0
+            return null
         }
         return cropSnapshotList[currCropSnapshotIndex]
     }
@@ -61,6 +62,7 @@ class UndoRedoHandler {
         currCropSnapshotIndex += 1
         if (currCropSnapshotIndex > cropSnapshotList.size - 1) {
             currCropSnapshotIndex = cropSnapshotList.size - 1
+            return null
         }
         return cropSnapshotList[currCropSnapshotIndex]
     }
