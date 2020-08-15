@@ -1,11 +1,14 @@
 package com.simplemobiletools.clock.activities
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import com.simplemobiletools.clock.BuildConfig
 import com.simplemobiletools.clock.R
 import com.simplemobiletools.clock.adapters.ViewPagerAdapter
@@ -129,6 +132,7 @@ class MainActivity : SimpleActivity() {
         view_pager.adapter = ViewPagerAdapter(supportFragmentManager)
         view_pager.onPageChangeListener {
             main_tabs_holder.getTabAt(it)?.select()
+            hideInputMethod(this)
         }
 
         val tabToOpen = intent.getIntExtra(OPEN_TAB, config.lastUsedViewPagerPage)
@@ -146,6 +150,14 @@ class MainActivity : SimpleActivity() {
         )
 
         setupTabColors(tabToOpen)
+    }
+
+    private fun hideInputMethod(context: Context) {
+        val view = (context as Activity).window.peekDecorView();
+        if (view?.windowToken != null) {
+            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            (imm as? InputMethodManager)?.hideSoftInputFromWindow(view.windowToken, 0);
+        }
     }
 
     private fun setupTabColors(lastUsedTab: Int) {
