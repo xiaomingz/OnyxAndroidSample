@@ -116,6 +116,9 @@ class OperationHandler<T> {
     }
 
     fun getPrepareUndoOperation(): T {
+        if (operations.size == 1) {
+            return operations[0]
+        }
         return operations.get(operations.size - 1)
     }
 

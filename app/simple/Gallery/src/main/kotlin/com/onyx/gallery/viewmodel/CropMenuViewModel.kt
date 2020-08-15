@@ -2,8 +2,8 @@ package com.onyx.gallery.viewmodel
 
 import android.os.Handler
 import androidx.lifecycle.MutableLiveData
-import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.gallery.action.shape.ShapeChangeAction
+import com.onyx.gallery.event.ui.ShowSaveCropMenuEvent
 import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.handler.MirrorModel
 import com.onyx.gallery.models.MenuAction
@@ -52,7 +52,12 @@ class CropMenuViewModel : BaseMenuViewModel() {
             MenuAction.MIRROR_BOTTOM -> onYAxisChange()
             else -> return super.onHandleMenu(action)
         }
+        showSaveCropMenu()
         return true
+    }
+
+    private fun showSaveCropMenu() {
+        postEvent(ShowSaveCropMenuEvent())
     }
 
     private fun onCropChangeToCustomize() {

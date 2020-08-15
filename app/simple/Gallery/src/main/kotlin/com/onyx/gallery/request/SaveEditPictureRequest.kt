@@ -11,21 +11,23 @@ import java.io.File
 /**
  * Created by Leung on 2020/5/8
  */
-class SaveEditPictureRequest(private var filePath: String, private val isSaveAs: Boolean) : BaseRequest() {
+class SaveEditPictureRequest(var imagePath: String, private val isSaveAs: Boolean) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
         if (insertTextHandler.hasModify()) {
             insertTextHandler.textShape?.let { drawHandler.addShape(it) }
         }
-        val imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
+        val imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, imagePath, globalEditBundle.getNormalizedMatrix())
         if (isSaveAs) {
-            filePath = File(FileUtils.getParent(globalEditBundle.orgImagePath), "save_${DateTimeUtil.getCurrentTime()}.png").absolutePath
-            globalEditBundle.imagePath = filePath
+            imagePath = File(FileUtils.getParent(globalEditBundle.orgImagePath), "save_${DateTimeUtil.getCurrentTime()}.png").absolutePath
+            globalEditBundle.imagePath = imagePath
         } else {
-            filePath = globalEditBundle.orgImagePath
+            imagePath = globalEditBundle.orgImagePath
         }
-        BitmapUtils.saveBitmapToFile(context, filePath, imageBitmap)
+        BitmapUtils.saveBitmapToFile(context, imagePath, imageBitmap)
         imageBitmap.recycle()
+        drawHandler.resetEditState()
+        globalEditBundle.imagePath = imagePath
     }
 
 }

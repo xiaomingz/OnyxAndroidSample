@@ -185,4 +185,5 @@
     <string name="file_expired_time_des">有效期：截止</string>
     <string name="return_underline">返回</string>
     <string name="share_with_no_account_tips">请先登录ONYX账号再分享！</string>
+    <string name="exit_image_edit">保存对图片的修改并退出编辑？</string>
 </resources>
