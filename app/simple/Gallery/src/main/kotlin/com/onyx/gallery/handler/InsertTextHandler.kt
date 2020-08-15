@@ -48,9 +48,11 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     var textShape: EditTextShape? = null
         set(value) {
             field = value
-            val text = field?.text
-            editTextView?.setText(text)
-            editTextView?.setSelection(getTextSelection(text))
+            field?.run {
+                val text = text
+                editTextView?.setText(text)
+                editTextView?.setSelection(getTextSelection(text))
+            }
         }
 
     var selectionRect: SelectionRect? = null
@@ -326,18 +328,18 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
     }
 
     fun clear() {
-        lastPoint = null
-        cursorShape = null
-        selectionRect = null
         hideSoftInput()
         clearTextShape()
         editTextView?.setText("")
         globalEditBundle.drawHandler.clearSelectionRect()
-        transformAction = ShapeTransformAction.Undefined
     }
 
-    private fun clearTextShape() {
+    fun clearTextShape() {
         textShape = null
+        lastPoint = null
+        cursorShape = null
+        selectionRect = null
+        transformAction = ShapeTransformAction.Undefined
     }
 
     fun hasModify(): Boolean = textShape != null

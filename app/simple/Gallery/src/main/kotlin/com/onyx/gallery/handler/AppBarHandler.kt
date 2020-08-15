@@ -1,5 +1,7 @@
 package com.onyx.gallery.handler
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.onyx.gallery.action.SaveEditPictureAction
 import com.onyx.gallery.action.crop.SaveCropTransformAction
@@ -27,9 +29,10 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
 
     fun onBackPressed() {
         globalEditBundle?.imagePath?.let {
-            SaveEditPictureAction(hostActivity, it, {
+            SaveEditPictureAction(hostActivity, it, true) {
+                hostActivity.setResult(Activity.RESULT_OK, Intent())
                 hostActivity.finish()
-            }).execute(null)
+            }.execute(null)
         }
     }
 
@@ -39,9 +42,9 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
 
     private fun saveEdit() {
         globalEditBundle.imagePath?.let {
-            SaveEditPictureAction(hostActivity, it, {
+            SaveEditPictureAction(hostActivity, it) {
                 globalEditBundle.eventBus.post(UpdateTouchHandlerEvent())
-            }).execute(null)
+            }.execute(null)
         }
     }
 

@@ -13,7 +13,9 @@ import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.R
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.databinding.ActivityNewEditBinding
+import com.onyx.gallery.event.result.SaveCropTransformResultEvent
 import com.onyx.gallery.event.result.SaveEditPictureResultEvent
+import com.onyx.gallery.event.ui.ShowSaveCropMenuEvent
 import com.onyx.gallery.event.ui.UpdateOptionsMenuEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.fragments.EditContentFragment
@@ -52,15 +54,28 @@ class NewEditActivity : SimpleActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onShowSaveCropMenuEvent(event: ShowSaveCropMenuEvent) {
+        showCropMenu(true)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSaveCropTransformResultEvent(event: SaveCropTransformResultEvent) {
+        if (event.isSuccess()) {
+            showCropMenu(false)
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpdateOptionsMenuEvent(event: UpdateOptionsMenuEvent) {
         updateMenu()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSaveEditPictureResultEvent(event: SaveEditPictureResultEvent) {
-        val intent = Intent()
-        setResult(Activity.RESULT_OK, intent)
-        finish()
+        if (event.isSuccess() && event.isExit) {
+            setResult(Activity.RESULT_OK, Intent())
+            finish()
+        }
     }
 
     override fun onDestroy() {

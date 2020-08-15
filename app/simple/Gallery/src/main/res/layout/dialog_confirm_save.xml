@@ -7,12 +7,17 @@
         <variable
             name="dialog"
             type="com.onyx.gallery.dialogs.ConfirmSaveDialog" />
+
+        <variable
+            name="message"
+            type="String" />
+
     </data>
 
     <LinearLayout
-        android:background="@drawable/alert_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/alert_bg"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -20,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dialog_confirm_save_message_height"
             android:gravity="center"
-            android:text="@string/is_save_image_edit"
+            android:text="@{message}"
             android:textSize="@dimen/bigger_text_size" />
 
         <View

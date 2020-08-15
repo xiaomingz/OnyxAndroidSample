@@ -338,5 +338,13 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         return !getHandwritingShape().isEmpty() || undoRedoHander.hasCropModify()
     }
 
+    fun resetEditState() {
+        clearSelectionRect()
+        undoRedoHander.clearShapes()
+        undoRedoHander.cleardCropSnapshot()
+        globalEditBundle.cropHandler.resetCropState()
+        globalEditBundle.insertTextHandler.clearTextShape()
+    }
+
 }
 
