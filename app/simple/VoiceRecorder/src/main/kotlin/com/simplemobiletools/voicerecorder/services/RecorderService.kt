@@ -14,7 +14,6 @@ import androidx.core.app.NotificationCompat
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.helpers.isOreoPlus
-import com.simplemobiletools.commons.helpers.isQPlus
 import com.simplemobiletools.voicerecorder.R
 import com.simplemobiletools.voicerecorder.activities.MainActivity
 import com.simplemobiletools.voicerecorder.extensions.config
@@ -22,7 +21,6 @@ import com.simplemobiletools.voicerecorder.extensions.getDefaultSaveFolder
 import com.simplemobiletools.voicerecorder.helpers.*
 import com.simplemobiletools.voicerecorder.models.Events
 import org.greenrobot.eventbus.EventBus
-import java.io.File
 import java.io.IOException
 import java.util.*
 
@@ -104,11 +102,7 @@ class RecorderService : Service() {
                 release()
 
                 ensureBackgroundThread {
-                    if (isQPlus()) {
-                        addFileInNewMediaStore()
-                    } else {
-                        addFileInLegacyMediaStore()
-                    }
+                    recordingSavedSuccessfully(true)
                 }
             }
         } catch (ignored: Exception) {
