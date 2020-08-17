@@ -140,4 +140,24 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
 
     }
 
+    override fun onStatusBarChangedEvent(show: Boolean) {
+
+    }
+
+    override fun onNoFocusSystemDialogChanged(open: Boolean) {
+
+    }
+
+    override fun onHideToastEvent() {
+
+    }
+
+    override fun onShowToastEvent() {
+        
+    }
+
+    override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
+
+    }
+
 }

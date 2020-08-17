@@ -26,4 +26,9 @@ interface TouchHandler {
     fun redo()
     fun canRawDrawingRenderEnabled(): Boolean
     fun onFloatButtonChanged(active: Boolean)
+    fun onStatusBarChangedEvent(show: Boolean)
+    fun onNoFocusSystemDialogChanged(open: Boolean)
+    fun onShowToastEvent()
+    fun onHideToastEvent()
+    fun onActivityWindowFocusChanged(hasFocus: Boolean)
 }
