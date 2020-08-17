@@ -179,7 +179,7 @@
     <string name="network_or_server_error">网络或者服务器出错，稍等会再试</string>
     <string name="network_not_connected">网络未连接</string>
     <string name="open_wifi_underline">要查看可用网络，请打开Wi-Fi</string>
-    <string name="enable_wifi_tip">正在打开WiFi，请稍候。</string>
+    <string name="enable_wifi_tip">正在打开WiFi，请稍后....</string>
     <string name="generating_qr_code">正在生成二维码，请稍后...</string>
     <string name="file_name_des">文件名：</string>
     <string name="file_size_des" >大&#12288;小：</string>
