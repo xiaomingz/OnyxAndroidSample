@@ -37,6 +37,13 @@ class TimerFragment : Fragment() {
         super.onDestroy()
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isAdded && isVisibleToUser) {
+            clearTimerLabelFocus()
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         view = (inflater.inflate(R.layout.fragment_timer, container, false) as ViewGroup).apply {
             val config = requiredActivity.config
@@ -45,6 +52,7 @@ class TimerFragment : Fragment() {
             timer_time.text = config.timerSeconds.getFormattedDuration()
             timer_label.setText(config.timerLabel)
             timer_label.setSelection(config.timerLabel?.length ?: 0)
+            timer_label_image.drawable.applyColorFilter(textColor)
 
             requiredActivity.updateTextColors(timer_fragment)
             timer_reset.applyColorFilter(textColor)
@@ -64,7 +72,7 @@ class TimerFragment : Fragment() {
 
             timer_play_pause.setOnClickListener {
                 val state = config.timerState
-                timer_label_layout.requestFocus()
+                clearTimerLabelFocus()
                 when (state) {
                     is TimerState.Idle -> EventBus.getDefault().post(TimerState.Start(config.timerSeconds.secondsToMillis))
                     is TimerState.Paused -> EventBus.getDefault().post(TimerState.Start(state.tick))
@@ -117,12 +125,12 @@ class TimerFragment : Fragment() {
                 config.timerLabel = text
             }
         }
-
+        clearTimerLabelFocus()
         return view
     }
 
     private fun stopTimer() {
-        timer_label_layout.requestFocus()
+        clearTimerLabelFocus()
         EventBus.getDefault().post(TimerState.Idle)
         requiredActivity.hideTimerNotification()
         view.timer_time.text = requiredActivity.config.timerSeconds.getFormattedDuration()
@@ -177,5 +185,10 @@ class TimerFragment : Fragment() {
         val step = 360f / state.duration.div(1000F).roundToInt()
         val value = 360f - state.tick.div(1000F).roundToInt() * step
         time_running.update(value)
+    }
+
+    private fun clearTimerLabelFocus() {
+        view.timer_label.clearFocus()
+        view.timer_label_layout.requestFocus()
     }
 }
