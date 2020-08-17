@@ -22,6 +22,9 @@ class CropMenuViewModel : BaseMenuViewModel() {
 
     override fun updateTouchHandler() {
         ShapeChangeAction(ExpandShapeFactory.CROP).execute(null)
+        if (cropAction.value == null) {
+            cropAction.value = MenuAction.CROP_CUSTOMIZE
+        }
         cropAction.value?.let {
             handler.postDelayed({
                 onHandleMenu(it)
