@@ -40,8 +40,17 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
     }
 
     fun onCropChangeTo_1_1() {
+        val surfaceRect = globalEditBundle.drawHandler.surfaceRect
         val currLimitRect = globalEditBundle.drawHandler.currLimitRect
-        cropBoxRect.set(currLimitRect)
+        val width = surfaceRect.width()
+        val height = surfaceRect.height()
+        var size = currLimitRect.width()
+        if (currLimitRect.height() < currLimitRect.width()) {
+            size = currLimitRect.height()
+        }
+        val radius = size / 2f
+        val centerPoint = PointF(width / 2f, height / 2f)
+        cropBoxRect.set(centerPoint.x - radius, centerPoint.y - radius, centerPoint.x + radius, centerPoint.y + radius)
         postEvent(UpdateCropRectEvent(cropBoxRect))
     }
 
