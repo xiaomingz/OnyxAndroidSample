@@ -15,6 +15,7 @@ import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.databinding.ActivityNewEditBinding
 import com.onyx.gallery.event.result.SaveCropTransformResultEvent
 import com.onyx.gallery.event.result.SaveEditPictureResultEvent
+import com.onyx.gallery.event.ui.ActivityWindowFocusChangedEvent
 import com.onyx.gallery.event.ui.ShowSaveCropMenuEvent
 import com.onyx.gallery.event.ui.UpdateOptionsMenuEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
@@ -82,6 +83,11 @@ class NewEditActivity : SimpleActivity() {
         super.onDestroy()
         EventBusUtils.ensureUnregister(globalEditBundle?.eventBus, this)
         globalEditBundle = null
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        globalEditBundle?.eventBus?.post(ActivityWindowFocusChangedEvent(hasFocus))
     }
 
     private fun configActionBar() {

@@ -173,10 +173,56 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onActivityWindowFocusChangedEvent(event: ActivityWindowFocusChangedEvent) {
+        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        getTouchHandler()?.onActivityWindowFocusChanged(event.hasFocus)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onShowToastEvent(event: ShowToastEvent) {
+        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        getTouchHandler()?.onShowToastEvent()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onHideToastEvent(event: HideToastEvent) {
+        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        getTouchHandler()?.onHideToastEvent()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onDirtyRenderNoteEvent(event: DirtyRenderNoteEvent) {
+        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onNoFocusSystemDialogChanged(event: NoFocusSystemDialogChanged) {
+        getTouchHandler()?.onNoFocusSystemDialogChanged(event.open)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSystemUIChangedEvent(event: SystemUIChangedEvent) {
+        if (!event.open) {
+            return
+        }
+        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onStatusBarChangedEvent(event: StatusBarChangedEvent) {
+        if (!event.show) {
+            return
+        }
+        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFloatButtonChangedEvent(event: FloatButtonChangedEvent) {
         globalEditBundle.enqueue(RendererToScreenRequest(), null)
-        globalEditBundle.touchHandlerManager.activateHandler?.onFloatButtonChanged(event.active)
+        getTouchHandler()?.onFloatButtonChanged(event.active)
     }
+
+    private fun getTouchHandler() = globalEditBundle.touchHandlerManager.activateHandler
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFloatButtonMenuStateChangedEvent(event: FloatButtonMenuStateChangedEvent) {
