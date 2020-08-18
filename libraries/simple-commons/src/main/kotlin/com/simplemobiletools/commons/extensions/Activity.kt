@@ -69,13 +69,6 @@ fun Activity.appLaunched(appId: String) {
     }
 
     baseConfig.appRunCount++
-    if (baseConfig.appRunCount > 10 && baseConfig.appRunCount % 50 == 0 && !isAProApp()) {
-        showDonateOrUpgradeDialog()
-    }
-
-    if (baseConfig.appRunCount % 60 == 0 && !baseConfig.wasAppRated) {
-        RateStarsDialog(this)
-    }
 
     if (baseConfig.navigationBarColor == INVALID_NAVIGATION_BAR_COLOR && (window.attributes.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN == 0)) {
         baseConfig.defaultNavigationBarColor = window.navigationBarColor
@@ -83,13 +76,6 @@ fun Activity.appLaunched(appId: String) {
     }
 }
 
-fun Activity.showDonateOrUpgradeDialog() {
-    if (getCanAppBeUpgraded()) {
-        UpgradeToProDialog(this)
-    } else if (!baseConfig.hadThankYouInstalled && !isThankYouInstalled()) {
-        DonateDialog(this)
-    }
-}
 
 fun Activity.isAppInstalledOnSDCard(): Boolean = try {
     val applicationInfo = packageManager.getPackageInfo(packageName, 0).applicationInfo
@@ -312,7 +298,7 @@ fun Activity.openPathIntent(path: String, forceChooser: Boolean, applicationId: 
             setDataAndType(newUri, mimeType)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
-            if (applicationId == "com.simplemobiletools.gallery.pro" || applicationId == "com.simplemobiletools.gallery.pro.debug") {
+            if (applicationId == "com.simplemobiletools.gallery") {
                 putExtra(IS_FROM_GALLERY, true)
             }
 
