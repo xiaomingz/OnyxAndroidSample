@@ -36,7 +36,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         val centerPoint = Point(width / 2, height / 2)
         val offset = Math.min(imageBitmap.width / 4, imageBitmap.height / 4).toFloat()
         cropBoxRect.set(centerPoint.x - offset, centerPoint.y - offset, centerPoint.x + offset, centerPoint.y + offset)
-        postEvent(UpdateCropRectEvent(cropBoxRect))
+        postEvent(UpdateCropRectEvent(cropBoxRect, false))
     }
 
     fun onCropChangeTo_1_1() {
@@ -51,7 +51,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         val radius = size / 2f
         val centerPoint = PointF(width / 2f, height / 2f)
         cropBoxRect.set(centerPoint.x - radius, centerPoint.y - radius, centerPoint.x + radius, centerPoint.y + radius)
-        postEvent(UpdateCropRectEvent(cropBoxRect))
+        postEvent(UpdateCropRectEvent(cropBoxRect, true))
     }
 
     fun onCropChangeTo_4_3() {
@@ -69,7 +69,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         cropBoxRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
                 currLimitRect.left + cropWidth.toFloat(),
                 currLimitRect.top + cropHeight.toFloat())
-        postEvent(UpdateCropRectEvent(cropBoxRect))
+        postEvent(UpdateCropRectEvent(cropBoxRect, true))
     }
 
     fun onCropChangeTo_3_4() {
@@ -87,7 +87,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         cropBoxRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
                 currLimitRect.left + cropWidth.toFloat(),
                 currLimitRect.top + cropHeight.toFloat())
-        postEvent(UpdateCropRectEvent(cropBoxRect))
+        postEvent(UpdateCropRectEvent(cropBoxRect, true))
     }
 
     fun onCropChangeToHorizontal_16_9() {
@@ -105,7 +105,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         cropBoxRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
                 currLimitRect.left + cropWidth.toFloat(),
                 currLimitRect.top + cropHeight.toFloat())
-        postEvent(UpdateCropRectEvent(cropBoxRect))
+        postEvent(UpdateCropRectEvent(cropBoxRect, true))
     }
 
     fun onCropChangeToVertical_16_9() {
@@ -123,7 +123,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         cropBoxRect.set(currLimitRect.left.toFloat(), currLimitRect.top.toFloat(),
                 currLimitRect.left + cropWidth.toFloat(),
                 currLimitRect.top + cropHeight.toFloat())
-        postEvent(UpdateCropRectEvent(cropBoxRect))
+        postEvent(UpdateCropRectEvent(cropBoxRect, true))
     }
 
     private fun updateWidthRange(cropWidth: Int, width: Int, cropHeight: Int): Pair<Int, Int> {
