@@ -43,6 +43,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     private var inFastMode = false
     private var isAttachHostView = false
     private var uri: Uri? = null
+    private var maintainAspectRatio = false
     private val surfaceCallback: SurfaceHolder.Callback by lazy { initSurfaceCallback() }
 
     private val TAG: String = EditContentFragment::class.java.simpleName
@@ -282,10 +283,11 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpdateCropRectEvent(event: UpdateCropRectEvent) {
+        this.maintainAspectRatio = event.maintainAspectRatio
         binding.cropImageView.run {
             visibility = View.VISIBLE
             val imageRect = getCropHandler().getImageRect()
-            val highlightView = makeCropBorder(imageRect, event.cropRect)
+            val highlightView = makeCropBorder(imageRect, event.cropRect, maintainAspectRatio)
             highlightViews.clear()
             highlightViews.add(highlightView)
             highlightView?.setFocus(true)
@@ -296,16 +298,17 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onStartRotateEvent(event: StartRotateEvent) {
         binding.cropImageView.run {
-            onUpdateCropRectEvent(UpdateCropRectEvent(event.cropRect))
+            onUpdateCropRectEvent(UpdateCropRectEvent(event.cropRect, maintainAspectRatio))
         }
     }
 
-    private fun makeCropBorder(imageRect: Rect, cropRect: RectF): HighlightView? {
+    private fun makeCropBorder(imageRect: Rect, cropRect: RectF, maintainAspectRatio: Boolean): HighlightView? {
         val imageBitmap = globalEditBundle.drawHandler.getImageBitmap()
         val rotateBitmap = RotateBitmap(imageBitmap, 0)
         binding.cropImageView.setImageRotateBitmapResetBase(rotateBitmap, false)
         val highlightView = HighlightView(binding.cropImageView)
-        highlightView.setup(Matrix(), imageRect, cropRect, false)
+        globalEditBundle.cropHandler.xAxisMirror
+        highlightView.setup(Matrix(), imageRect, cropRect, maintainAspectRatio)
         return highlightView
     }
 
