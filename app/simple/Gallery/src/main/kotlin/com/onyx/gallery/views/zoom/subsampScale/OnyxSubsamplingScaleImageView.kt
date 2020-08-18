@@ -11,16 +11,20 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.ImageView
 import com.davemorrissey.labs.subscaleview.DecoderFactory
+import com.davemorrissey.labs.subscaleview.ImageDecoder
 import com.davemorrissey.labs.subscaleview.ImageRegionDecoder
+import com.onyx.gallery.App
+import com.onyx.gallery.R
+import com.onyx.gallery.event.ui.ApplyFastModeEvent
+import com.onyx.gallery.helpers.MAX_VIEW_SCALE
+import com.onyx.gallery.helpers.MIN_VIEW_SCALE
+import com.onyx.gallery.utils.ToastUtils
 import java.io.File
 import java.io.UnsupportedEncodingException
 import java.lang.ref.WeakReference
 import java.net.URLDecoder
 import java.util.*
 import java.util.concurrent.locks.ReentrantReadWriteLock
-import com.davemorrissey.labs.subscaleview.ImageDecoder
-import com.onyx.gallery.App
-import com.onyx.gallery.event.ui.ApplyFastModeEvent
 
 /**
  * Created by Leung 2020/8/11 10:20
@@ -50,7 +54,7 @@ class OnyxSubsamplingScaleImageView @JvmOverloads constructor(context: Context, 
 
     var maxScale = 2f
     var isOneToOneZoomEnabled = false
-    var rotationEnabled = true
+    val rotationEnabled = false
     var eagerLoadingEnabled = false
     var debug = false
     var onImageEventListener: OnImageEventListener? = null
@@ -442,8 +446,12 @@ class OnyxSubsamplingScaleImageView @JvmOverloads constructor(context: Context, 
                             consumed = true
 
                             val previousScale = scale.toDouble()
-                            scale = Math.min(maxScale, vDistEnd / vDistStart * scaleStart)
-
+                            scale = vDistEnd / vDistStart * scaleStart
+                            if (scale < MIN_VIEW_SCALE) {
+                                scale = MIN_VIEW_SCALE.toFloat()
+                            } else if (scale > MAX_VIEW_SCALE) {
+                                scale = MAX_VIEW_SCALE.toFloat()
+                            }
                             sourceToViewCoord(sCenterStart!!, vCenterStartNow!!)
 
                             val dx = vCenterEndX - vCenterStartNow!!.x
@@ -551,6 +559,11 @@ class OnyxSubsamplingScaleImageView @JvmOverloads constructor(context: Context, 
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP, MotionEvent.ACTION_POINTER_2_UP -> {
                 App.eventBus.post(ApplyFastModeEvent(false))
+                if (scale <= MIN_VIEW_SCALE) {
+                    ToastUtils.showScreenCenterToast(context, R.string.scale_min_tips)
+                } else if (scale >= MAX_VIEW_SCALE) {
+                    ToastUtils.showScreenCenterToast(context, R.string.scale_max_tips)
+                }
                 if (isQuickScaling) {
                     isQuickScaling = false
                     if (quickScaleMoved) {
