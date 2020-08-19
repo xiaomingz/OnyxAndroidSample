@@ -91,7 +91,8 @@
             android:paddingLeft="@dimen/normal_margin"
             android:paddingTop="@dimen/bigger_margin"
             android:paddingRight="@dimen/normal_margin"
-            android:paddingBottom="@dimen/bigger_margin">
+            android:paddingBottom="@dimen/bigger_margin"
+            android:visibility="gone">
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_equalizer_label"
