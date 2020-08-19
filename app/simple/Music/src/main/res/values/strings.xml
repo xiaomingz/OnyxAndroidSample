@@ -1,56 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">Music Player</string>
-    <string name="app_launcher_name">Music Player</string>
-    <string name="playlist_empty">Your playlist is empty</string>
-    <string name="rename_song">Rename song</string>
-    <string name="rename_song_error">An error occurred during the renaming</string>
-    <string name="rename_song_empty">Please fill in all fields</string>
-    <string name="enable_song_repetition">Repeat current song</string>
-    <string name="disable_song_repetition">Stop repeating current song</string>
-    <string name="song_repetition_enabled">Current song repetition enabled</string>
-    <string name="song_repetition_disabled">Current song repetition disabled</string>
-    <string name="enable_shuffle">Enable shuffle</string>
-    <string name="disable_shuffle">Disable shuffle</string>
-    <string name="shuffle_enabled">Shuffle enabled</string>
-    <string name="shuffle_disabled">Shuffle disabled</string>
-    <string name="enable_autoplay">Enable autoplay</string>
-    <string name="disable_autoplay">Disable autoplay</string>
-    <string name="autoplay_enabled">Autoplay enabled</string>
-    <string name="autoplay_disabled">Autoplay disabled</string>
-    <string name="sleep_timer">Sleep timer</string>
-
-    <string name="previous">Previous</string>
-    <string name="playpause">Play / Pause</string>
-    <string name="next">Next</string>
-
-    <!-- Playlists -->
-    <string name="add_file_to_playlist">Add file to playlist</string>
-    <string name="add_folder_to_playlist">Add folder to playlist</string>
-    <string name="manage_playlists">Manage playlists</string>
-    <string name="playlists">Playlists</string>
-    <string name="create_playlist">Create playlist</string>
-    <string name="rename_playlist">Rename playlist</string>
-    <string name="playlist_name_exists">A playlist with that name already exists</string>
-    <string name="remove_playlist">Remove playlist</string>
-    <string name="remove_playlist_description">This will only remove the selected playlists, not the actual files.</string>
-    <string name="remove_playlist_description_placeholder">This will only remove playlist \"%s\", not the actual files.</string>
-    <string name="remove_from_playlist">Remove from playlist</string>
-    <string name="delete_the_files_too">Delete the files too</string>
-    <string name="open_playlist">Open playlist</string>
-    <string name="all_songs_cannot_be_deleted">\'All songs\' playlist cannot be deleted</string>
-    <string name="empty_playlist">Current playlist is empty</string>
-    <string name="fetching_songs">Fetching songs…</string>
-    <string name="all_songs">All songs</string>
-    <string name="create_playlist_from_folder">Create new playlist from folder</string>
-    <string name="folder_contains_no_audio">The selected folder contains no audio files</string>
-    <string name="delete_current_song">Delete current song</string>
-    <string name="remove_current_song">Remove current song from playlist</string>
-    <string name="show_filename">Show filename as song title</string>
-    <string name="title_is_not_available">If title is not available</string>
-    <string name="show_album_cover">Show album cover on the main screen</string>
-
-    <!-- Settings -->
-    <string name="equalizer">Equalizer</string>
-    <string name="swap_prev_next">Swap previous/next headphone buttons</string>
+  <string name="app_name">Music</string>
+  <string name="app_launcher_name">Music</string>
+  <string name="playlist_empty">Your playlist is empty</string>
+  <string name="rename_song">Rename the song </string>
+  <string name="rename_song_error">An error occurred during the renaming</string>
+  <string name="rename_song_empty">Please fill in all fields </string>
+  <string name="enable_song_repetition">Repeat current song </string>
+  <string name="disable_song_repetition">Stop repeating the current song</string>
+  <string name="song_repetition_enabled">Current song repetition enabled</string>
+  <string name="song_repetition_disabled">Current song repetition disabled</string>
+  <string name="enable_shuffle">Enable shuffle</string>
+  <string name="disable_shuffle">Disable shuffle</string>
+  <string name="shuffle_enabled">Shuffle enabled</string>
+  <string name="shuffle_disabled">Shuffle disabled</string>
+  <string name="enable_autoplay">Enable autoplay</string>
+  <string name="disable_autoplay">Disable autoplay</string>
+  <string name="autoplay_enabled">Autoplay enabled</string>
+  <string name="autoplay_disabled">Autoplay disabled</string>
+  <string name="sleep_timer">Sleep timer</string>
+  <string name="previous">Previous</string>
+  <string name="playpause">Play / Pause</string>
+  <string name="next">Next</string>
+  <!-- Playlists -->
+  <string name="add_file_to_playlist">Add file to playlist</string>
+  <string name="add_folder_to_playlist">Add folder to playlist </string>
+  <string name="manage_playlists">Manage playlists</string>
+  <string name="playlists">Playlists</string>
+  <string name="create_playlist">Create a playlist </string>
+  <string name="rename_playlist">Rename the playlist</string>
+  <string name="playlist_name_exists">A playlist with that name already exists</string>
+  <string name="remove_playlist">Remove the playlist</string>
+  <string name="remove_playlist_description">This will only remove the selected playlists, not the actual files.</string>
+  <string name="remove_playlist_description_placeholder">This will only remove playlist \"%s\", not the actual files.</string>
+  <string name="remove_from_playlist">Remove from playlist</string>
+  <string name="delete_the_files_too">Delete the files too</string>
+  <string name="open_playlist">Open playlist</string>
+  <string name="all_songs_cannot_be_deleted">\'All songs\' playlist cannot be deleted</string>
+  <string name="empty_playlist">Current playlist is empty</string>
+  <string name="fetching_songs">Fetching songs…</string>
+  <string name="all_songs">All songs</string>
+  <string name="create_playlist_from_folder">Create a new playlist from the folder </string>
+  <string name="folder_contains_no_audio">The selected folder does not contain audio files</string>
+  <string name="delete_current_song">Delete current song</string>
+  <string name="remove_current_song">Remove current song from playlist</string>
+  <string name="show_filename">Show filename as song title</string>
+  <string name="title_is_not_available">If the title is not available</string>
+  <string name="show_album_cover">Show album cover on the main screen</string>
+  <!-- Settings -->
+  <string name="equalizer">Equalizer</string>
+  <string name="swap_prev_next">Swap previous/next headphone buttons</string>
 </resources>
