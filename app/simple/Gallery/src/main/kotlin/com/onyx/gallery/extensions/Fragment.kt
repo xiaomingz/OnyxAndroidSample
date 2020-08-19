@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 fun Fragment.replaceLoadFragment(replaceId: Int, fragment: Fragment) {
     childFragmentManager.beginTransaction()
             .replace(replaceId, fragment)
-            .commitNow()
+            .commit()
 }
 
 fun Fragment.addFragment(replaceId: Int, fragment: Fragment) {
@@ -16,11 +16,11 @@ fun Fragment.addFragment(replaceId: Int, fragment: Fragment) {
     childFragmentManager.beginTransaction()
             .add(replaceId, fragment, tag)
             .addToBackStack(tag)
-            .commitNow()
+            .commit()
 }
 
 fun Fragment.showFragment(fragment: Fragment) {
     childFragmentManager.beginTransaction()
             .show(fragment)
-            .commitNow()
+            .commit()
 }
