@@ -21,6 +21,7 @@
 
         <LinearLayout
             style="@style/dialog_format_parent_layout"
+            android:layout_marginRight="@dimen/dialog_parent_layout_padding_right"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:layout_weight="1"
@@ -84,6 +85,7 @@
         <LinearLayout
             style="@style/dialog_format_parent_layout"
             android:layout_height="0dp"
+            android:layout_marginRight="@dimen/dialog_parent_layout_padding_right"
             android:layout_marginTop="0dp"
             android:layout_weight="1"
             android:gravity="center">
@@ -156,7 +158,7 @@
                 android:text="@string/stroke_width" />
 
             <ImageView
-                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
+                android:layout_marginLeft="@dimen/sub_menu_item_margini_left_progress"
                 style="@style/dialog_text_style_radio_button"
                 android:layout_weight="0"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.STROKE_WIDTH_SUBTRACTION)}"

@@ -27,16 +27,6 @@ import com.bumptech.glide.request.transition.Transition
 import com.onyx.android.sdk.kui.dialog.ContextPopMenuView
 import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
-import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.dialogs.CreateNewFolderDialog
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
-import com.simplemobiletools.commons.helpers.REQUEST_EDIT_IMAGE
-import com.simplemobiletools.commons.helpers.SORT_BY_RANDOM
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.models.FileDirItem
-import com.simplemobiletools.commons.views.MyGridLayoutManager
-import com.simplemobiletools.commons.views.MyRecyclerView
 import com.onyx.gallery.adapters.MediaAdapter
 import com.onyx.gallery.asynctasks.GetMediaAsynctask
 import com.onyx.gallery.databases.GalleryDatabase
@@ -47,6 +37,15 @@ import com.onyx.gallery.interfaces.MediaOperationsListener
 import com.onyx.gallery.models.Medium
 import com.onyx.gallery.models.ThumbnailItem
 import com.onyx.gallery.models.ThumbnailSection
+import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.dialogs.CreateNewFolderDialog
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
+import com.simplemobiletools.commons.helpers.REQUEST_EDIT_IMAGE
+import com.simplemobiletools.commons.helpers.SORT_BY_RANDOM
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.views.MyGridLayoutManager
 import kotlinx.android.synthetic.main.activity_media.*
 import kotlinx.android.synthetic.main.view_action_bar.*
 import java.io.File
@@ -726,10 +725,9 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         layoutManager.orientation = RecyclerView.VERTICAL
         media_refresh_layout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        val smallMargin = resources.getDimension(R.dimen.small_margin).toInt()
         (media_grid.layoutParams as RelativeLayout.LayoutParams).apply {
-            topMargin = smallMargin
-            bottomMargin = smallMargin
+            topMargin = 0
+            bottomMargin = 0
         }
     }
 

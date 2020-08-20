@@ -32,7 +32,7 @@
                 android:text="@string/stroke_width" />
 
             <ImageView
-                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
+                android:layout_marginLeft="@dimen/sub_menu_item_margini_left_progress"
                 style="@style/dialog_text_style_radio_button"
                 android:layout_weight="0"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.STROKE_WIDTH_SUBTRACTION)}"

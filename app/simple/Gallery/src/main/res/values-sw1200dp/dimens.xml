@@ -15,7 +15,8 @@
     <dimen name="reader_main_menu_top_image_width_1">57px</dimen>
     <dimen name="reader_main_menu_top_image_height_1">57px</dimen>
 
-    <dimen name="dialog_parent_layout_padding_left">45dp</dimen>
+    <dimen name="dialog_parent_layout_padding_left">50dp</dimen>
+    <dimen name="dialog_parent_layout_padding_right">15dp</dimen>
     <dimen name="dialog_text_style_layout_margin_top">70dp</dimen>
 
     <dimen name="font_face_name_height">55.5dp</dimen>
@@ -95,13 +96,14 @@
     <dimen name="global_dialog_corners">30dp</dimen>
     <dimen name="title_bar_item_back_width">15dp</dimen>
     <dimen name="title_bar_item_back_height">27dp</dimen>
-    <dimen name="sub_menu_item_margini_left">105dp</dimen>
+    <dimen name="sub_menu_item_margini_left">130dp</dimen>
+    <dimen name="sub_menu_item_margini_left_progress">160dp</dimen>
     <dimen name="seek_bar_margin">15dp</dimen>
-    <dimen name="sub_menu_item_left_align_margin_size">135dp</dimen>
-    <dimen name="sub_menu_item_left_align_margin_face">140dp</dimen>
+    <dimen name="sub_menu_item_left_align_margin_size">165dp</dimen>
+    <dimen name="sub_menu_item_left_align_margin_face">175dp</dimen>
     <dimen name="text_indentation_margin">68dp</dimen>
     <dimen name="bold_margin">68dp</dimen>
-    <dimen name="more_margin">68dp</dimen>
+    <dimen name="more_margin">30dp</dimen>
     <dimen name="text_traditional_margin">30dp</dimen>
     <dimen name="sub_menu_item_right_align_margin_size">30dp</dimen>
     <dimen name="action_bar_size">80dp</dimen>
@@ -116,8 +118,8 @@
     <dimen name="bottom_actions_height">96dp</dimen>
     <dimen name="photo_video_item_list_point_margin_top">50dp</dimen>
     <dimen name="black_size">30dp</dimen>
-    <dimen name="view_action_bar_title_margin">23dp</dimen>
-    <dimen name="view_action_bar_title_tv_margin">25dp</dimen>
+    <dimen name="view_action_bar_title_margin">30dp</dimen>
+    <dimen name="view_action_bar_title_tv_margin">30dp</dimen>
     <dimen name="view_action_bar_title_size">28sp</dimen>
     <dimen name="rectangle_box_size">35dp</dimen>
     <dimen name="circular_box_size">35dp</dimen>
@@ -134,4 +136,6 @@
     <dimen name="title_width">700dp</dimen>
     <dimen name="photo_video_item_list_play_margin">50dp</dimen>
     <dimen name="photo_video_item_list_time_margin">58dp</dimen>
+    <dimen name="indicator_line">2dp</dimen>
+    <dimen name="text_menu_line">38dp</dimen>
 </resources>
