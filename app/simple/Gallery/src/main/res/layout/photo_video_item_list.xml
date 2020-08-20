@@ -16,8 +16,7 @@
         android:id="@+id/medium_thumbnail"
         android:layout_width="@dimen/list_view_folder_thumbnail_width"
         android:layout_height="@dimen/list_view_folder_thumbnail_height"
-        android:background="@drawable/image_border"
-        android:padding="@dimen/smaller_margin" />
+        android:background="@drawable/image_border" />
 
     <ImageView
         android:id="@+id/medium_check"
