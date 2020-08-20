@@ -23,4 +23,9 @@
     <dimen name="reader_main_menu_bottom_image_width">70px</dimen>
     <dimen name="back_arrow_size">44dp</dimen>
 
+    <dimen name="main_page_logo_icon_size">108dp</dimen>
+    <dimen name="main_page_logo_layout_size">350dp</dimen>
+    <dimen name="toggle_recording_button_size">64dp</dimen>
+    <dimen name="dialog_media_player_padding">20dp</dimen>
+    <dimen name="toggle_recording_button_bottom_margin">60dp</dimen>
 </resources>

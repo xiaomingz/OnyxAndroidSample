@@ -13,10 +13,6 @@
         android:title="@string/sort_by"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/toggle_autoplay"
-        android:title="@string/disable_autoplay"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/open_playlist"
         android:icon="@drawable/ic_open_playlist_vector"
         android:title="@string/open_playlist"
