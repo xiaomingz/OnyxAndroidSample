@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="toggle_recording_button_size">64dp</dimen>
     <dimen name="chunk_max_height">200dp</dimen>
     <dimen name="chunk_min_height">2dp</dimen>
     <dimen name="chunk_space">1dp</dimen>
     <dimen name="chunk_width">3dp</dimen>
-    <dimen name="main_page_logo_icon_size">108dp</dimen>
-    <dimen name="main_page_logo_layout_size">350dp</dimen>
-    <dimen name="dialog_media_player_padding">20dp</dimen>
     <dimen name="ic_launcher_size">100dp</dimen>
 </resources>
