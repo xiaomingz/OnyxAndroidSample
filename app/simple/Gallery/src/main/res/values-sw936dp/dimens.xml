@@ -139,4 +139,10 @@
     <dimen name="grid_format_radius">20dp</dimen>
     <dimen name="indicator_line">1dp</dimen>
     <dimen name="text_menu_line">25dp</dimen>
+    <dimen name="directory_thumb_radius">10dp</dimen>
+    <dimen name="directory_thumb_width">160dp</dimen>
+    <dimen name="directory_thumb_height">210dp</dimen>
+    <dimen name="directory_thumb_radius_margin">9dp</dimen>
+    <dimen name="directory_thumb_padding">1.5dp</dimen>
+    <dimen name="smaller_margin_grid">10dp</dimen>
 </resources>

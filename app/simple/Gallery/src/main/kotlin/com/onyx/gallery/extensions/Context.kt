@@ -462,7 +462,6 @@ fun Context.loadImageBitmap(path: String, skipMemoryCacheAtPaths: ArrayList<Stri
 
 fun Context.loadDirImage(directory: Directory, target: MySquareImageView, cropThumbnails: Boolean) {
     getImageRequestBuilder(directory.path).apply {
-        if (cropThumbnails) first.centerCrop() else first.fitCenter()
         first.priority(Priority.LOW)
         second.apply(first).load(directory).into(target)
     }
@@ -470,7 +469,7 @@ fun Context.loadDirImage(directory: Directory, target: MySquareImageView, cropTh
 
 fun Context.loadPng(path: String, target: MySquareImageView, cropThumbnails: Boolean, skipMemoryCacheAtPaths: ArrayList<String>? = null) {
     getImageRequestBuilder(path, skipMemoryCacheAtPaths).apply {
-        if (cropThumbnails) first.centerCrop() else first.fitCenter()
+        first.transform(RoundTransform(resources.getDimension(R.dimen.default_radius), cropThumbnails))
         first.priority(Priority.LOW).format(DecodeFormat.PREFER_ARGB_8888)
         second.apply(first).load(path).into(target)
     }
@@ -478,7 +477,7 @@ fun Context.loadPng(path: String, target: MySquareImageView, cropThumbnails: Boo
 
 fun Context.loadJpg(path: String, target: MySquareImageView, cropThumbnails: Boolean, skipMemoryCacheAtPaths: ArrayList<String>? = null) {
     getImageRequestBuilder(path, skipMemoryCacheAtPaths).apply {
-        if (cropThumbnails) first.centerCrop() else first.fitCenter()
+        first.transform(RoundTransform(resources.getDimension(R.dimen.default_radius), cropThumbnails))
         first.priority(Priority.LOW)
         second.apply(first).load(path).into(target)
     }
@@ -486,7 +485,7 @@ fun Context.loadJpg(path: String, target: MySquareImageView, cropThumbnails: Boo
 
 fun Context.loadStaticGIF(path: String, target: MySquareImageView, cropThumbnails: Boolean, skipMemoryCacheAtPaths: ArrayList<String>? = null) {
     getImageRequestBuilder(path, skipMemoryCacheAtPaths).apply {
-        if (cropThumbnails) first.centerCrop() else first.fitCenter()
+        first.transform(RoundTransform(resources.getDimension(R.dimen.default_radius), cropThumbnails))
         first.priority(Priority.LOW)
         second.apply(first).load(path).into(target)
     }

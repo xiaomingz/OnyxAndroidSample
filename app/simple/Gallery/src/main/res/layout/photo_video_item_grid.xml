@@ -18,7 +18,7 @@
         android:layout_width="@dimen/directory_item_grid_thumb_width"
         android:layout_height="@dimen/directory_item_grid_thumb_height"
         android:background="@drawable/image_border"
-        android:padding="@dimen/smaller_margin" />
+        android:padding="@dimen/smaller_margin_grid" />
 
     <ImageView
         android:id="@+id/play_outline"
