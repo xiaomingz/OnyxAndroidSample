@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/toggle_recording_button_bottom_margin"
         android:layout_toLeftOf="@+id/toggle_recording_button">
 
         <ImageView
@@ -65,7 +65,7 @@
         android:layout_height="@dimen/toggle_recording_button_size"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/toggle_recording_button_bottom_margin"
         android:src="@drawable/ic_start_vector" />
 
     <RelativeLayout
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/toggle_recording_button_bottom_margin"
         android:layout_toRightOf="@+id/toggle_recording_button">
 
         <ImageView

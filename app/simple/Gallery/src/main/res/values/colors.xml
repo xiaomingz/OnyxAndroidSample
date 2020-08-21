@@ -18,4 +18,5 @@
     <color name="transparent">#00000000</color>
 
     <color name="transparent_color">#10000000</color>
+    <color name="menu_line_color">#B3B3B2</color>
 </resources>

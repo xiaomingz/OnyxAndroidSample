@@ -8,8 +8,6 @@
     android:layout_marginBottom="@dimen/directory_item_grid_margin_top_bottom"
     android:layout_marginLeft="@dimen/directory_item_grid_margin_left_right"
     android:layout_marginRight="@dimen/directory_item_grid_margin_left_right"
-    android:clickable="true"
-    android:focusable="true"
     android:padding="1px">
 
     <com.onyx.gallery.views.MySquareImageView
@@ -17,7 +15,7 @@
         android:layout_width="@dimen/directory_item_grid_thumb_width"
         android:layout_height="@dimen/directory_item_grid_thumb_height"
         android:background="@drawable/image_border"
-        android:padding="@dimen/smaller_margin" />
+        android:padding="@dimen/directory_thumb_padding" />
 
     <ImageView
         android:id="@+id/dir_lock"
