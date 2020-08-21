@@ -99,7 +99,7 @@
     <dimen name="dialog_input_number_recyclerview_margin">106px</dimen>
     <dimen name="dialog_content_maxHeight">550dp</dimen>
     <dimen name="pop_simple_item_text_size">23sp</dimen>
-    <dimen name="context_pop_menu_item_minheight">75dp</dimen>
+    <dimen name="context_pop_menu_item_minheight">48.5dp</dimen>
     <dimen name="context_pop_menu_item_padding_left">38dp</dimen>
     <dimen name="context_pop_menu_item_padding_right">38dp</dimen>
     <dimen name="setting_single_choice_item_padding">20dp</dimen>
