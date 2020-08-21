@@ -4,6 +4,7 @@ import com.onyx.android.sdk.scribble.shape.ShapeFactory;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.handler.touch.TouchHandlerType;
+import com.onyx.gallery.helpers.DrawArgs;
 import com.onyx.gallery.utils.ExpandShapeFactory;
 
 import org.jetbrains.annotations.NotNull;
@@ -54,8 +55,13 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
                 touchHandlerType = TouchHandlerType.CROP;
                 break;
             default:
+                drawHandler.getTouchHelper().setStrokeStyle(DrawArgs.defaultStrokeType);
                 drawHandler.setRawInputReaderEnable(true);
                 drawHandler.setRawDrawingRenderEnabled(true);
+                drawHandler.updateLimitRect(drawHandler.getCurrLimitRect());
+                DrawArgs drawingArgs = drawHandler.getDrawingArgs();
+                drawHandler.setStrokeColor(drawingArgs.getStrokeColor());
+                drawHandler.setStrokeWidth(drawingArgs.getStrokeWidth());
                 touchHandlerType = TouchHandlerType.EPD_SHAPE;
                 break;
         }

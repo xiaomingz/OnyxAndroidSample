@@ -2,19 +2,26 @@ package com.onyx.gallery.handler.touch
 
 import android.graphics.RectF
 import com.onyx.android.sdk.pen.data.TouchPointList
+import com.onyx.android.sdk.rx.RxCallback
+import com.onyx.android.sdk.rx.RxUtils
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.utils.RxTimerUtil
+import com.onyx.gallery.action.WaitForUpdateFinishedAction
 import com.onyx.gallery.action.shape.AddShapesInBackgroundAction
+import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.request.PartialRefreshRequest
 import com.onyx.gallery.utils.ToastUtils
+import io.reactivex.disposables.Disposable
 
 /**
  * Created by Leung on 2020/6/7
  */
 class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
+    private val DELAY_ENABLE_RAW_DRAWING_MILLS = 200L
     private var toastShowing = false
+    private var waitForUpdateFinishedDisposable: Disposable? = null
 
     private val toastHideTimerObserver: RxTimerUtil.TimerObserver = object : RxTimerUtil.TimerObserver() {
         override fun onNext(aLong: Long) {
@@ -25,6 +32,7 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
     override fun onDeactivate() {
         super.onDeactivate()
         toastShowing = false
+        RxUtils.dispose(waitForUpdateFinishedDisposable)
         RxTimerUtil.cancel(toastHideTimerObserver)
     }
 
@@ -82,7 +90,18 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
     }
 
     override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
-        drawHandler.setRawDrawingEnabled(hasFocus)
+        if (hasFocus) {
+            WaitForUpdateFinishedAction()
+                    .setMinWaitTime(DELAY_ENABLE_RAW_DRAWING_MILLS)
+                    .apply { waitForUpdateFinishedDisposable = disposable }
+                    .execute(object : RxCallback<WaitForUpdateFinishedAction>() {
+                        override fun onNext(callback: WaitForUpdateFinishedAction) {
+                            ShapeChangeAction(drawHandler.getCurrShapeType()).execute(null)
+                        }
+                    })
+        } else {
+            drawHandler.setRawDrawingEnabled(false)
+        }
     }
 
 }
