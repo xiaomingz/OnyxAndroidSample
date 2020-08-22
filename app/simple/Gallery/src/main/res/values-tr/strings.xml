@@ -3,23 +3,16 @@
     <string name="app_name">Basit Galeri</string>
     <string name="app_launcher_name">Galeri</string>
     <string name="edit">Düzenle</string>
-    <string name="open_camera">Kamerayı aç</string>
     <string name="hidden">(gizli)</string>
     <string name="unpin_folder">Klasörü ayır</string>
     <string name="pin_to_the_top">Üste sabitle</string>
     <string name="all_folders">Tüm klasörler</string>
-    <string name="folder_view">Klasör görünümüne geç</string>
     <string name="other_folder">Diğer klasör</string>
-    <string name="show_on_map">Haritada göster</string>
     <string name="unknown_location">Bilinmeyen konum</string>
     <string name="change_cover_image">Kapak resmini değiştir</string>
     <string name="select_photo">Fotoğraf seç</string>
     <string name="volume">Ses</string>
     <string name="brightness">Parlaklık</string>
-    <string name="change_orientation">Yönü değiştir</string>
-    <string name="force_portrait">Dikeye zorla</string>
-    <string name="force_landscape">Yataya zorla</string>
-    <string name="use_default_orientation">Varsayılan yönü kullan</string>
     <string name="fix_date_taken">Çekilen tarih değerini düzelt</string>
     <string name="fixing">Düzeltiliyor…</string>
     <string name="dates_fixed_successfully">Tarihler başarıyla düzeltildi</string>
@@ -41,65 +34,33 @@
     <string name="hide_folder_description">Bu işlev, klasöre bir \'.nomedia\' dosyası ekleyerek gizler, tüm alt klasörleri de gizler. Ayarlar\'dan \'Gizli öğeleri göster\' seçeneğini değiştirerek onları görebilirsiniz. Devam edilsin mi?</string>
     <string name="exclude">Hariç tut</string>
     <string name="excluded_folders">Hariç tutulan klasörler</string>
-    <string name="manage_excluded_folders">Hariç tutulan klasörleri yönet</string>
     <string name="exclude_folder_description">Bu, alt klasörleriyle birlikte seçimi yalnızca Basit Galeriden hariç tutacaktır. Hariç tutulan klasörleri Ayarlar\'dan yönetebilirsiniz.</string>
     <string name="exclude_folder_parent">Bunun yerine bir üst dizin hariç tutulsun mu?</string>
-    <string name="excluded_activity_placeholder">Klasörleri hariç tutmak, onları yalnızca Basit Galeri\'de gizlenen alt klasörleriyle bir araya getirecek, diğer uygulamalarda görünmeye devam edecektir.\n\nBunları diğer uygulamalardan gizlemek istiyorsanız, Gizle işlevini kullanın.</string>
     <string name="hidden_folders">Gizli klasörler</string>
-    <string name="manage_hidden_folders">Gizli klasörleri yönet</string>
-    <string name="hidden_folders_placeholder">\".nomedia\" dosyasıyla gizlenmiş herhangi bir klasörünüz yok gibi görünüyor.</string>
 
     <!-- Include folders -->
     <string name="include_folders">Dahil edilen klasörler</string>
-    <string name="manage_included_folders">Dahil edilen klasörleri yönet</string>
     <string name="add_folder">Klasör ekle</string>
-    <string name="included_activity_placeholder">Medya içeren, ancak uygulama tarafından tanınmayan bazı klasörleriniz varsa, bunları elle ekleyebilirsiniz.\n\nBuraya bazı öğeler eklemek başka bir klasörü hariç tutmaz.</string>
     <string name="no_media_add_included">Hiçbir medya dosyası bulunamadı. Medya dosyalarını içeren klasörleri elle ekleyerek çözebilirsiniz.</string>
 
     <!-- Resizing -->
-    <string name="resize">Yeniden boyutlandır</string>
-    <string name="resize_and_save">Seçimi yeniden boyutlandır ve kaydet</string>
     <string name="width">Genişlik</string>
     <string name="height">Yükseklik</string>
-    <string name="keep_aspect_ratio">En-boy oranını koru</string>
-    <string name="invalid_values">Lütfen geçerli bir çözünürlük girin</string>
 
     <!-- Editor -->
     <string name="editor">Düzenleyici</string>
     <string name="rotate">Döndür</string>
     <string name="invalid_image_path">Geçersiz resim yolu</string>
-    <string name="image_editing_failed">Resim düzenleme başarısız</string>
-    <string name="unknown_file_location">Bilinmeyen dosya konumu</string>
-    <string name="rotate_left">Sola döndür</string>
-    <string name="rotate_right">Sağa döndür</string>
-    <string name="rotate_one_eighty">180º döndür</string>
-    <string name="flip_horizontally">Yatay olarak çevir</string>
-    <string name="flip_vertically">Dikey olarak çevir</string>
-    <string name="free_aspect_ratio">Serbest</string>               <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <string name="other_aspect_ratio">Diğer</string>                <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
 
     <!-- Set wallpaper -->
     <string name="simple_wallpaper">Basit Duvar Kağıdı</string>
     <string name="setting_wallpaper">Duvar kağıdı ayarlanıyor&#8230;</string>
     <string name="wallpaper_set_successfully">Duvar kağıdı başarıyla ayarlandı</string>
-    <string name="home_screen">Ana ekran</string>
-    <string name="lock_screen">Kilit ekranı</string>
-    <string name="home_and_lock_screen">Ana ve kilit ekranı</string>
 
     <!-- Slideshow -->
-    <string name="slideshow">Slayt gösterisi</string>
-    <string name="interval">Süre (saniye):</string>
-    <string name="include_videos">Videoları dahil et</string>
-    <string name="include_gifs">GIF\'leri dahil et</string>
-    <string name="random_order">Rastgele sırala</string>
-    <string name="move_backwards">Geriye doğru git</string>
-    <string name="loop_slideshow">Slayt gösterisini tekrarla</string>
-    <string name="animation">Animasyon</string>
-    <string name="no_animation">Hiçbiri</string>
-    <string name="fade">Karart</string>
-    <string name="slide">Kaydır</string>
     <string name="slideshow_ended">Slayt gösterisi sona erdi</string>
-    <string name="no_media_for_slideshow">Slayt gösterisi için medya bulunamadı</string>
 
     <!-- View types -->
     <string name="change_view_type">Görünüm türünü değiştir</string>
@@ -108,48 +69,12 @@
     <string name="group_direct_subfolders">Doğrudan alt klasörleri gruplandır</string>
 
     <!-- Grouping at media thumbnails -->
-    <string name="group_by">Gruplandırma</string>
-    <string name="do_not_group_files">Dosyaları gruplandırma</string>
-    <string name="by_folder">Klasör</string>
-    <string name="by_last_modified_daily">Son değiştirilme (günlük)</string>
-    <string name="by_last_modified_monthly">Son değiştirilme (aylık)</string>
-    <string name="by_date_taken_daily">Çekildiği tarih (günlük)</string>
-    <string name="by_date_taken_monthly">Çekildiği tarih (aylık)</string>
-    <string name="by_file_type">Dosya türü</string>
-    <string name="by_extension">Uzantı</string>
-    <string name="grouping_and_sorting">Lütfen gruplandırmanın ve sıralamanın 2 bağımsız alan olduğunu unutmayın</string>
 
     <!-- Widgets -->
-    <string name="folder_on_widget">Widget\'ta gösterilen klasör:</string>
-    <string name="show_folder_name">Klasör adını göster</string>
 
     <!-- Settings -->
-    <string name="remember_last_video_position">Son video oynatma konumunu hatırla</string>
-    <string name="toggle_filename">Dosya adı görünürlüğünü aç/kapat</string>
-    <string name="crop_thumbnails">Küçük resimleri karelere kırp</string>
-    <string name="screen_rotation_by">Tam ekran medyayı döndür</string>
-    <string name="screen_rotation_system_setting">Sistem ayarları</string>
-    <string name="screen_rotation_device_rotation">Cihaz yönü</string>
-    <string name="screen_rotation_aspect_ratio">En boy oranı</string>
-    <string name="allow_photo_gestures">Dikey hareketlerle fotoğraf parlaklığının kontrolüne izin ver</string>
-    <string name="allow_video_gestures">Video sesini ve parlaklığını dikey hareketlerle kontrol etmeye izin ver</string>
-    <string name="show_extended_details">Tam ekran medya üzerinde genişletilmiş ayrıntıları göster</string>
-    <string name="manage_extended_details">Genişletilmiş ayrıntıları yönet</string>
-    <string name="allow_instant_change">Ekran kenarlarına tıklayarak anında medya değiştirmeye izin ver</string>
-    <string name="show_recycle_bin">Geri dönüşüm kutusu\'nu klasörler ekranında gösterme</string>
-    <string name="file_loading_priority">Dosya yükleme önceliği</string>
-    <string name="speed">Hız</string>
-    <string name="compromise">Ödünsüz</string>
-    <string name="avoid_showing_invalid_files">Geçersiz dosyaları göstermekten kaçın</string>
 
     <!-- Setting sections -->
-    <string name="thumbnails">Küçük resimler</string>
-    <string name="fullscreen_media">Tam ekran medya</string>
-    <string name="extended_details">Genişletilmiş ayrıntılar</string>
-    <string name="bottom_actions">Alt eylemler</string>
 
     <!-- Bottom actions -->
-    <string name="manage_bottom_actions">Görünür alt eylemleri yönet</string>
-    <string name="toggle_favorite">Favoriyi göster/gizle</string>
-    <string name="toggle_file_visibility">Dosya görünürlüğünü aç/kapat</string>
 </resources>

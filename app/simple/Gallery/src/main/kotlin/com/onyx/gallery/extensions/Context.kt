@@ -20,7 +20,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.onyx.gallery.R
-import com.onyx.gallery.activities.SettingsActivity
 import com.onyx.gallery.asynctasks.GetMediaAsynctask
 import com.onyx.gallery.databases.GalleryDatabase
 import com.onyx.gallery.helpers.*
@@ -45,10 +44,6 @@ val Context.audioManager get() = getSystemService(Context.AUDIO_SERVICE) as Audi
 fun Context.getHumanizedFilename(path: String): String {
     val humanized = humanizePath(path)
     return humanized.substring(humanized.lastIndexOf("/") + 1)
-}
-
-fun Context.launchSettings() {
-    startActivity(Intent(applicationContext, SettingsActivity::class.java))
 }
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
@@ -446,7 +441,7 @@ fun Context.getPathLocation(path: String): Int {
     }
 }
 
-fun Context.getImageRequestBuilder(path: String, skipMemoryCacheAtPaths: ArrayList<String>? = null): Pair<RequestOptions,RequestBuilder<Bitmap>> {
+fun Context.getImageRequestBuilder(path: String, skipMemoryCacheAtPaths: ArrayList<String>? = null): Pair<RequestOptions, RequestBuilder<Bitmap>> {
     val options = RequestOptions()
             .signature(path.getFileSignature())
             .skipMemoryCache(skipMemoryCacheAtPaths?.contains(path) == true)

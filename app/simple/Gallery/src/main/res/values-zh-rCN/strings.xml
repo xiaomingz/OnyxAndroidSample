@@ -3,23 +3,16 @@
     <string name="app_name">图库</string>
     <string name="app_launcher_name">图库</string>
     <string name="edit">编辑</string>
-    <string name="open_camera">打开相机</string>
     <string name="hidden">（已隐藏）</string>
     <string name="unpin_folder">取消固定文件夹</string>
     <string name="pin_to_the_top">置顶固定</string>
     <string name="all_folders">所有文件夹</string>
-    <string name="folder_view">文件夹视图</string>
     <string name="other_folder">其他文件夹</string>
-    <string name="show_on_map">在地图上显示</string>
     <string name="unknown_location">未知位置</string>
     <string name="change_cover_image">更换封面图片</string>
     <string name="select_photo">选择图片</string>
     <string name="volume">音量</string>
     <string name="brightness">亮度</string>
-    <string name="change_orientation">更改屏幕方向</string>
-    <string name="force_portrait">强制竖屏</string>
-    <string name="force_landscape">强制横屏</string>
-    <string name="use_default_orientation">使用默认屏幕方向</string>
     <string name="fix_date_taken">修复拍摄日期</string>
     <string name="fixing">正在修复…</string>
     <string name="dates_fixed_successfully">日期修复成功</string>
@@ -41,65 +34,31 @@
     <string name="hide_folder_description">该功能通过添加“.nomedia”文件到文件夹来隐藏它，这也会隐藏其所有子文件夹。您可以通过启用设置中的“显示隐藏的项目”选项来查看它们，是否继续？</string>
     <string name="exclude">排除</string>
     <string name="excluded_folders">排除的文件夹</string>
-    <string name="manage_excluded_folders">管理排除的文件夹</string>
     <string name="exclude_folder_description">该操作仅会在“简约图库”中排除显示选定的文件夹及其子文件夹。您可以在设置中管理排除的文件夹。</string>
     <string name="exclude_folder_parent">是否排除父文件夹？</string>
-    <string name="excluded_activity_placeholder">此目录及其子目录中的媒体将不会在“简约图库”中显示，但是其它应用可以访问。如果您想对其它应用隐藏，请使用隐藏功能。</string>
     <string name="hidden_folders">隐藏的文件夹</string>
-    <string name="manage_hidden_folders">管理隐藏的文件夹</string>
-    <string name="hidden_folders_placeholder">看起来你没有任何使用“.nomedia”文件隐藏的目录。</string>
 
     <!-- Include folders -->
     <string name="include_folders">包含的文件夹</string>
-    <string name="manage_included_folders">管理包含的文件夹</string>
     <string name="add_folder">添加文件夹</string>
-    <string name="included_activity_placeholder">如果您还有应用未扫描到的媒体文件，请添加所在目录路径。</string>
     <string name="no_media_add_included">没有找到媒体文件。请手动添加包含媒体文件的文件夹。</string>
 
     <!-- Resizing -->
-    <string name="resize">调整尺寸</string>
-    <string name="resize_and_save">调整选定项目的尺寸并保存</string>
     <string name="width">宽度</string>
     <string name="height">高度</string>
-    <string name="keep_aspect_ratio">保持高宽比</string>
-    <string name="invalid_values">请输入有效的分辨率</string>
 
     <!-- Editor -->
     <string name="editor">编辑器</string>
     <string name="rotate">旋转</string>
     <string name="invalid_image_path">无效的图片路径</string>
-    <string name="image_editing_failed">图片编辑失败</string>
-    <string name="unknown_file_location">未知文件位置</string>
-    <string name="rotate_left">向左旋转</string>
-    <string name="rotate_right">向右旋转</string>
-    <string name="rotate_one_eighty">旋转 180º</string>
-    <string name="flip_horizontally">水平翻转</string>
-    <string name="flip_vertically">垂直翻转</string>
-    <string name="free_aspect_ratio">自由</string>                <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <string name="other_aspect_ratio">其他</string>             <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
 
     <!-- Set wallpaper -->
     <string name="simple_wallpaper">简约壁纸</string>
     <string name="setting_wallpaper">正在设置壁纸&#8230;</string>
     <string name="wallpaper_set_successfully">设置壁纸成功</string>
-    <string name="home_screen">主屏幕</string>
-    <string name="lock_screen">锁定屏幕</string>
-    <string name="home_and_lock_screen">主屏幕和锁定屏幕</string>
 
     <!-- Slideshow -->
-    <string name="slideshow">幻灯片</string>
-    <string name="interval">间隔（秒）:</string>
-    <string name="include_videos">包含视频</string>
-    <string name="include_gifs">包含GIF</string>
-    <string name="random_order">随机顺序</string>
-    <string name="move_backwards">倒序播放</string>
-    <string name="loop_slideshow">循环播放</string>
-    <string name="animation">动画</string>
-    <string name="no_animation">无</string>
-    <string name="fade">渐隐</string>
-    <string name="slide">滑动</string>
     <string name="slideshow_ended">幻灯片结束</string>
-    <string name="no_media_for_slideshow">没有找到可播放幻灯片媒体文件</string>
 
     <!-- View types -->
     <string name="change_view_type">更改视图类型</string>
@@ -107,51 +66,7 @@
     <string name="list">列表</string>
     <string name="group_direct_subfolders">直接分组文件夹</string>
 
-    <!-- Grouping at media thumbnails -->
-    <string name="group_by">分组依据</string>
-    <string name="do_not_group_files">不分组文件</string>
-    <string name="by_folder">文件夹</string>
-    <string name="by_last_modified_daily">最后修改时间（按日）</string>
-    <string name="by_last_modified_monthly">最后修改时间（按月）</string>
-    <string name="by_date_taken_daily">拍摄时间（按日）</string>
-    <string name="by_date_taken_monthly">拍摄时间（按月）</string>
-    <string name="by_file_type">文件类型</string>
-    <string name="by_extension">扩展名</string>
-    <string name="grouping_and_sorting">请注意，分组和排序是两种独立的组织方式</string>
-
-    <!-- Widgets -->
-    <string name="folder_on_widget">在小工具上显示的文件夹：</string>
-    <string name="show_folder_name">显示文件夹名称</string>
-
-    <!-- Settings -->
-    <string name="remember_last_video_position">记住上次视频播放位置</string>
-    <string name="toggle_filename">显示文件名</string>
-    <string name="crop_thumbnails">裁剪缩略图为正方形</string>
-    <string name="screen_rotation_by">旋转全屏媒体文件依据</string>
-    <string name="screen_rotation_system_setting">系统设置</string>
-    <string name="screen_rotation_device_rotation">设备旋转</string>
-    <string name="screen_rotation_aspect_ratio">高宽比</string>
-    <string name="allow_photo_gestures">使用纵向滑动手势控制照片亮度</string>
-    <string name="allow_video_gestures">使用纵向滑动手势控制视频音量和亮度</string>
-    <string name="show_extended_details">全屏浏览媒体时显示详细信息</string>
-    <string name="manage_extended_details">要显示的详细信息项目</string>
-    <string name="allow_instant_change">通过单击屏幕边缘来切换媒体</string>
-    <string name="show_recycle_bin">在文件夹界面显示回收站</string>
-    <string name="file_loading_priority">文件加载优先级</string>
-    <string name="speed">快速</string>
-    <string name="compromise">折中</string>
-    <string name="avoid_showing_invalid_files">避免显示无效的文件</string>
-
-    <!-- Setting sections -->
-    <string name="thumbnails">缩略图</string>
-    <string name="fullscreen_media">全屏显示媒体</string>
-    <string name="extended_details">扩展详情</string>
-    <string name="bottom_actions">底栏选项</string>
-
     <!-- Bottom actions -->
-    <string name="manage_bottom_actions">管理底栏选项</string>
-    <string name="toggle_favorite">收藏</string>
-    <string name="toggle_file_visibility">隐藏文件</string>
     <string name="graffiti">涂鸦</string>
     <string name="cropMenu">裁剪</string>
     <string name="mosaic">马赛克</string>

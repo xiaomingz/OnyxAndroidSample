@@ -1,23 +1,15 @@
 package com.onyx.gallery.activities
 
 import android.app.Activity
-import android.app.SearchManager
 import android.app.WallpaperManager
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.RelativeLayout
-import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -30,15 +22,15 @@ import com.onyx.gallery.R
 import com.onyx.gallery.adapters.MediaAdapter
 import com.onyx.gallery.asynctasks.GetMediaAsynctask
 import com.onyx.gallery.databases.GalleryDatabase
-import com.onyx.gallery.dialogs.*
+import com.onyx.gallery.dialogs.FilterMediaDialog
+import com.onyx.gallery.dialogs.ViewStyle
+import com.onyx.gallery.dialogs.ViewStyleChangeDialog
+import com.onyx.gallery.dialogs.ViewStyleChangeDialogType
 import com.onyx.gallery.extensions.*
 import com.onyx.gallery.helpers.*
 import com.onyx.gallery.interfaces.MediaOperationsListener
 import com.onyx.gallery.models.Medium
 import com.onyx.gallery.models.ThumbnailItem
-import com.onyx.gallery.models.ThumbnailSection
-import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.dialogs.CreateNewFolderDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REQUEST_EDIT_IMAGE
@@ -95,7 +87,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             mAllowPickingMultiple = getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
         }
 
-        media_refresh_layout.setOnRefreshListener { getMedia() }
         try {
             mPath = intent.getStringExtra(DIRECTORY)
             tvTitle.setText(mPath)
@@ -153,15 +144,8 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
 
         if (mStoredPrimaryColor != config.primaryColor) {
             getMediaAdapter()?.updatePrimaryColor(config.primaryColor)
-            media_horizontal_fastscroller.updatePrimaryColor()
-            media_vertical_fastscroller.updatePrimaryColor()
         }
 
-        media_horizontal_fastscroller.updateBubbleColors()
-        media_vertical_fastscroller.updateBubbleColors()
-        media_horizontal_fastscroller.allowBubbleDisplay = config.showInfoBubble
-        media_vertical_fastscroller.allowBubbleDisplay = config.showInfoBubble
-        media_refresh_layout.isEnabled = config.enablePullToRefresh
         invalidateOptionsMenu()
         media_empty_text_label.setTextColor(config.textColor)
         media_empty_text.setTextColor(getAdjustedPrimaryColor())
@@ -174,7 +158,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
     override fun onPause() {
         super.onPause()
         mIsGettingMedia = false
-        media_refresh_layout.isRefreshing = false
         storeStateVariables()
         mLastMediaHandler.removeCallbacksAndMessages(null)
 
@@ -210,49 +193,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         mMedia.clear()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_media, menu)
-        updateMenuItemColors(menu, baseColor = Color.BLACK)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.sort -> showSortingDialog()
-            R.id.filter -> showFilterMediaDialog()
-            R.id.empty_recycle_bin -> emptyRecycleBin()
-            R.id.empty_disable_recycle_bin -> emptyAndDisableRecycleBin()
-            R.id.restore_all_files -> restoreAllFiles()
-            R.id.open_camera -> launchCamera()
-            R.id.folder_view -> switchToFolderView()
-            R.id.change_view_type -> changeViewType()
-            R.id.group -> showGroupByDialog()
-            R.id.hide_folder -> tryHideFolder()
-            R.id.unhide_folder -> unhideFolder()
-            R.id.exclude_folder -> tryExcludeFolder()
-            R.id.create_new_folder -> createNewFolder()
-            R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.slideshow -> startSlideshow()
-            R.id.settings -> launchSettings()
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
-    }
-
-    private fun startSlideshow() {
-        if (mMedia.isNotEmpty()) {
-            Intent(this, ViewPagerActivity::class.java).apply {
-                val item = mMedia.firstOrNull { it is Medium } as? Medium
-                        ?: return
-                putExtra(PATH, item.path)
-                putExtra(SHOW_ALL, mShowAll)
-                putExtra(SLIDESHOW_START_ON_ENTER, true)
-                startActivity(this)
-            }
-        }
-    }
-
     private fun storeStateVariables() {
         config.apply {
             mStoredAnimateGifs = animateGifs
@@ -264,46 +204,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             mStoredPrimaryColor = primaryColor
             mShowAll = showAll
         }
-    }
-
-    private fun setupSearch(menu: Menu) {
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        mSearchMenuItem = menu.findItem(R.id.search)
-        (mSearchMenuItem?.actionView as? SearchView)?.apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            isSubmitButtonEnabled = false
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String) = false
-
-                override fun onQueryTextChange(newText: String): Boolean {
-                    if (mIsSearchOpen) {
-                        mLastSearchedText = newText
-                        searchQueryChanged(newText)
-                    }
-                    return true
-                }
-            })
-        }
-
-        MenuItemCompat.setOnActionExpandListener(mSearchMenuItem, object : MenuItemCompat.OnActionExpandListener {
-            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                mIsSearchOpen = true
-                media_refresh_layout.isEnabled = false
-                return true
-            }
-
-            // this triggers on device rotation too, avoid doing anything
-            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                if (mIsSearchOpen) {
-                    mIsSearchOpen = false
-                    mLastSearchedText = ""
-
-                    media_refresh_layout.isEnabled = config.enablePullToRefresh
-                    searchQueryChanged("")
-                }
-                return true
-            }
-        })
     }
 
     private fun searchQueryChanged(text: String) {
@@ -321,7 +221,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
                     }
 
                     getMediaAdapter()?.updateMedia(grouped)
-                    measureRecyclerViewContent(grouped)
                 }
             } catch (ignored: Exception) {
             }
@@ -356,9 +255,8 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
 
         val currAdapter = media_grid.adapter
         if (currAdapter == null) {
-            val fastscroller = if (config.scrollHorizontally) media_horizontal_fastscroller else media_vertical_fastscroller
             MediaAdapter(this, mMedia.clone() as ArrayList<ThumbnailItem>, this, mIsGetImageIntent || mIsGetVideoIntent || mIsGetAnyIntent,
-                    mAllowPickingMultiple, mPath, media_grid, fastscroller) {
+                    mAllowPickingMultiple, mPath, media_grid) {
                 if (it is Medium && !isFinishing) {
                     itemClicked(it.path)
                 }
@@ -366,47 +264,11 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
                 media_grid.adapter = this
             }
             setupLayoutManager()
-            measureRecyclerViewContent(mMedia)
         } else if (mLastSearchedText.isEmpty()) {
             (currAdapter as MediaAdapter).updateMedia(mMedia)
-            measureRecyclerViewContent(mMedia)
         } else {
             searchQueryChanged(mLastSearchedText)
         }
-
-        setupScrollDirection()
-    }
-
-    private fun setupScrollDirection() {
-        val viewType = config.getFolderViewType(if (mShowAll) SHOW_ALL else mPath)
-        val allowHorizontalScroll = config.scrollHorizontally && viewType == VIEW_TYPE_GRID
-        media_vertical_fastscroller.isHorizontal = false
-        media_vertical_fastscroller.beGoneIf(allowHorizontalScroll)
-
-        media_horizontal_fastscroller.isHorizontal = true
-        media_horizontal_fastscroller.beVisibleIf(allowHorizontalScroll)
-
-        val sorting = config.getFolderSorting(if (mShowAll) SHOW_ALL else mPath)
-        if (allowHorizontalScroll) {
-            media_horizontal_fastscroller.allowBubbleDisplay = config.showInfoBubble
-            media_horizontal_fastscroller.setViews(media_grid, media_refresh_layout) {
-                media_horizontal_fastscroller.updateBubbleText(getBubbleTextItem(it, sorting))
-            }
-        } else {
-            media_vertical_fastscroller.allowBubbleDisplay = config.showInfoBubble
-            media_vertical_fastscroller.setViews(media_grid, media_refresh_layout) {
-                media_vertical_fastscroller.updateBubbleText(getBubbleTextItem(it, sorting))
-            }
-        }
-    }
-
-    private fun getBubbleTextItem(index: Int, sorting: Int): String {
-        var realIndex = index
-        val mediaAdapter = getMediaAdapter()
-        if (mediaAdapter?.isASectionTitle(index) == true) {
-            realIndex++
-        }
-        return mediaAdapter?.getItemBubbleText(realIndex, sorting) ?: ""
     }
 
     private fun checkLastMediaChanged() {
@@ -432,106 +294,11 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         }, LAST_MEDIA_CHECK_PERIOD)
     }
 
-    private fun showSortingDialog() {
-        ChangeSortingDialog(this, false, true, mPath) {
-            mLoadedInitialPhotos = false
-            media_grid.adapter = null
-            getMedia()
-        }
-    }
-
     private fun showFilterMediaDialog() {
         FilterMediaDialog(this) {
             mLoadedInitialPhotos = false
-            media_refresh_layout.isRefreshing = true
             media_grid.adapter = null
             getMedia()
-        }
-    }
-
-    private fun emptyRecycleBin() {
-        showRecycleBinEmptyingDialog {
-            emptyTheRecycleBin {
-                finish()
-            }
-        }
-    }
-
-    private fun emptyAndDisableRecycleBin() {
-        showRecycleBinEmptyingDialog {
-            emptyAndDisableTheRecycleBin {
-                finish()
-            }
-        }
-    }
-
-    private fun restoreAllFiles() {
-        val paths = mMedia.filter { it is Medium }.map { (it as Medium).path } as ArrayList<String>
-        restoreRecycleBinPaths(paths) {
-            ensureBackgroundThread {
-                directoryDao.deleteDirPath(RECYCLE_BIN)
-            }
-            finish()
-        }
-    }
-
-    private fun switchToFolderView() {
-        config.showAll = false
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
-    }
-
-    private fun changeViewType() {
-        ChangeViewTypeDialog(this, false, mPath) {
-            invalidateOptionsMenu()
-            setupLayoutManager()
-            media_grid.adapter = null
-            setupAdapter()
-        }
-    }
-
-    private fun showGroupByDialog() {
-        ChangeGroupingDialog(this, mPath) {
-            mLoadedInitialPhotos = false
-            media_grid.adapter = null
-            getMedia()
-        }
-    }
-
-    private fun tryHideFolder() {
-        if (config.wasHideFolderTooltipShown) {
-            hideFolder()
-        } else {
-            ConfirmationDialog(this, getString(R.string.hide_folder_description)) {
-                config.wasHideFolderTooltipShown = true
-                hideFolder()
-            }
-        }
-    }
-
-    private fun hideFolder() {
-        addNoMedia(mPath) {
-            runOnUiThread {
-                if (!config.shouldShowHidden) {
-                    finish()
-                } else {
-                    invalidateOptionsMenu()
-                }
-            }
-        }
-    }
-
-    private fun unhideFolder() {
-        removeNoMedia(mPath) {
-            runOnUiThread {
-                invalidateOptionsMenu()
-            }
-        }
-    }
-
-    private fun tryExcludeFolder() {
-        ExcludeFolderDialog(this, arrayListOf(mPath)) {
-            finish()
         }
     }
 
@@ -552,11 +319,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             startAsyncTask()
         } else {
             getCachedMedia(mPath, mIsGetVideoIntent, mIsGetImageIntent) {
-                if (it.isEmpty()) {
-                    runOnUiThread {
-                        media_refresh_layout.isRefreshing = true
-                    }
-                } else {
+                if (it.isNotEmpty()) {
                     gotMedia(it, true)
                 }
                 startAsyncTask()
@@ -614,22 +377,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         }
     }
 
-    private fun createNewFolder() {
-        CreateNewFolderDialog(this, mPath) {
-            config.tempFolderPath = it
-        }
-    }
-
-    private fun tryToggleTemporarilyShowHidden() {
-        if (config.temporarilyShowHidden) {
-            toggleTemporarilyShowHidden(false)
-        } else {
-            handleHiddenFolderPasswordProtection {
-                toggleTemporarilyShowHidden(true)
-            }
-        }
-    }
-
     private fun toggleTemporarilyShowHidden(show: Boolean) {
         mLoadedInitialPhotos = false
         config.temporarilyShowHidden = show
@@ -655,10 +402,8 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
 
         if (config.scrollHorizontally) {
             layoutManager.orientation = RecyclerView.HORIZONTAL
-            media_refresh_layout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
         } else {
             layoutManager.orientation = RecyclerView.VERTICAL
-            media_refresh_layout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
 
         layoutManager.spanCount = config.mediaColumnCnt
@@ -674,77 +419,15 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         }
     }
 
-    private fun measureRecyclerViewContent(media: ArrayList<ThumbnailItem>) {
-        media_grid.onGlobalLayout {
-            if (config.scrollHorizontally) {
-                calculateContentWidth(media)
-            } else {
-                calculateContentHeight(media)
-            }
-        }
-    }
-
-    private fun calculateContentWidth(media: ArrayList<ThumbnailItem>) {
-        val layoutManager = media_grid.layoutManager as MyGridLayoutManager
-        val thumbnailWidth = layoutManager.getChildAt(0)?.width ?: 0
-        val fullWidth = ((media.size - 1) / layoutManager.spanCount + 1) * thumbnailWidth
-        media_horizontal_fastscroller.setContentWidth(fullWidth)
-        media_horizontal_fastscroller.setScrollToX(media_grid.computeHorizontalScrollOffset())
-    }
-
-    private fun calculateContentHeight(media: ArrayList<ThumbnailItem>) {
-        val layoutManager = media_grid.layoutManager as MyGridLayoutManager
-        val pathToCheck = if (mPath.isEmpty()) SHOW_ALL else mPath
-        val hasSections = config.getFolderGrouping(pathToCheck) and GROUP_BY_NONE == 0 && !config.scrollHorizontally
-        val sectionTitleHeight = if (hasSections) layoutManager.getChildAt(0)?.height ?: 0 else 0
-        val thumbnailHeight = if (hasSections) layoutManager.getChildAt(1)?.height ?: 0 else layoutManager.getChildAt(0)?.height ?: 0
-
-        var fullHeight = 0
-        var curSectionItems = 0
-        media.forEach {
-            if (it is ThumbnailSection) {
-                fullHeight += sectionTitleHeight
-                if (curSectionItems != 0) {
-                    val rows = ((curSectionItems - 1) / layoutManager.spanCount + 1)
-                    fullHeight += rows * thumbnailHeight
-                }
-                curSectionItems = 0
-            } else {
-                curSectionItems++
-            }
-        }
-
-        fullHeight += ((curSectionItems - 1) / layoutManager.spanCount + 1) * thumbnailHeight
-        media_vertical_fastscroller.setContentHeight(fullHeight)
-        media_vertical_fastscroller.setScrollToY(media_grid.computeVerticalScrollOffset())
-    }
-
     private fun setupListLayoutManager() {
         val layoutManager = media_grid.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = 1
         layoutManager.orientation = RecyclerView.VERTICAL
-        media_refresh_layout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
         (media_grid.layoutParams as RelativeLayout.LayoutParams).apply {
             topMargin = 0
             bottomMargin = 0
         }
-    }
-
-    private fun increaseColumnCount() {
-        config.mediaColumnCnt = ++(media_grid.layoutManager as MyGridLayoutManager).spanCount
-        columnCountChanged()
-    }
-
-    private fun reduceColumnCount() {
-        config.mediaColumnCnt = --(media_grid.layoutManager as MyGridLayoutManager).spanCount
-        columnCountChanged()
-    }
-
-    private fun columnCountChanged() {
-        invalidateOptionsMenu()
-        media_grid.adapter?.notifyDataSetChanged()
-        measureRecyclerViewContent(mMedia)
     }
 
     private fun isSetWallpaperIntent() = intent.getBooleanExtra(SET_WALLPAPER_INTENT, false)
@@ -816,7 +499,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         mMedia = media
 
         runOnUiThread {
-            media_refresh_layout.isRefreshing = false
             media_empty_text_label.beVisibleIf(media.isEmpty() && !isFromCache)
             media_empty_text.beVisibleIf(media.isEmpty() && !isFromCache)
 
@@ -825,10 +507,6 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             }
             media_grid.beVisibleIf(media_empty_text_label.isGone())
 
-            val viewType = config.getFolderViewType(if (mShowAll) SHOW_ALL else mPath)
-            val allowHorizontalScroll = config.scrollHorizontally && viewType == VIEW_TYPE_GRID
-            media_vertical_fastscroller.beVisibleIf(media_grid.isVisible() && !allowHorizontalScroll)
-            media_horizontal_fastscroller.beVisibleIf(media_grid.isVisible() && allowHorizontalScroll)
             setupAdapter()
         }
 
