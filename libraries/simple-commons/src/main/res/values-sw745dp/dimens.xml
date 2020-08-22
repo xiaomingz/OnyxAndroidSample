@@ -19,6 +19,7 @@
     <dimen name="fb_margin">27dp</dimen>
     <dimen name="dialog_min_width">307dp</dimen>
     <dimen name="dialog_max_height">550.5dp</dimen>
+    <dimen name="time_picker_dialog_button_text_size">18sp</dimen>
 
     <dimen name="reader_main_menu_bottom_image_width">27dp</dimen>
     <dimen name="back_arrow_size">28dp</dimen>

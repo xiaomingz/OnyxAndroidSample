@@ -28,6 +28,7 @@ android {
 
 dependencies {
     api project(':libraries:onyxsdk-androidx')
+    api project(':libraries:datetimepicker')
 
     api 'com.andrognito.patternlockview:patternlockview:1.0.0'
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.ext.kotlin_version"
