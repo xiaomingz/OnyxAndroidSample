@@ -19,6 +19,7 @@
     <dimen name="fb_margin">33.5dp</dimen>
     <dimen name="dialog_min_width">384dp</dimen>
     <dimen name="dialog_max_height">688dp</dimen>
+    <dimen name="global_dialog_corners">14px</dimen>
 
     <dimen name="reader_main_menu_bottom_image_width">34dp</dimen>
     <dimen name="back_arrow_size">35.2dp</dimen>
