@@ -4,13 +4,13 @@
     <string name="app_launcher_name">Gallery</string>
     <string name="edit">Edit</string>
     <string name="hidden">(hidden)</string>
-    <string name="unpin_folder">Unpin folder</string>
+    <string name="unpin_folder">Cancel fixed folder</string>
     <string name="pin_to_the_top">Pin to the top</string>
     <string name="all_folders">All folders</string>
     <string name="other_folder">Other folder</string>
     <string name="unknown_location">Unknown location</string>
     <string name="change_cover_image">Change cover image</string>
-    <string name="select_photo">Select photo</string>
+    <string name="select_photo">Select photos</string>
     <string name="volume">Volume</string>
     <string name="brightness">Brightness</string>
     <string name="fix_date_taken">Fix Date Taken value</string>
@@ -23,15 +23,15 @@
     <string name="filter_media">Filter media</string>
     <string name="images">Images</string>
     <string name="videos">Videos</string>
-    <string name="gifs">GIFs</string>
+    <string name="gifs">GIF</string>
     <string name="raw_images">RAW images</string>
     <string name="svgs">SVGs</string>
     <string name="portraits">Portraits</string>
     <string name="no_media_with_filters">No media files have been found with the selected filters.</string>
-    <string name="change_filters_underlined"><u>Change filters</u></string>
+    <string name="change_filters_underlined"><u>Change filter conditions</u></string>
 
     <!-- Hide / Exclude -->
-    <string name="hide_folder_description">This function hides the folder by adding a \'.nomedia\' file into it, it will hide all subfolders too. You can see them by toggling the \'Show hidden items\' option in Settings. Continue?</string>
+    <string name="hide_folder_description">This function hides the folder by adding a ".nomedia" file into it. It will hide all subfolders too. You can check them by toggling the \'Show hidden items\' option in Settings. Do you want to continue?</string>
     <string name="exclude">Exclude</string>
     <string name="excluded_folders">Excluded folders</string>
     <string name="exclude_folder_description">This will exclude the selection together with its subfolders from Simple Gallery only. You can manage excluded folders in Settings.</string>

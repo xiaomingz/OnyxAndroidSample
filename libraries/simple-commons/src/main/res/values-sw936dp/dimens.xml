@@ -26,4 +26,10 @@
     <dimen name="smaller_margin">6dp</dimen>
     <dimen name="normal_margin">22dp</dimen>
     <dimen name="small_margin">4dp</dimen>
+
+    <dimen name="main_page_logo_icon_size">87dp</dimen>
+    <dimen name="main_page_logo_layout_size">283dp</dimen>
+    <dimen name="toggle_recording_button_size">48dp</dimen>
+    <dimen name="dialog_media_player_padding">15dp</dimen>
+    <dimen name="toggle_recording_button_bottom_margin">45dp</dimen>
 </resources>

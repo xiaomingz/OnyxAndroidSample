@@ -166,9 +166,6 @@ class MainActivity : SimpleActivity(), SongListListener {
         menuInflater.inflate(R.menu.menu_main, menu)
         setupSearch(menu)
 
-        val autoplay = menu.findItem(R.id.toggle_autoplay)
-        autoplay.title = getString(if (config.autoplay) R.string.disable_autoplay else R.string.enable_autoplay)
-
         menu.apply {
             findItem(R.id.sort).isVisible = !isThirdPartyIntent
             findItem(R.id.sort).isVisible = !isThirdPartyIntent
@@ -196,7 +193,6 @@ class MainActivity : SimpleActivity(), SongListListener {
             R.id.delete_current -> getSongsAdapter()?.deleteCurrentSong()
             R.id.sleep_timer -> showSleepTimer()
             R.id.open_playlist -> openPlaylist()
-            R.id.toggle_autoplay -> toggleAutoplay()
             R.id.add_folder_to_playlist -> addFolderToPlaylist()
             R.id.add_file_to_playlist -> addFileToPlaylist()
             R.id.create_playlist_from_folder -> createPlaylistFromFolder()

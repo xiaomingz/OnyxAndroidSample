@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="top_art_height">210dp</dimen>
+    <dimen name="top_art_image_size">188dp</dimen>
+</resources>

@@ -1,8 +1,8 @@
 <resources>
-    <dimen name="alarm_day_size">75dp</dimen>
-    <dimen name="alarm_day_text_size">32sp</dimen>
-    <dimen name="stopwatch_button_small_size">60dp</dimen>
-    <dimen name="stopwatch_button_size">64dp</dimen>
+    <dimen name="alarm_day_size">60dp</dimen>
+    <dimen name="alarm_day_text_size">26sp</dimen>
+    <dimen name="stopwatch_button_small_size">49dp</dimen>
+    <dimen name="stopwatch_button_size">53dp</dimen>
     <dimen name="reminder_background_min_size">70dp</dimen>
     <dimen name="lap_time_size">80dp</dimen>
     <dimen name="widget_alarm_icon_size">26dp</dimen>
@@ -11,24 +11,23 @@
     <dimen name="min_widget_width">180dp</dimen>
     <dimen name="min_widget_resize_width">110dp</dimen>
 
-    <dimen name="clock_text_size">84sp</dimen>
-    <dimen name="clock_text_size_smaller">78sp</dimen>
-    <dimen name="clock_tab_layout_height">120dp</dimen>
-    <dimen name="alarm_text_size">70sp</dimen>
-    <dimen name="stopwatch_text_size">70sp</dimen>
+    <dimen name="clock_text_size">65sp</dimen>
+    <dimen name="clock_text_size_smaller">60sp</dimen>
+    <dimen name="clock_tab_layout_height">105dp</dimen>
+    <dimen name="alarm_text_size">56sp</dimen>
+    <dimen name="stopwatch_text_size">55sp</dimen>
     <dimen name="widget_time_text_size_small">48sp</dimen>
     <dimen name="widget_details_text_size">14sp</dimen>
     <dimen name="reminder_activity_title_size">32sp</dimen>
     <dimen name="reminder_activity_text_size">26sp</dimen>
-    <dimen name="tab_layout_height">118dp</dimen>
-    <dimen name="tab_item_icon_size">56dp</dimen>
+    <dimen name="tab_item_icon_size">53dp</dimen>
     <dimen name="time_zone_layout_height">960dp</dimen>
-    <dimen name="analog_clock_view_size">520dp</dimen>
+    <dimen name="analog_clock_view_size">405dp</dimen>
     <dimen name="analog_clock_hour_stoke_width">9dp</dimen>
     <dimen name="analog_clock_minutes_stoke_width">6dp</dimen>
     <dimen name="analog_clock_second_stoke_width">3dp</dimen>
     <dimen name="analog_clock_text_width">32sp</dimen>
-    <dimen name="stopwatch_layout_size">500dp</dimen>
+    <dimen name="stopwatch_layout_size">390dp</dimen>
     <dimen name="stopwatch_stoke">2dp</dimen>
     <dimen name="stopwatch_circle">3dp</dimen>
     <dimen name="stopwatch_point_radius">15dp</dimen>
