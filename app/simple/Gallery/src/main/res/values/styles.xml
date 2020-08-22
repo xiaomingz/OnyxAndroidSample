@@ -90,8 +90,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingRight">0dp</item>
-        <item name="android:maxHeight">@dimen/seekbar_with_text_seekbar_height</item>
-        <item name="android:minHeight">@dimen/seekbar_with_text_seekbar_height</item>
+        <item name="android:maxHeight">@dimen/menu_seekbar_with_text_seekbar_height</item>
+        <item name="android:minHeight">@dimen/menu_seekbar_with_text_seekbar_height</item>
         <item name="android:focusable">true</item>
         <item name="android:padding">@dimen/seekbar_padding</item>
         <item name="android:paddingStart" tools:ignore="NewApi">0dp</item>

@@ -130,7 +130,6 @@
             android:layout_marginLeft="@dimen/view_action_bar_menu_margin"
             android:background="@drawable/bg_button_click_solid"
             android:onClick="onDeleteClick"
-
             android:src="@drawable/ic_delete_vector"
             android:visibility="gone" />
 
