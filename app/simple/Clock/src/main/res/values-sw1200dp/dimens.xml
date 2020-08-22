@@ -13,6 +13,7 @@
 
     <dimen name="clock_text_size">84sp</dimen>
     <dimen name="clock_text_size_smaller">78sp</dimen>
+    <dimen name="clock_tab_layout_height">120dp</dimen>
     <dimen name="alarm_text_size">70sp</dimen>
     <dimen name="stopwatch_text_size">70sp</dimen>
     <dimen name="widget_time_text_size_small">48sp</dimen>
