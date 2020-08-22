@@ -1,6 +1,8 @@
 package com.onyx.gallery.helpers
 
 import android.graphics.*
+import com.onyx.android.sdk.utils.ResManager
+import com.onyx.gallery.R
 import java.io.Serializable
 import java.util.*
 
@@ -30,19 +32,28 @@ class CombineBitmapTools private constructor() {
         private fun getCombineBitmaps(entityList: List<CombineBitmapEntity>, config: CombineConfig): Bitmap? {
             var newBitmap: Bitmap? = Bitmap.createBitmap(config.width.toInt(), config.height.toInt(), Bitmap.Config.ARGB_8888)
             for (i in entityList.indices) {
-                newBitmap = mixtureBitmap(newBitmap, entityList[i].bitmap, PointF(entityList[i].x, entityList[i].y))
+                val entity = entityList[i]
+                newBitmap = mixtureBitmap(newBitmap, entity.bitmap, PointF(entity.x, entity.y), entity.radius)
             }
             return newBitmap
         }
 
-        private fun mixtureBitmap(first: Bitmap?, second: Bitmap?, fromPoint: PointF?): Bitmap? {
+        private fun mixtureBitmap(first: Bitmap?, second: Bitmap?, fromPoint: PointF?, radius: Float): Bitmap? {
             if (first == null || second == null || fromPoint == null) {
                 return null
             }
+            val paint = Paint()
+            val roundBitmap = Bitmap.createBitmap(second.getWidth(), second.getHeight(), Bitmap.Config.ARGB_4444)
+            val roundCanvas = Canvas(roundBitmap)
+            paint.setShader(BitmapShader(second, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP))
+            paint.setAntiAlias(true)
+            val rectF = RectF(0f, 0f, second.getWidth().toFloat(), second.getHeight().toFloat())
+            roundCanvas.drawRoundRect(rectF, radius, radius, paint)
+
             val newBitmap = Bitmap.createBitmap(first.width, first.height, Bitmap.Config.ARGB_8888)
-            val cv = Canvas(newBitmap)
-            cv.drawBitmap(first, 0f, 0f, null)
-            cv.drawBitmap(second, fromPoint.x, fromPoint.y, null)
+            val canvas = Canvas(newBitmap)
+            canvas.drawBitmap(first, 0f, 0f, null)
+            canvas.drawBitmap(roundBitmap, fromPoint.x, fromPoint.y, null)
             return newBitmap
         }
 
@@ -72,6 +83,7 @@ class CombineBitmapTools private constructor() {
                     bitmapEntity.x = config.divider * (column + 1) + column * perBitmapWidth
                     bitmapEntity.width = perBitmapWidth
                     bitmapEntity.height = perBitmapHeight
+                    bitmapEntity.radius = config.radius
                     list.add(bitmapEntity)
                     ++index
                 }
@@ -122,6 +134,7 @@ class CombineBitmapTools private constructor() {
         class CombineBitmapEntity : Serializable {
             var x: Float = 0.toFloat()
             var y: Float = 0.toFloat()
+            var radius: Float = 0.toFloat()
             var width: Float = 0.toFloat()
             var height: Float = 0.toFloat()
             var bitmap: Bitmap? = null
@@ -131,10 +144,12 @@ class CombineBitmapTools private constructor() {
             var divider: Float = 0.toFloat()
             var max = DEFAULT_MAX_COUNT
             var equilateral = false
+            var radius = 0f
 
-            constructor(width: Float, height: Float, divider: Float, max: Int) : this(width, height) {
+            constructor(width: Float, height: Float, divider: Float, radius: Float, max: Int) : this(width, height) {
                 this.max = max
                 this.divider = divider
+                this.radius = radius
             }
 
             companion object {
@@ -143,7 +158,11 @@ class CombineBitmapTools private constructor() {
                 val DEFAULT_MAX_COUNT = 4
 
                 init {
-                    DEFAULT = CombineConfig(512f, 681f, 14f, DEFAULT_MAX_COUNT)
+                    DEFAULT = CombineConfig(ResManager.getDimens(R.dimen.directory_thumb_width).toFloat(),
+                            ResManager.getDimens(R.dimen.directory_thumb_height).toFloat(),
+                            ResManager.getDimens(R.dimen.directory_thumb_radius_margin).toFloat(),
+                            ResManager.getDimens(R.dimen.directory_thumb_radius).toFloat(),
+                            DEFAULT_MAX_COUNT)
                 }
             }
         }

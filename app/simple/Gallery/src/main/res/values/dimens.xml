@@ -159,4 +159,10 @@
     <dimen name="grid_format_radius">20dp</dimen>
     <dimen name="indicator_line">2dp</dimen>
     <dimen name="text_menu_line">25dp</dimen>
+    <dimen name="directory_thumb_radius">8dp</dimen>
+    <dimen name="directory_thumb_width">512px</dimen>
+    <dimen name="directory_thumb_height">618px</dimen>
+    <dimen name="directory_thumb_radius_margin">10dp</dimen>
+    <dimen name="directory_thumb_padding">3dp</dimen>
+    <dimen name="smaller_margin_grid">13dp</dimen>
 </resources>
