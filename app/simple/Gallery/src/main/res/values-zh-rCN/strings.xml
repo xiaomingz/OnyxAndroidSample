@@ -51,8 +51,6 @@
     <string name="editor">编辑器</string>
     <string name="rotate">旋转</string>
     <string name="invalid_image_path">无效的图片路径</string>
-    <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
 
     <!-- Set wallpaper -->
     <string name="simple_wallpaper">简约壁纸</string>
@@ -67,14 +65,6 @@
     <string name="grid">网格</string>
     <string name="list">列表</string>
     <string name="group_direct_subfolders">直接分组文件夹</string>
-
-    <!-- Grouping at media thumbnails -->
-
-    <!-- Widgets -->
-
-    <!-- Settings -->
-
-    <!-- Setting sections -->
 
     <!-- Bottom actions -->
     <string name="graffiti">涂鸦</string>
