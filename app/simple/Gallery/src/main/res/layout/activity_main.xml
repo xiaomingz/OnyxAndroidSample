@@ -1,75 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/directories_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/view_action_bar"
+        layout="@layout/view_action_bar" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/view_action_bar"
+        android:layout_marginBottom="@dimen/activity_media_list_margin_top"
+        android:background="@color/background_black" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line">
 
-        <include
-            android:id="@+id/view_action_bar"
-            layout="@layout/view_action_bar" />
-
-        <View
-            android:id="@+id/line"
-            android:layout_marginBottom="@dimen/activity_media_list_margin_top"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_below="@+id/view_action_bar"
-            android:background="@color/background_black" />
-
-        <RelativeLayout
-            android:id="@+id/directories_holder"
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/directories_switch_searching"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line">
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="@dimen/activity_margin"
+            android:text="@string/switch_to_file_search"
+            android:visibility="gone" />
 
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/directories_switch_searching"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:padding="@dimen/activity_margin"
-                android:text="@string/switch_to_file_search"
-                android:visibility="gone" />
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/directories_empty_text_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/directories_switch_searching"
+            android:gravity="center_horizontal"
+            android:paddingLeft="@dimen/big_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:paddingRight="@dimen/big_margin"
+            android:text="@string/no_media_with_filters"
+            android:textSize="@dimen/bigger_text_size"
+            android:visibility="gone" />
 
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/directories_empty_text_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/directories_switch_searching"
-                android:gravity="center_horizontal"
-                android:paddingLeft="@dimen/big_margin"
-                android:paddingTop="@dimen/activity_margin"
-                android:paddingRight="@dimen/big_margin"
-                android:text="@string/no_media_with_filters"
-                android:textSize="@dimen/bigger_text_size"
-                android:visibility="gone" />
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/directories_empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/directories_empty_text_label"
+            android:layout_centerHorizontal="true"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/activity_margin"
+            android:text="@string/change_filters_underlined"
+            android:textSize="@dimen/bigger_text_size"
+            android:visibility="gone" />
 
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/directories_empty_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/directories_empty_text_label"
-                android:layout_centerHorizontal="true"
-                android:background="?attr/selectableItemBackground"
-                android:padding="@dimen/activity_margin"
-                android:text="@string/change_filters_underlined"
-                android:textSize="@dimen/bigger_text_size"
-                android:visibility="gone" />
+        <com.simplemobiletools.commons.views.MyRecyclerView
+            android:id="@+id/directories_grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            app:layoutManager="com.simplemobiletools.commons.views.MyGridLayoutManager"
+            app:spanCount="@integer/directory_columns_vertical_scroll" />
 
-            <com.simplemobiletools.commons.views.MyRecyclerView
-                android:id="@+id/directories_grid"
-                app:layoutManager="com.simplemobiletools.commons.views.MyGridLayoutManager"
-                app:spanCount="@integer/directory_columns_vertical_scroll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none" />
-
-        </RelativeLayout>
     </RelativeLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</RelativeLayout>

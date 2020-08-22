@@ -3,23 +3,16 @@
     <string name="app_name">相簿</string>
     <string name="app_launcher_name">相簿</string>
     <string name="edit">編輯</string>
-    <string name="open_camera">開啟相機</string>
     <string name="hidden">(隱藏)</string>
     <string name="unpin_folder">取消釘選資料夾</string>
     <string name="pin_to_the_top">釘選在頂端</string>
     <string name="all_folders">全部資料夾</string>
-    <string name="folder_view">切換成資料夾檢視</string>
     <string name="other_folder">其他資料夾</string>
-    <string name="show_on_map">在地圖上顯示</string>
     <string name="unknown_location">未知的位置</string>
     <string name="change_cover_image">更換封面圖片</string>
     <string name="select_photo">選擇相片</string>
     <string name="volume">音量</string>
     <string name="brightness">亮度</string>
-    <string name="change_orientation">改變方向</string>
-    <string name="force_portrait">強制直向</string>
-    <string name="force_landscape">強制橫向</string>
-    <string name="use_default_orientation">使用預設方向</string>
     <string name="fix_date_taken">修復拍攝日期數值</string>
     <string name="fixing">修復中…</string>
     <string name="dates_fixed_successfully">日期修復成功</string>
@@ -41,65 +34,33 @@
     <string name="hide_folder_description">這功能藉由添加一個\".nomedia\"檔案，來隱藏資料夾和所有子資料夾。您可以透過[設定]中的\"顯示隱藏的項目\"選項來查看。\n是否繼續?</string>
     <string name="exclude">排除</string>
     <string name="excluded_folders">排除資料夾</string>
-    <string name="manage_excluded_folders">管理排除資料夾</string>
     <string name="exclude_folder_description">此資料夾與子資料夾將只會都從簡易相簿中排除。您可以在設定中進行管理。</string>
     <string name="exclude_folder_parent">是否排除上層資料夾?</string>
-    <string name="excluded_activity_placeholder">[排除資料夾]只會將選擇的資料夾與子資料夾一起從簡易相簿中隱藏，他們仍會出現在其他應用程式中。\n\n如果您要在其他應用程式中也隱藏，請使用[隱藏]功能。</string>
     <string name="hidden_folders">隱藏資料夾</string>
-    <string name="manage_hidden_folders">管理隱藏資料夾</string>
-    <string name="hidden_folders_placeholder">您似乎沒有用\".nomedia\"檔案來隱藏的資料夾</string>
 
     <!-- Include folders -->
     <string name="include_folders">包含資料夾</string>
-    <string name="manage_included_folders">管理包含資料夾</string>
     <string name="add_folder">增加資料夾</string>
-    <string name="included_activity_placeholder">如果有些資料夾含有媒體檔案，卻沒被辨識到，您可以在此手動加入。</string>
     <string name="no_media_add_included">未發現媒體檔案。您可以手動添加包含媒體檔案的資料夾來解決。</string>
 
     <!-- Resizing -->
-    <string name="resize">縮放</string>
-    <string name="resize_and_save">縮放所選區域並儲存</string>
     <string name="width">寬度</string>
     <string name="height">高度</string>
-    <string name="keep_aspect_ratio">保持長寬比</string>
-    <string name="invalid_values">請輸入有效的解析度</string>
 
     <!-- Editor -->
     <string name="editor">編輯器</string>
     <string name="rotate">旋轉</string>
     <string name="invalid_image_path">無效的圖片路徑</string>
-    <string name="image_editing_failed">圖片編輯失敗</string>
-    <string name="unknown_file_location">未知的檔案位置</string>
-    <string name="rotate_left">向左轉</string>
-    <string name="rotate_right">向右轉</string>
-    <string name="rotate_one_eighty">旋轉180º</string>
-    <string name="flip_horizontally">水平翻轉</string>
-    <string name="flip_vertically">垂直翻轉</string>
-    <string name="free_aspect_ratio">自由</string>                <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <string name="other_aspect_ratio">其它</string>             <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
 
     <!-- Set wallpaper -->
     <string name="simple_wallpaper">簡易桌布</string>
     <string name="setting_wallpaper">桌布設定中&#8230;</string>
     <string name="wallpaper_set_successfully">成功設為桌布</string>
-    <string name="home_screen">主頁螢幕</string>
-    <string name="lock_screen">鎖定螢幕</string>
-    <string name="home_and_lock_screen">主頁和鎖定螢幕</string>
 
     <!-- Slideshow -->
-    <string name="slideshow">投影片</string>
-    <string name="interval">間隔 (秒):</string>
-    <string name="include_videos">包含影片</string>
-    <string name="include_gifs">包含GIF</string>
-    <string name="random_order">隨機順序</string>
-    <string name="move_backwards">反向播放</string>
-    <string name="loop_slideshow">投影片循環</string>
-    <string name="animation">動畫</string>
-    <string name="no_animation">無</string>
-    <string name="fade">漸變</string>
-    <string name="slide">滑動</string>
     <string name="slideshow_ended">投影片結束</string>
-    <string name="no_media_for_slideshow">找不到投影片的媒體檔案</string>
 
     <!-- View types -->
     <string name="change_view_type">改變瀏覽類型</string>
@@ -108,48 +69,12 @@
     <string name="group_direct_subfolders">歸類子資料夾</string>
 
     <!-- Grouping at media thumbnails -->
-    <string name="group_by">歸類</string>
-    <string name="do_not_group_files">不歸類檔案</string>
-    <string name="by_folder">資料夾</string>
-    <string name="by_last_modified_daily">最後修改 (按日)</string>
-    <string name="by_last_modified_monthly">最後修改 (按月)</string>
-    <string name="by_date_taken_daily">拍攝日期 (按日)</string>
-    <string name="by_date_taken_monthly">拍攝日期 (按月)</string>
-    <string name="by_file_type">檔案類型</string>
-    <string name="by_extension">副檔名</string>
-    <string name="grouping_and_sorting">請注意，歸類和排序兩者是獨立的</string>
 
     <!-- Widgets -->
-    <string name="folder_on_widget">在小工具顯示資料夾:</string>
-    <string name="show_folder_name">顯示資料夾名稱</string>
 
     <!-- Settings -->
-    <string name="remember_last_video_position">記住影片上次播放位置</string>
-    <string name="toggle_filename">顯示檔案名稱</string>
-    <string name="crop_thumbnails">縮圖裁剪成正方形</string>
-    <string name="screen_rotation_by">全螢幕時旋轉方向</string>
-    <string name="screen_rotation_system_setting">系統設定方向</string>
-    <string name="screen_rotation_device_rotation">裝置實際方向</string>
-    <string name="screen_rotation_aspect_ratio">圖片長寬比</string>
-    <string name="allow_photo_gestures">允許用上下手勢來控制相片的亮度</string>
-    <string name="allow_video_gestures">允許用上下手勢來控制影片的音量和亮度</string>
-    <string name="show_extended_details">全螢幕時顯示詳細資訊</string>
-    <string name="manage_extended_details">管理詳細資訊</string>
-    <string name="allow_instant_change">允許點擊螢幕邊緣來快速切換媒體檔案</string>
-    <string name="show_recycle_bin">在資料夾畫面顯示回收桶</string>
-    <string name="file_loading_priority">檔案讀取優先權</string>
-    <string name="speed">速度</string>
-    <string name="compromise">折衷</string>
-    <string name="avoid_showing_invalid_files">避免顯示無效的檔案</string>
 
     <!-- Setting sections -->
-    <string name="thumbnails">縮圖</string>
-    <string name="fullscreen_media">全螢幕媒體檔案</string>
-    <string name="extended_details">詳細資訊</string>
-    <string name="bottom_actions">底部操作</string>
 
     <!-- Bottom actions -->
-    <string name="manage_bottom_actions">管理要顯示的底部操作</string>
-    <string name="toggle_favorite">我的最愛</string>
-    <string name="toggle_file_visibility">檔案顯示</string>
 </resources>

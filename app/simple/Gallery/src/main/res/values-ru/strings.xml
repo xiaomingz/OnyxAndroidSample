@@ -3,23 +3,16 @@
     <string name="app_name">Simple Gallery</string>
     <string name="app_launcher_name">Галерея</string>
     <string name="edit">Редактировать</string>
-    <string name="open_camera">Камера</string>
     <string name="hidden">(скрыто)</string>
     <string name="unpin_folder">Открепить папку</string>
     <string name="pin_to_the_top">Закрепить сверху</string>
     <string name="all_folders">Все медиафайлы</string>
-    <string name="folder_view">Папки</string>
     <string name="other_folder">Выбор папки</string>
-    <string name="show_on_map">Показать место съёмки</string>
     <string name="unknown_location">Место съёмки не указано</string>
     <string name="change_cover_image">Изменить обложку</string>
     <string name="select_photo">Выбрать изображение</string>
     <string name="volume">Громкость</string>
     <string name="brightness">Яркость</string>
-    <string name="change_orientation">Изменение ориентации</string>
-    <string name="force_portrait">Портретная</string>
-    <string name="force_landscape">Альбомная</string>
-    <string name="use_default_orientation">Системная</string>
     <string name="fix_date_taken">Исправить дату</string>
     <string name="fixing">Исправление…</string>
     <string name="dates_fixed_successfully">Даты исправлены</string>
@@ -41,65 +34,33 @@
     <string name="hide_folder_description">Эта функция скрывает папку, добавляя в неё файл \".nomedia\". Также будут скрыты все подпапки. Можно показать их, переключая \"Показывать скрытые папки\" в настройках. Продолжить?</string>
     <string name="exclude">Исключить</string>
     <string name="excluded_folders">Исключённые папки</string>
-    <string name="manage_excluded_folders">Управление исключёнными папками</string>
     <string name="exclude_folder_description">Эта функция исключит выбранные папки вместе с подпапками только для Simple Gallery. Можно управлять исключёнными папками из настроек.</string>
     <string name="exclude_folder_parent">Исключить только родительскую папку?</string>
-    <string name="excluded_activity_placeholder">Исключая папки, вы сделаете их скрытыми вместе с подпапками в Simple Gallery, но они будут видны в других приложениях. Если вы хотите скрыть их и в других приложениях, используйте функцию \"Скрыть\".</string>
     <string name="hidden_folders">Скрытые папки</string>
-    <string name="manage_hidden_folders">Управление скрытыми папками</string>
-    <string name="hidden_folders_placeholder">Похоже, у вас нет папок, скрытых файлом \".nomedia\".</string>
 
     <!-- Include folders -->
     <string name="include_folders">Включённые папки</string>
-    <string name="manage_included_folders">Управление включёнными папками</string>
     <string name="add_folder">Добавить папку</string>
-    <string name="included_activity_placeholder">Если у вас есть папки, содержащие медиафайлы, но не распознанные приложением, вы можете добавить их вручную.\n\nДобавление папки не приводит к исключению каких-либо других.</string>
     <string name="no_media_add_included">Медиафайлы не найдены. Вы можете исправить данную проблему, добавив папки с медиафайлами вручную.</string>
 
     <!-- Resizing -->
-    <string name="resize">Изменить размер</string>
-    <string name="resize_and_save">Изменить и сохранить</string>
     <string name="width">Ширина</string>
     <string name="height">Высота</string>
-    <string name="keep_aspect_ratio">Сохранять соотношение сторон</string>
-    <string name="invalid_values">Указано недопустимое разрешение</string>
 
     <!-- Editor -->
     <string name="editor">Редактор</string>
     <string name="rotate">Поворот</string>
     <string name="invalid_image_path">Недопустимый путь изображения</string>
-    <string name="image_editing_failed">Редактирование изображения не выполнено</string>
-    <string name="unknown_file_location">Неизвестное местоположение файла</string>
-    <string name="rotate_left">Повернуть влево</string>
-    <string name="rotate_right">Повернуть вправо</string>
-    <string name="rotate_one_eighty">Перевернуть на 180°</string>
-    <string name="flip_horizontally">По горизонтали</string>
-    <string name="flip_vertically">По вертикали</string>
-    <string name="free_aspect_ratio">Свободно</string>               <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <string name="other_aspect_ratio">Другое</string>                    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
 
     <!-- Set wallpaper -->
     <string name="simple_wallpaper">Простые обои</string>
     <string name="setting_wallpaper">Установка обоев…</string>
     <string name="wallpaper_set_successfully">Обои установлены</string>
-    <string name="home_screen">Домашний экран</string>
-    <string name="lock_screen">Экран блокировки</string>
-    <string name="home_and_lock_screen">Домашний экран и экран блокировки</string>
 
     <!-- Slideshow -->
-    <string name="slideshow">Слайдшоу</string>
-    <string name="interval">Интервал (в секундах):</string>
-    <string name="include_videos">Видео</string>
-    <string name="include_gifs">GIF</string>
-    <string name="random_order">В случайном порядке</string>
-    <string name="move_backwards">В обратном порядке</string>
-    <string name="loop_slideshow">Зациклить</string>
-    <string name="animation">Анимация</string>
-    <string name="no_animation">Нет</string>
-    <string name="fade">Затухание</string>
-    <string name="slide">Сдвиг</string>
     <string name="slideshow_ended">Слайдшоу завершено</string>
-    <string name="no_media_for_slideshow">Медиафайлов для слайдшоу не найдено</string>
 
     <!-- View types -->
     <string name="change_view_type">Вид</string>
@@ -108,48 +69,12 @@
     <string name="group_direct_subfolders">Объединять вложенные папки</string>
 
     <!-- Grouping at media thumbnails -->
-    <string name="group_by">Группировать по…</string>
-    <string name="do_not_group_files">Не группировать</string>
-    <string name="by_folder">Папка</string>
-    <string name="by_last_modified_daily">Последнее изменение (по дням)</string>
-    <string name="by_last_modified_monthly">Последнее изменение (по месяцам)</string>
-    <string name="by_date_taken_daily">Дата съёмки (по дням)</string>
-    <string name="by_date_taken_monthly">Дата съёмки (по месяцам)</string>
-    <string name="by_file_type">Тип файла</string>
-    <string name="by_extension">Расширение</string>
-    <string name="grouping_and_sorting">Обратите внимание, что группировка и сортировка — это два независимых поля</string>
 
     <!-- Widgets -->
-    <string name="folder_on_widget">Папка, отображаемая в виджете:</string>
-    <string name="show_folder_name">Показывать имя папки</string>
 
     <!-- Settings -->
-    <string name="remember_last_video_position">Запоминать позицию воспроизведения последнего видео</string>
-    <string name="toggle_filename">Переключить отображение имени файла</string>
-    <string name="crop_thumbnails">Нарезать миниатюры на квадраты</string>
-    <string name="screen_rotation_by">Поворот экрана при просмотре изображения</string>
-    <string name="screen_rotation_system_setting">Системные настройки</string>
-    <string name="screen_rotation_device_rotation">При повороте устройства</string>
-    <string name="screen_rotation_aspect_ratio">По размеру изображения</string>
-    <string name="allow_photo_gestures">Управление яркостью при просмотре изображения вертикальными жестами</string>
-    <string name="allow_video_gestures">Управление громкостью и яркостью при просмотре видео вертикальными жестами</string>
-    <string name="show_extended_details">Показывать сведения о файле</string>
-    <string name="manage_extended_details">Выбор сведений о файле</string>
-    <string name="allow_instant_change">Переключение медиафайлов нажатием по краю экрана</string>
-    <string name="show_recycle_bin">Показывать корзину вместе с папками</string>
-    <string name="file_loading_priority">Приоритет загрузки файла</string>
-    <string name="speed">Скорость</string>
-    <string name="compromise">Компромисс</string>
-    <string name="avoid_showing_invalid_files">Пропускать файлы с ошибками</string>
 
     <!-- Setting sections -->
-    <string name="thumbnails">Миниатюры</string>
-    <string name="fullscreen_media">Просмотр медиафайлов</string>
-    <string name="extended_details">Подробности</string>
-    <string name="bottom_actions">Нижние кнопки действий</string>
 
     <!-- Bottom actions -->
-    <string name="manage_bottom_actions">Настройка нижних кнопок действий</string>
-    <string name="toggle_favorite">Переключение избранного</string>
-    <string name="toggle_file_visibility">Переключение видимости файлов</string>
 </resources>

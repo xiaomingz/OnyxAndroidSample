@@ -6,8 +6,6 @@
         <item name="actionBarSize">@dimen/action_bar_size</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="FullScreenTheme.Base" parent="AppTheme">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTranslucentNavigation">true</item>

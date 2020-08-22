@@ -105,21 +105,6 @@ open class VideoPlayerActivity : SimpleActivity(), SeekBar.OnSeekBarChangeListen
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_video_player, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_change_orientation -> changeOrientation()
-            R.id.menu_open_with -> openPath(mUri!!.toString(), true)
-            R.id.menu_share -> shareMediumPath(mUri!!.toString())
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
-    }
-
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         setVideoSize()
@@ -197,12 +182,6 @@ open class VideoPlayerActivity : SimpleActivity(), SeekBar.OnSeekBarChangeListen
         } else {
             video_brightness_controller.beGone()
             video_volume_controller.beGone()
-        }
-
-        if (config.hideSystemUI) {
-            Handler().postDelayed({
-                fullscreenToggled(true)
-            }, HIDE_SYSTEM_UI_DELAY)
         }
 
         mDragThreshold = DRAG_THRESHOLD * resources.displayMetrics.density
