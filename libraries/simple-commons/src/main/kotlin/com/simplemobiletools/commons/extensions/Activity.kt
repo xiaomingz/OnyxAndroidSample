@@ -828,6 +828,9 @@ fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0,
         getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(baseConfig.textColor)
         getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(baseConfig.textColor)
         getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(baseConfig.textColor)
+        getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundResource(R.drawable.dialog_button_right_selector)
+        getButton(AlertDialog.BUTTON_NEGATIVE).setBackgroundResource(R.drawable.dialog_button_left_selector)
+        getButton(AlertDialog.BUTTON_NEUTRAL).setBackgroundResource(R.drawable.dialog_button_middle_selector)
 
         window?.setBackgroundDrawable(resources.getDrawable(R.drawable.dialog_bg))
     }
