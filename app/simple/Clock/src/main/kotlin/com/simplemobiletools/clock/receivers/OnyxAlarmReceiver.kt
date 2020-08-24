@@ -15,7 +15,10 @@ import com.simplemobiletools.clock.activities.ReminderActivity
 import com.simplemobiletools.clock.extensions.*
 import com.simplemobiletools.clock.helpers.ALARM_ID
 import com.simplemobiletools.clock.helpers.ALARM_NOTIF_ID
+import com.simplemobiletools.clock.helpers.ALARM_SNOOZE
 import com.simplemobiletools.commons.helpers.isOreoPlus
+import java.util.*
+import kotlin.math.abs
 
 class OnyxAlarmReceiver : BroadcastReceiver() {
 
@@ -23,7 +26,13 @@ class OnyxAlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val id = intent.getIntExtra(ALARM_ID, -1)
         val alarm = context.dbHelper.getAlarmWithId(id) ?: return
-
+        val isSnooze = intent.getBooleanExtra(ALARM_SNOOZE, false)
+        val calendar = Calendar.getInstance()
+        val currentTimeMinute = calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE)
+        if (!isSnooze && abs(currentTimeMinute - alarm.timeInMinutes) > 1) {
+            context.scheduleNextAlarm(alarm, false)
+            return
+        }
         if (context.isScreenOn()) {
             context.showAlarmNotification(alarm)
             Handler().postDelayed({

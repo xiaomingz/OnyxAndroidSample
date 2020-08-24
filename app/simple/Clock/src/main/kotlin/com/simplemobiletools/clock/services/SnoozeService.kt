@@ -14,6 +14,6 @@ class SnoozeService : IntentService("Snooze") {
         val id = intent!!.getIntExtra(ALARM_ID, -1)
         val alarm = dbHelper.getAlarmWithId(id) ?: return
         hideNotification(id)
-        setupAlarmClock(alarm, config.snoozeTime * MINUTE_SECONDS)
+        setupAlarmClock(alarm, config.snoozeTime * MINUTE_SECONDS, true)
     }
 }
