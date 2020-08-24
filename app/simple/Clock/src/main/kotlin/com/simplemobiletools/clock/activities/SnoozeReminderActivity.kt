@@ -18,7 +18,7 @@ class SnoozeReminderActivity : AppCompatActivity() {
         hideNotification(id)
         showPickSecondsDialog(config.snoozeTime * MINUTE_SECONDS, true, cancelCallback = { dialogCancelled() }) {
             config.snoozeTime = it / MINUTE_SECONDS
-            setupAlarmClock(alarm, it)
+            setupAlarmClock(alarm, it, true)
             finishActivity()
         }
     }
