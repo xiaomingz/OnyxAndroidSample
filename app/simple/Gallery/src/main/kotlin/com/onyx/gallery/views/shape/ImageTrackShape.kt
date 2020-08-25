@@ -23,7 +23,7 @@ open class ImageTrackShape(var imageTrackType: ImageTrackType = ImageTrackType.S
     private val region = Region()
     lateinit var imageSize: Size
     lateinit var backgroundBitmap: Bitmap
-    private val transparentPaint by lazy { createTransparentPaint() }
+    private val trackPaint by lazy { createTrackPaint() }
 
     override fun getType(): Int = ExpandShapeFactory.SHAPE_IMAGE_TRACK
 
@@ -47,7 +47,7 @@ open class ImageTrackShape(var imageTrackType: ImageTrackType = ImageTrackType.S
         canvas.drawPath(path, paint)
 
         val rect = getRenderRect(paint.strokeWidth, path)
-        canvas.drawBitmap(backgroundBitmap, rect, rect, transparentPaint)
+        canvas.drawBitmap(backgroundBitmap, rect, rect, trackPaint)
 
         canvas.restoreToCount(layerCount)
 
@@ -59,7 +59,7 @@ open class ImageTrackShape(var imageTrackType: ImageTrackType = ImageTrackType.S
         }
     }
 
-    private fun createTransparentPaint(): Paint {
+    private fun createTrackPaint(): Paint {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.setFilterBitmap(false)
         paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))

@@ -33,7 +33,6 @@ class EraseTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(g
 
     override fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint) {
         if (eraseHandler.isEraseLayer()) {
-            eraseLayer()
             return
         } else if (eraseHandler.isEraseOnMove() || eraseHandler.isEraseByRegion()) {
             shape = createEraseShape()
@@ -69,11 +68,6 @@ class EraseTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(g
         disposable?.run { dispose() }
         shape?.let { addShape(it) }
         shape = null
-    }
-
-    private fun eraseLayer() {
-        val eraseArgs = EraseArgs(eraseHandler.eraseWidth, EraseModel.LAYER, TouchPointList())
-        EraseAction(eraseArgs).execute(null)
     }
 
     private fun eraseStrokes(pointList: TouchPointList) {

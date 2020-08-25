@@ -1,10 +1,13 @@
 package com.onyx.gallery.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.onyx.android.sdk.pen.data.TouchPointList
+import com.onyx.gallery.action.erase.EraseAction
 import com.onyx.gallery.action.erase.UpdateEraseAction
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.handler.EraseModel
 import com.onyx.gallery.handler.EraseWidth
+import com.onyx.gallery.models.EraseArgs
 import com.onyx.gallery.models.MenuAction
 import com.onyx.gallery.utils.ExpandShapeFactory
 
@@ -34,7 +37,10 @@ class EraseMenuViewModel : BaseMenuViewModel() {
         eraseModel.value = when (action) {
             MenuAction.ERASE_STROKES -> EraseModel.STROKES
             MenuAction.ERASE_REGION -> EraseModel.REGION
-            MenuAction.ERASE_LAYER -> EraseModel.LAYER
+            MenuAction.ERASE_LAYER -> {
+                eraseLayer()
+                EraseModel.LAYER
+            }
             else -> EraseModel.MOVE
         }
         checkEraseWidthEnable()
@@ -44,11 +50,15 @@ class EraseMenuViewModel : BaseMenuViewModel() {
 
     private fun checkEraseWidthEnable() {
         eraseWidthEnable.value = eraseModel.value == EraseModel.MOVE
-
     }
 
     private fun updateEraseTouchHander() {
         UpdateEraseAction(eraseModel.value!!, eraseWidth.value!!).execute(null)
+    }
+
+    private fun eraseLayer() {
+        val eraseArgs = EraseArgs(EraseArgs.DEFAULT_WIDTH, EraseModel.LAYER, TouchPointList())
+        EraseAction(eraseArgs).execute(null)
     }
 
 }
