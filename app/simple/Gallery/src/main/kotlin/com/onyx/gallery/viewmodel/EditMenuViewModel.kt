@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 class EditMenuViewModel : BaseViewModel() {
 
     enum class MenuStyle {
-        NONE, GRAFFITI, TEXT, CROP, MOSAIC
+        NONE, GRAFFITI, TEXT, CROP, MOSAIC, ERASE
     }
 
     var currItemMenuStyle = MutableLiveData<MenuStyle>()

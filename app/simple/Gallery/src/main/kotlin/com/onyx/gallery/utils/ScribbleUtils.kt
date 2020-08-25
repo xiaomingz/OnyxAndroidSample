@@ -46,7 +46,7 @@ object ScribbleUtils {
             val mosaicBitmap = MosaicUtils.getMosaicBitmap(imageBitmap, mosaicScaleFactor)
             handwritingShape.forEach { shape ->
                 if (shape is MosaicShape) {
-                    shape.mosaicBitmap = mosaicBitmap
+                    shape.backgroundBitmap = mosaicBitmap
                 }
             }
         }

@@ -146,7 +146,7 @@ class CropHandler(val globalEditBundle: GlobalEditBundle) : CropImageView.OnCrop
         return Pair(newCropHeight, newCropWidth)
     }
 
-    private fun getImageBitmap(): Bitmap = globalEditBundle.drawHandler.getImageBitmap()
+    private fun getImageBitmap(): Bitmap = globalEditBundle.drawHandler.getImageShapeBitmap()
 
     fun onRotateToLeft() {
         currAngle -= SINGLE_ROTATE_ANGLE

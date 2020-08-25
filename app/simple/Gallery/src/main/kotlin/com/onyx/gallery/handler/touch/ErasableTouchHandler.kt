@@ -1,13 +1,12 @@
 package com.onyx.gallery.handler.touch
 
-import android.graphics.Matrix
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.rx.ObservableHolder
 import com.onyx.android.sdk.rx.SingleThreadScheduler
-import com.onyx.android.sdk.scribble.utils.ShapeUtils
+import com.onyx.gallery.action.erase.EraseAction
 import com.onyx.gallery.bundle.GlobalEditBundle
-import com.onyx.gallery.request.shape.EraseShapeRequest
+import com.onyx.gallery.models.EraseArgs
 import io.reactivex.functions.Consumer
 import java.util.concurrent.TimeUnit
 
@@ -55,19 +54,10 @@ open class ErasableTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchH
         if (pointList.points.isEmpty()) {
             return
         }
-        val NormalPointList = getNormalTouchPointList(pointList)
-        globalEditBundle.enqueue(EraseShapeRequest(NormalPointList), null)
-    }
-
-    protected fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {
-        val normalizedMatrix = Matrix()
-        drawHandler.renderContext.matrix.invert(normalizedMatrix)
-        val newTouchPointList = TouchPointList()
-        touchPointList.points.forEach {
-            val normalPoint = ShapeUtils.matrixTouchPoint(it, normalizedMatrix)
-            newTouchPointList.add(normalPoint)
-        }
-        return newTouchPointList
+        val normalPointList = getNormalTouchPointList(pointList)
+        val eraserWidth = drawHandler.drawingArgs.eraserWidth / 2
+        val eraseArgs = EraseArgs(eraserWidth, touchPointList = normalPointList)
+        EraseAction(eraseArgs).execute(null)
     }
 
     private fun removeEraseObserver() {

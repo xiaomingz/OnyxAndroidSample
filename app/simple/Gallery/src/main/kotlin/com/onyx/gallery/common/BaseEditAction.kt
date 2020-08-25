@@ -9,6 +9,7 @@ import org.greenrobot.eventbus.EventBus
 abstract class BaseEditAction<T : RxRequest> : BaseAction<T>() {
 
     val drawHandler = globalEditBundle.drawHandler
+    val eraseHandler = globalEditBundle.eraseHandler
     val eventBus: EventBus = globalEditBundle.eventBus
 
 }

@@ -12,7 +12,7 @@ import com.onyx.gallery.utils.ExpandShapeFactory
 class DashLineShape : BaseLineShape() {
     private val intervalFactor = 1.3f
 
-    override fun getType(): Int = ExpandShapeFactory.SHAP_DASH_LINE
+    override fun getType(): Int = ExpandShapeFactory.SHAPE_DASH_LINE
 
     override fun render(renderContext: RenderContext) {
         val path = Path().apply {

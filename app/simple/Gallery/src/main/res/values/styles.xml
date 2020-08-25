@@ -75,6 +75,20 @@
         <item name="android:textSize">@dimen/text_size_middle_mode</item>
     </style>
 
+    <style name="eraser_width_style">
+        <item name="android:background">@drawable/common_bg_selector</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/erase_menu_padding_top</item>
+        <item name="android:paddingBottom">@dimen/erase_menu_padding_top</item>
+        <item name="android:paddingLeft">@dimen/erase_menu_padding_left</item>
+        <item name="android:paddingRight">@dimen/erase_menu_padding_left</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">@dimen/text_size_middle_mode</item>
+    </style>
+
     <style name="text_style_spacing_style_name">
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:layout_width">@dimen/seekbar_with_text_view_width</item>

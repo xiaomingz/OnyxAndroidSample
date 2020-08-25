@@ -11,7 +11,6 @@ import com.onyx.gallery.handler.DrawHandler
 class RenderVarietyShapeRequest(private val shape: MutableList<Shape>) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
-        renderShapesToBitmap = true
         drawHandler.renderVarietyShapesToScreen(shape)
     }
 
