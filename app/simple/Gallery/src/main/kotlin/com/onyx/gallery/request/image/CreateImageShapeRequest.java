@@ -60,7 +60,6 @@ public class CreateImageShapeRequest extends BaseRequest {
         getGlobalEditBundle().setInitDy(dy);
         getGlobalEditBundle().setInitScaleFactor(scaleFactor);
         drawHandler.updateLimitRect(true);
-        drawHandler.makeCropSnapshot(imageFilePath, (ImageShapeExpand) imageShape);
         setRenderToScreen(true);
     }
 
@@ -68,6 +67,7 @@ public class CreateImageShapeRequest extends BaseRequest {
     public void afterExecute(@NotNull DrawHandler drawHandler) {
         super.afterExecute(drawHandler);
         drawHandler.afterCreateImageShape();
+        drawHandler.makeCropSnapshot(imageFilePath, (ImageShapeExpand) imageShape);
     }
 
     private float calculatesSaleFactor(Size imageSize) {
