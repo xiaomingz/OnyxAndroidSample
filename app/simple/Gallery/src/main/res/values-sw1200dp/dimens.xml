@@ -135,6 +135,4 @@
     <dimen name="eraser_width_3">25dp</dimen>
     <dimen name="eraser_width_4">30dp</dimen>
     <dimen name="eraser_width_5">35dp</dimen>
-    <dimen name="erase_menu_padding_top">10dp</dimen>
-    <dimen name="erase_menu_padding_left">35dp</dimen>
 </resources>
