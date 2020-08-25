@@ -12,10 +12,7 @@ import com.onyx.android.sdk.rx.RxRequest
 import com.onyx.android.sdk.utils.DeviceReceiver
 import com.onyx.gallery.App
 import com.onyx.gallery.R
-import com.onyx.gallery.handler.CropHandler
-import com.onyx.gallery.handler.DrawHandler
-import com.onyx.gallery.handler.InsertTextHandler
-import com.onyx.gallery.handler.UndoRedoHandler
+import com.onyx.gallery.handler.*
 import com.onyx.gallery.handler.touch.TouchHandlerManager
 import com.onyx.gallery.helpers.SystemUIChangeReceiver
 import com.simplemobiletools.commons.extensions.getRealPathFromURI
@@ -39,14 +36,14 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     var initDy = 0f
     var initScaleFactor = 0f
 
+    private val receiver = DeviceReceiver()
     val undoRedoHandler: UndoRedoHandler by lazy { UndoRedoHandler() }
     val drawHandler = DrawHandler(context, this, eventBus)
     val rxManager: RxManager by lazy { RxManager.Builder.sharedSingleThreadManager() }
-    val touchHandlerManager = TouchHandlerManager(this)
     val insertTextHandler = InsertTextHandler(this)
     val cropHandler = CropHandler(this)
-
-    private val receiver = DeviceReceiver()
+    val eraseHandler = EraseHandler(this)
+    val touchHandlerManager = TouchHandlerManager(this)
 
     companion object {
         val instance: GlobalEditBundle by lazy {

@@ -19,7 +19,7 @@ class MosaicMenuViewModel : BaseMenuViewModel() {
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
 
     override fun updateTouchHandler() {
-        ShapeChangeAction(ExpandShapeFactory.SHAP_MOSAIC).execute(null)
+        ShapeChangeAction(ExpandShapeFactory.SHAPE_MOSAIC).execute(null)
     }
 
     private fun initOnSeekBarChangeListener(): SeekBar.OnSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {

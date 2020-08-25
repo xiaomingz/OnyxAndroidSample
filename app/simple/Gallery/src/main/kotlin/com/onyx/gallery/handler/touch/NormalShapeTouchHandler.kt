@@ -31,8 +31,6 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
     private var drawEmitter: ObservableEmitter<TouchPoint?>? = null
     private var downPoint: TouchPoint? = null
 
-    override fun canRawDrawingRenderEnabled(): Boolean = false
-
     override fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint) {
         downPoint = point
         disposable = Observable.create<TouchPoint> { e ->

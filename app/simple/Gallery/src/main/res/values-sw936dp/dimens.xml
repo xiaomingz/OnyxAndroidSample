@@ -130,4 +130,10 @@
     <dimen name="directory_thumb_radius_margin">9dp</dimen>
     <dimen name="directory_thumb_padding">1.5dp</dimen>
     <dimen name="smaller_margin_grid">10dp</dimen>
+
+    <dimen name="eraser_width_1">13dp</dimen>
+    <dimen name="eraser_width_2">17dp</dimen>
+    <dimen name="eraser_width_3">21dp</dimen>
+    <dimen name="eraser_width_4">25.5dp</dimen>
+    <dimen name="eraser_width_5">30dp</dimen>
 </resources>

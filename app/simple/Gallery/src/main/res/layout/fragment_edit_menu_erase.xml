@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.onyx.gallery.viewmodel.EraseMenuViewModel" />
+
+        <import type="com.onyx.gallery.handler.EraseModel" />
+
+        <import type="com.onyx.gallery.handler.EraseWidth" />
+
+        <import type="com.onyx.gallery.models.MenuAction" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/edit_menu_graffiti_height_content"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/dialog_format_parent_layout"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                style="@style/text_style_spacing_style_name"
+                android:text="@string/erase" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.eraseModel == EraseModel.MOVE}"
+                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.ERASE_MOVE)}"
+                app:srcCompat="@drawable/ic_erase_move" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.eraseModel == EraseModel.STROKES}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.ERASE_STROKES)}"
+                app:srcCompat="@drawable/ic_erase" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.eraseModel == EraseModel.REGION}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.ERASE_REGION)}"
+                app:srcCompat="@drawable/ic_erase_region" />
+
+            <ImageView
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.eraseModel == EraseModel.LAYER}"
+                android:onClick="@{()->viewModel.onHandleMenu(MenuAction.ERASE_LAYER)}"
+                app:srcCompat="@drawable/ic_erase_all" />
+
+            <View style="@style/dialog_text_style_radio_button" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/dialog_format_parent_layout"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                style="@style/text_style_spacing_style_name"
+                android:text="@string/thickness" />
+
+            <RelativeLayout
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.eraseWidth == EraseWidth.ERASER_WIDTH_1 &amp;&amp; viewModel.eraseWidthEnable}"
+                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
+                android:onClick="@{()->viewModel.onEraseWidthChange(EraseWidth.ERASER_WIDTH_1)}">
+
+                <ImageView
+                    setViewActivated="@{viewModel.eraseWidthEnable}"
+                    setViewEnable="@{viewModel.eraseWidthEnable}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/selector_eraser_width_1" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.eraseWidth == EraseWidth.ERASER_WIDTH_2 &amp;&amp; viewModel.eraseWidthEnable}"
+                android:onClick="@{()->viewModel.onEraseWidthChange(EraseWidth.ERASER_WIDTH_2)}">
+
+                <ImageView
+                    setViewActivated="@{viewModel.eraseWidthEnable}"
+                    setViewEnable="@{viewModel.eraseWidthEnable}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/selector_eraser_width_2" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.eraseWidth == EraseWidth.ERASER_WIDTH_3 &amp;&amp; viewModel.eraseWidthEnable}"
+                android:onClick="@{()->viewModel.onEraseWidthChange(EraseWidth.ERASER_WIDTH_3)}">
+
+                <ImageView
+                    setViewActivated="@{viewModel.eraseWidthEnable}"
+                    setViewEnable="@{viewModel.eraseWidthEnable}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/selector_eraser_width_3" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.eraseWidth == EraseWidth.ERASER_WIDTH_4 &amp;&amp; viewModel.eraseWidthEnable}"
+                android:onClick="@{()->viewModel.onEraseWidthChange(EraseWidth.ERASER_WIDTH_4)}">
+
+                <ImageView
+                    setViewActivated="@{viewModel.eraseWidthEnable}"
+                    setViewEnable="@{viewModel.eraseWidthEnable}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/selector_eraser_width_4" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/dialog_text_style_radio_button"
+                setViewActivated="@{viewModel.eraseWidth == EraseWidth.ERASER_WIDTH_5 &amp;&amp; viewModel.eraseWidthEnable}"
+                android:onClick="@{()->viewModel.onEraseWidthChange(EraseWidth.ERASER_WIDTH_5)}">
+
+                <ImageView
+                    setViewActivated="@{viewModel.eraseWidthEnable}"
+                    setViewEnable="@{viewModel.eraseWidthEnable}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/selector_eraser_width_5" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

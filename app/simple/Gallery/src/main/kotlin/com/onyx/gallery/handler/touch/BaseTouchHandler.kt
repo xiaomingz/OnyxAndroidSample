@@ -1,10 +1,12 @@
 package com.onyx.gallery.handler.touch
 
+import android.graphics.Matrix
 import android.graphics.RectF
 import androidx.annotation.CallSuper
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.raw.*
@@ -13,7 +15,6 @@ import com.onyx.gallery.event.touch.TouchMoveEvent
 import com.onyx.gallery.event.touch.TouchUpEvent
 import com.onyx.gallery.event.ui.RedoShapeEvent
 import com.onyx.gallery.event.ui.UndoShapeEvent
-import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -21,9 +22,9 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by Leung on 2020/6/7
  */
 abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchHandler {
-    private val eventBus: EventBus = globalEditBundle.eventBus
-
-    protected val drawHandler = globalEditBundle.drawHandler
+    private val eventBus by lazy { globalEditBundle.eventBus }
+    protected val drawHandler by lazy { globalEditBundle.drawHandler }
+    protected val eraseHandler by lazy { globalEditBundle.eraseHandler }
 
     protected fun postEvent(event: Any) = eventBus.post(event)
 
@@ -134,7 +135,11 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
         postEvent(RedoShapeEvent())
     }
 
-    override fun canRawDrawingRenderEnabled(): Boolean = true
+    override fun canDrawErase(): Boolean = false
+
+    override fun canRawInputReaderEnable(): Boolean = true
+
+    override fun canRawDrawingRenderEnabled(): Boolean = false
 
     override fun onFloatButtonChanged(active: Boolean) {
 
@@ -153,11 +158,22 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
     }
 
     override fun onShowToastEvent() {
-        
+
     }
 
     override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
 
+    }
+
+    protected fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {
+        val normalizedMatrix = Matrix()
+        drawHandler.renderContext.matrix.invert(normalizedMatrix)
+        val newTouchPointList = TouchPointList()
+        touchPointList.points.forEach {
+            val normalPoint = ShapeUtils.matrixTouchPoint(it, normalizedMatrix)
+            newTouchPointList.add(normalPoint)
+        }
+        return newTouchPointList
     }
 
 }

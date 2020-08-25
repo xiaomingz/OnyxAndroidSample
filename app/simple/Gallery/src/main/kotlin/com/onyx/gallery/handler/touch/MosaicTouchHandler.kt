@@ -15,7 +15,7 @@ import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.disposables.Disposable
 
-/**¬
+/**
  * Created by Leung on 2020/7/8
  */
 class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
@@ -29,8 +29,8 @@ class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHand
 
     override fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint) {
         mosaicShape = createShape() as MosaicShape
-        mosaicShape.mosaicBitmap = drawHandler.getMosaicBitmap()
-        mosaicShape.imageSize = Size(drawHandler.surfaceRect.width(), drawHandler.surfaceRect.height())
+        mosaicShape.backgroundBitmap = drawHandler.getMosaicBitmap()
+        mosaicShape.imageSize = drawHandler.getSurfaceSize()
         disposable = Observable.create<TouchPoint> { e ->
             drawEmitter = e
             drawEmitter!!.onNext(point)

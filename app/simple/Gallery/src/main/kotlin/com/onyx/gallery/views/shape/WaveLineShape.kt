@@ -14,7 +14,7 @@ class WaveLineShape : BaseLineShape() {
     private val waveLengthFactor = 1.5f
     val limitRect = Rect()
 
-    override fun getType(): Int = ExpandShapeFactory.SHAP_WAVE_LINE
+    override fun getType(): Int = ExpandShapeFactory.SHAPE_WAVE_LINE
 
     override fun render(renderContext: RenderContext) {
         applyStrokeStyle(renderContext)

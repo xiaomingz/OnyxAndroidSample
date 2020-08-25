@@ -16,6 +16,8 @@ import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.ExpandShapeFactory;
 import com.onyx.gallery.views.shape.ImageShapeExpand;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * <pre>
  *     author : lxw
@@ -60,6 +62,12 @@ public class CreateImageShapeRequest extends BaseRequest {
         drawHandler.updateLimitRect(true);
         drawHandler.makeCropSnapshot(imageFilePath, (ImageShapeExpand) imageShape);
         setRenderToScreen(true);
+    }
+
+    @Override
+    public void afterExecute(@NotNull DrawHandler drawHandler) {
+        super.afterExecute(drawHandler);
+        drawHandler.afterCreateImageShape();
     }
 
     private float calculatesSaleFactor(Size imageSize) {
