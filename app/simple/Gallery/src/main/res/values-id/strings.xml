@@ -3,23 +3,16 @@
     <string name="app_name">Simple Gallery</string>
     <string name="app_launcher_name">Galeri</string>
     <string name="edit">Sunting</string>
-    <string name="open_camera">Buka kamera</string>
     <string name="hidden">(tersembunyi)</string>
     <string name="unpin_folder">Lepas pin folder</string>
     <string name="pin_to_the_top">Pin ke atas</string>
     <string name="all_folders">Semua folder</string>
-    <string name="folder_view">Beralih ke tampilan folder</string>
     <string name="other_folder">Folder lainnya</string>
-    <string name="show_on_map">Tampilkan di peta</string>
     <string name="unknown_location">Lokasi tidak diketahui</string>
     <string name="change_cover_image">Ubah gambar kover</string>
     <string name="select_photo">Pilih foto</string>
     <string name="volume">Volume</string>
     <string name="brightness">Kecerahan</string>
-    <string name="change_orientation">Ubah orientasi</string>
-    <string name="force_portrait">Paksa potret</string>
-    <string name="force_landscape">Paksa lanskap</string>
-    <string name="use_default_orientation">Gunakan orientasi default</string>
     <string name="fix_date_taken">Perbaiki Tanggal Diambil</string>
     <string name="fixing">Memperbaiki…</string>
     <string name="dates_fixed_successfully">Tanggal berhasil diperbaiki</string>
@@ -41,65 +34,33 @@
     <string name="hide_folder_description">Fungsi ini menyembunyikan folder dengan menambahkan berkas \'.nomedia\' ke dalamnya, juga akan menyembunyikan semua subfoldernya. Anda bisa melihatnya dengan mengaktifkan opsi \'Tampilkan berkas tersembunyi\' di Pengaturan. Lanjutkan?</string>
     <string name="exclude">Kecualikan</string>
     <string name="excluded_folders">Folder yang dikecualikan</string>
-    <string name="manage_excluded_folders">Kelola folder yang dikecualikan</string>
     <string name="exclude_folder_description">Ini akan mengecualikan folder yang dipilih dan seluruh subfoldernya hanya di Simple Gallery. Anda bisa mengelola folder yang dikecualikan di Pengaturan.</string>
     <string name="exclude_folder_parent">Kecualikan folder induk?</string>
-    <string name="excluded_activity_placeholder">Mengecualikan folder akan menyembunyikan folder tersebut dan seluruh subfoldernya hanya di Simple Gallery, namun masih bisa dilihat di aplikasi lain.\n\nJika anda ingin menyembunyikannya dari aplikasi lain juga, gunakan fitur Sembunyikan.</string>
     <string name="hidden_folders">Folder tersembunyi</string>
-    <string name="manage_hidden_folders">Kelola folder tersembunyi</string>
-    <string name="hidden_folders_placeholder">Sepertinya tidak ada folder yang tersembunyi dengan berkas \".nomedia\" di dalamnya.</string>
 
     <!-- Include folders -->
     <string name="include_folders">Folder yang disertakan</string>
-    <string name="manage_included_folders">Kelola folder yang disertakan</string>
     <string name="add_folder">Tambah folder</string>
-    <string name="included_activity_placeholder">Jika ada folder yang berisi berkas media namun tidak dikenali oleh aplikasi ini, anda bisa menambahkannya secara manual.\n\nMenambahkan beberapa item di sini tidak akan mengecualikan folder yang lain.</string>
     <string name="no_media_add_included">Tidak ada berkas media yang ditemukan. Anda bisa memperbaikinya dengan menambahkan folder yang berisi berkas media secara manual.</string>
 
     <!-- Resizing -->
-    <string name="resize">Ubah ukuran</string>
-    <string name="resize_and_save">Ubah ukuran dan simpan</string>
     <string name="width">Lebar</string>
     <string name="height">Tinggi</string>
-    <string name="keep_aspect_ratio">Jaga aspek rasio</string>
-    <string name="invalid_values">Silakan masukkan resolusi yang valid</string>
 
     <!-- Editor -->
     <string name="editor">Penyunting</string>
     <string name="rotate">Rotasi</string>
     <string name="invalid_image_path">Jalur gambar tidak valid</string>
-    <string name="image_editing_failed">Gagal menyunting gambar</string>
-    <string name="unknown_file_location">Lokasi berkas tidak diketahui</string>
-    <string name="rotate_left">Putar ke kiri</string>
-    <string name="rotate_right">Putar ke kanan</string>
-    <string name="rotate_one_eighty">Putar 180º</string>
-    <string name="flip_horizontally">Balik horizontal</string>
-    <string name="flip_vertically">Balik vertikal</string>
-    <string name="free_aspect_ratio">Bebas</string>                  <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <string name="other_aspect_ratio">Lainnya</string>                <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
 
     <!-- Set wallpaper -->
     <string name="simple_wallpaper">Simple Wallpaper</string>
     <string name="setting_wallpaper">Menyetel wallpaper&#8230;</string>
     <string name="wallpaper_set_successfully">Wallpaper berhasil disetel</string>
-    <string name="home_screen">Layar beranda</string>
-    <string name="lock_screen">Layar kunci</string>
-    <string name="home_and_lock_screen">Beranda dan layar kunci</string>
 
     <!-- Slideshow -->
-    <string name="slideshow">Slideshow</string>
-    <string name="interval">Interval (detik):</string>
-    <string name="include_videos">Sertakan video</string>
-    <string name="include_gifs">Sertakan GIF</string>
-    <string name="random_order">Urutan acak</string>
-    <string name="move_backwards">Mundur</string>
-    <string name="loop_slideshow">Slideshow tanpa henti</string>
-    <string name="animation">Animasi</string>
-    <string name="no_animation">Tidak ada</string>
-    <string name="fade">Pudar</string>
-    <string name="slide">Slide</string>
     <string name="slideshow_ended">Slideshow berakhir</string>
-    <string name="no_media_for_slideshow">Tidak ditemukan media untuk slideshow</string>
 
     <!-- View types -->
     <string name="change_view_type">Ubah tampilan</string>
@@ -108,48 +69,12 @@
     <string name="group_direct_subfolders">Kelompokkan subfolder langsung</string>
 
     <!-- Grouping at media thumbnails -->
-    <string name="group_by">Kelompokkan menurut</string>
-    <string name="do_not_group_files">Jangan kelompokkan berkas</string>
-    <string name="by_folder">Folder</string>
-    <string name="by_last_modified_daily">Terakhir diubah (harian)</string>
-    <string name="by_last_modified_monthly">Terakhir diubah (bulanan)</string>
-    <string name="by_date_taken_daily">Tanggal diambil (harian)</string>
-    <string name="by_date_taken_monthly">Tanggal diambil (bulanan)</string>
-    <string name="by_file_type">Tipe berkas</string>
-    <string name="by_extension">Ekstensi</string>
-    <string name="grouping_and_sorting">Harap dicatat bahwa mengelompokkan dan mengurutkan adalah 2 hal yang berbeda</string>
 
     <!-- Widgets -->
-    <string name="folder_on_widget">Folder yang ditampilkan pada widget:</string>
-    <string name="show_folder_name">Tampilkan nama folder</string>
 
     <!-- Settings -->
-    <string name="remember_last_video_position">Ingat posisi pemutaran terakhir</string>
-    <string name="toggle_filename">Ubah visibilitas nama berkas</string>
-    <string name="crop_thumbnails">Pangkas thumbnail menjadi persegi</string>
-    <string name="screen_rotation_by">Rotasi layar penuh menurut</string>
-    <string name="screen_rotation_system_setting">Pengaturan sistem</string>
-    <string name="screen_rotation_device_rotation">Rotasi perangkat</string>
-    <string name="screen_rotation_aspect_ratio">Aspek rasio</string>
-    <string name="allow_photo_gestures">Izinkan mangatur kecerahan foto dengan gestur vertikal</string>
-    <string name="allow_video_gestures">Izinkan mangatur kecerahan dan volume video dengan gestur vertikal</string>
-    <string name="show_extended_details">Tampilkan detail tambahan saat layar penuh</string>
-    <string name="manage_extended_details">Kelola detail tambahan</string>
-    <string name="allow_instant_change">Izinkan mengganti media dengan mengklik sisi layar</string>
-    <string name="show_recycle_bin">Tampilkan Keranjang Sampah di layar folder</string>
-    <string name="file_loading_priority">Prioritas pemuatan berkas</string>
-    <string name="speed">Kecepatan</string>
-    <string name="compromise">Kompromi</string>
-    <string name="avoid_showing_invalid_files">Hindari menampilkan berkas yang tidak valid</string>
 
     <!-- Setting sections -->
-    <string name="thumbnails">Thumbnail</string>
-    <string name="fullscreen_media">Media layar penuh</string>
-    <string name="extended_details">Detail tambahan</string>
-    <string name="bottom_actions">Tindakan bawah</string>
 
     <!-- Bottom actions -->
-    <string name="manage_bottom_actions">Kelola tombol tindakan bawah</string>
-    <string name="toggle_favorite">Favorit</string>
-    <string name="toggle_file_visibility">Ubah visibilitas berkas</string>
 </resources>

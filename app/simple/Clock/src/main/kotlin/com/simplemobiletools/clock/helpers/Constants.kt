@@ -28,6 +28,7 @@ const val ALARM_ID = "alarm_id"
 const val DEFAULT_ALARM_MINUTES = 480
 const val DEFAULT_MAX_ALARM_REMINDER_SECS = 300
 const val DEFAULT_MAX_TIMER_REMINDER_SECS = 60
+const val ALARM_SNOOZE = "alarm_snooze"
 
 const val PICK_AUDIO_FILE_INTENT_ID = 9994
 const val REMINDER_ACTIVITY_INTENT_ID = 9995

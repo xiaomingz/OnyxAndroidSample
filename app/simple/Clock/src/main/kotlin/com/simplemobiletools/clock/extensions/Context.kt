@@ -108,10 +108,14 @@ fun Context.showRemainingTimeMessage(totalMinutes: Int) {
     toast(fullString, Toast.LENGTH_LONG)
 }
 
-fun Context.setupAlarmClock(alarm: Alarm, triggerInSeconds: Int) {
+fun Context.setupAlarmClock(alarm: Alarm, triggerInSeconds: Int, snooze: Boolean = false) {
     val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
     val targetMS = System.currentTimeMillis() + triggerInSeconds * 1000
-    AlarmManagerCompat.setAlarmClock(alarmManager, targetMS, getOpenAlarmTabIntent(), getAlarmIntent(alarm))
+    val intent = getAlarmIntent(alarm)
+    if (snooze) {
+        intent.putExtra(ALARM_SNOOZE, true)
+    }
+    AlarmManagerCompat.setAlarmClock(alarmManager, targetMS, getOpenAlarmTabIntent(), getAlarmPendingIntent(alarm, intent))
 }
 
 fun Context.getOpenAlarmTabIntent(): PendingIntent {
@@ -126,15 +130,19 @@ fun Context.getOpenTimerTabIntent(): PendingIntent {
     return PendingIntent.getActivity(this, TIMER_NOTIF_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 }
 
-fun Context.getAlarmIntent(alarm: Alarm): PendingIntent {
+fun Context.getAlarmIntent(alarm: Alarm): Intent {
     val intent = Intent(this, OnyxAlarmReceiver::class.java)
     intent.putExtra(ALARM_ID, alarm.id)
-    return PendingIntent.getBroadcast(this, alarm.id, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    return intent;
+}
+
+fun Context.getAlarmPendingIntent(alarm: Alarm, alarmIntent : Intent): PendingIntent {
+    return PendingIntent.getBroadcast(this, alarm.id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 }
 
 fun Context.cancelAlarmClock(alarm: Alarm) {
     val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-    alarmManager.cancel(getAlarmIntent(alarm))
+    alarmManager.cancel(getAlarmPendingIntent(alarm, getAlarmIntent(alarm)))
 }
 
 fun Context.hideNotification(id: Int) {

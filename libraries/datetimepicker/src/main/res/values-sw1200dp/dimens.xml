@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- date picker dialog  -->
+    <dimen name="onyx_date_picker_prev_next_img_btn_size">60dp</dimen>
+    <dimen name="onyx_date_picker_month_text_size">32sp</dimen>
+    <dimen name="onyx_date_picker_day_of_week_text_size">27sp</dimen>
+    <dimen name="onyx_date_picker_day_text_size">27sp</dimen>
+    <dimen name="onyx_date_picker_day_height">80dp</dimen>
+    <dimen name="onyx_date_picker_day_width">88dp</dimen>
+    <dimen name="onyx_date_picker_day_of_week_height">72dp</dimen>
+    <dimen name="onyx_date_picker_day_selector_radius">40dp</dimen>
+
+    <!-- time picker dialog -->
+    <dimen name="onyx_timepicker_text_size_normal">27sp</dimen>
+    <dimen name="onyx_timepicker_text_size_inner">22sp</dimen>
+    <dimen name="onyx_timepicker_radial_picker_top_margin">32dp</dimen>
+    <dimen name="onyx_timepicker_radial_picker_horizontal_margin">32dp</dimen>
+    <dimen name="onyx_timepicker_radial_picker_width">620dp</dimen>
+    <dimen name="onyx_timepicker_radial_picker_dimen">620dp</dimen>
+</resources>

@@ -50,19 +50,6 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings -> launchSettings()
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
-    }
-
     private fun tryInitVoiceRecorder() {
         if (isQPlus()) {
             initVoiceRecorder()

@@ -1,0 +1,8 @@
+<resources>
+    <integer name="directory_columns_vertical_scroll">4</integer>
+    <integer name="directory_columns_horizontal_scroll">5</integer>
+    <integer name="media_columns_vertical_scroll">4</integer>
+    <integer name="media_columns_horizontal_scroll">5</integer>
+
+    <integer name="text_style_option_row">4</integer>
+</resources>

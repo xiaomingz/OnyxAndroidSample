@@ -99,32 +99,6 @@ class NewEditActivity : SimpleActivity() {
         tvTitle.setText(R.string.editor)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.clear()
-        menuInflater.inflate(R.menu.menu_new_editor, menu)
-        globalEditBundle?.run {
-            val deleteMenuItem = menu.findItem(R.id.ok)
-            val saveMenuItem = menu.findItem(R.id.save)
-            val showCropMenu = touchHandlerManager.activateHandler is CropTouchHandler
-            deleteMenuItem.setVisible(showCropMenu)
-            saveMenuItem.setVisible(!showCropMenu)
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val actionType: ActionType = when (item.itemId) {
-            android.R.id.home -> ActionType.BACK
-            R.id.ok -> ActionType.OK
-            R.id.save -> ActionType.SAVE_EDIT
-            R.id.undo -> ActionType.UNDO
-            R.id.redo -> ActionType.REDO
-            else -> return super.onOptionsItemSelected(item)
-        }
-        appBarHandler.onHandleAction(actionType)
-        return true
-    }
-
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             appBarHandler.onBackPressed()

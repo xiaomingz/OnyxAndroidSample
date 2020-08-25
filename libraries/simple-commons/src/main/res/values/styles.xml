@@ -35,10 +35,17 @@
         <item name="android:background">@drawable/transparent_button</item>
     </style>
 
-    <style name="MyDialogTheme" parent="@style/OnyxAppCompat.AlertDialog" />
+    <style name="MyDialogTheme" parent="@style/OnyxAppCompat.AlertDialog" >
+        <item name="buttonBarPositiveButtonStyle">@style/MyDialogBtnStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyDialogBtnStyle</item>
+    </style>
 
     <style name="MyDialogTheme.Dark" parent="@style/MyDialogTheme">
         <item name="colorAccent">@color/color_primary</item>
+    </style>
+
+    <style name="MyDialogBtnStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textSize">@dimen/time_picker_dialog_button_text_size</item>
     </style>
 
     <style name="Theme.Transparent" parent="@style/OnyxAppCompat">

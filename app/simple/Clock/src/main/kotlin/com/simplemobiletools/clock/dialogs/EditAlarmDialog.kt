@@ -1,6 +1,5 @@
 package com.simplemobiletools.clock.dialogs
 
-import android.app.TimePickerDialog
 import android.graphics.drawable.Drawable
 import android.media.AudioManager
 import android.widget.TextView
@@ -14,6 +13,7 @@ import com.simplemobiletools.commons.dialogs.SelectAlarmSoundDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ALARM_SOUND_TYPE_ALARM
 import com.simplemobiletools.commons.models.AlarmSound
+import com.takisoft.datetimepicker.TimePickerDialog
 import kotlinx.android.synthetic.main.dialog_edit_alarm.view.*
 
 class EditAlarmDialog(val activity: SimpleActivity, val alarm: Alarm, val callback: (alarmId: Int) -> Unit) {
