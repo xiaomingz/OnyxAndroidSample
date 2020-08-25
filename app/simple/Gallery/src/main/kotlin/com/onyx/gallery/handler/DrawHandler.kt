@@ -17,6 +17,7 @@ import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
 import com.onyx.gallery.models.CropSnapshot
 import com.onyx.gallery.views.shape.ImageShapeExpand
+import com.onyx.gallery.views.shape.ImageTrackShape
 import com.onyx.gallery.views.shape.MosaicShape
 import org.greenrobot.eventbus.EventBus
 
@@ -282,7 +283,8 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
                 Rect(currLimitRect),
                 RectF(globalEditBundle.cropHandler.cropBoxRect),
                 globalEditBundle.cropHandler.currAngle,
-                imageShape
+                imageShape,
+                imageBitmap!!
         )
         addCropSnapshot(cropSnapshot)
     }
@@ -308,6 +310,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
             updateImageShape(imageShape)
             updateLimitRect(orgLimitRect)
             globalEditBundle.cropHandler.currAngle = rotateAngle
+            this@DrawHandler.imageBitmap = imageBitmap
             val restoreMosaicBitmap = readerHandler.restoreMosaicBitmap(imageShape)
             val matrix = globalEditBundle.getInitMatrix()
             val matrixValues = matrix.values()
@@ -317,6 +320,9 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
                 shape.strokeWidth * matrixValues[Matrix.MSCALE_X]
                 if (shape is MosaicShape) {
                     shape.backgroundBitmap = restoreMosaicBitmap
+                }
+                if (shape is ImageTrackShape) {
+                    shape.backgroundBitmap = imageBitmap
                 }
             }
             addShapes(handwritingShape)
