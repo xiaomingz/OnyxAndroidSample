@@ -93,6 +93,7 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
         drawHandler.release()
         cropHandler.release()
         insertTextHandler.release()
+        eraseHandler.release()
         touchHandlerManager.deactivateHandler()
     }
 

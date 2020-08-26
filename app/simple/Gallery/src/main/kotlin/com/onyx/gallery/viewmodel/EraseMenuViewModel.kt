@@ -39,7 +39,7 @@ class EraseMenuViewModel : BaseMenuViewModel() {
             MenuAction.ERASE_REGION -> EraseModel.REGION
             MenuAction.ERASE_LAYER -> {
                 eraseLayer()
-                EraseModel.LAYER
+                return true
             }
             else -> EraseModel.MOVE
         }

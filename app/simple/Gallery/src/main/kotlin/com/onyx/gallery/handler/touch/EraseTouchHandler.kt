@@ -9,7 +9,6 @@ import com.onyx.gallery.action.erase.EraseAction
 import com.onyx.gallery.action.shape.AddShapesAction
 import com.onyx.gallery.action.shape.RenderVarietyShapeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
-import com.onyx.gallery.handler.EraseModel
 import com.onyx.gallery.models.EraseArgs
 import com.onyx.gallery.utils.ExpandShapeFactory
 import com.onyx.gallery.views.shape.ImageTrackShape
@@ -32,9 +31,7 @@ class EraseTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(g
     private var drawEmitter: ObservableEmitter<TouchPoint?>? = null
 
     override fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint) {
-        if (eraseHandler.isEraseLayer()) {
-            return
-        } else if (eraseHandler.isEraseOnMove() || eraseHandler.isEraseByRegion()) {
+        if (eraseHandler.isEraseOnMove() || eraseHandler.isEraseByRegion()) {
             shape = createEraseShape()
         }
         disposable = Observable.create<TouchPoint> { e ->
