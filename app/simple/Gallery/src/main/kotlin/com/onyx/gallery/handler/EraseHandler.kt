@@ -34,4 +34,9 @@ class EraseHandler(val globalEditBundle: GlobalEditBundle) {
 
     fun isEraseByRegion(): Boolean = eraseModel == EraseModel.REGION
 
+    fun release() {
+        eraseModel = EraseArgs.DEFAULT_MODEL
+        eraseWidth = EraseArgs.DEFAULT_WIDTH
+    }
+
 }
