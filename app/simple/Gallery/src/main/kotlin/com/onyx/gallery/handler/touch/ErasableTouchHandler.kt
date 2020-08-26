@@ -13,13 +13,22 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by Leung 2020/7/14 12:01
  **/
-open class ErasableTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(globalEditBundle) {
+open class ErasableTouchHandler(globalEditBundle: GlobalEditBundle) : BackPressureTouchHandler(globalEditBundle) {
 
     companion object {
         const val ERASER_BUFFER = 100L
     }
 
     private var eraseObservable: ObservableHolder<TouchPoint>? = null
+
+    override fun onBeforeBeginRawDraw(shortcutDrawing: Boolean, point: TouchPoint) {
+    }
+
+    override fun onReceivedBufferPoint(pointList: TouchPointList) {
+    }
+
+    override fun onAfterEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint) {
+    }
 
     override fun onBeginRawErasing(shortcutErasing: Boolean, point: TouchPoint) {
         removeEraseObserver()

@@ -14,6 +14,7 @@ class DrawArgs {
         const val maxStrokeWidth = 40
         const val minStrokeWidth = 10
         const val defaultStrokeWidth = 15
+        const val defaultSelectionPathIntervals = 8f
         const val defaultStrokeColor = Color.BLACK
         const val defaultShape = ShapeFactory.SHAPE_PENCIL_SCRIBBLE
         const val defaultStrokeType = TouchHelper.STROKE_STYLE_PENCIL

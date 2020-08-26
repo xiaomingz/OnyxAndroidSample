@@ -39,6 +39,7 @@ open class ImageTrackShape(var imageTrackType: ImageTrackType = ImageTrackType.S
         paint.style = Paint.Style.STROKE
         if (imageTrackType == ImageTrackType.FILL) {
             paint.style = Paint.Style.FILL
+            path.close()
         }
         paint.color = Color.BLACK
 

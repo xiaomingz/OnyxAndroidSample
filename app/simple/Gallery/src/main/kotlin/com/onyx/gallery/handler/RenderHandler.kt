@@ -15,6 +15,7 @@ import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.android.sdk.utils.RectUtils
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.utils.MosaicUtils
 import com.onyx.gallery.utils.RendererUtils
 import com.onyx.gallery.views.shape.ImageShapeExpand
@@ -31,6 +32,7 @@ enum class MirrorModel {
 class RenderHandler(val globalEditBundle: GlobalEditBundle) {
     val limitRect = Rect()
     val surfaceRect = Rect()
+    private val selectionPath = Path()
     private var mosaicBitmap: Bitmap? = null
     private val strokePaint: Paint by lazy { initStrokePaint() }
     private val fillPaint: Paint by lazy { initFillPaint() }
@@ -45,22 +47,9 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         renderContext.matrix.reset()
     }
 
-    fun eraseRendererBitmap() {
-        renderContext.eraseBitmap()
-    }
-
-    fun resetRendererBitmap(rect: Rect) {
-        recycleRendererBitmap()
-        createRendererBitmap(rect)
-    }
-
     fun createRendererBitmap(rect: Rect) {
         renderContext.createBitmap(rect)
         renderContext.updateCanvas()
-    }
-
-    private fun recycleRendererBitmap() {
-        renderContext.recycleBitmap()
     }
 
     @WorkerThread
@@ -89,9 +78,6 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
 
     @WorkerThread
     fun renderVarietyShapesToSurfaceView(surfaceView: SurfaceView, shapes: List<Shape>): Boolean {
-        if (CollectionUtils.isNullOrEmpty(shapes)) {
-            return false
-        }
         return renderToSurfaceViewImp(surfaceView) { canvas ->
             val rect = RendererUtils.checkSurfaceView(surfaceView)
             renderBackground(surfaceView.context, canvas, renderContext, rect)
@@ -102,6 +88,7 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
             drawSelectionRect(canvas, renderContext)
             renderShapeToCanvas(shapes, canvas)
             drawLimitRect(canvas)
+            drawSelectionPath(canvas, renderContext)
             true
         }
     }
@@ -223,6 +210,21 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         canvas.drawRect(limitRect, strokePaint)
     }
 
+    private fun drawSelectionPath(canvas: Canvas, renderContext: RenderContext) {
+        if (selectionPath.isEmpty) {
+            return
+        }
+        if (renderContext.matrix != null) {
+            selectionPath.transform(renderContext.matrix)
+        }
+        val intervals = DrawArgs.defaultSelectionPathIntervals
+        val dashPathEffect = DashPathEffect(floatArrayOf(intervals, intervals), 0f)
+        strokePaint.setPathEffect(dashPathEffect)
+        canvas.drawPath(selectionPath, strokePaint)
+        strokePaint.setPathEffect(null)
+        selectionPath.reset()
+    }
+
     private fun drawSelectionRect(canvas: Canvas, renderContext: RenderContext) {
         val selectionRect = renderContext.selectionRect ?: return
         val rectF = RectF(selectionRect.originRect)
@@ -281,9 +283,14 @@ class RenderHandler(val globalEditBundle: GlobalEditBundle) {
         mosaicBitmap = MosaicUtils.getMosaicBitmap(renderContext.bitmap)
     }
 
+    fun updateSelectionPath(path: Path) {
+        selectionPath.set(path)
+    }
+
     fun release() {
         mosaicBitmap?.let { it.recycle() }
         mosaicBitmap = null
+        selectionPath.reset()
         resetRenderContext()
     }
 
