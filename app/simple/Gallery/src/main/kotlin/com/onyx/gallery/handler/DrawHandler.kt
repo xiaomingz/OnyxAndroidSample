@@ -29,7 +29,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     val currLimitRect = Rect()
     val surfaceRect = Rect()
     val drawingArgs = DrawArgs()
-    private var imageBitmap: Bitmap ?= null
+    private var imageBitmap: Bitmap? = null
     private val undoRedoHander = globalEditBundle.undoRedoHandler
     private var readerHandler = RenderHandler(globalEditBundle)
     val renderContext = readerHandler.renderContext
@@ -363,6 +363,10 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun getImageBitmap(): Bitmap = imageBitmap!!
+
+    fun updateSelectionPath(path: Path) {
+        readerHandler.updateSelectionPath(path)
+    }
 
 }
 

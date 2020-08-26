@@ -1,9 +1,9 @@
 package com.onyx.gallery.handler.touch
 
+import android.graphics.Path
 import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
-import com.onyx.android.sdk.rx.SingleThreadScheduler
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.gallery.action.erase.EraseAction
 import com.onyx.gallery.action.shape.AddShapesAction
@@ -13,58 +13,40 @@ import com.onyx.gallery.models.EraseArgs
 import com.onyx.gallery.utils.ExpandShapeFactory
 import com.onyx.gallery.views.shape.ImageTrackShape
 import com.onyx.gallery.views.shape.ImageTrackType
-import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
-import io.reactivex.disposables.Disposable
 
 /**
  * Created by Leung 2020/8/24 11:12
  **/
-class EraseTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(globalEditBundle) {
+class EraseTouchHandler(globalEditBundle: GlobalEditBundle) : BackPressureTouchHandler(globalEditBundle) {
 
-    companion object {
-        private const val TOUCH_POINT_BUFFER_MAX_COUNT = 30
-    }
+    private var eraseShape: Shape? = null
+    private val selectionPath = Path()
 
-    private var shape: Shape? = null
-    private var disposable: Disposable? = null
-    private var drawEmitter: ObservableEmitter<TouchPoint?>? = null
-
-    override fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint) {
+    override fun onBeforeBeginRawDraw(shortcutDrawing: Boolean, point: TouchPoint) {
         if (eraseHandler.isEraseOnMove() || eraseHandler.isEraseByRegion()) {
-            shape = createEraseShape()
+            eraseShape = createEraseShape()
         }
-        disposable = Observable.create<TouchPoint> { e ->
-            drawEmitter = e
-            drawEmitter!!.onNext(point)
-        }
-                .buffer(TOUCH_POINT_BUFFER_MAX_COUNT)
-                .observeOn(SingleThreadScheduler.scheduler())
-                .subscribeOn(SingleThreadScheduler.scheduler())
-                .subscribe { touchPoints ->
-                    val pointList = TouchPointList()
-                    for (touchPoint in touchPoints) {
-                        pointList.add(touchPoint)
-                    }
-                    if (shape == null) {
-                        eraseStrokes(pointList)
-                    }
-                    shape?.let {
-                        it.addPoints(pointList)
-                        renderVarietyShape(it)
-                    }
-                }
+        selectionPath.reset()
+        selectionPath.moveTo(point.x, point.y)
     }
 
-    override fun onRawDrawingPointsMoveReceived(point: TouchPoint) {
-        drawEmitter?.run { onNext(point) }
+    override fun onReceivedBufferPoint(pointList: TouchPointList) {
+        for (touchPoint in pointList) {
+            selectionPath.lineTo(touchPoint.x, touchPoint.y)
+        }
+        if (eraseShape == null) {
+            eraseStrokes(pointList)
+        }
+        eraseShape?.let {
+            it.addPoints(pointList)
+            renderVarietyEraseShape(it)
+        }
+        renderVarietyEraseRegion()
     }
 
-    override fun onEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint) {
-        drawEmitter?.onComplete()
-        disposable?.run { dispose() }
-        shape?.let { addShape(it) }
-        shape = null
+    override fun onAfterEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint) {
+        eraseShape?.let { addShape(it) }
+        eraseShape = null
     }
 
     private fun eraseStrokes(pointList: TouchPointList) {
@@ -90,9 +72,18 @@ class EraseTouchHandler(globalEditBundle: GlobalEditBundle) : BaseTouchHandler(g
         return shape
     }
 
-    private fun renderVarietyShape(shape: Shape) {
-        RenderVarietyShapeAction().addShape(shape).execute(null)
+    private fun renderVarietyEraseShape(shape: Shape) {
+        if (eraseHandler.isEraseOnMove()) {
+            RenderVarietyShapeAction().addShape(shape).execute(null)
+        }
     }
+
+    private fun renderVarietyEraseRegion() {
+        if (eraseHandler.isEraseByRegion()) {
+            RenderVarietyShapeAction().setSelectionPath(selectionPath).execute(null)
+        }
+    }
+
 
     private fun addShape(shape: Shape) {
         invertRenderStrokeWidth(shape)
