@@ -1,5 +1,6 @@
 package com.onyx.gallery.models
 
+import android.graphics.Bitmap
 import android.graphics.Rect
 import android.graphics.RectF
 import com.onyx.android.sdk.scribble.shape.Shape
@@ -19,5 +20,6 @@ data class CropSnapshot(
         val cropRect: RectF,
         val rotateAngle: Float,
         val imageShape: ImageShapeExpand,
+        val imageBitmap: Bitmap,
         val handwritingShape: MutableList<Shape> = mutableListOf()
 )

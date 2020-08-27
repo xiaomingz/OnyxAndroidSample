@@ -10,10 +10,10 @@ import java.util.*
 /**
  * Created by Leung 2020/7/13 16:47
  **/
-class EraseShapeRequest(private val touchPointList: TouchPointList) : BaseRequest() {
+class EraseStrokesRequest(private val touchPointList: TouchPointList, val eraseWidth: Float) : BaseRequest() {
 
     override fun execute(drawHandler: DrawHandler) {
-        val drawRadius = drawHandler.drawingArgs.eraserWidth / 2
+        val drawRadius = eraseWidth / 2
         val handwritingShape = drawHandler.getHandwritingShape()
         val removeShapes = removeShapes(handwritingShape, touchPointList, drawRadius)
         if (removeShapes.isEmpty()) {

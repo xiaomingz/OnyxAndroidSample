@@ -64,6 +64,12 @@ object ViewAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("setViewEnable")
+    fun setEnabledByView(view: View, isEnabled: Boolean) {
+        view.isEnabled = isEnabled
+    }
+
+    @JvmStatic
     @BindingAdapter("setHint")
     fun setHint(view: ImageView, res: Int) {
         view.setBackgroundResource(R.drawable.bg_img_click_solid)

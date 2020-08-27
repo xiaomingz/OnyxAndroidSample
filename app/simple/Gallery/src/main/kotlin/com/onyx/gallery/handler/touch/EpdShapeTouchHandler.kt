@@ -23,6 +23,8 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
     private var toastShowing = false
     private var waitForUpdateFinishedDisposable: Disposable? = null
 
+    override fun canRawDrawingRenderEnabled(): Boolean = true
+
     private val toastHideTimerObserver: RxTimerUtil.TimerObserver = object : RxTimerUtil.TimerObserver() {
         override fun onNext(aLong: Long) {
             onHideToast()

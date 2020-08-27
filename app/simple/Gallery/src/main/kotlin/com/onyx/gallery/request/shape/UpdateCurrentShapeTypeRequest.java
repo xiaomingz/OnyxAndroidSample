@@ -3,6 +3,8 @@ package com.onyx.gallery.request.shape;
 import com.onyx.android.sdk.scribble.shape.ShapeFactory;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
+import com.onyx.gallery.handler.touch.TouchHandler;
+import com.onyx.gallery.handler.touch.TouchHandlerManager;
 import com.onyx.gallery.handler.touch.TouchHandlerType;
 import com.onyx.gallery.helpers.DrawArgs;
 import com.onyx.gallery.utils.ExpandShapeFactory;
@@ -32,32 +34,25 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
             case ShapeFactory.SHAPE_RECTANGLE:
             case ShapeFactory.SHAPE_TRIANGLE:
             case ShapeFactory.SHAPE_LINE:
-            case ExpandShapeFactory.SHAP_DASH_LINE:
-            case ExpandShapeFactory.SHAP_WAVE_LINE:
-            case ExpandShapeFactory.SHAP_ARROW_LINE:
-                drawHandler.setRawInputReaderEnable(true);
-                drawHandler.setRawDrawingRenderEnabled(false);
+            case ExpandShapeFactory.SHAPE_DASH_LINE:
+            case ExpandShapeFactory.SHAPE_WAVE_LINE:
+            case ExpandShapeFactory.SHAPE_ARROW_LINE:
                 touchHandlerType = TouchHandlerType.NORMAL_SHAPE;
                 break;
             case ShapeFactory.SHAPE_EDIT_TEXT_SHAPE:
-                drawHandler.setRawInputReaderEnable(true);
-                drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.TEXT_INSERTION;
                 break;
-            case ExpandShapeFactory.SHAP_MOSAIC:
-                drawHandler.setRawInputReaderEnable(true);
-                drawHandler.setRawDrawingRenderEnabled(false);
+            case ExpandShapeFactory.SHAPE_MOSAIC:
                 touchHandlerType = TouchHandlerType.MOSAIC;
                 break;
             case ExpandShapeFactory.CROP:
-                drawHandler.setRawInputReaderEnable(true);
-                drawHandler.setRawDrawingRenderEnabled(false);
                 touchHandlerType = TouchHandlerType.CROP;
+                break;
+            case ExpandShapeFactory.ERASE:
+                touchHandlerType = TouchHandlerType.ERASE;
                 break;
             default:
                 drawHandler.getTouchHelper().setStrokeStyle(DrawArgs.defaultStrokeType);
-                drawHandler.setRawInputReaderEnable(true);
-                drawHandler.setRawDrawingRenderEnabled(true);
                 drawHandler.updateLimitRect(drawHandler.getCurrLimitRect());
                 DrawArgs drawingArgs = drawHandler.getDrawingArgs();
                 drawHandler.setStrokeColor(drawingArgs.getStrokeColor());
@@ -65,7 +60,13 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
                 touchHandlerType = TouchHandlerType.EPD_SHAPE;
                 break;
         }
-        getGlobalEditBundle().getTouchHandlerManager().activateHandler(touchHandlerType);
+        TouchHandlerManager touchHandlerManager = getGlobalEditBundle().getTouchHandlerManager();
+        touchHandlerManager.activateHandler(touchHandlerType);
+        TouchHandler activateHandler = touchHandlerManager.getActivateHandler();
+        if (activateHandler != null) {
+            drawHandler.setRawInputReaderEnable(activateHandler.canRawInputReaderEnable());
+            drawHandler.setRawDrawingRenderEnabled(activateHandler.canRawDrawingRenderEnabled());
+        }
         setRenderToScreen(true);
     }
 }

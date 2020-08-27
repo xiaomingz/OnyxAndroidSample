@@ -8,7 +8,7 @@ import com.onyx.gallery.event.ui.UpdateOptionsMenuEvent
  */
 
 enum class TouchHandlerType {
-    EPD_SHAPE, NORMAL_SHAPE, TEXT_INSERTION, CROP, MOSAIC
+    EPD_SHAPE, NORMAL_SHAPE, TEXT_INSERTION, CROP, MOSAIC, ERASE
 }
 
 class TouchHandlerManager(private val globalEditBundle: GlobalEditBundle) {
@@ -22,6 +22,7 @@ class TouchHandlerManager(private val globalEditBundle: GlobalEditBundle) {
         touchHandlerMap[TouchHandlerType.TEXT_INSERTION] = InsertTextTouchHandler(globalEditBundle)
         touchHandlerMap[TouchHandlerType.CROP] = CropTouchHandler(globalEditBundle)
         touchHandlerMap[TouchHandlerType.MOSAIC] = MosaicTouchHandler(globalEditBundle)
+        touchHandlerMap[TouchHandlerType.ERASE] = EraseTouchHandler(globalEditBundle)
         activateHandler(TouchHandlerType.EPD_SHAPE)
     }
 

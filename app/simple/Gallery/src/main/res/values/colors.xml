@@ -17,4 +17,5 @@
 
     <color name="transparent_color">#10000000</color>
     <color name="menu_line_color">#B3B3B2</color>
+    <color name="unable_menu_color">#999999</color>
 </resources>

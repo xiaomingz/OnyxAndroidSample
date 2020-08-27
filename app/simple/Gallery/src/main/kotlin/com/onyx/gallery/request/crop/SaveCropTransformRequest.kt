@@ -47,6 +47,8 @@ class SaveCropTransformRequest : BaseRequest() {
         cropHandler.resetCropState()
         drawHandler.clearHandwritingData()
         drawHandler.setRawDrawingRenderEnabled(false)
+        drawHandler.renderToBitmap(newImageShape)
+        drawHandler.afterCreateImageShape()
     }
 
     private fun cropImage(filePath: String, orgCropRect: RectF): Bitmap {

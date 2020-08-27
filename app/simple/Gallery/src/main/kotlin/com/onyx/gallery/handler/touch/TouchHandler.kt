@@ -24,6 +24,8 @@ interface TouchHandler {
     fun onPenUpRefresh(refreshRect: RectF)
     fun undo()
     fun redo()
+    fun canDrawErase(): Boolean
+    fun canRawInputReaderEnable(): Boolean
     fun canRawDrawingRenderEnabled(): Boolean
     fun onFloatButtonChanged(active: Boolean)
     fun onStatusBarChangedEvent(show: Boolean)

@@ -109,6 +109,23 @@
                     android:layout_alignParentLeft="true"
                     android:text="@string/mosaic" />
             </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/main_menu_bottom_progress_light_layout"
+                setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.ERASE}"
+                android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.ERASE)}">
+
+                <ImageView
+                    style="@style/main_menu_bottom_iv_style"
+                    setHint="@{com.onyx.gallery.R.drawable.ic_erase}" />
+
+                <TextView
+                    style="@style/main_menu_bottom_progress_light_text"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/erase" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

@@ -6,13 +6,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuBinding
-import com.onyx.gallery.dialogs.DialogShare
 import com.onyx.gallery.event.ui.CloseCropEvent
 import com.onyx.gallery.event.ui.InitMenuEvent
 import com.onyx.gallery.event.ui.OpenCropEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.request.RestoreTransformRequest
-import com.onyx.gallery.utils.ToastUtils
 import com.onyx.gallery.viewmodel.EditMenuViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -70,6 +68,7 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
         EditMenuViewModel.MenuStyle.TEXT -> TextMenuFragment()
         EditMenuViewModel.MenuStyle.CROP -> CropMenuFragment()
         EditMenuViewModel.MenuStyle.MOSAIC -> MosaicMenuFragment()
+        EditMenuViewModel.MenuStyle.ERASE -> EraseMenuFragment()
         else -> NoneMenuFragment()
     }
 
@@ -79,6 +78,7 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
             EditMenuViewModel.MenuStyle.TEXT -> onTextMenuClick()
             EditMenuViewModel.MenuStyle.CROP -> onCropMenuClick()
             EditMenuViewModel.MenuStyle.MOSAIC -> onMosaicMenuClick()
+            EditMenuViewModel.MenuStyle.ERASE -> onEraseMenuClick()
         }
         globalEditBundle.enqueue(RestoreTransformRequest(), null)
     }
@@ -102,6 +102,12 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
     }
 
     private fun onMosaicMenuClick() {
+        closeCropMenu()
+        globalEditBundle.supportZoom = false
+        globalEditBundle.canFingerTouch = false
+    }
+
+    private fun onEraseMenuClick() {
         closeCropMenu()
         globalEditBundle.supportZoom = false
         globalEditBundle.canFingerTouch = false

@@ -17,7 +17,7 @@ class ArrowLineShape : BaseLineShape() {
     private val arrowHeight = 8
     private val halfBottomLine = 3.5
 
-    override fun getType(): Int = ExpandShapeFactory.SHAP_ARROW_LINE
+    override fun getType(): Int = ExpandShapeFactory.SHAPE_ARROW_LINE
 
     override fun render(renderContext: RenderContext) {
         applyStrokeStyle(renderContext)

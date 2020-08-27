@@ -303,7 +303,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     }
 
     private fun makeCropBorder(imageRect: Rect, cropRect: RectF, maintainAspectRatio: Boolean): HighlightView? {
-        val imageBitmap = globalEditBundle.drawHandler.getImageBitmap()
+        val imageBitmap = globalEditBundle.drawHandler.getImageShapeBitmap()
         val rotateBitmap = RotateBitmap(imageBitmap, 0)
         binding.cropImageView.setImageRotateBitmapResetBase(rotateBitmap, false)
         val highlightView = HighlightView(binding.cropImageView)

@@ -57,4 +57,10 @@ enum class MenuAction {
     MIRROR_TOP,
     MIRROR_BOTTOM,
 
+    //erase
+    ERASE_MOVE,
+    ERASE_STROKES,
+    ERASE_REGION,
+    ERASE_LAYER
+
 }
