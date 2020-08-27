@@ -28,14 +28,13 @@ class SettingsActivity : SimpleActivity() {
         setupVibrate()
         setupTimerMaxReminder()
         setupIncreaseVolumeGradually()
-        setupUseTextShadow()
         updateTextColors(settings_holder)
         setupSectionColors()
     }
 
     private fun setupSectionColors() {
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        arrayListOf(clock_tab_label, alarm_tab_label, stopwatch_tab_label, timer_tab_label, widgets_label).forEach {
+        arrayListOf(clock_tab_label, alarm_tab_label, stopwatch_tab_label, timer_tab_label).forEach {
             it.setTextColor(adjustedPrimaryColor)
         }
     }
@@ -120,15 +119,6 @@ class SettingsActivity : SimpleActivity() {
         settings_increase_volume_gradually_holder.setOnClickListener {
             settings_increase_volume_gradually.toggle()
             config.increaseVolumeGradually = settings_increase_volume_gradually.isChecked
-        }
-    }
-
-    private fun setupUseTextShadow() {
-        settings_use_text_shadow.isChecked = config.useTextShadow
-        settings_use_text_shadow_holder.setOnClickListener {
-            settings_use_text_shadow.toggle()
-            config.useTextShadow = settings_use_text_shadow.isChecked
-            updateWidgets()
         }
     }
 

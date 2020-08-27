@@ -2,17 +2,18 @@ package com.simplemobiletools.voicerecorder.activities
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.views.DashLineItemDivider
 import com.simplemobiletools.voicerecorder.R
 import com.simplemobiletools.voicerecorder.actions.FilesLoadAction
-import com.simplemobiletools.voicerecorder.adapters.RecorderListAdapter
 import com.simplemobiletools.voicerecorder.databinding.ActivityRecorderListBinding
 import com.simplemobiletools.voicerecorder.dialogs.DialogMediaPlayer
+import com.simplemobiletools.voicerecorder.dialogs.DialogMediaPlayer.PlayListener
 import com.simplemobiletools.voicerecorder.helpers.MediaPlayerManager
+import com.simplemobiletools.commons.views.DisableScrollLinearManager
+import com.simplemobiletools.voicerecorder.adapters.RecorderListAdapter
+import com.simplemobiletools.voicerecorder.view.PageRecyclerView
 import java.io.File
-import com.simplemobiletools.voicerecorder.dialogs.DialogMediaPlayer.PlayListener as PlayListener
 
 class RecorderListActivity : SimpleActivity() {
 
@@ -27,12 +28,27 @@ class RecorderListActivity : SimpleActivity() {
     }
 
     private fun initView() {
-        binding.contentView.layoutManager = LinearLayoutManager(this)
+        binding.contentView.layoutManager = DisableScrollLinearManager(this)
         binding.contentView.addItemDecoration(DashLineItemDivider(this))
         adapter = RecorderListAdapter(this, binding.contentView) {
             play(it as File)
         }
         binding.contentView.adapter = adapter
+        binding.contentView.setOnPagingListener(object : PageRecyclerView.OnPagingListener(){
+            override fun onPageChange(position: Int, itemCount: Int, pageSize: Int) {
+                updateIndicator()
+            }
+        })
+    }
+
+    fun updateCountText(size: Int) {
+        binding.count.text = resources.getString(R.string.total, size)
+    }
+
+    fun updateIndicator() {
+        val page: Int = binding.contentView.paginator.currentPage + 1
+        val pageInfo = page.toString() + "/" + binding.contentView.paginator.pages()
+        binding.indicator.text = if (binding.contentView.pageAdapter.dataCount > 0) pageInfo else ""
     }
 
     private fun loadData() {
@@ -69,6 +85,8 @@ class RecorderListActivity : SimpleActivity() {
     private fun updateContentView(list: List<File>) {
         runOnUiThread {
             adapter?.addItems(list);
+            updateCountText(list.size)
+            updateIndicator()
         }
     }
 

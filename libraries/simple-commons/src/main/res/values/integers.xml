@@ -2,4 +2,6 @@
 <resources>
     <integer name="default_sorting">1</integer>
     <integer name="default_font_size">1</integer>
+    <integer name="recorder_list_row">6</integer>
+    <integer name="recorder_list_col">1</integer>
 </resources>
