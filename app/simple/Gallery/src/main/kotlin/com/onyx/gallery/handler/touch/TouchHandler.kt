@@ -28,6 +28,7 @@ interface TouchHandler {
     fun canRawInputReaderEnable(): Boolean
     fun canRawDrawingRenderEnabled(): Boolean
     fun onFloatButtonChanged(active: Boolean)
+    fun onFloatButtonMenuStateChanged(open: Boolean)
     fun onStatusBarChangedEvent(show: Boolean)
     fun onNoFocusSystemDialogChanged(open: Boolean)
     fun onShowToastEvent()

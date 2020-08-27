@@ -13,6 +13,7 @@ import com.onyx.gallery.event.touch.TouchMoveEvent
 import com.onyx.gallery.event.touch.TouchUpEvent
 import com.onyx.gallery.event.ui.RedoShapeEvent
 import com.onyx.gallery.event.ui.UndoShapeEvent
+import com.onyx.gallery.request.RendererToScreenRequest
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -141,6 +142,12 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
 
     override fun onFloatButtonChanged(active: Boolean) {
 
+    }
+
+    override fun onFloatButtonMenuStateChanged(open: Boolean) {
+        if (!open) {
+            globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        }
     }
 
     override fun onStatusBarChangedEvent(show: Boolean) {

@@ -48,4 +48,10 @@ class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : BackPressureTouch
         invertRenderStrokeWidth(shape)
         AddShapesAction().setShape(shape).execute(null)
     }
+
+    override fun onFloatButtonChanged(active: Boolean) {
+        drawHandler.setRawInputReaderEnable(!active)
+    }
+
+
 }

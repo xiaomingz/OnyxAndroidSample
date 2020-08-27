@@ -21,4 +21,8 @@ class EraseTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandl
         eraseHandler.onEndErase(outLimitRegion, point)
     }
 
+    override fun onFloatButtonChanged(active: Boolean) {
+        drawHandler.setRawInputReaderEnable(!active)
+    }
+
 }
