@@ -6,10 +6,12 @@ import android.view.SurfaceView
 import androidx.core.graphics.values
 import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.pen.TouchHelper
+import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.data.SelectionBundle
 import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.raw.SelectionBundleEvent
@@ -366,6 +368,17 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
 
     fun updateSelectionPath(path: Path) {
         readerHandler.updateSelectionPath(path)
+    }
+
+    fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {
+        val normalizedMatrix = Matrix()
+        renderContext.matrix.invert(normalizedMatrix)
+        val newTouchPointList = TouchPointList()
+        touchPointList.points.forEach {
+            val normalPoint = ShapeUtils.matrixTouchPoint(it, normalizedMatrix)
+            newTouchPointList.add(normalPoint)
+        }
+        return newTouchPointList
     }
 
 }

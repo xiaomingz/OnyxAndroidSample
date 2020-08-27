@@ -54,6 +54,7 @@ class EraseMenuViewModel : BaseMenuViewModel() {
 
     private fun updateEraseTouchHander() {
         UpdateEraseAction(eraseModel.value!!, eraseWidth.value!!).execute(null)
+        ShapeChangeAction(ExpandShapeFactory.ERASE).execute(null)
     }
 
     private fun eraseLayer() {
