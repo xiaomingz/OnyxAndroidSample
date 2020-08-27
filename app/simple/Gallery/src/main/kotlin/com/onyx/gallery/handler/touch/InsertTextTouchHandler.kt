@@ -64,6 +64,10 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouch
         StartTransformAction(mutableListOf(textShape)).execute(null)
     }
 
+    override fun onFloatButtonChanged(active: Boolean) {
+        drawHandler.setRawInputReaderEnable(!active)
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSelectionBundle(event: SelectionBundleEvent) {
         insertTextHandler.selectionRect = event.bundle.selectionRect

@@ -72,7 +72,7 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
     }
 
     override fun onFloatButtonChanged(active: Boolean) {
-        drawHandler.setRawDrawingEnabled(!active)
+        drawHandler.setRawInputReaderEnable(!active)
     }
 
 }

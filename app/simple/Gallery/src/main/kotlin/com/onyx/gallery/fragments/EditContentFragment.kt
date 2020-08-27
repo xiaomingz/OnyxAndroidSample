@@ -227,9 +227,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFloatButtonMenuStateChangedEvent(event: FloatButtonMenuStateChangedEvent) {
-        if (!event.open) {
-            globalEditBundle.enqueue(RendererToScreenRequest(), null)
-        }
+        getTouchHandler()?.onFloatButtonMenuStateChanged(event.open)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

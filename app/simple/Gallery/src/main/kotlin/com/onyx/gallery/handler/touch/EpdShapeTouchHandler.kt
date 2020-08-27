@@ -12,6 +12,7 @@ import com.onyx.gallery.action.shape.AddShapesInBackgroundAction
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.request.PartialRefreshRequest
+import com.onyx.gallery.request.RendererToScreenRequest
 import com.onyx.gallery.utils.ToastUtils
 import io.reactivex.disposables.Disposable
 
@@ -19,6 +20,7 @@ import io.reactivex.disposables.Disposable
  * Created by Leung on 2020/6/7
  */
 class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
+    private var isFloatButtonOpen = false
     private val DELAY_ENABLE_RAW_DRAWING_MILLS = 200L
     private var toastShowing = false
     private var waitForUpdateFinishedDisposable: Disposable? = null
@@ -40,6 +42,9 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
 
     override fun onPenUpRefresh(refreshRect: RectF) {
         globalEditBundle.enqueue(PartialRefreshRequest(refreshRect), null)
+        if (isFloatButtonOpen) {
+            globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        }
     }
 
     override fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList) {
@@ -63,21 +68,25 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
     }
 
     override fun onFloatButtonChanged(active: Boolean) {
-        drawHandler.setRawDrawingEnabled(!active)
+        setRawInputEnable(!active)
+    }
+
+    override fun onFloatButtonMenuStateChanged(open: Boolean) {
+        isFloatButtonOpen = open
     }
 
     override fun onStatusBarChangedEvent(show: Boolean) {
-        drawHandler.setRawDrawingEnabled(!show)
+        setRawInputEnable(!show)
     }
 
     override fun onNoFocusSystemDialogChanged(open: Boolean) {
-        drawHandler.setRawDrawingEnabled(!open)
+        setRawInputEnable(!open)
     }
 
     override fun onShowToastEvent() {
         toastShowing = true
         RxTimerUtil.cancel(toastHideTimerObserver)
-        drawHandler.setRawDrawingEnabled(false)
+        setRawInputEnable(false)
         RxTimerUtil.timer(ToastUtils.LONG_DELAY.toLong(), toastHideTimerObserver)
     }
 
@@ -88,7 +97,7 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
 
     fun onHideToast() {
         toastShowing = false
-        drawHandler.setRawDrawingEnabled(true)
+        setRawInputEnable(true)
     }
 
     override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
@@ -102,8 +111,13 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
                         }
                     })
         } else {
-            drawHandler.setRawDrawingEnabled(false)
+            setRawInputEnable(false)
         }
+    }
+
+    private fun setRawInputEnable(enable: Boolean) {
+        drawHandler.setRawDrawingRenderEnabled(enable)
+        drawHandler.setRawInputReaderEnable(enable)
     }
 
 }
