@@ -47,9 +47,7 @@ abstract class BackPressureTouchHandler(globalEditBundle: GlobalEditBundle) : Ba
         onAfterEndRawDrawing(outLimitRegion, point)
     }
 
-
     abstract fun onBeforeBeginRawDraw(shortcutDrawing: Boolean, point: TouchPoint)
-
     abstract fun onReceivedBufferPoint(pointList: TouchPointList)
     abstract fun onAfterEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint)
 

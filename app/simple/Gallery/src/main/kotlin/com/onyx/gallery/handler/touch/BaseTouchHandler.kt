@@ -1,12 +1,10 @@
 package com.onyx.gallery.handler.touch
 
-import android.graphics.Matrix
 import android.graphics.RectF
 import androidx.annotation.CallSuper
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.shape.Shape
-import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.raw.*
@@ -166,14 +164,7 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
     }
 
     protected fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {
-        val normalizedMatrix = Matrix()
-        drawHandler.renderContext.matrix.invert(normalizedMatrix)
-        val newTouchPointList = TouchPointList()
-        touchPointList.points.forEach {
-            val normalPoint = ShapeUtils.matrixTouchPoint(it, normalizedMatrix)
-            newTouchPointList.add(normalPoint)
-        }
-        return newTouchPointList
+        return drawHandler.getNormalTouchPointList(touchPointList)
     }
 
 }
