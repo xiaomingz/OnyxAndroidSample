@@ -129,6 +129,7 @@ class MainActivity : SimpleActivity() {
     private fun getViewPagerAdapter() = view_pager.adapter as? ViewPagerAdapter
 
     private fun initFragments() {
+        view_pager.setCanScroll(false)
         view_pager.adapter = ViewPagerAdapter(supportFragmentManager)
         view_pager.onPageChangeListener {
             main_tabs_holder.getTabAt(it)?.select()

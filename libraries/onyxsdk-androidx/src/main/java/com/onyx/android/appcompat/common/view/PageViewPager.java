@@ -4,12 +4,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.onyx.android.appcompat.common.utils.PageTurningDetector;
-import com.onyx.android.appcompat.common.utils.PageTurningDirection;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
+
+import com.onyx.android.appcompat.common.utils.PageTurningDetector;
+import com.onyx.android.appcompat.common.utils.PageTurningDirection;
 
 /**
  * Created by ming on 16/6/24.
@@ -18,6 +18,7 @@ public class PageViewPager extends ViewPager {
 
     protected float lastX, lastY;
     private OnPagingListener pagingListener;
+    private boolean isCanScroll = true;
 
     public PageViewPager(@NonNull Context context) {
         this(context, null);
@@ -32,8 +33,15 @@ public class PageViewPager extends ViewPager {
         return this;
     }
 
+    public void setCanScroll(boolean canScroll) {
+        isCanScroll = canScroll;
+    }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (!isCanScroll) {
+            return false;
+        }
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 lastX = ev.getX();
@@ -49,6 +57,9 @@ public class PageViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        if (!isCanScroll) {
+            return false;
+        }
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 lastX = ev.getX();
