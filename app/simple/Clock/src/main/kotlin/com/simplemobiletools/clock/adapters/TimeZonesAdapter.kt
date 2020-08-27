@@ -113,13 +113,9 @@ class TimeZonesAdapter(activity: SimpleActivity, var timeZones: ArrayList<MyTime
             time_zone_time.text = formattedTime
             time_zone_time.setTextColor(textColor)
 
-            if (formattedDate != todayDateString) {
-                time_zone_date.beVisible()
-                time_zone_date.text = formattedDate
-                time_zone_date.setTextColor(textColor)
-            } else {
-                time_zone_date.beGone()
-            }
+            time_zone_date.beVisible()
+            time_zone_date.text = formattedDate
+            time_zone_date.setTextColor(textColor)
         }
     }
 }

@@ -54,15 +54,16 @@
             android:textSize="@dimen/bigger_text_size"
             tools:text="Good morning!"/>
 
-        <com.simplemobiletools.commons.views.MySwitchCompat
+        <com.simplemobiletools.commons.views.StatusCheckBox
             android:id="@+id/alarm_switch"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/alarm_time"
             android:layout_alignBottom="@id/alarm_label"
-            android:layout_alignParentRight="true"
-            android:paddingLeft="@dimen/activity_margin"
-            android:paddingRight="@dimen/medium_margin"/>
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:button="@drawable/onyx_custom_switch"
+            android:paddingEnd="@dimen/medium_margin" />
 
     </RelativeLayout>
 </FrameLayout>
