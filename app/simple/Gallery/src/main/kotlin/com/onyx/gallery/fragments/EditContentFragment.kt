@@ -175,7 +175,6 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onActivityWindowFocusChangedEvent(event: ActivityWindowFocusChangedEvent) {
-        globalEditBundle.enqueue(RendererToScreenRequest(), null)
         getTouchHandler()?.onActivityWindowFocusChanged(event.hasFocus)
     }
 
