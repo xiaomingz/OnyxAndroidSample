@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="recorder_list_row">10</integer>
+    <integer name="recorder_list_col">1</integer>
+</resources>

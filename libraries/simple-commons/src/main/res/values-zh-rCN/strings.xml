@@ -660,4 +660,5 @@
 
     <string name="a_m">上午</string>
     <string name="p_m">下午</string>
+    <string name="total">总计：%d</string>
 </resources>

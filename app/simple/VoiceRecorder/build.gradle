@@ -52,4 +52,5 @@ dependencies {
     implementation project(':libraries:simple-commons')
     implementation 'org.greenrobot:eventbus:3.2.0'
     implementation 'com.github.Armen101:AudioRecordView:1.0.2'
+    implementation 'com.onyx.android.sdk:onyxsdk-base:1.5.7'
 }
