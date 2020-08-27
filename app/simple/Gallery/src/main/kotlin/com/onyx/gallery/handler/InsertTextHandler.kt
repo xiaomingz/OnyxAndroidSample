@@ -309,7 +309,7 @@ class InsertTextHandler(val globalEditBundle: GlobalEditBundle) : TextWatcherAda
         saveTextShape(textShape, clear)
     }
 
-    private fun saveTextShape(textShape: Shape, clear: Boolean) {
+    fun saveTextShape(textShape: Shape, clear: Boolean) {
         val request = SaveTextShapesRequest(textShape)
         globalEditBundle.enqueue(request, object : RxCallback<SaveTextShapesRequest?>() {
             override fun onNext(saveTextShapesRequest: SaveTextShapesRequest) {

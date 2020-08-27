@@ -101,6 +101,7 @@ class EpdShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHa
     }
 
     override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
+        super.onActivityWindowFocusChanged(hasFocus)
         if (hasFocus) {
             WaitForUpdateFinishedAction()
                     .setMinWaitTime(DELAY_ENABLE_RAW_DRAWING_MILLS)

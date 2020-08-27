@@ -167,7 +167,7 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
     }
 
     override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
-
+        globalEditBundle.enqueue(RendererToScreenRequest(), null)
     }
 
     protected fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {
