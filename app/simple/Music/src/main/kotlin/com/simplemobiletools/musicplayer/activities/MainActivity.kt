@@ -16,9 +16,7 @@ import android.view.MenuItem
 import android.widget.SeekBar
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
-import androidx.recyclerview.widget.RecyclerView
-import com.onyx.android.sdk.api.device.epd.EpdController
-import com.onyx.android.sdk.api.device.epd.UpdateMode
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
@@ -45,13 +43,11 @@ import com.simplemobiletools.musicplayer.services.MusicService
 import com.squareup.otto.Bus
 import com.squareup.otto.Subscribe
 import com.squareup.picasso.Picasso
-import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_navigation.*
 import kotlinx.android.synthetic.main.item_navigation.view.*
 import java.io.File
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class MainActivity : SimpleActivity(), SongListListener {
     private var isThirdPartyIntent = false
@@ -63,6 +59,7 @@ class MainActivity : SimpleActivity(), SongListListener {
 
     private var storedTextColor = 0
     private var storedShowAlbumCover = true
+    private var searchPlaying = false;
 
     lateinit var bus: Bus
 
@@ -119,7 +116,7 @@ class MainActivity : SimpleActivity(), SongListListener {
                 updateAlbumCover()
             } else {
                 try {
-                    art_image.setImageDrawable(null)
+                    art_image.setImageResource(R.drawable.ic_music_disc)
                 } catch (ignored: Exception) {
                 }
             }
@@ -222,6 +219,7 @@ class MainActivity : SimpleActivity(), SongListListener {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchMenuItem = menu.findItem(R.id.search)
         (searchMenuItem!!.actionView as SearchView).apply {
+            setMaxWidth(Integer.MAX_VALUE);
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -256,7 +254,7 @@ class MainActivity : SimpleActivity(), SongListListener {
                     searchQueryChanged("")
                     getSongsAdapter()?.searchClosed()
                     markCurrentSong()
-                    (songs_list.layoutManager as androidx.recyclerview.widget.LinearLayoutManager).scrollToPositionWithOffset(0, 0)
+                    (songs_list.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(getCurrentSongIndex(), 0)
                 }
                 isSearchOpen = false
                 return true
@@ -544,6 +542,7 @@ class MainActivity : SimpleActivity(), SongListListener {
             action = PLAYPOS
             startService(this)
         }
+        searchPlaying = isSearchOpen
     }
 
     private fun updateSongInfo(song: Song?) {
@@ -590,6 +589,13 @@ class MainActivity : SimpleActivity(), SongListListener {
 
     private fun getSongsAdapter() = songs_list.adapter as? SongAdapter
 
+    private fun collapseSearchPlay() {
+        if (searchPlaying && isSearchOpen) {
+            searchPlaying = false;
+            searchMenuItem?.collapseActionView()
+        }
+    }
+
     @Subscribe
     fun songChangedEvent(event: Events.SongChanged) {
         if (!wasInitialPlaylistSet) {
@@ -600,6 +606,7 @@ class MainActivity : SimpleActivity(), SongListListener {
         updateSongInfo(song)
         markCurrentSong()
         updateAlbumCover()
+        collapseSearchPlay()
     }
 
     @Subscribe

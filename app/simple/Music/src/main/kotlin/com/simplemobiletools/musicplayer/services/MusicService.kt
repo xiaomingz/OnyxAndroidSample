@@ -9,7 +9,6 @@ import android.content.IntentFilter
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.media.AudioManager
 import android.media.AudioManager.*
 import android.media.MediaMetadataRetriever
@@ -430,7 +429,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     private fun setupNotification() {
         val title = mCurrSong?.title ?: ""
         val artist = mCurrSong?.artist ?: ""
-        val playPauseIcon = if (getIsPlaying()) R.drawable.ic_pause_vector else R.drawable.ic_play_vector
+        val playPauseIcon = if (getIsPlaying()) R.drawable.ic_notification_pause else R.drawable.ic_notification_play
 
         var notifWhen = 0L
         var showWhen = false
@@ -461,7 +460,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
                 .setContentTitle(title)
                 .setContentText(artist)
-                .setSmallIcon(R.drawable.ic_headset_small)
+                .setSmallIcon(R.drawable.ic_notification_launcher)
                 .setLargeIcon(mCurrSongCover)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
@@ -475,9 +474,9 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
                 .setStyle(androidx.media.app.NotificationCompat.MediaStyle()
                         .setShowActionsInCompactView(0, 1, 2)
                         .setMediaSession(mMediaSession?.sessionToken))
-                .addAction(R.drawable.ic_previous_vector, getString(R.string.previous), getIntent(PREVIOUS))
+                .addAction(R.drawable.ic_notification_previous, getString(R.string.previous), getIntent(PREVIOUS))
                 .addAction(playPauseIcon, getString(R.string.playpause), getIntent(PLAYPAUSE))
-                .addAction(R.drawable.ic_next_vector, getString(R.string.next), getIntent(NEXT))
+                .addAction(R.drawable.ic_notification_next, getString(R.string.next), getIntent(NEXT))
 
         startForeground(NOTIFICATION_ID, notification.build())
 
@@ -529,7 +528,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL)
                 .setContentTitle("")
                 .setContentText("")
-                .setSmallIcon(R.drawable.ic_headset_small)
+                .setSmallIcon(R.drawable.ic_notification_launcher)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setChannelId(NOTIFICATION_CHANNEL)
