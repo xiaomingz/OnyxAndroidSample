@@ -23,6 +23,12 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouch
         showInitInputEdit()
     }
 
+    override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
+        if (!hasFocus) {
+            insertTextHandler.textShape?.run { insertTextHandler.saveTextShape(this, false) }
+        }
+    }
+
     private fun showInitInputEdit() {
         val limitRect = globalEditBundle.drawHandler.currLimitRect
         val point = TouchPoint(limitRect.centerX().toFloat(), limitRect.centerY().toFloat())
@@ -62,6 +68,10 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouch
     private fun startTransformAction(textShape: EditTextShape) {
         insertTextHandler.textShape = textShape as EditTextShape
         StartTransformAction(mutableListOf(textShape)).execute(null)
+    }
+
+    override fun onFloatButtonChanged(active: Boolean) {
+        drawHandler.setRawInputReaderEnable(!active)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

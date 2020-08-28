@@ -14,6 +14,7 @@ import com.onyx.gallery.event.result.SaveEditPictureResultEvent
 import com.onyx.gallery.event.ui.UpdateTouchHandlerEvent
 import com.onyx.gallery.request.SaveEditPictureRequest
 import com.onyx.gallery.request.image.CreateImageShapeRequest
+import com.onyx.gallery.utils.ToastUtils
 
 /**
  * Created by Leung on 2020/5/20
@@ -28,7 +29,7 @@ class SaveEditPictureAction(private val hostActivity: AppCompatActivity, private
         }
         drawHandler.setRawDrawingEnabled(false)
         var messageRes = R.string.is_save_image_edit
-        if(isExit){
+        if (isExit) {
             messageRes = R.string.exit_image_edit
         }
         ConfirmSaveDialog(messageRes) { isSaveAs -> saveImage(isSaveAs, rxCallback) }
@@ -60,6 +61,11 @@ class SaveEditPictureAction(private val hostActivity: AppCompatActivity, private
 
             override fun onNext(request: RxRequest) {
                 RxCallback.onNext(rxCallback, request)
+                var tipResID = R.string.save_success
+                if (isSaveAs) {
+                    tipResID = R.string.save_as_success
+                }
+                ToastUtils.showScreenCenterToast(hostActivity, tipResID)
                 eventBus.post(SaveEditPictureResultEvent(isExit = isExit))
             }
 

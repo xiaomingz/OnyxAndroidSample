@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/setting_switch_btn_width"
+    android:height="@dimen/setting_switch_btn_height"
+    android:viewportWidth="128"
+    android:viewportHeight="70">
+  <path
+      android:fillColor="#B2B2B2"
+      android:pathData="M108.1,15.1v3c9.4,0 16.9,7.6 16.9,16.9S117.4,52 108.1,52H20.5C11.2,52 3.6,44.4 3.6,35s7.6,-16.9 16.9,-16.9h87.5L108.1,15.1M108.1,15.1H20.5C9.5,15.1 0.6,24 0.6,35l0,0c0,11 8.9,19.9 19.9,19.9h87.5c11,0 19.9,-8.9 19.9,-19.9l0,0C128,24 119.1,15.1 108.1,15.1L108.1,15.1z"/>
+  <path
+      android:pathData="M35,68.5c-18.5,0 -33.5,-15 -33.5,-33.5S16.5,1.5 35,1.5s33.5,15 33.5,33.5C68.5,53.5 53.5,68.5 35,68.5z"
+      android:fillColor="#B2B2B2"/>
+  <path
+      android:fillColor="#B2B2B2"
+      android:pathData="M35,3L35,3c17.7,0 32,14.3 32,32S52.7,67 35,67S3,52.7 3,35S17.3,3 35,3M35,0C15.7,0 0,15.7 0,35s15.7,35 35,35s35,-15.7 35,-35S54.3,0 35,0z"/>
+</vector>

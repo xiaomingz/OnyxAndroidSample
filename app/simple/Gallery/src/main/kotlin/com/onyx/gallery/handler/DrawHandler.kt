@@ -184,7 +184,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun setRawDrawingRenderEnabled(enable: Boolean) {
-        touchHelper?.isRawDrawingRenderEnabled = enable
+        touchHelper?.setRawDrawingRenderEnabled(enable)
     }
 
     fun setRawInputReaderEnable(enable: Boolean) {

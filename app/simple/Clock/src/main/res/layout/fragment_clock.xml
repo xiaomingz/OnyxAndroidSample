@@ -60,6 +60,7 @@
             android:overScrollMode="ifContentScrolls"
             android:scrollbars="none"
             android:visibility="gone"
+            android:layout_marginBottom="@dimen/clock_time_zone_list_bottom_margin"
             app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager"/>
 
     </RelativeLayout>

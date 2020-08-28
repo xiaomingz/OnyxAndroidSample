@@ -116,6 +116,8 @@
     <string name="exit_image_edit">Save the changes to the picture and exit the editing?</string>
     <string name="erase">erase</string>
     <string name="thickness">thickness</string>
+    <string name="save_success">Saved successfully</string>
+    <string name="save_as_success">Save as successfully</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

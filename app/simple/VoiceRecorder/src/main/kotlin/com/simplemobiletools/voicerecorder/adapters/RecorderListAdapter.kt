@@ -1,27 +1,32 @@
 package com.simplemobiletools.voicerecorder.adapters
 
 import android.app.AlertDialog
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.onyx.android.sdk.kui.view.PageRecyclerView
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RenameItemsDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.DATE_FORMAT_FOUR
 import com.simplemobiletools.commons.helpers.TIME_FORMAT_24
-import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.voicerecorder.R
 import com.simplemobiletools.voicerecorder.actions.FilesLoadAction
+import com.simplemobiletools.voicerecorder.activities.RecorderListActivity
+import com.simplemobiletools.voicerecorder.databinding.ItemRecorderBinding
+import com.simplemobiletools.voicerecorder.view.RecyclerViewBindingViewHolder
 import kotlinx.android.synthetic.main.item_recorder.view.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
-        SimpleBaseAdapter(activity, recyclerView, itemClick) {
+class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: PageRecyclerView, itemClick: (Any) -> Unit) :
+        SimpleBaseAdapter<ItemRecorderBinding>(activity, recyclerView, itemClick) {
 
     init {
         finishWhenSelectionEmpty = false
+        setupDragListener(true)
     }
 
     private val itemList = ArrayList<File>()
@@ -32,7 +37,7 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
             itemList.clear()
         }
         itemList.addAll(files)
-        notifyDataSetChanged()
+        recyclerView.notifyDataSetChanged()
     }
 
     fun getPrevItem(file: File): File? {
@@ -46,20 +51,6 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
             itemList.lastOrNull()
         };
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return createViewHolder(R.layout.item_recorder, parent)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val file = itemList.getOrNull(position) ?: return
-        holder.bindView(file, true, true) { itemView, adapterPosition ->
-            setupView(itemView, file)
-        }
-        bindViewHolder(holder)
-    }
-
-    override fun getItemCount() = itemList.size
 
     override fun getActionMenuId() = R.menu.recorder_list_menu
 
@@ -109,6 +100,9 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
                                     val index = itemList.indexOf(it);
                                     itemList.remove(it)
                                     removeSelectedItems(arrayListOf(index));
+                                    val recorderListActivity = activity as RecorderListActivity
+                                    recorderListActivity.updateCountText(dataCount())
+                                    recorderListActivity.updateIndicator()
                                 }
                             }
                         }.show()
@@ -148,7 +142,30 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: MyRecycler
         return isSameFile(firstFile, file);
     }
 
+    override val rowCount: Int = resources.getInteger(R.integer.recorder_list_row)
+
+    override val columnCount: Int = resources.getInteger(R.integer.recorder_list_col)
+
+    override fun dataCount(): Int = itemList.size
+
     private fun isSameFile(firstFile: File?, secondFile: File?): Boolean {
         return firstFile == null || secondFile == null || firstFile.absolutePath == secondFile.absolutePath
     }
+
+    override fun onPageCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerViewBindingViewHolder<ItemRecorderBinding> {
+        val layoutInflater = LayoutInflater.from(parent!!.context)
+        val itemView = layoutInflater.inflate(R.layout.item_recorder, parent, false)
+        return ViewHolder(itemView)
+    }
+
+    override fun onPageBindViewHolder(holder: RecyclerViewBindingViewHolder<ItemRecorderBinding>, position: Int) {
+        val file = itemList.getOrNull(position) ?: return
+        val viewHolder: ViewHolder = holder as ViewHolder
+        viewHolder.bindView(file, true, true) { itemView, adapterPosition ->
+            setupView(itemView, file)
+        }
+        bindViewHolder(holder)
+        holder.binding.executePendingBindings()
+    }
+
 }
