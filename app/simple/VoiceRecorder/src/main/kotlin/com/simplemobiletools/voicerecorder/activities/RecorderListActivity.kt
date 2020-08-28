@@ -2,6 +2,8 @@ package com.simplemobiletools.voicerecorder.activities
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.onyx.android.sdk.kui.view.DisableScrollLinearManager
+import com.onyx.android.sdk.kui.view.PageRecyclerView
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.views.DashLineItemDivider
 import com.simplemobiletools.voicerecorder.R
@@ -10,9 +12,7 @@ import com.simplemobiletools.voicerecorder.databinding.ActivityRecorderListBindi
 import com.simplemobiletools.voicerecorder.dialogs.DialogMediaPlayer
 import com.simplemobiletools.voicerecorder.dialogs.DialogMediaPlayer.PlayListener
 import com.simplemobiletools.voicerecorder.helpers.MediaPlayerManager
-import com.simplemobiletools.commons.views.DisableScrollLinearManager
 import com.simplemobiletools.voicerecorder.adapters.RecorderListAdapter
-import com.simplemobiletools.voicerecorder.view.PageRecyclerView
 import java.io.File
 
 class RecorderListActivity : SimpleActivity() {
@@ -46,9 +46,9 @@ class RecorderListActivity : SimpleActivity() {
     }
 
     fun updateIndicator() {
-        val page: Int = binding.contentView.paginator.currentPage + 1
-        val pageInfo = page.toString() + "/" + binding.contentView.paginator.pages()
-        binding.indicator.text = if (binding.contentView.pageAdapter.dataCount > 0) pageInfo else ""
+        val page: Int = binding.contentView.paginator!!.currentPage + 1
+        val pageInfo = page.toString() + "/" + binding.contentView.paginator!!.pages()
+        binding.indicator.text = if (binding.contentView.pageAdapter!!.dataCount() > 0) pageInfo else ""
     }
 
     private fun loadData() {

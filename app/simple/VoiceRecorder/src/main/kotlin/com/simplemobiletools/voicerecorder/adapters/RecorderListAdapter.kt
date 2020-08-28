@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.onyx.android.sdk.kui.view.PageRecyclerView
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.RenameItemsDialog
 import com.simplemobiletools.commons.extensions.*
@@ -13,7 +14,6 @@ import com.simplemobiletools.voicerecorder.R
 import com.simplemobiletools.voicerecorder.actions.FilesLoadAction
 import com.simplemobiletools.voicerecorder.activities.RecorderListActivity
 import com.simplemobiletools.voicerecorder.databinding.ItemRecorderBinding
-import com.simplemobiletools.voicerecorder.view.PageRecyclerView
 import com.simplemobiletools.voicerecorder.view.RecyclerViewBindingViewHolder
 import kotlinx.android.synthetic.main.item_recorder.view.*
 import java.io.File
@@ -26,6 +26,7 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: PageRecycl
 
     init {
         finishWhenSelectionEmpty = false
+        setupDragListener(true)
     }
 
     private val itemList = ArrayList<File>()
@@ -36,8 +37,7 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: PageRecycl
             itemList.clear()
         }
         itemList.addAll(files)
-        recyclerView.paginator.resize(rowCount, columnCount, files.size)
-        notifyDataSetChanged()
+        recyclerView.notifyDataSetChanged()
     }
 
     fun getPrevItem(file: File): File? {
@@ -101,7 +101,7 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: PageRecycl
                                     itemList.remove(it)
                                     removeSelectedItems(arrayListOf(index));
                                     val recorderListActivity = activity as RecorderListActivity
-                                    recorderListActivity.updateCountText(dataCount)
+                                    recorderListActivity.updateCountText(dataCount())
                                     recorderListActivity.updateIndicator()
                                 }
                             }
@@ -142,15 +142,15 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: PageRecycl
         return isSameFile(firstFile, file);
     }
 
+    override val rowCount: Int = resources.getInteger(R.integer.recorder_list_row)
+
+    override val columnCount: Int = resources.getInteger(R.integer.recorder_list_col)
+
+    override fun dataCount(): Int = itemList.size
+
     private fun isSameFile(firstFile: File?, secondFile: File?): Boolean {
         return firstFile == null || secondFile == null || firstFile.absolutePath == secondFile.absolutePath
     }
-
-    override fun getRowCount(): Int = resources.getInteger(R.integer.recorder_list_row)
-
-    override fun getColumnCount(): Int = resources.getInteger(R.integer.recorder_list_col)
-
-    override fun getDataCount(): Int = itemList.size
 
     override fun onPageCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerViewBindingViewHolder<ItemRecorderBinding> {
         val layoutInflater = LayoutInflater.from(parent!!.context)
@@ -164,6 +164,7 @@ class RecorderListAdapter(activity: BaseSimpleActivity, recyclerView: PageRecycl
         viewHolder.bindView(file, true, true) { itemView, adapterPosition ->
             setupView(itemView, file)
         }
+        bindViewHolder(holder)
         holder.binding.executePendingBindings()
     }
 

@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.simplemobiletools.voicerecorder.view.PageRecyclerView
+        <com.onyx.android.sdk.kui.view.PageRecyclerView
             android:layout_above="@+id/indicator_layout"
             android:id="@+id/content_view"
             android:layout_width="match_parent"

@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
@@ -35,4 +37,6 @@ dependencies {
     implementation('com.onyx.android.sdk:onyxsdk-base:1.5.7') {
         exclude group: 'org.apache.commons.io', module: 'commonsIO'
     }
+    implementation "androidx.core:core-ktx:1.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
