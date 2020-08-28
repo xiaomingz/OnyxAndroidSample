@@ -116,7 +116,7 @@ class MainActivity : SimpleActivity(), SongListListener {
                 updateAlbumCover()
             } else {
                 try {
-                    art_image.setImageDrawable(null)
+                    art_image.setImageResource(R.drawable.ic_music_disc)
                 } catch (ignored: Exception) {
                 }
             }
