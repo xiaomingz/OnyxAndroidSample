@@ -18,8 +18,8 @@ import com.onyx.android.appcompat.common.utils.PageTurningDetector;
 import com.onyx.android.appcompat.common.utils.PageTurningDirection;
 import com.onyx.android.sdk.data.GPaginator;
 import com.onyx.android.sdk.data.KeyAction;
-import com.simplemobiletools.commons.views.DisableScrollGridManager;
-import com.simplemobiletools.commons.views.DisableScrollLinearManager;
+import com.onyx.android.sdk.kui.view.DisableScrollGridManager;
+import com.onyx.android.sdk.kui.view.DisableScrollLinearManager;
 
 import java.util.Hashtable;
 import java.util.Map;

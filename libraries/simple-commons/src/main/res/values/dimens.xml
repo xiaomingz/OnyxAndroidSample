@@ -27,7 +27,6 @@
     <dimen name="secondary_fab_bottom_margin">92dp</dimen>
     <dimen name="file_picker_icon_size">54dp</dimen>
 
-    <dimen name="dragselect_hotspot_height">56dp</dimen>
     <dimen name="selection_check_size">26dp</dimen>
     <dimen name="widget_colorpicker_size">50dp</dimen>
     <dimen name="line_color_picker_height">80dp</dimen>

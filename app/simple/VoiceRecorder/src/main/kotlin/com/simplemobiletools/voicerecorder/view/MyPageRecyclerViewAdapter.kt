@@ -11,6 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
+import com.onyx.android.sdk.kui.view.PageRecyclerView
 import com.simplemobiletools.commons.extensions.baseConfig
 import com.simplemobiletools.commons.interfaces.MyActionModeCallback
 import com.simplemobiletools.commons.views.FastScroller
@@ -142,7 +143,7 @@ abstract class MyPageRecyclerViewAdapter<T : ViewDataBinding>(val activity: Base
     }
 
     fun itemLongClicked(position: Int) {
-        // recyclerView.setDragSelectActive(position)
+        recyclerView.setDragSelectActive(position)
         lastLongPressedItem = if (lastLongPressedItem == -1) {
             position
         } else {
@@ -189,24 +190,24 @@ abstract class MyPageRecyclerViewAdapter<T : ViewDataBinding>(val activity: Base
         updateTitle()
     }
 
-//    protected fun setupDragListener(enable: Boolean) {
-//        if (enable) {
-//            recyclerView.setupDragListener(object : MyRecyclerView.MyDragListener {
-//                override fun selectItem(position: Int) {
-//                    toggleItemSelection(true, position, true)
-//                }
-//
-//                override fun selectRange(initialSelection: Int, lastDraggedIndex: Int, minReached: Int, maxReached: Int) {
-//                    selectItemRange(initialSelection, Math.max(0, lastDraggedIndex - positionOffset), Math.max(0, minReached - positionOffset), maxReached - positionOffset)
-//                    if (minReached != maxReached) {
-//                        lastLongPressedItem = -1
-//                    }
-//                }
-//            })
-//        } else {
-//            recyclerView.setupDragListener(null)
-//        }
-//    }
+    protected fun setupDragListener(enable: Boolean) {
+        if (enable) {
+            recyclerView.setupDragListener(object : PageRecyclerView.MyDragListener {
+                override fun selectItem(position: Int) {
+                    toggleItemSelection(true, position, true)
+                }
+
+                override fun selectRange(initialSelection: Int, lastDraggedIndex: Int, minReached: Int, maxReached: Int) {
+                    selectItemRange(initialSelection, Math.max(0, lastDraggedIndex - positionOffset), Math.max(0, minReached - positionOffset), maxReached - positionOffset)
+                    if (minReached != maxReached) {
+                        lastLongPressedItem = -1
+                    }
+                }
+            })
+        } else {
+            recyclerView.setupDragListener(null)
+        }
+    }
 
     protected fun selectItemRange(from: Int, to: Int, min: Int, max: Int) {
         if (from == to) {
@@ -245,9 +246,9 @@ abstract class MyPageRecyclerViewAdapter<T : ViewDataBinding>(val activity: Base
         }
     }
 
-//    fun setupZoomListener(zoomListener: MyRecyclerView.MyZoomListener?) {
-//        recyclerView.setupZoomListener(zoomListener)
-//    }
+    fun setupZoomListener(zoomListener: PageRecyclerView.MyZoomListener?) {
+        recyclerView.setupZoomListener(zoomListener)
+    }
 
     fun addVerticalDividers(add: Boolean) {
         if (recyclerView.itemDecorationCount > 0) {
@@ -285,6 +286,10 @@ abstract class MyPageRecyclerViewAdapter<T : ViewDataBinding>(val activity: Base
         }
         finishActMode()
         fastScroller?.measureRecyclerView()
+    }
+
+    protected fun bindViewHolder(holder: ViewHolder) {
+        holder.itemView.tag = holder
     }
 
     open inner class ViewHolder(view: View) : RecyclerViewBindingViewHolder<T>(view) {

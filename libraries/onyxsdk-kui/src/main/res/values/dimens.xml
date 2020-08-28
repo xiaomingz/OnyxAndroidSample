@@ -336,4 +336,5 @@
     <dimen name="button_widget_preference_padding_left_right">20dp</dimen>
     <dimen name="button_widget_preference_padding_top_bottom">8dp</dimen>
     <dimen name="pop_fillet_radius">8dp</dimen>
+    <dimen name="dragselect_hotspot_height">56dp</dimen>
 </resources>
