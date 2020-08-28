@@ -18,11 +18,15 @@ import org.greenrobot.eventbus.ThreadMode
 class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
     private val insertTextHandler: InsertTextHandler by lazy { globalEditBundle.insertTextHandler }
 
-    override fun canRawDrawingRenderEnabled(): Boolean = false
-
     override fun onActivate() {
         super.onActivate()
         showInitInputEdit()
+    }
+
+    override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
+        if (!hasFocus) {
+            insertTextHandler.textShape?.run { insertTextHandler.saveTextShape(this, false) }
+        }
     }
 
     private fun showInitInputEdit() {
@@ -64,6 +68,10 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouch
     private fun startTransformAction(textShape: EditTextShape) {
         insertTextHandler.textShape = textShape as EditTextShape
         StartTransformAction(mutableListOf(textShape)).execute(null)
+    }
+
+    override fun onFloatButtonChanged(active: Boolean) {
+        drawHandler.setRawInputReaderEnable(!active)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

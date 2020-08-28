@@ -5,8 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import com.onyx.android.sdk.api.device.epd.EpdController
 import com.onyx.android.sdk.api.device.epd.UpdateMode
@@ -31,7 +29,6 @@ import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
-import kotlinx.android.synthetic.main.bottom_actions.*
 import kotlinx.android.synthetic.main.fragment_holder.*
 import kotlinx.android.synthetic.main.view_action_bar.*
 import org.greenrobot.eventbus.Subscribe
@@ -45,7 +42,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     private val TAG = this::class.java.simpleName
 
     private var mMedium: Medium? = null
-    private var mIsFullScreen = false
     private var mIsFromGallery = false
     private var mFragment: ViewPagerFragment? = null
     private var mUri: Uri? = null
@@ -73,7 +69,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         super.onResume()
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window.statusBarColor = Color.TRANSPARENT
-        configActionBar()
     }
 
     override fun onDestroy() {
@@ -137,7 +132,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
             if (realPath != null && getDoesFilePathExist(realPath)) {
                 if (realPath.getFilenameFromPath().contains('.') || filename.contains('.')) {
                     if (isFileTypeVisible(realPath)) {
-                        bottom_actions.beGone()
                         handleLockedFolderOpening(realPath.getParentPath()) { success ->
                             if (success) {
                                 sendViewPagerIntent(realPath)
@@ -154,7 +148,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
 
         if (mUri!!.scheme == "file") {
             if (filename.contains('.')) {
-                bottom_actions.beGone()
                 handleLockedFolderOpening(mUri!!.path!!.getParentPath()) { success ->
                     if (success) {
                         rescanPaths(arrayListOf(mUri!!.path!!))
@@ -168,7 +161,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
             val path = applicationContext.getRealPathFromURI(mUri!!) ?: ""
             if (path != mUri.toString() && path.isNotEmpty() && mUri!!.authority != "mms" && filename.contains('.') && getDoesFilePathExist(path)) {
                 if (isFileTypeVisible(path)) {
-                    bottom_actions.beGone()
                     handleLockedFolderOpening(path.getParentPath()) { success ->
                         if (success) {
                             rescanPaths(arrayListOf(mUri!!.path!!))
@@ -197,7 +189,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         mMedium = Medium(null, filename, mUri.toString(), mUri!!.path!!.getParentPath(), 0, 0, file.length(), type, 0, false, 0L)
         updateMenu()
         tvTitle.setText(mMedium!!.name)
-        initFavorites(mMedium!!)
         bundle.putSerializable(MEDIUM, mMedium)
 
         if (savedInstanceState == null) {
@@ -216,7 +207,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
             attributes.screenBrightness = 1f
             window.attributes = attributes
         }
-        initBottomActions()
         EventBusUtils.ensureRegister(App.eventBus, this)
     }
 
@@ -228,16 +218,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
             showExternalGIFBrowseMenu()
         } else {
             showExternalImageBrowseMenu()
-        }
-    }
-
-    private fun initFavorites(medium: Medium) {
-        ensureBackgroundThread {
-            getFavoritePaths().forEach { favoritePath ->
-                if (StringUtils.isEquals(favoritePath, medium.path)) {
-                    runOnUiThread { ivFavorites.isActivated = true }
-                }
-            }
         }
     }
 
@@ -289,47 +269,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
             putExtra(PATH, path)
             startActivity(this)
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.photo_video_menu, menu)
-        mMedium?.apply {
-            menu.findItem(R.id.menu_add_to_favorites).isVisible = !isFavorite
-            menu.findItem(R.id.menu_remove_from_favorites).isVisible = isFavorite
-        }
-        updateMenuItemColors(menu, false, Color.BLACK)
-        return true
-    }
-
-    private fun configActionBar() {
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (mMedium == null || mUri == null) {
-            return true
-        }
-
-        when (item.itemId) {
-            R.id.menu_add_to_favorites -> toggleFavorite()
-            R.id.menu_remove_from_favorites -> toggleFavorite()
-            R.id.menu_edit -> openImageEditor()
-            R.id.menu_properties -> showProperties()
-            R.id.menu_share -> shareImage()
-            R.id.menu_delete -> checkDeleteConfirmation()
-            R.id.menu_set_as -> setAs(mUri!!.toString())
-            R.id.menu_open_with -> openPath(mUri!!.toString(), true)
-            R.id.menu_properties -> showProperties()
-            R.id.menu_show_on_map -> showFileOnMap(mUri!!.toString())
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
-    }
-
-    private fun openImageEditor() {
-        mMedium?.run { openEditor(path) }
     }
 
     private fun checkDeleteConfirmation() {
@@ -405,16 +344,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
         mMedium?.path?.let { PropertiesDialog(this, it).show(supportFragmentManager, PropertiesDialog::class.java.simpleName) }
     }
 
-    private fun toggleFavorite() {
-        val medium = mMedium ?: return
-        medium.isFavorite = !medium.isFavorite
-        updateFavorites()
-        ensureBackgroundThread {
-            updateFavorite(medium.path, medium.isFavorite)
-            invalidateOptionsMenu()
-        }
-    }
-
     private fun isFileTypeVisible(path: String): Boolean {
         val filter = config.filterMedia
         return !(path.isImageFast() && filter and TYPE_IMAGES == 0 ||
@@ -423,43 +352,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
                 path.isRawFast() && filter and TYPE_RAWS == 0 ||
                 path.isSvg() && filter and TYPE_SVGS == 0 ||
                 path.isPortrait() && filter and TYPE_PORTRAITS == 0)
-    }
-
-    private fun initBottomActions() {
-        initBottomActionButtons()
-    }
-
-
-    private fun initBottomActionButtons() {
-        arrayListOf(bottom_favorite, bottom_delete, bottom_rotate, bottom_properties, bottom_change_orientation, bottom_slideshow, bottom_show_on_map,
-                bottom_toggle_file_visibility, bottom_rename, bottom_copy, bottom_move, bottom_resize).forEach {
-            it.beGone()
-        }
-
-        val visibleBottomActions = if (config.bottomActions) config.visibleBottomActions else 0
-        bottom_edit.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_EDIT != 0 && mMedium?.isImage() == true)
-        bottom_edit.setOnClickListener {
-            if (mUri != null && bottom_actions.alpha == 1f) {
-                mMedium?.path?.let { path -> openEditor(path) }
-            }
-        }
-
-        bottom_share.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_SHARE != 0)
-        bottom_share.setOnClickListener {
-            if (mMedium != null && bottom_actions.alpha == 1f) {
-                ShareAction(this, mMedium!!.path).execute(null)
-            }
-        }
-
-        bottom_set_as.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_SET_AS != 0 && mMedium?.isImage() == true)
-        bottom_set_as.setOnClickListener {
-            setAs(mUri!!.toString())
-        }
-
-        bottom_show_on_map.beVisibleIf(visibleBottomActions and BOTTOM_ACTION_SHOW_ON_MAP != 0)
-        bottom_show_on_map.setOnClickListener {
-            showFileOnMap(mUri!!.toString())
-        }
     }
 
     override fun fragmentClicked() {
@@ -475,17 +367,6 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     override fun launchViewVideoIntent(path: String) {}
 
     override fun isSlideShowActive() = false
-
-    private fun updateFavorites() {
-        mMedium?.run {
-            ivFavorites.isActivated = isFavorite
-        }
-    }
-
-    override fun onFavoritesClick(view: View) {
-        super.onFavoritesClick(view)
-        toggleFavorite()
-    }
 
     override fun onEditClick(view: View) {
         super.onEditClick(view)

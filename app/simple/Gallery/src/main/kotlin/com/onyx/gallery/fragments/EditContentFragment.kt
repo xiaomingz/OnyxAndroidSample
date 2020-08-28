@@ -175,7 +175,6 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onActivityWindowFocusChangedEvent(event: ActivityWindowFocusChangedEvent) {
-        globalEditBundle.enqueue(RendererToScreenRequest(), null)
         getTouchHandler()?.onActivityWindowFocusChanged(event.hasFocus)
     }
 
@@ -227,9 +226,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFloatButtonMenuStateChangedEvent(event: FloatButtonMenuStateChangedEvent) {
-        if (!event.open) {
-            globalEditBundle.enqueue(RendererToScreenRequest(), null)
-        }
+        getTouchHandler()?.onFloatButtonMenuStateChanged(event.open)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -303,7 +300,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     }
 
     private fun makeCropBorder(imageRect: Rect, cropRect: RectF, maintainAspectRatio: Boolean): HighlightView? {
-        val imageBitmap = globalEditBundle.drawHandler.getImageBitmap()
+        val imageBitmap = globalEditBundle.drawHandler.getImageShapeBitmap()
         val rotateBitmap = RotateBitmap(imageBitmap, 0)
         binding.cropImageView.setImageRotateBitmapResetBase(rotateBitmap, false)
         val highlightView = HighlightView(binding.cropImageView)

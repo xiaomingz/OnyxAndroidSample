@@ -4,11 +4,14 @@ import android.content.Context
 import android.graphics.*
 import android.view.SurfaceView
 import androidx.core.graphics.values
+import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.pen.TouchHelper
+import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.data.SelectionBundle
 import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.raw.SelectionBundleEvent
@@ -16,6 +19,7 @@ import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
 import com.onyx.gallery.models.CropSnapshot
 import com.onyx.gallery.views.shape.ImageShapeExpand
+import com.onyx.gallery.views.shape.ImageTrackShape
 import com.onyx.gallery.views.shape.MosaicShape
 import org.greenrobot.eventbus.EventBus
 
@@ -27,6 +31,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     val currLimitRect = Rect()
     val surfaceRect = Rect()
     val drawingArgs = DrawArgs()
+    private var imageBitmap: Bitmap? = null
     private val undoRedoHander = globalEditBundle.undoRedoHandler
     private var readerHandler = RenderHandler(globalEditBundle)
     val renderContext = readerHandler.renderContext
@@ -179,7 +184,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun setRawDrawingRenderEnabled(enable: Boolean) {
-        touchHelper?.isRawDrawingRenderEnabled = enable
+        touchHelper?.setRawDrawingRenderEnabled(enable)
     }
 
     fun setRawInputReaderEnable(enable: Boolean) {
@@ -218,7 +223,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         renderContext.selectionRect = null
     }
 
-    fun getImageBitmap(): Bitmap {
+    fun getImageShapeBitmap(): Bitmap {
         val imageBitmap = getImageShape()?.getImageBitmap()
                 ?: throw RuntimeException("imageBitmap must be not null")
         return imageBitmap
@@ -280,7 +285,8 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
                 Rect(currLimitRect),
                 RectF(globalEditBundle.cropHandler.cropBoxRect),
                 globalEditBundle.cropHandler.currAngle,
-                imageShape
+                imageShape,
+                imageBitmap!!
         )
         addCropSnapshot(cropSnapshot)
     }
@@ -306,6 +312,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
             updateImageShape(imageShape)
             updateLimitRect(orgLimitRect)
             globalEditBundle.cropHandler.currAngle = rotateAngle
+            this@DrawHandler.imageBitmap = imageBitmap
             val restoreMosaicBitmap = readerHandler.restoreMosaicBitmap(imageShape)
             val matrix = globalEditBundle.getInitMatrix()
             val matrixValues = matrix.values()
@@ -314,7 +321,10 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
                 shape.matrix.setTranslate(matrixValues[Matrix.MTRANS_X], matrixValues[Matrix.MTRANS_Y])
                 shape.strokeWidth * matrixValues[Matrix.MSCALE_X]
                 if (shape is MosaicShape) {
-                    shape.mosaicBitmap = restoreMosaicBitmap
+                    shape.backgroundBitmap = restoreMosaicBitmap
+                }
+                if (shape is ImageTrackShape) {
+                    shape.backgroundBitmap = imageBitmap
                 }
             }
             addShapes(handwritingShape)
@@ -344,6 +354,31 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         undoRedoHander.cleardCropSnapshot()
         globalEditBundle.cropHandler.resetCropState()
         globalEditBundle.insertTextHandler.clearTextShape()
+    }
+
+    fun getSurfaceSize(): Size {
+        return Size(surfaceRect.width(), surfaceRect.height())
+    }
+
+    fun afterCreateImageShape() {
+        imageBitmap = Bitmap.createBitmap(renderContext.bitmap)
+    }
+
+    fun getImageBitmap(): Bitmap = imageBitmap!!
+
+    fun updateSelectionPath(path: Path) {
+        readerHandler.updateSelectionPath(path)
+    }
+
+    fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {
+        val normalizedMatrix = Matrix()
+        renderContext.matrix.invert(normalizedMatrix)
+        val newTouchPointList = TouchPointList()
+        touchPointList.points.forEach {
+            val normalPoint = ShapeUtils.matrixTouchPoint(it, normalizedMatrix)
+            newTouchPointList.add(normalPoint)
+        }
+        return newTouchPointList
     }
 
 }

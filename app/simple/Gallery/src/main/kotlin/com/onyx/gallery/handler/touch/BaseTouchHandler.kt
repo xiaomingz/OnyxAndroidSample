@@ -13,7 +13,7 @@ import com.onyx.gallery.event.touch.TouchMoveEvent
 import com.onyx.gallery.event.touch.TouchUpEvent
 import com.onyx.gallery.event.ui.RedoShapeEvent
 import com.onyx.gallery.event.ui.UndoShapeEvent
-import org.greenrobot.eventbus.EventBus
+import com.onyx.gallery.request.RendererToScreenRequest
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -21,9 +21,9 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by Leung on 2020/6/7
  */
 abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchHandler {
-    private val eventBus: EventBus = globalEditBundle.eventBus
-
-    protected val drawHandler = globalEditBundle.drawHandler
+    private val eventBus by lazy { globalEditBundle.eventBus }
+    protected val drawHandler by lazy { globalEditBundle.drawHandler }
+    protected val eraseHandler by lazy { globalEditBundle.eraseHandler }
 
     protected fun postEvent(event: Any) = eventBus.post(event)
 
@@ -134,10 +134,20 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
         postEvent(RedoShapeEvent())
     }
 
-    override fun canRawDrawingRenderEnabled(): Boolean = true
+    override fun canDrawErase(): Boolean = false
+
+    override fun canRawInputReaderEnable(): Boolean = true
+
+    override fun canRawDrawingRenderEnabled(): Boolean = false
 
     override fun onFloatButtonChanged(active: Boolean) {
 
+    }
+
+    override fun onFloatButtonMenuStateChanged(open: Boolean) {
+        if (!open) {
+            globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        }
     }
 
     override fun onStatusBarChangedEvent(show: Boolean) {
@@ -153,11 +163,15 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
     }
 
     override fun onShowToastEvent() {
-        
+
     }
 
     override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
+        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+    }
 
+    protected fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {
+        return drawHandler.getNormalTouchPointList(touchPointList)
     }
 
 }

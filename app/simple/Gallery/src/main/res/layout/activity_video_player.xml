@@ -38,7 +38,6 @@
         android:contentDescription="@null"/>
 
     <TextView
-        android:id="@+id/video_bottom_gradient"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignTop="@+id/video_time_holder"

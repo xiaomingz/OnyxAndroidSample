@@ -3,23 +3,16 @@
     <string name="app_name">Jednoduchá galéria</string>
     <string name="app_launcher_name">Galéria</string>
     <string name="edit">Upraviť</string>
-    <string name="open_camera">Otvoriť fotoaparát</string>
     <string name="hidden">(skryté)</string>
     <string name="unpin_folder">Odopnúť priečinok</string>
     <string name="pin_to_the_top">Pripnúť na vrch</string>
     <string name="all_folders">Všetky priečinky</string>
-    <string name="folder_view">Prepnúť na zobrazenie priečinkov</string>
     <string name="other_folder">Iný priečinok</string>
-    <string name="show_on_map">Zobraziť na mape</string>
     <string name="unknown_location">Neznáma poloha</string>
     <string name="change_cover_image">Zmeniť obal albumu</string>
     <string name="select_photo">Zvoliť foto</string>
     <string name="volume">Hlasitosť</string>
     <string name="brightness">Jas</string>
-    <string name="change_orientation">Zmeniť otočenie obrazovky</string>
-    <string name="force_portrait">Vynútiť orientáciu na výšku</string>
-    <string name="force_landscape">Vynútiť orientáciu na šírku</string>
-    <string name="use_default_orientation">Použiť predvolenú orientáciu</string>
     <string name="fix_date_taken">Opraviť dátum vytvorenia</string>
     <string name="fixing">Opravuje sa…</string>
     <string name="dates_fixed_successfully">Dátumy vytvorenia boli úspešne opravené</string>
@@ -41,65 +34,33 @@
     <string name="hide_folder_description">Táto funkcia skryje priečinok pridaním súboru \'.nomedia\', skryté budú aj podpriečinky. Môžete ich vidieť zvolením možnosti \'Zobraziť skryté priečinky\' v nastaveniach. Pokračovať?</string>
     <string name="exclude">Vylúčiť</string>
     <string name="excluded_folders">Vylúčené priečinky</string>
-    <string name="manage_excluded_folders">Spravovať vylúčené priečinky</string>
     <string name="exclude_folder_description">Táto funkcia vylúči výber a jeho podpriečinky iba z Jednoduchej galérie. Spravovať vylúčené priečinky je možné v nastaveniach.</string>
     <string name="exclude_folder_parent">Chcete ukryť rodičovský priečinok?</string>
-    <string name="excluded_activity_placeholder">Vylúčené priečinky budú spolu s podpriečinkami ukryté iba pred Jednoduchou Galériou, ostatné aplikácie ich budú stále vidieť.\n\nAk ich chcete ukryť aj pred ostatnými aplikáciami, použite funkciu Skryť.</string>
     <string name="hidden_folders">Skryté priečinky</string>
-    <string name="manage_hidden_folders">Spravovať skryté priečinky</string>
-    <string name="hidden_folders_placeholder">Zdá sa, že nemáte žiadne priečinky skryté pomocou súboru \".nomedia\".</string>
 
     <!-- Include folders -->
     <string name="include_folders">Pridané priečinky</string>
-    <string name="manage_included_folders">Spravovať pridané priečinky</string>
     <string name="add_folder">Pridať priečinok</string>
-    <string name="included_activity_placeholder">Ak máte nejaké priečinky obsahujúce médiá, ale neboli rozpoznané aplikáciou, môžete ich tu manuálne pridať.\n\nPridanie nových položiek sem nevylúči žiadny iný priečinok.</string>
     <string name="no_media_add_included">Nenašli sa žiadne súbory s médiami. Viete to napraviť manuálnym pridaním priečinkov, ktoré obsahujú médiá.</string>
 
     <!-- Resizing -->
-    <string name="resize">Zmeniť veľkosť</string>
-    <string name="resize_and_save">Zmeniť veľkosť a uložiť</string>
     <string name="width">Šǐrka</string>
     <string name="height">Výška</string>
-    <string name="keep_aspect_ratio">Zachovať pomer strán</string>
-    <string name="invalid_values">Prosím zadajte platné rozlíšenie</string>
 
     <!-- Editor -->
     <string name="editor">Editor</string>
     <string name="rotate">Otočiť</string>
     <string name="invalid_image_path">Neplatná cesta</string>
-    <string name="image_editing_failed">Úprava súboru zlyhala</string>
-    <string name="unknown_file_location">Neznáme umiestnenie súboru</string>
-    <string name="rotate_left">Otočiť vľavo</string>
-    <string name="rotate_right">Otočiť vpravo</string>
-    <string name="rotate_one_eighty">Otočiť o 180º</string>
-    <string name="flip_horizontally">Preklopiť vodorovne</string>
-    <string name="flip_vertically">Preklopiť zvisle</string>
-    <string name="free_aspect_ratio">Voľný</string>                 <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <string name="other_aspect_ratio">Iný</string>                  <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
 
     <!-- Set wallpaper -->
     <string name="simple_wallpaper">Jednoduchá tapeta</string>
     <string name="setting_wallpaper">Nastavuje sa tapeta&#8230;</string>
     <string name="wallpaper_set_successfully">Tapeta bola úspešne zmenená</string>
-    <string name="home_screen">Plocha</string>
-    <string name="lock_screen">Obrazovka uzamknutia</string>
-    <string name="home_and_lock_screen">Plocha a obrazovka uzamknutia</string>
 
     <!-- Slideshow -->
-    <string name="slideshow">Prezentácia</string>
-    <string name="interval">Interval (sekundy):</string>
-    <string name="include_videos">Zahrnúť videá</string>
-    <string name="include_gifs">Zahrnúť GIFy</string>
-    <string name="random_order">Náhodné poradie</string>
-    <string name="move_backwards">Ísť opačným smerom</string>
-    <string name="loop_slideshow">Automaticky reštartovať prezentáciu</string>
-    <string name="animation">Animácia:</string>
-    <string name="no_animation">Žiadna</string>
-    <string name="fade">Prelínanie</string>
-    <string name="slide">Posúvanie</string>
     <string name="slideshow_ended">Prezentácia skončila</string>
-    <string name="no_media_for_slideshow">Pre prezentáciu sa nenašli žiadne vhodné súbory</string>
 
     <!-- View types -->
     <string name="change_view_type">Zmeniť typ zobrazenia</string>
@@ -108,48 +69,12 @@
     <string name="group_direct_subfolders">Zlúčiť priame podpriečinky</string>
 
     <!-- Grouping at media thumbnails -->
-    <string name="group_by">Zoskupiť podľa</string>
-    <string name="do_not_group_files">Nezoskupovať súbory</string>
-    <string name="by_folder">Priečinka</string>
-    <string name="by_last_modified_daily">Dátumu poslednej úpravy (denne)</string>
-    <string name="by_last_modified_monthly">Dátumu poslednej úpravy (mesačne)</string>
-    <string name="by_date_taken_daily">Dátumu vytvorenia (denne)</string>
-    <string name="by_date_taken_monthly">Dátumu vytvorenia (mesačne)</string>
-    <string name="by_file_type">Typu súboru</string>
-    <string name="by_extension">Prípony</string>
-    <string name="grouping_and_sorting">Prosím vedzte, že radenie a zoskupovanie súborov sú 2 nezávislé hodnoty</string>
 
     <!-- Widgets -->
-    <string name="folder_on_widget">Priečinok zobrazený vo widgete:</string>
-    <string name="show_folder_name">Zobraziť názov priečinka</string>
 
     <!-- Settings -->
-    <string name="remember_last_video_position">Zapamätať si pozíciu posledného prehraného videa</string>
-    <string name="toggle_filename">Prepnúť viditeľnosť názvov súborov</string>
-    <string name="crop_thumbnails">Orezať náhľady na štvorce</string>
-    <string name="screen_rotation_by">Otáčať obrazovku podľa Rotate fullscreen media by</string>
-    <string name="screen_rotation_system_setting">Systémového nastavenia</string>
-    <string name="screen_rotation_device_rotation">Otočenia zariadenia</string>
-    <string name="screen_rotation_aspect_ratio">Pomeru strán</string>
-    <string name="allow_photo_gestures">Povoliť ovládanie jasu vertikálnymi ťahmi</string>
-    <string name="allow_video_gestures">Povoliť ovládanie hlasitosti a jasu videí vertikálnymi ťahmi</string>
-    <string name="show_extended_details">Zobraziť rozšírené vlastnosti ponad celoobrazovkové médiá</string>
-    <string name="manage_extended_details">Spravovať rozšírené vlastnosti</string>
-    <string name="allow_instant_change">Povoliť instantné prepínanie médií kliknutím na okraj obrazovky</string>
-    <string name="show_recycle_bin">Zobraziť odpadkový kôš na obrazovke s priečinkami</string>
-    <string name="file_loading_priority">Priorita pri načítavaní súborov</string>
-    <string name="speed">Rýchlosť</string>
-    <string name="compromise">Kompromis</string>
-    <string name="avoid_showing_invalid_files">Nezobrazovať neplatné súbory</string>
 
     <!-- Setting sections -->
-    <string name="thumbnails">Náhľady</string>
-    <string name="fullscreen_media">Celoobrazovkový režim</string>
-    <string name="extended_details">Rozšírené vlastnosti</string>
-    <string name="bottom_actions">Spodné akčné tlačidlá</string>
 
     <!-- Bottom actions -->
-    <string name="manage_bottom_actions">Upraviť viditeľné spodné akčné tlačidlá</string>
-    <string name="toggle_favorite">Prepnutie obľúbenosti</string>
-    <string name="toggle_file_visibility">Prepnutie viditeľnosti súboru</string>
 </resources>

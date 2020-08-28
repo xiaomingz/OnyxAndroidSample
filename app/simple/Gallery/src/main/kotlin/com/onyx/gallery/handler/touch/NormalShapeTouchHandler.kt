@@ -2,7 +2,7 @@ package com.onyx.gallery.handler.touch
 
 import android.graphics.Matrix
 import com.onyx.android.sdk.pen.data.TouchPoint
-import com.onyx.android.sdk.rx.SingleThreadScheduler
+import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
@@ -11,10 +11,6 @@ import com.onyx.gallery.action.shape.RenderVarietyShapeAction
 import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.utils.ExpandShapeFactory
 import com.onyx.gallery.views.shape.WaveLineShape
-import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
-import io.reactivex.disposables.Disposable
-import java.util.*
 
 /**
  * Created by Leung on 2020/6/7
@@ -22,47 +18,28 @@ import java.util.*
  */
 class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
 
-    companion object {
-        private const val TOUCH_POINT_BUFFER_MAX_COUNT = 30
-    }
-
-    private var disposable: Disposable? = null
-    private val actionDisposables: MutableList<Disposable> = ArrayList()
-    private var drawEmitter: ObservableEmitter<TouchPoint?>? = null
     private var downPoint: TouchPoint? = null
 
-    override fun canRawDrawingRenderEnabled(): Boolean = false
-
-    override fun onBeginRawDrawEvent(event: Boolean, point: TouchPoint) {
+    override fun onBeforeBeginRawDraw(shortcutDrawing: Boolean, point: TouchPoint) {
+        super.onBeforeBeginRawDraw(shortcutDrawing, point)
         downPoint = point
-        disposable = Observable.create<TouchPoint> { e ->
-            drawEmitter = e
-            drawEmitter!!.onNext(point)
+    }
+
+    override fun onReceivedBufferPoint(pointList: TouchPointList) {
+        super.onReceivedBufferPoint(pointList)
+        val shape = createShape(downPoint)
+        for (point in pointList) {
+            shape.onMove(point, point)
         }
-                .buffer(TOUCH_POINT_BUFFER_MAX_COUNT)
-                .observeOn(SingleThreadScheduler.scheduler())
-                .subscribeOn(SingleThreadScheduler.scheduler())
-                .subscribe { touchPoints ->
-                    val shape = createShape(downPoint)
-                    for (point in touchPoints) {
-                        shape.onMove(point, point)
-                    }
-                    renderVarietyShape(shape)
-                }
+        renderVarietyShape(shape)
     }
 
-    override fun onRawDrawingPointsMoveReceived(point: TouchPoint) {
-        drawEmitter?.run { onNext(point) }
-    }
-
-    override fun onEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint) {
-        drawEmitter?.onNext(point)
-
+    override fun onAfterEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint) {
+        super.onAfterEndRawDrawing(outLimitRegion, point)
         normalMatrixMapPoint(downPoint!!, point)
 
         val renderShape = createShape(downPoint)
         renderShape.onUp(point, point)
-        disposeAction()
         addShape(renderShape)
     }
 
@@ -91,19 +68,11 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
     }
 
     private fun renderVarietyShape(shape: Shape) {
-        RenderVarietyShapeAction().addShape(shape).setDisposableList(actionDisposables).execute(null)
-    }
-
-    private fun disposeAction() {
-        for (d in actionDisposables) {
-            d.dispose()
-        }
-        actionDisposables.clear()
-        disposable?.run { dispose() }
+        RenderVarietyShapeAction().addShape(shape).execute(null)
     }
 
     override fun onFloatButtonChanged(active: Boolean) {
-        drawHandler.setRawDrawingEnabled(!active)
+        drawHandler.setRawInputReaderEnable(!active)
     }
 
 }

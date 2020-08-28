@@ -3,23 +3,16 @@
     <string name="app_name">Simple Gallery</string>
     <string name="app_launcher_name">Galéria</string>
     <string name="edit">Szerkesztés</string>
-    <string name="open_camera">Kamera megnyitása</string>
     <string name="hidden">(rejtett)</string>
     <string name="unpin_folder">Mappa kitűzés megszüntetése</string>
     <string name="pin_to_the_top">Kitűzés felülre</string>
     <string name="all_folders">Összes mappa</string>
-    <string name="folder_view">Váltás mappa nézetre</string>
     <string name="other_folder">Egyéb mappa</string>
-    <string name="show_on_map">Mutassa a térképen</string>
     <string name="unknown_location">Ismeretlen helyszín</string>
     <string name="change_cover_image">Borítókép változtatása</string>
     <string name="select_photo">Válasszon fotót</string>
     <string name="volume">Hangerő</string>
     <string name="brightness">Fényerő</string>
-    <string name="change_orientation">Tájolás változtatása</string>
-    <string name="force_portrait">Álló mód kényszerítése</string>
-    <string name="force_landscape">Fekvő mód kényszerítése</string>
-    <string name="use_default_orientation">Alapértelmezett tájolás használata</string>
     <string name="fix_date_taken">Dátum javítása</string>
     <string name="fixing">Javítás...</string>
     <string name="dates_fixed_successfully">Sikeres dátum javítás</string>
@@ -41,68 +34,34 @@
     <string name="hide_folder_description">Ez a funkció elrejti a mappát egy \'.nomedia\' fájl hozzáadásával, és elrejti az almappákat is. Láthatóvá teheti ezeket a Beállítások  \"Mutassa a rejtett elemeket\" menüpontban. Folytatja?</string>
     <string name="exclude">Kizárás</string>
     <string name="excluded_folders">Kizárt mappák</string>
-    <string name="manage_excluded_folders">Kizárt mappák kezelése</string>
     <string name="exclude_folder_description">Ez kizárja a kijelölést és az alkönyvtárakat a Simple Gallery alkalmazásból. A kizárt mappákat a Beállításokban kezelheti.</string>
     <string name="exclude_folder_parent">Kizárja a szülő mappát?</string>
-    <string name="excluded_activity_placeholder">A mappák kizárásával az almappákkal együtt elrejti a Simple Gallery alkalmazásban, de továbbra is láthatóak maradnak más alkalmazásokban.\n\nHa el szeretné rejteni őket más alkalmazásokban is, használja az Elrejtés funkciót.</string>
     <string name="hidden_folders">Rejtett mappák</string>
-    <string name="manage_hidden_folders">Rejtett mappák kezelése</string>
-    <string name="hidden_folders_placeholder">Úgy tűnik, a mappái nincsenek elrejtve egy \".nomedia\" fájllal.</string>
 
     <!-- Include folders -->
     <string name="include_folders">Befoglalt mappák</string>
-    <string name="manage_included_folders">Befoglalt mappák kezelése</string>
     <string name="add_folder">Mappa hozzáadása</string>
-    <string name="included_activity_placeholder">Ha vannak olyan mappák, amelyek média fájlokat tartalmaznak, de az alkalmazás nem ismerte fel, akkor kézzel is  hozzáadhatja ezeket.\n\nAz elemek hozzáadása nem zár ki más mappákat.</string>
     <string name="no_media_add_included">Nem talált médiafájlokat. Ezt megoldhatja a médiafájlokat tartalmazó mappák manuális hozzáadásával.</string>
 
     <!-- Resizing -->
-    <string name="resize">Átméretezés</string>
-    <string name="resize_and_save">Kiválasztás átméretezése és mentés</string>
     <string name="width">Szélesség</string>
     <string name="height">Magasság</string>
-    <string name="keep_aspect_ratio">Képarány megtartása</string>
-    <string name="invalid_values">Írjon be érvényes felbontást</string>
 
     <!-- Editor -->
     <string name="editor">Szerkesztő</string>
     <string name="rotate">Forgatás</string>
     <string name="invalid_image_path">Érvénytelen kép elérési útvonal</string>
-    <string name="image_editing_failed">Sikertelen kép szerkesztés</string>
-    <string name="unknown_file_location">Ismeretlen fájl hely</string>
-    <string name="rotate_left">Forgatás balra</string>
-    <string name="rotate_right">Forgatás jobbra</string>
-    <string name="rotate_one_eighty">180º-os forgatás</string>
-    <string name="flip_horizontally">Tükrözés vízszintesen</string>
-    <string name="flip_vertically">Tükrözés függőlegesen</string>
-    <string name="free_aspect_ratio">Szabad</string>
 
     <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <string name="other_aspect_ratio">Egyéb</string>
 
     <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
     <!-- Set wallpaper -->
     <string name="simple_wallpaper">Simple Wallpaper</string>
     <string name="setting_wallpaper">Beállítás háttérképként...</string>
     <string name="wallpaper_set_successfully">Sikeresen beállítva háttérképnek</string>
-    <string name="home_screen">Kezdő képernyő</string>
-    <string name="lock_screen">Zárolás képernyő</string>
-    <string name="home_and_lock_screen">Kezdő és zárolás képernyő</string>
 
     <!-- Slideshow -->
-    <string name="slideshow">Diavetítés</string>
-    <string name="interval">Időköz (másodperc):</string>
-    <string name="include_videos">Videók befoglalása</string>
-    <string name="include_gifs">GIF befoglalása</string>
-    <string name="random_order">Véletlen sorrend</string>
-    <string name="move_backwards">Áthelyezés hátra</string>
-    <string name="loop_slideshow">Diavetítés ismétlése</string>
-    <string name="animation">Animáció</string>
-    <string name="no_animation">Nincs</string>
-    <string name="fade">Áttűnés</string>
-    <string name="slide">Csúsztatás</string>
     <string name="slideshow_ended">A diavetítés vége</string>
-    <string name="no_media_for_slideshow">A diavetítéshez nem található média</string>
 
     <!-- View types -->
     <string name="change_view_type">Nézet típus változtatása</string>
@@ -111,48 +70,12 @@
     <string name="group_direct_subfolders">Közvetlen almappa csoport</string>
 
     <!-- Grouping at media thumbnails -->
-    <string name="group_by">Csoportosítás</string>
-    <string name="do_not_group_files">Nincs csoportosítás</string>
-    <string name="by_folder">Mappa</string>
-    <string name="by_last_modified_daily">Utoljára módosítva (naponta)</string>
-    <string name="by_last_modified_monthly">Utoljára módosítva (havonta)</string>
-    <string name="by_date_taken_daily">Felvétel dátuma (naponta)</string>
-    <string name="by_date_taken_monthly">Felvétel dátuma (havonta)</string>
-    <string name="by_file_type">Fájl típus</string>
-    <string name="by_extension">Kiterjesztés</string>
-    <string name="grouping_and_sorting">Kérjük, vegye figyelembe, hogy a csoportosítás és a rendezés 2 egymástól független mező</string>
 
     <!-- Widgets -->
-    <string name="folder_on_widget">Mappa mutatása a widgeten:</string>
-    <string name="show_folder_name">Mutassa a mappa nevét</string>
 
     <!-- Settings -->
-    <string name="remember_last_video_position">Emlékezzen a videó utolsó lejátszási pozícióra</string>
-    <string name="toggle_filename">Fájlnév láthatóság módosítása</string>
-    <string name="crop_thumbnails">Miniatűrök négyzet alakúra vágva</string>
-    <string name="screen_rotation_by">Teljes képernyős média forgatása</string>
-    <string name="screen_rotation_system_setting">Rendszer beállítások</string>
-    <string name="screen_rotation_device_rotation">Eszköz elforgatás</string>
-    <string name="screen_rotation_aspect_ratio">Képarány</string>
-    <string name="allow_photo_gestures">Engedélyezi a kép fényerő módosítást függőleges gesztusokkal</string>
-    <string name="allow_video_gestures">Engedélyezi a videó hangerő és fényerő módosítást függőleges gesztusokkal</string>
-    <string name="show_extended_details">Mutassa a kiterjesztett adatokat a teljes képernyős médián keresztül</string>
-    <string name="manage_extended_details">Bővített részletek kezelése</string>
-    <string name="allow_instant_change">Engedélyezi a azonnali média váltást a képernyő oldalára kattintva</string>
-    <string name="show_recycle_bin">Mutassa a Lomtárat a mappák képernyőjén</string>
-    <string name="file_loading_priority">Fájl betöltés prioritása</string>
-    <string name="speed">Gyors</string>
-    <string name="compromise">Kiegyensúlyozott</string>
-    <string name="avoid_showing_invalid_files">Kerülje az érvénytelen fájlok mutatását</string>
 
     <!-- Setting sections -->
-    <string name="thumbnails">Miniatűrök</string>
-    <string name="fullscreen_media">Teljes képernyős média</string>
-    <string name="extended_details">Bővített részletek</string>
-    <string name="bottom_actions">Gomb műveletek</string>
 
     <!-- Bottom actions -->
-    <string name="manage_bottom_actions">Látható gomb műveletek kezelése</string>
-    <string name="toggle_favorite">Kedvencek módosítása</string>
-    <string name="toggle_file_visibility">Fájl láthatóság módosítása</string>
 </resources>

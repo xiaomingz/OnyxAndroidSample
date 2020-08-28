@@ -3,23 +3,16 @@
     <string name="app_name">الاستديو البسيط</string>
     <string name="app_launcher_name">الاستديو</string>
     <string name="edit">تعديل</string>
-    <string name="open_camera">فتح الكاميرا</string>
     <string name="hidden">(مخفي)</string>
     <string name="unpin_folder">إلغاء تثبيت المجلد</string>
     <string name="pin_to_the_top">تثبيت في الأعلى</string>
     <string name="all_folders">كل المحلات</string>
-    <string name="folder_view">التبديل إلى عرض المجلد</string>
     <string name="other_folder">مجلد آخر</string>
-    <string name="show_on_map">عرض علي الخريطة</string>
     <string name="unknown_location">موقع غير معروف</string>
     <string name="change_cover_image">تغيير صورة الغلاف</string>
     <string name="select_photo">تحديد صورة</string>
     <string name="volume">الصوت</string>
     <string name="brightness">السبوع</string>
-    <string name="change_orientation">تغيير الاتجاه</string>
-    <string name="force_portrait">فرض الإتجاه العمودي</string>
-    <string name="force_landscape">فرض الإتجاه الأفقي</string>
-    <string name="use_default_orientation">إستخدام الإتجاه الافتراضي</string>
     <string name="fix_date_taken">إصلاح تاريخ إلتقاط القيمة</string>
     <string name="fixing">جارٍ الإصلاح…</string>
     <string name="dates_fixed_successfully">تم إصلاح التواريخ بنجاح</string>
@@ -41,65 +34,33 @@
     <string name="hide_folder_description">تقوم هذه الوظيفة باخفاء المجلد عن طريق إضافة ملف \'. nomedia \' إليه ، وستقوم باخفاء كل المجلدات الفرعية أيضًا. يمكنك رؤيتهم عن طريق تبديل خيار \'إظهار العناصر المخفية \' في الإعدادات. هل تريد المتابعة؟</string>
     <string name="exclude">إستبعاد</string>
     <string name="excluded_folders">المجلدات المستبعدة</string>
-    <string name="manage_excluded_folders">إدارة المجلدات المستبعدة</string>
     <string name="exclude_folder_description">سيؤدي ذلك الي إستبعاد التحديد مع المجلدات الفرعية من "الاستديو" فقط.. يمكنك إدارة المجلدات المستبعدة في الإعدادات.</string>
     <string name="exclude_folder_parent">إستبعاد المجلد الأصل بدلاً  من ذلك(المحدد)؟</string>
-    <string name="excluded_activity_placeholder">سيؤدي إستبعاد المجلدات الي جعلها مع المجلدات الفرعية مخفية  في "الاستديو" فقط, وستظل مرئية في تطبيقات أخرى. \n\nإذا كنت تريد إخفاءها من التطبيقات الأخرى أيضاً ، فاستخدم وظيفة الإخفاء.</string>
     <string name="hidden_folders">المجلدات المخفية</string>
-    <string name="manage_hidden_folders">إدارة المجلدات المخفية</string>
-    <string name="hidden_folders_placeholder">يبدو أنه لا توجد لديك أي مجلدات مخفية بملف \".nomedia\".</string>
 
     <!-- Include folders -->
     <string name="include_folders">المجلدات المضمنة</string>
-    <string name="manage_included_folders">إدارة المجلدات المضمنة</string>
     <string name="add_folder">إضافة مجلد</string>
-    <string name="included_activity_placeholder">إذا كان لديك بعض المجلدات التي تحتوي على الوسائط ، ولكن لم يتم التعرف عليها من قبل التطبيق، يمكنك إضافتها يدوياً هنا.\n\nلن تؤدي إضافة بعض العناصر هنا إلى إستبعاد أي مجلد آخر.</string>
     <string name="no_media_add_included">لم يتم العثور علي أي ملفات وسائط.يمكنك حلها عن طريق إضافة المجلدات التي تحتوي على ملفات وسائط يدوياً.</string>
 
     <!-- Resizing -->
-    <string name="resize">تغيير الحجم</string>
-    <string name="resize_and_save">تغيير حجم التحديد والحفظ</string>
     <string name="width">العرض</string>
     <string name="height">الإرتفاع</string>
-    <string name="keep_aspect_ratio">الحفاظ على نسبة الأبعاد</string>
-    <string name="invalid_values">يرجى إدخال دقة صالحة</string>
 
     <!-- Editor -->
     <string name="editor">تعديل</string>
     <string name="rotate">تدوير</string>
     <string name="invalid_image_path">مسار الصورة غير صحيح</string>
-    <string name="image_editing_failed">فشل تعديل الصورة</string>
-    <string name="unknown_file_location">موقع الملف غير معروف</string>
-    <string name="rotate_left">تدوير لليسار</string>
-    <string name="rotate_right">تدوير لليمين</string>
-    <string name="rotate_one_eighty">تدوير بزاوية 180º</string>
-    <string name="flip_horizontally">انعكاس أفقياً</string>
-    <string name="flip_vertically">انعكاس عمودياً</string>
-    <string name="free_aspect_ratio">حر</string>                  <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <string name="other_aspect_ratio">أخري</string>                <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free -->
+    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
 
     <!-- Set wallpaper -->
     <string name="simple_wallpaper">خلفية بسيطة</string>
     <string name="setting_wallpaper">جارٍ تعيين الخلفية…</string>
     <string name="wallpaper_set_successfully">تم تعيين الخلفية بنجاح</string>
-    <string name="home_screen">الشاشة الرئيسية</string>
-    <string name="lock_screen">شاشة القفل</string>
-    <string name="home_and_lock_screen">الشاشة الرئيسية وشاشة القفل</string>
 
     <!-- Slideshow -->
-    <string name="slideshow">عرض الشرائح</string>
-    <string name="interval">الفاصل الزمني (بالثواني):</string>
-    <string name="include_videos">تضمين مقاطع الفيديو</string>
-    <string name="include_gifs">تضمين الصور المتحركة (Gif)</string>
-    <string name="random_order">ترتيب عشوائي</string>
-    <string name="move_backwards">تحريك للخلف</string>
-    <string name="loop_slideshow">حلقة عرض الشرائح</string>
-    <string name="animation">الحركة</string>
-    <string name="no_animation">لا شيء</string>
-    <string name="fade">تلاشى</string>
-    <string name="slide">انزلاق</string>
     <string name="slideshow_ended">أنتهى عرض الشرائح</string>
-    <string name="no_media_for_slideshow">لم يتم العثور علي أي وسائط لعرض الشرائح</string>
 
     <!-- View types -->
     <string name="change_view_type">تغيير نوع العرض</string>
@@ -108,48 +69,12 @@
     <string name="group_direct_subfolders">تجميع المجلدات الفرعية مباشرة</string>
 
     <!-- Grouping at media thumbnails -->
-    <string name="group_by">تجميع حسب</string>
-    <string name="do_not_group_files">عدم تجميع الملفات</string>
-    <string name="by_folder">المجلد</string>
-    <string name="by_last_modified_daily">آخر تعديل (يومياً)</string>
-    <string name="by_last_modified_monthly">آخر تعديل (شهرياً)</string>
-    <string name="by_date_taken_daily">تاريخ الإلتقاط (يومياً)</string>
-    <string name="by_date_taken_monthly">آخر تعديل (شهرياً)</string>
-    <string name="by_file_type">نوع الملف</string>
-    <string name="by_extension">الإمتداد</string>
-    <string name="grouping_and_sorting">يرجى ملاحظة أن التجميع والفرز هما حقلان مستقلان</string>
 
     <!-- Widgets -->
-    <string name="folder_on_widget">المجلد الظاهر فى الويدجت:</string>
-    <string name="show_folder_name">إظهار اسم المجلد</string>
 
     <!-- Settings -->
-    <string name="remember_last_video_position">تذكر آخر موضع لتشغيل الفيديو</string>
-    <string name="toggle_filename">تبديل رؤية إسم الملف</string>
-    <string name="crop_thumbnails">إقتصاص الصور المصغرة إلى مربعات</string>
-    <string name="screen_rotation_by">تدوير وسائط ملء الشاشة باستخدام</string>
-    <string name="screen_rotation_system_setting">إعدادات النظام</string>
-    <string name="screen_rotation_device_rotation">تدوير الجهاز</string>
-    <string name="screen_rotation_aspect_ratio">نسبة الأبعاد</string>
-    <string name="allow_photo_gestures">السماح بالتحكم في سطوع الصور باستخدام الإيماءات العمودية</string>
-    <string name="allow_video_gestures">السماح بالتحكم في مستوي صوت الفيديو والسطوع باستخدام الإيماءات العمودية</string>
-    <string name="show_extended_details">إظهار التفاصيل الموسعة عبر وسائط ملء الشاشة</string>
-    <string name="manage_extended_details">إدارة التفاصيل الموسعة</string>
-    <string name="allow_instant_change">السماح بتغيير الوسائط علي الفور من خلال النقر علي جوانب الشاشة</string>
-    <string name="show_recycle_bin">إظهار "سلة المحذوفات" في شاشة المجلدات</string>
-    <string name="file_loading_priority">أولوية تحميل الملفات</string>
-    <string name="speed">بسرعة</string>
-    <string name="compromise">إختيار وسط</string>
-    <string name="avoid_showing_invalid_files">تجنب إظهار الملفات غير الصالحة</string>
 
     <!-- Setting sections -->
-    <string name="thumbnails">الصور المصغرة</string>
-    <string name="fullscreen_media">وسائط ملء الشاشة</string>
-    <string name="extended_details">التفاصيل الموسعة</string>
-    <string name="bottom_actions"> إجراءات الأزرار السفلية</string>
 
     <!-- Bottom actions -->
-    <string name="manage_bottom_actions">إدارة إجراءات الأزرار المرئية</string>
-    <string name="toggle_favorite">تبديل المفضل</string>
-    <string name="toggle_file_visibility">تبديل رؤية الملف</string>
 </resources>

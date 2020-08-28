@@ -6,8 +6,6 @@
     <color name="default_text_color">@color/color_primary</color>
     <color name="default_background_color">@color/background_white</color>
 
-    <color name="actionbar_menu_icon">#454545</color>
-    <color name="crop_image_view_background">#BB000000</color>
     <color name="circle_black_background">#66000000</color>
 
     <color name="normal_black">@android:color/black</color>
@@ -19,4 +17,5 @@
 
     <color name="transparent_color">#10000000</color>
     <color name="menu_line_color">#B3B3B2</color>
+    <color name="unable_menu_color">#999999</color>
 </resources>
