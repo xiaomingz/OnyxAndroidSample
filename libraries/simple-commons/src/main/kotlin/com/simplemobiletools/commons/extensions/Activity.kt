@@ -17,7 +17,6 @@ import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import com.simplemobiletools.commons.R
@@ -792,7 +791,8 @@ fun Activity.copyToClipboard(text: String) {
     toast(R.string.value_copied_to_clipboard)
 }
 
-fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0, titleText: String = "", callback: (() -> Unit)? = null) {
+fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0, titleText: String = "",
+                              showCloseBtn: Boolean = true, callback: (() -> Unit)? = null) {
     if (isDestroyed || isFinishing) {
         return
     }
@@ -813,6 +813,9 @@ fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0,
                 setText(titleId)
             }
             setTextColor(baseConfig.textColor)
+        }
+        if (showCloseBtn) {
+            title.close.visibility = View.VISIBLE
         }
         title.close.setOnClickListener {
             dialog.dismiss()
