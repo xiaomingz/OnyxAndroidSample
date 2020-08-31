@@ -19,7 +19,7 @@ class ChangeSortingDialog(val activity: Activity, val callback: () -> Unit) {
                 .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-                    activity.setupDialogStuff(view, this, R.string.sort_by)
+                    activity.setupDialogStuff(view, this, R.string.sort_by, "", false)
                 }
 
         currSorting = config.sorting
