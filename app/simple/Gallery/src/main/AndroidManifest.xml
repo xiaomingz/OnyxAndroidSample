@@ -37,7 +37,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:windowSoftInputMode="adjustPan"
-            android:resizeableActivity="true">
+            android:resizeableActivity="false">
 
             <meta-data
                 android:name="android.app.default_searchable"
