@@ -25,6 +25,8 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
     protected val drawHandler by lazy { globalEditBundle.drawHandler }
     protected val eraseHandler by lazy { globalEditBundle.eraseHandler }
 
+    protected var isTouch = false
+
     protected fun postEvent(event: Any) = eventBus.post(event)
 
     @CallSuper
@@ -172,6 +174,10 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
 
     protected fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {
         return drawHandler.getNormalTouchPointList(touchPointList)
+    }
+
+    override fun isTouching(): Boolean {
+        return isTouch
     }
 
 }

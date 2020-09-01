@@ -39,6 +39,7 @@
                 app:srcCompat="@drawable/ic_subtraction" />
 
             <SeekBar
+                setViewEnable="@{viewModel.isSeekBarEnable()}"
                 android:layout_marginLeft="@dimen/seek_bar_margin"
                 android:layout_marginRight="@dimen/seek_bar_margin"
                 style="@style/seek_bar_layout"

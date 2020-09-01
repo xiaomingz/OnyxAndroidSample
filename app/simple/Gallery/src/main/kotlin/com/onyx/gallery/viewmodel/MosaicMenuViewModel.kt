@@ -17,6 +17,12 @@ class MosaicMenuViewModel : BaseMenuViewModel() {
     val minStrokeWidth = DrawArgs.minStrokeWidth
     val currStrokeWidth: MutableLiveData<Int> = MutableLiveData(DrawArgs.defaultStrokeWidth)
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
+    val isSeekBarEnable = MutableLiveData(true)
+
+    override fun onTouchChange(isTouching: Boolean) {
+        super.onTouchChange(isTouching)
+        isSeekBarEnable.value = !isTouching
+    }
 
     override fun updateTouchHandler() {
         ShapeChangeAction(ExpandShapeFactory.SHAPE_MOSAIC).execute(null)
@@ -36,6 +42,9 @@ class MosaicMenuViewModel : BaseMenuViewModel() {
     }
 
     override fun onHandleMenu(action: MenuAction): Boolean {
+        if (isTouching()) {
+            return false
+        }
         when (action) {
             MenuAction.STROKE_WIDTH_ADDITION -> onStrokeWidthAdd()
             MenuAction.STROKE_WIDTH_SUBTRACTION -> onStrokeWidthSub()
