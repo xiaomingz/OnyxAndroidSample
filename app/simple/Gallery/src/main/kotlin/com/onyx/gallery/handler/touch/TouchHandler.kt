@@ -34,4 +34,5 @@ interface TouchHandler {
     fun onShowToastEvent()
     fun onHideToastEvent()
     fun onActivityWindowFocusChanged(hasFocus: Boolean)
+    fun isTouching(): Boolean
 }

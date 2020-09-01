@@ -25,6 +25,9 @@ class EraseMenuViewModel : BaseMenuViewModel() {
     }
 
     fun onEraseWidthChange(eraseWidth: EraseWidth) {
+        if (isTouching()) {
+            return
+        }
         if (!eraseWidthEnable.value!!) {
             return
         }
@@ -34,6 +37,9 @@ class EraseMenuViewModel : BaseMenuViewModel() {
     }
 
     override fun onHandleMenu(action: MenuAction): Boolean {
+        if (isTouching()) {
+            return false
+        }
         eraseModel.value = when (action) {
             MenuAction.ERASE_STROKES -> EraseModel.STROKES
             MenuAction.ERASE_REGION -> EraseModel.REGION

@@ -4,6 +4,7 @@ import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.rx.SingleThreadScheduler
 import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.event.touch.TouchChangeEvent
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.disposables.Disposable
@@ -20,6 +21,7 @@ abstract class BackPressureTouchHandler(globalEditBundle: GlobalEditBundle) : Ba
     private var drawEmitter: ObservableEmitter<TouchPoint?>? = null
 
     override fun onBeginRawDrawEvent(shortcutDrawing: Boolean, point: TouchPoint) {
+        onTouchChange(true)
         onBeforeBeginRawDraw(shortcutDrawing, point)
         disposable = Observable.create<TouchPoint> { e ->
             drawEmitter = e
@@ -42,9 +44,15 @@ abstract class BackPressureTouchHandler(globalEditBundle: GlobalEditBundle) : Ba
     }
 
     override fun onEndRawDrawing(outLimitRegion: Boolean, point: TouchPoint) {
+        onTouchChange(false)
         drawEmitter?.onComplete()
         disposable?.run { dispose() }
         onAfterEndRawDrawing(outLimitRegion, point)
+    }
+
+    protected fun onTouchChange(isTouching: Boolean) {
+        isTouch = isTouching
+        postEvent(TouchChangeEvent(isTouching))
     }
 
     abstract fun onBeforeBeginRawDraw(shortcutDrawing: Boolean, point: TouchPoint)
