@@ -25,6 +25,11 @@ abstract class BaseViewModel : ViewModel() {
         onTouchChange(isTouching)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        EventBusUtils.ensureUnregister(globalEditBundle.eventBus, this)
+    }
+
     open fun onTouchChange(isTouching: Boolean) {
 
     }
