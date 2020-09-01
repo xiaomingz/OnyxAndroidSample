@@ -60,6 +60,7 @@
             android:id="@+id/directories_grid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/activity_main_list_margin_left"
             android:scrollbars="none"
             app:layoutManager="com.simplemobiletools.commons.views.MyGridLayoutManager"
             app:spanCount="@integer/directory_columns_vertical_scroll" />
