@@ -1,5 +1,6 @@
 package com.onyx.gallery.handler.touch
 
+import android.text.TextUtils
 import androidx.annotation.NonNull
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.rx.RxCallback
@@ -25,7 +26,11 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouch
 
     override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
         if (!hasFocus) {
-            insertTextHandler.textShape?.run { insertTextHandler.saveTextShape(this, false) }
+            insertTextHandler.textShape?.run {
+                if (!TextUtils.isEmpty(text)) {
+                    insertTextHandler.saveTextShape(this, false)
+                }
+            }
         }
     }
 
