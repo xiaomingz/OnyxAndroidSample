@@ -17,9 +17,4 @@ abstract class BaseMenuFragment<T : ViewDataBinding, V : BaseMenuViewModel> : Ba
         viewModel.updateTouchHandler()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onUpdateTouchHandlerEvent(event: UpdateTouchHandlerEvent) {
-        viewModel.updateTouchHandler()
-    }
-
 }
