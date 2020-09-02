@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuNoneBinding
+import com.onyx.gallery.viewmodel.BaseViewModel
 import com.onyx.gallery.viewmodel.NoneMenuViewModel
 
 /**
@@ -17,7 +18,7 @@ class NoneMenuFragment : BaseMenuFragment<FragmentEditMenuNoneBinding, NoneMenuV
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuNoneBinding, rootView: View): NoneMenuViewModel {
-        return ViewModelProvider(requireActivity()).get(NoneMenuViewModel::class.java)
+        return ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(NoneMenuViewModel::class.java)
     }
 
 }

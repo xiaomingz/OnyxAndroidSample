@@ -4,6 +4,7 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
 import com.onyx.android.sdk.utils.ResManager;
+import com.onyx.gallery.bundle.EditBundle;
 
 /**
  * <pre>
@@ -14,9 +15,17 @@ import com.onyx.android.sdk.utils.ResManager;
  */
 public class ScribbleTouchDistributor {
 
-    private final ScaleGestureDetector scaleGestureDetector = new ScribbleScaleGestureDetector(ResManager.getAppContext(), new ZoomGestureListener());
-    private final MoveGestureDetector moveGestureDetector = new MoveGestureDetector();
-    private final ScribbleTouchDetector scribbleTouchDetector = new ScribbleTouchDetector();
+    private final EditBundle editBundle;
+    private final ScaleGestureDetector scaleGestureDetector;
+    private final MoveGestureDetector moveGestureDetector;
+    private final ScribbleTouchDetector scribbleTouchDetector;
+
+    public ScribbleTouchDistributor(EditBundle editBundle) {
+        this.editBundle = editBundle;
+        scaleGestureDetector = new ScribbleScaleGestureDetector(ResManager.getAppContext(), editBundle, new ZoomGestureListener(editBundle));
+        moveGestureDetector = new MoveGestureDetector(editBundle);
+        scribbleTouchDetector = new ScribbleTouchDetector(editBundle);
+    }
 
     public boolean onTouchEvent(MotionEvent event) {
         scaleGestureDetector.onTouchEvent(event);

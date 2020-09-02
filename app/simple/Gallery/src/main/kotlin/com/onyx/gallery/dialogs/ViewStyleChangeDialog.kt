@@ -1,6 +1,7 @@
 package com.onyx.gallery.dialogs
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.DialogViewStyleChangeBinding
 import com.onyx.gallery.viewmodel.BaseViewModel
@@ -37,7 +38,7 @@ class ViewStyleChangeDialog(private val dialogType: ViewStyleChangeDialogType, v
     }
 }
 
-class ViewStyleChangeDialogViewModel(viewStyle: ViewStyle, groupByDirectory: Boolean = false, isUseForThisFolder: Boolean = false) : BaseViewModel() {
+class ViewStyleChangeDialogViewModel(viewStyle: ViewStyle, groupByDirectory: Boolean = false, isUseForThisFolder: Boolean = false) : ViewModel() {
     val viewStyle = MutableLiveData(viewStyle)
     val isGroupByDirectory = MutableLiveData(groupByDirectory)
     val isUseForThisFolder = MutableLiveData(isUseForThisFolder)

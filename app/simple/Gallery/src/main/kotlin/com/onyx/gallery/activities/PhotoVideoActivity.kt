@@ -9,7 +9,6 @@ import android.view.View
 import com.onyx.android.sdk.api.device.epd.EpdController
 import com.onyx.android.sdk.api.device.epd.UpdateMode
 import com.onyx.android.sdk.utils.EventBusUtils
-import com.onyx.android.sdk.utils.StringUtils
 import com.onyx.gallery.App
 import com.onyx.gallery.BuildConfig
 import com.onyx.gallery.R
@@ -27,7 +26,6 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.IS_FROM_GALLERY
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import kotlinx.android.synthetic.main.fragment_holder.*
 import kotlinx.android.synthetic.main.view_action_bar.*

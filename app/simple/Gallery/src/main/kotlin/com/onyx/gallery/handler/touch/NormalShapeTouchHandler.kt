@@ -8,7 +8,7 @@ import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.action.shape.AddShapesAction
 import com.onyx.gallery.action.shape.RenderVarietyShapeAction
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.utils.ExpandShapeFactory
 import com.onyx.gallery.views.shape.WaveLineShape
 
@@ -16,7 +16,7 @@ import com.onyx.gallery.views.shape.WaveLineShape
  * Created by Leung on 2020/6/7
  * @description :create different graphics
  */
-class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
+class NormalShapeTouchHandler(editBundle: EditBundle) : ErasableTouchHandler(editBundle) {
 
     private var downPoint: TouchPoint? = null
 
@@ -52,7 +52,7 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
 
     private fun addShape(shape: Shape) {
         invertRenderStrokeWidth(shape)
-        AddShapesAction().setShape(shape).execute(null)
+        AddShapesAction(editBundle).setShape(shape).execute(null)
     }
 
     private fun createShape(downTouchPoint: TouchPoint?): Shape {
@@ -68,7 +68,7 @@ class NormalShapeTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouc
     }
 
     private fun renderVarietyShape(shape: Shape) {
-        RenderVarietyShapeAction().addShape(shape).execute(null)
+        RenderVarietyShapeAction(editBundle).addShape(shape).execute(null)
     }
 
     override fun onFloatButtonChanged(active: Boolean) {

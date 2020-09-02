@@ -1,6 +1,7 @@
 package com.onyx.gallery.request.shape;
 
 import com.onyx.android.sdk.scribble.shape.Shape;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 
@@ -14,7 +15,8 @@ public class AddShapesRequest extends BaseRequest {
 
     private volatile List<Shape> shapes;
 
-    public AddShapesRequest(List<Shape> shapes) {
+    public AddShapesRequest(EditBundle editBundle, List<Shape> shapes) {
+        super(editBundle);
         this.shapes = shapes;
     }
 

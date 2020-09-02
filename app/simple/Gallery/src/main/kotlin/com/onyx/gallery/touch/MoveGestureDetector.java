@@ -8,6 +8,7 @@ import com.onyx.android.sdk.rx.RxCallback;
 import com.onyx.android.sdk.utils.ResManager;
 import com.onyx.android.sdk.utils.TouchUtils;
 import com.onyx.gallery.R;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.event.ui.ApplyFastModeEvent;
 import com.onyx.gallery.request.zoom.TranslateViewPortRequest;
 
@@ -29,6 +30,10 @@ public class MoveGestureDetector extends BaseTouchDetector {
     private int activePointerId = INVALID_POINTER_ID;
     private boolean isTranslating;
     private boolean multiTouched;
+
+    public MoveGestureDetector(EditBundle editBundle) {
+        super(editBundle);
+    }
 
     public boolean onTouchEvent(MotionEvent ev) {
         if (!getDrawHandler().getRenderContext().isViewScaling()) {
@@ -98,7 +103,7 @@ public class MoveGestureDetector extends BaseTouchDetector {
             return;
         }
         isTranslating = true;
-        TranslateViewPortRequest request = new TranslateViewPortRequest(moveX, moveY);
+        TranslateViewPortRequest request = new TranslateViewPortRequest(getEditBundle(), moveX, moveY);
         getEditBundle().enqueue(request, new RxCallback<TranslateViewPortRequest>() {
             @Override
             public void onNext(@NonNull TranslateViewPortRequest translateViewRequest) {

@@ -5,7 +5,7 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
 import com.onyx.android.sdk.utils.TouchUtils;
-import com.onyx.gallery.bundle.GlobalEditBundle;
+import com.onyx.gallery.bundle.EditBundle;
 
 /**
  * <pre>
@@ -16,8 +16,11 @@ import com.onyx.gallery.bundle.GlobalEditBundle;
  */
 public class ScribbleScaleGestureDetector extends ScaleGestureDetector {
 
-    public ScribbleScaleGestureDetector(Context context, OnScaleGestureListener listener) {
+    private final EditBundle editBundle;
+
+    public ScribbleScaleGestureDetector(Context context, EditBundle editBundle, OnScaleGestureListener listener) {
         super(context, listener);
+        this.editBundle = editBundle;
     }
 
     @Override
@@ -35,8 +38,8 @@ public class ScribbleScaleGestureDetector extends ScaleGestureDetector {
         return super.onTouchEvent(event);
     }
 
-    private GlobalEditBundle getGlobalEditBundle() {
-        return GlobalEditBundle.Companion.getInstance();
+    private EditBundle getGlobalEditBundle() {
+        return editBundle;
     }
 
 }

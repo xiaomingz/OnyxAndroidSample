@@ -10,7 +10,7 @@ import androidx.databinding.ObservableField;
  *     desc   :
  * </pre>
  */
-public class ShareViewModel extends BaseViewModel {
+public class ShareViewModel {
 
     public ObservableField<String> fileTitle = new ObservableField<>("");
     public ObservableField<String> fileSize = new ObservableField<>("");

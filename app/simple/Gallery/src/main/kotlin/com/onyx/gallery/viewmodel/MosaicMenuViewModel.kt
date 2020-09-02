@@ -4,6 +4,7 @@ import android.widget.SeekBar
 import androidx.lifecycle.MutableLiveData
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.action.shape.StrokeWidthChangeAction
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.models.MenuAction
 import com.onyx.gallery.utils.ExpandShapeFactory
@@ -11,7 +12,7 @@ import com.onyx.gallery.utils.ExpandShapeFactory
 /**
  * Created by Leung on 2020/6/8
  */
-class MosaicMenuViewModel : BaseMenuViewModel() {
+class MosaicMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) {
     private val stepStrokeWidth = DrawArgs.stepStrokeWidth
     val maxStrokeWidth = DrawArgs.maxStrokeWidth
     val minStrokeWidth = DrawArgs.minStrokeWidth
@@ -25,13 +26,13 @@ class MosaicMenuViewModel : BaseMenuViewModel() {
     }
 
     override fun updateTouchHandler() {
-        ShapeChangeAction(ExpandShapeFactory.SHAPE_MOSAIC).execute(null)
+        ShapeChangeAction(editBundle, ExpandShapeFactory.SHAPE_MOSAIC).execute(null)
     }
 
     private fun initOnSeekBarChangeListener(): SeekBar.OnSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, strokeWidth: Int, fromUser: Boolean) {
             currStrokeWidth.value = strokeWidth
-            StrokeWidthChangeAction(strokeWidth.toFloat()).execute(null)
+            StrokeWidthChangeAction(editBundle, strokeWidth.toFloat()).execute(null)
         }
 
         override fun onStartTrackingTouch(seekBar: SeekBar) {

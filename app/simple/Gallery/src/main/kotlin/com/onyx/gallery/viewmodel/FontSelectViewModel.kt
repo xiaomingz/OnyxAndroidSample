@@ -10,6 +10,7 @@ import com.onyx.android.sdk.utils.ResManager
 import com.onyx.android.sdk.utils.StringUtils
 import com.onyx.gallery.R
 import com.onyx.gallery.action.GetFontsAction
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.ui.DismissFontSelectMenuEvent
 import com.onyx.gallery.fragments.FontSelectAdapter
 import com.onyx.gallery.models.ItemTextStyleOptionChoiceViewModel
@@ -20,7 +21,7 @@ import com.onyx.gallery.request.GetFontsRequest
  * Created by Leung on 2020/6/13
  */
 
-class FontSelectViewModel : BaseMenuViewModel() {
+class FontSelectViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) {
     companion object {
         const val TAB_FONT_CN = 0
         const val TAB_FONT_EN = 1
@@ -73,9 +74,9 @@ class FontSelectViewModel : BaseMenuViewModel() {
 
     private fun onDismiss() = postEvent(DismissFontSelectMenuEvent())
 
-    fun loadFontList() = GetFontsAction().setCurrentFont(getCurrFontName()).execute(onGetFontsResult())
+    fun loadFontList() = GetFontsAction(editBundle).setCurrentFont(getCurrFontName()).execute(onGetFontsResult())
 
-    private fun getCurrFontName() = globalEditBundle.insertTextHandler.insertTextConfig.fontFace
+    private fun getCurrFontName() = editBundle.insertTextHandler.insertTextConfig.fontFace
 
     private fun onGetFontsResult(): RxCallback<GetFontsRequest> = object : RxCallback<GetFontsRequest>() {
         override fun onNext(getFontsRequest: GetFontsRequest) {

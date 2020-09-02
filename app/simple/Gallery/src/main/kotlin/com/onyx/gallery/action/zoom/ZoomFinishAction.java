@@ -2,6 +2,7 @@ package com.onyx.gallery.action.zoom;
 
 import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.rx.RxCallback;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseEditAction;
 import com.onyx.gallery.event.ui.ApplyFastModeEvent;
 import com.onyx.gallery.event.ui.PenEvent;
@@ -22,15 +23,17 @@ public class ZoomFinishAction extends BaseEditAction {
     private float scale;
     private TouchPoint scalePoint;
 
-    public ZoomFinishAction(float scale, TouchPoint scalePoint) {
+    public ZoomFinishAction(EditBundle editBundle, float scale, TouchPoint scalePoint) {
+        super(editBundle);
         this.scale = scale;
         this.scalePoint = scalePoint;
     }
 
     @Override
     public void execute(final RxCallback callback) {
-        final ZoomFinishRequest zoomFinishRequest = new ZoomFinishRequest(scale, scalePoint);
-        getGlobalEditBundle().enqueue(zoomFinishRequest, new RxCallback<ZoomFinishRequest>() {
+        EditBundle editBundle = getEditBundle();
+        final ZoomFinishRequest zoomFinishRequest = new ZoomFinishRequest(editBundle, scale, scalePoint);
+        editBundle.enqueue(zoomFinishRequest, new RxCallback<ZoomFinishRequest>() {
             @Override
             public void onNext(ZoomFinishRequest zoomFinishRequest) {
                 RxCallback.onNext(callback, zoomFinishRequest);

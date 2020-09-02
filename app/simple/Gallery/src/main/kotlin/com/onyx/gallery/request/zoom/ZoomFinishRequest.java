@@ -7,6 +7,7 @@ import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.android.sdk.utils.NumberUtils;
 import com.onyx.android.sdk.utils.RectUtils;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.NoteUtils;
@@ -26,7 +27,8 @@ public class ZoomFinishRequest extends BaseRequest {
     private TouchPoint scalePoint;
     private boolean isViewScaling;
 
-    public ZoomFinishRequest(float scale, TouchPoint scalePoint) {
+    public ZoomFinishRequest(EditBundle editBundle, float scale, TouchPoint scalePoint) {
+        super(editBundle);
         this.scale = scale;
         this.scalePoint = scalePoint;
     }

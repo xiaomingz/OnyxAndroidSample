@@ -29,6 +29,7 @@ import com.onyx.gallery.helpers.PATH_URI
 import com.onyx.gallery.request.AttachNoteViewRequest
 import com.onyx.gallery.request.RendererToScreenRequest
 import com.onyx.gallery.touch.ScribbleTouchDistributor
+import com.onyx.gallery.viewmodel.BaseViewModel
 import com.onyx.gallery.viewmodel.EditContentViewModel
 import com.onyx.gallery.views.crop.HighlightView
 import com.onyx.gallery.views.crop.RotateBitmap
@@ -44,7 +45,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     private var isAttachHostView = false
     private var uri: Uri? = null
     private var maintainAspectRatio = false
-    private val surfaceCallback: SurfaceHolder.Callback by lazy { initSurfaceCallback() }
+    private val surfaceCallback by lazy { initSurfaceCallback() }
 
     private val TAG: String = EditContentFragment::class.java.simpleName
 
@@ -69,8 +70,8 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     override fun onInitView(binding: FragmentEditContentBinding, contentView: View) {
         initSurfaceView()
-        val scribbleTouchDistributor = ScribbleTouchDistributor()
-        globalEditBundle.insertTextHandler.bindEditText(binding.editText)
+        val scribbleTouchDistributor = ScribbleTouchDistributor(editBundle)
+        editBundle.insertTextHandler.bindEditText(binding.editText)
         binding.surfaceView.setOnTouchListener { _, event ->
             scribbleTouchDistributor.onTouchEvent(event)
         }
@@ -78,7 +79,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditContentBinding, rootView: View): EditContentViewModel {
-        val editContentViewModel = ViewModelProvider(requireActivity()).get(EditContentViewModel::class.java)
+        val editContentViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(EditContentViewModel::class.java)
         binding.run {
             viewModel = editContentViewModel
             lifecycleOwner = this@EditContentFragment
@@ -94,7 +95,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     override fun onDestroyView() {
         super.onDestroyView()
         ensureQuitFastMode()
-        globalEditBundle.release()
+        editBundle.release()
         binding.surfaceView.holder.removeCallback(surfaceCallback)
     }
 
@@ -107,8 +108,9 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     private fun initSurfaceCallback(): SurfaceHolder.Callback = object : SurfaceHolder.Callback {
         override fun surfaceCreated(holder: SurfaceHolder) {
             Debug.d(javaClass, "surfaceCreated")
+            drawHandler.isSurfaceCreated = true
             if (isAttachHostView) {
-                globalEditBundle.enqueue(RendererToScreenRequest(), null)
+                editBundle.enqueue(RendererToScreenRequest(editBundle), null)
                 return
             }
             attachHostView()
@@ -121,12 +123,13 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
         override fun surfaceDestroyed(holder: SurfaceHolder) {
             Debug.d(javaClass, "surfaceDestroyed")
+            drawHandler.isSurfaceCreated = false
         }
     }
 
     private fun attachHostView() {
-        val request = AttachNoteViewRequest(binding.surfaceView)
-        globalEditBundle.enqueue(request, object : RxCallback<AttachNoteViewRequest>() {
+        val request = AttachNoteViewRequest(editBundle, binding.surfaceView)
+        editBundle.enqueue(request, object : RxCallback<AttachNoteViewRequest>() {
             override fun onNext(startScribbleRequest: AttachNoteViewRequest) {
                 loadImage()
                 isAttachHostView = true
@@ -141,7 +144,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     private fun loadImage() {
         binding.surfaceView.run {
             val rect = Rect(left, top, width, height)
-            viewModel.loadImageToHostView(globalEditBundle.imagePath, rect)
+            viewModel.loadImageToHostView(editBundle.imagePath, rect)
         }
     }
 
@@ -159,7 +162,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     private fun openHandwriting() = drawHandler.touchHelper?.setRawDrawingEnabled(true)
 
-    private fun getCropHandler(): CropHandler = globalEditBundle.cropHandler
+    private fun getCropHandler(): CropHandler = editBundle.cropHandler
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onApplyFastModeEvent(event: ApplyFastModeEvent) {
@@ -180,19 +183,19 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onShowToastEvent(event: ShowToastEvent) {
-        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        editBundle.enqueue(RendererToScreenRequest(editBundle), null)
         getTouchHandler()?.onShowToastEvent()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onHideToastEvent(event: HideToastEvent) {
-        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        editBundle.enqueue(RendererToScreenRequest(editBundle), null)
         getTouchHandler()?.onHideToastEvent()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDirtyRenderNoteEvent(event: DirtyRenderNoteEvent) {
-        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        editBundle.enqueue(RendererToScreenRequest(editBundle), null)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -205,7 +208,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         if (!event.open) {
             return
         }
-        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        editBundle.enqueue(RendererToScreenRequest(editBundle), null)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -213,16 +216,16 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         if (!event.show) {
             return
         }
-        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        editBundle.enqueue(RendererToScreenRequest(editBundle), null)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFloatButtonChangedEvent(event: FloatButtonChangedEvent) {
-        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        editBundle.enqueue(RendererToScreenRequest(editBundle), null)
         getTouchHandler()?.onFloatButtonChanged(event.active)
     }
 
-    private fun getTouchHandler() = globalEditBundle.touchHandlerManager.activateHandler
+    private fun getTouchHandler() = editBundle.touchHandlerManager.activateHandler
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onFloatButtonMenuStateChangedEvent(event: FloatButtonMenuStateChangedEvent) {
@@ -231,22 +234,22 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUndoShapeEvent(event: UndoShapeEvent) {
-        UndoShapeAction().execute(null)
+        UndoShapeAction(editBundle).execute(null)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRedoShapeEvent(event: RedoShapeEvent) {
-        RedoShapeAction().execute(null)
+        RedoShapeAction(editBundle).execute(null)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUndoCropEvent(event: UndoCropEvent) {
-        UndoCropAction().execute(null)
+        UndoCropAction(editBundle).execute(null)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onRedoCropEvent(event: RedoCropEvent) {
-        RedoCropAction().execute(null)
+        RedoCropAction(editBundle).execute(null)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -300,11 +303,11 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     }
 
     private fun makeCropBorder(imageRect: Rect, cropRect: RectF, maintainAspectRatio: Boolean): HighlightView? {
-        val imageBitmap = globalEditBundle.drawHandler.getImageShapeBitmap()
+        val imageBitmap = editBundle.drawHandler.getImageShapeBitmap()
         val rotateBitmap = RotateBitmap(imageBitmap, 0)
         binding.cropImageView.setImageRotateBitmapResetBase(rotateBitmap, false)
         val highlightView = HighlightView(binding.cropImageView)
-        globalEditBundle.cropHandler.xAxisMirror
+        editBundle.cropHandler.xAxisMirror
         highlightView.setup(Matrix(), imageRect, cropRect, maintainAspectRatio)
         return highlightView
     }

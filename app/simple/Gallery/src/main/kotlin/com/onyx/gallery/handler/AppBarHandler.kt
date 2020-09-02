@@ -2,10 +2,10 @@ package com.onyx.gallery.handler
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import com.onyx.gallery.action.SaveEditPictureAction
 import com.onyx.gallery.action.crop.SaveCropTransformAction
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.activities.NewEditActivity
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.ui.UpdateTouchHandlerEvent
 
 /**
@@ -16,8 +16,9 @@ enum class ActionType {
     BACK, OK, SAVE_EDIT, REDO, UNDO
 }
 
-class AppBarHandler(private val hostActivity: AppCompatActivity) {
-    private val globalEditBundle: GlobalEditBundle = GlobalEditBundle.instance
+class AppBarHandler(private val hostActivity: NewEditActivity) {
+
+    private val editBundle: EditBundle = hostActivity.editBundle
 
     fun onHandleAction(actionType: ActionType) = when (actionType) {
         ActionType.BACK -> onBackPressed()
@@ -28,32 +29,28 @@ class AppBarHandler(private val hostActivity: AppCompatActivity) {
     }
 
     fun onBackPressed() {
-        globalEditBundle?.imagePath?.let {
-            SaveEditPictureAction(hostActivity, it, true) {
-                hostActivity.setResult(Activity.RESULT_OK, Intent())
-                hostActivity.finish()
-            }.execute(null)
-        }
+        SaveEditPictureAction(editBundle, hostActivity, editBundle.imagePath, true) {
+            hostActivity.setResult(Activity.RESULT_OK, Intent())
+            hostActivity.finish()
+        }.execute(null)
     }
 
     private fun saveTransform() {
-        globalEditBundle.imagePath?.let { SaveCropTransformAction(it).execute(null) }
+        SaveCropTransformAction(editBundle).execute(null)
     }
 
     private fun saveEdit() {
-        globalEditBundle.imagePath?.let {
-            SaveEditPictureAction(hostActivity, it) {
-                globalEditBundle.eventBus.post(UpdateTouchHandlerEvent())
-            }.execute(null)
-        }
+        SaveEditPictureAction(editBundle, hostActivity, editBundle.imagePath) {
+            hostActivity.editBundle.eventBus.post(UpdateTouchHandlerEvent())
+        }.execute(null)
     }
 
     private fun undo() {
-        globalEditBundle.undo()
+        hostActivity.editBundle.undo()
     }
 
     private fun redo() {
-        globalEditBundle.redo()
+        hostActivity.editBundle.redo()
     }
 
 }

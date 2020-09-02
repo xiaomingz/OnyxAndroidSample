@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.android.sdk.scribble.shape.Shape;
 import com.onyx.android.sdk.utils.RectUtils;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 
@@ -34,7 +35,8 @@ public class TranslateViewPortRequest extends BaseRequest {
     private List<Shape> hRenderShapes = new ArrayList<>();
     private List<Shape> vRenderShapes = new ArrayList<>();
 
-    public TranslateViewPortRequest(float dx, float dy) {
+    public TranslateViewPortRequest(EditBundle editBundle, float dx, float dy) {
+        super(editBundle);
         this.dx = dx;
         this.dy = dy;
     }
