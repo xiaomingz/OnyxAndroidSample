@@ -13,6 +13,9 @@ import com.onyx.gallery.activities.NewEditActivity
 import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.viewmodel.BaseViewModel
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by Leung on 2020/5/6
@@ -20,7 +23,7 @@ import com.onyx.gallery.viewmodel.BaseViewModel
 abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment() {
 
     protected lateinit var binding: T
-    protected lateinit var viewModel: V
+    lateinit var viewModel: V
     protected val editBundle: EditBundle by lazy { NewEditActivity.globalEditBundle!! }
     protected lateinit var drawHandler: DrawHandler
 
@@ -39,11 +42,15 @@ abstract class BaseFragment<T : ViewDataBinding, V : BaseViewModel> : Fragment()
         return rootView
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         if (useEventBus()) {
             editBundle.run { EventBusUtils.ensureUnregister(eventBus, this) }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onRegisterEvent(eventBus: EventBus) {
     }
 
     open fun useEventBus(): Boolean = false
