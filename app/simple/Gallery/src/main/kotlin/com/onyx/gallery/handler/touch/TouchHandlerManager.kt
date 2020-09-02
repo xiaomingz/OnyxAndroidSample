@@ -37,4 +37,12 @@ class TouchHandlerManager(private val globalEditBundle: GlobalEditBundle) {
     fun deactivateHandler() {
         activateHandler?.onDeactivate()
     }
+
+    fun isTouching(): Boolean {
+        activateHandler?.let { touchHandler ->
+            return touchHandler.isTouching()
+        }
+        return false
+    }
+
 }

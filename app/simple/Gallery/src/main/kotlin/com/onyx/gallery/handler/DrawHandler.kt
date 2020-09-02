@@ -91,6 +91,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
                 setRawDrawingEnabled(rawDrawingEnabled)
                 readerHandler.limitRect.set(currLimitRect)
             }
+            setExcludeRect(mutableListOf(Rect(0, 0, 0, 0)))
         }
     }
 

@@ -16,6 +16,9 @@ class EditMenuViewModel : BaseViewModel() {
     fun onClickMenu(menuStyle: MenuStyle) = updateItemMenuLayout(menuStyle)
 
     private fun updateItemMenuLayout(menuStyle: MenuStyle) {
+        if (isTouching()) {
+            return
+        }
         currItemMenuStyle.value = menuStyle
     }
 

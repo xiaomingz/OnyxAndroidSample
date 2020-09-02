@@ -19,6 +19,12 @@ class GraffitiMenuViewModel : BaseMenuViewModel() {
     val minStrokeWidth = DrawArgs.minStrokeWidth
     val currStrokeWidth: MutableLiveData<Int> = MutableLiveData(DrawArgs.defaultStrokeWidth)
     val onChangeListener: OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
+    val isSeekBarEnable = MutableLiveData(true)
+
+    override fun onTouchChange(isTouching: Boolean) {
+        super.onTouchChange(isTouching)
+        isSeekBarEnable.value = !isTouching
+    }
 
     private fun initOnSeekBarChangeListener(): OnSeekBarChangeListener = object : OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, strokeWidth: Int, fromUser: Boolean) {
@@ -35,6 +41,9 @@ class GraffitiMenuViewModel : BaseMenuViewModel() {
 
     override fun onHandleMenu(action: MenuAction): Boolean {
         super.onHandleMenu(action)
+        if (isTouching()) {
+            return false
+        }
         when (action) {
             MenuAction.SCRIBBLE_BRUSH,
             MenuAction.SCRIBBLE_CIRCLE,

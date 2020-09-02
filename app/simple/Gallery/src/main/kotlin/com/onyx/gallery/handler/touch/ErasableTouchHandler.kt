@@ -29,6 +29,7 @@ open class ErasableTouchHandler(globalEditBundle: GlobalEditBundle) : BackPressu
     }
 
     override fun onBeginRawErasing(shortcutErasing: Boolean, point: TouchPoint) {
+        onTouchChange(true)
         removeEraseObserver()
         eraseHandler.onStartErase(shortcutErasing, point)
         eraseObservable = ObservableHolder<TouchPoint>().let {
@@ -51,6 +52,7 @@ open class ErasableTouchHandler(globalEditBundle: GlobalEditBundle) : BackPressu
     }
 
     override fun onEndRawErasing(outLimitRegion: Boolean, point: TouchPoint) {
+        onTouchChange(false)
         removeEraseObserver()
         eraseHandler.onEndErase(outLimitRegion, point)
     }

@@ -168,6 +168,7 @@
                 android:layout_marginLeft="@dimen/seek_bar_margin"
                 android:layout_marginRight="@dimen/seek_bar_margin"
                 style="@style/seek_bar_layout"
+                setViewEnable="@{viewModel.isSeekBarEnable()}"
                 onSeekBarChangeListener="@{viewModel.onChangeListener}"
                 android:layout_width="0dp"
                 android:layout_weight="1"

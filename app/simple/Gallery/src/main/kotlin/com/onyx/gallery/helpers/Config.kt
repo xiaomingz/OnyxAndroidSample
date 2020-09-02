@@ -166,7 +166,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(maxBrightness) = prefs.edit().putBoolean(MAX_BRIGHTNESS, maxBrightness).apply()
 
     var cropThumbnails: Boolean
-        get() = prefs.getBoolean(CROP_THUMBNAILS, true)
+        get() = prefs.getBoolean(CROP_THUMBNAILS, false)
         set(cropThumbnails) = prefs.edit().putBoolean(CROP_THUMBNAILS, cropThumbnails).apply()
 
     var showThumbnailVideoDuration: Boolean

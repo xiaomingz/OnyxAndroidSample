@@ -135,4 +135,5 @@
     <dimen name="eraser_width_3">25dp</dimen>
     <dimen name="eraser_width_4">30dp</dimen>
     <dimen name="eraser_width_5">35dp</dimen>
+    <dimen name="activity_main_list_margin_left">45dp</dimen>
 </resources>

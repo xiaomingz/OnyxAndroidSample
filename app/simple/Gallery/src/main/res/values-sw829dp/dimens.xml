@@ -129,4 +129,5 @@
     <dimen name="directory_thumb_radius_margin">6.5dp</dimen>
     <dimen name="directory_thumb_padding">1.3dp</dimen>
     <dimen name="smaller_margin_grid">7.8dp</dimen>
+    <dimen name="activity_main_list_margin_left">35dp</dimen>
 </resources>
