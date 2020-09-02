@@ -2,7 +2,7 @@ package com.onyx.gallery.touch;
 
 import android.view.MotionEvent;
 
-import com.onyx.gallery.bundle.GlobalEditBundle;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.handler.DrawHandler;
 
 import org.greenrobot.eventbus.EventBus;
@@ -16,6 +16,12 @@ import org.greenrobot.eventbus.EventBus;
  */
 public abstract class BaseTouchDetector {
 
+    private EditBundle editBundle;
+
+    public BaseTouchDetector(EditBundle editBundle) {
+        this.editBundle = editBundle;
+    }
+
     public abstract boolean onTouchEvent(MotionEvent ev);
 
     boolean isMultiTouch(MotionEvent event) {
@@ -26,8 +32,8 @@ public abstract class BaseTouchDetector {
         return getEditBundle().getEventBus();
     }
 
-    public GlobalEditBundle getEditBundle() {
-        return GlobalEditBundle.Companion.getInstance();
+    public EditBundle getEditBundle() {
+        return editBundle;
     }
 
     public DrawHandler getDrawHandler() {

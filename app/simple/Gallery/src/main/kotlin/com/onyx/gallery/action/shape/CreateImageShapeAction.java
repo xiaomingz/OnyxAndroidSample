@@ -5,9 +5,12 @@ import android.graphics.Rect;
 import androidx.annotation.NonNull;
 
 import com.onyx.android.sdk.rx.RxCallback;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseEditAction;
 import com.onyx.gallery.event.result.LoadImageResultEvent;
 import com.onyx.gallery.request.image.CreateImageShapeRequest;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -21,6 +24,10 @@ public class CreateImageShapeAction extends BaseEditAction {
     private String filePath;
     private Rect scribbleRect;
 
+    public CreateImageShapeAction(@NotNull EditBundle editBundle) {
+        super(editBundle);
+    }
+
     public CreateImageShapeAction setFilePath(String filePath) {
         this.filePath = filePath;
         return this;
@@ -33,10 +40,11 @@ public class CreateImageShapeAction extends BaseEditAction {
 
     @Override
     public void execute(final RxCallback callback) {
-        final CreateImageShapeRequest shapeRequest = new CreateImageShapeRequest()
+        EditBundle editBundle = getEditBundle();
+        final CreateImageShapeRequest shapeRequest = new CreateImageShapeRequest(editBundle)
                 .setScribbleRect(scribbleRect)
                 .setImageFilePath(filePath);
-        getGlobalEditBundle().enqueue(shapeRequest, new RxCallback<CreateImageShapeRequest>() {
+        editBundle.enqueue(shapeRequest, new RxCallback<CreateImageShapeRequest>() {
             @Override
             public void onNext(@NonNull CreateImageShapeRequest request) {
                 RxCallback.onNext(callback, request);

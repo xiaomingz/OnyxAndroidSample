@@ -1,11 +1,12 @@
 package com.onyx.gallery.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.onyx.gallery.bundle.EditBundle
 
 /**
  * Created by Leung on 2020/5/6
  */
-class EditMenuViewModel : BaseViewModel() {
+class EditMenuViewModel(editBundle: EditBundle) : BaseViewModel(editBundle) {
 
     enum class MenuStyle {
         NONE, GRAFFITI, TEXT, CROP, MOSAIC, ERASE

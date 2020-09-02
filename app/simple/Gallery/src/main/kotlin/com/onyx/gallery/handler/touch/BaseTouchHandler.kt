@@ -6,7 +6,7 @@ import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.EventBusUtils
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.raw.*
 import com.onyx.gallery.event.touch.TouchDownEvent
 import com.onyx.gallery.event.touch.TouchMoveEvent
@@ -20,10 +20,10 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Created by Leung on 2020/6/7
  */
-abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchHandler {
-    private val eventBus by lazy { globalEditBundle.eventBus }
-    protected val drawHandler by lazy { globalEditBundle.drawHandler }
-    protected val eraseHandler by lazy { globalEditBundle.eraseHandler }
+abstract class BaseTouchHandler(val editBundle: EditBundle) : TouchHandler {
+    private val eventBus by lazy { editBundle.eventBus }
+    protected val drawHandler by lazy { editBundle.drawHandler }
+    protected val eraseHandler by lazy { editBundle.eraseHandler }
 
     protected var isTouch = false
 
@@ -148,7 +148,7 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
 
     override fun onFloatButtonMenuStateChanged(open: Boolean) {
         if (!open) {
-            globalEditBundle.enqueue(RendererToScreenRequest(), null)
+            editBundle.enqueue(RendererToScreenRequest(editBundle), null)
         }
     }
 
@@ -169,7 +169,7 @@ abstract class BaseTouchHandler(val globalEditBundle: GlobalEditBundle) : TouchH
     }
 
     override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
-        globalEditBundle.enqueue(RendererToScreenRequest(), null)
+        editBundle.enqueue(RendererToScreenRequest(editBundle), null)
     }
 
     protected fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {

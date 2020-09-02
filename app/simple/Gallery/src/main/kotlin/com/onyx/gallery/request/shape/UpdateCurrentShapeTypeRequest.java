@@ -1,6 +1,7 @@
 package com.onyx.gallery.request.shape;
 
 import com.onyx.android.sdk.scribble.shape.ShapeFactory;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.handler.touch.TouchHandler;
@@ -21,7 +22,8 @@ import org.jetbrains.annotations.NotNull;
 public class UpdateCurrentShapeTypeRequest extends BaseRequest {
     private int newShape;
 
-    public UpdateCurrentShapeTypeRequest(int newShape) {
+    public UpdateCurrentShapeTypeRequest(EditBundle editBundle, int newShape) {
+        super(editBundle);
         this.newShape = newShape;
     }
 
@@ -52,7 +54,7 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
                 touchHandlerType = TouchHandlerType.ERASE;
                 break;
             default:
-                drawHandler.getTouchHelper().setStrokeStyle(DrawArgs.defaultStrokeType);
+                drawHandler.setStrokeStyle(DrawArgs.defaultStrokeType);
                 drawHandler.updateLimitRect(drawHandler.getCurrLimitRect());
                 DrawArgs drawingArgs = drawHandler.getDrawingArgs();
                 drawHandler.setStrokeColor(drawingArgs.getStrokeColor());
@@ -60,7 +62,7 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
                 touchHandlerType = TouchHandlerType.EPD_SHAPE;
                 break;
         }
-        TouchHandlerManager touchHandlerManager = getGlobalEditBundle().getTouchHandlerManager();
+        TouchHandlerManager touchHandlerManager = getEditBundle().getTouchHandlerManager();
         touchHandlerManager.activateHandler(touchHandlerType);
         TouchHandler activateHandler = touchHandlerManager.getActivateHandler();
         if (activateHandler != null) {

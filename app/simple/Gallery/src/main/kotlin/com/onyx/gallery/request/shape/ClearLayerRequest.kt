@@ -1,13 +1,14 @@
 package com.onyx.gallery.request.shape
 
 import com.onyx.android.sdk.utils.CollectionUtils
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 
 /**
  * Created by Leung 2020/8/24 16:33
  **/
-class ClearLayerRequest : BaseRequest() {
+class ClearLayerRequest(editBundle: EditBundle) : BaseRequest(editBundle) {
 
     override fun execute(drawHandler: DrawHandler) {
         val handwritingShape = drawHandler.getHandwritingShape()

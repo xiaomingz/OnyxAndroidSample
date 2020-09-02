@@ -3,6 +3,7 @@ package com.onyx.gallery.action.shape
 import android.graphics.Path
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseEditAction
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.request.shape.RenderVarietyShapeRequest
@@ -10,7 +11,7 @@ import com.onyx.gallery.request.shape.RenderVarietyShapeRequest
 /**
  * Created by Leung on 2020/5/20
  */
-class RenderVarietyShapeAction : BaseEditAction<BaseRequest>() {
+class RenderVarietyShapeAction(editBundle: EditBundle) : BaseEditAction<BaseRequest>(editBundle) {
 
     private val shapeList: MutableList<Shape> = mutableListOf()
     private var selectionPath: Path? = null
@@ -26,8 +27,8 @@ class RenderVarietyShapeAction : BaseEditAction<BaseRequest>() {
     }
 
     override fun execute(rxCallback: RxCallback<BaseRequest>?) {
-        val request = RenderVarietyShapeRequest(shapeList, selectionPath)
-        globalEditBundle.enqueue(request, object : RxCallback<BaseRequest>() {
+        val request = RenderVarietyShapeRequest(editBundle, shapeList, selectionPath)
+        editBundle.enqueue(request, object : RxCallback<BaseRequest>() {
             override fun onNext(rxRequest: BaseRequest) {
                 RxCallback.onNext(rxCallback, request)
             }

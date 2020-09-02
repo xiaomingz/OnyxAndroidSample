@@ -6,14 +6,14 @@ import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.gallery.action.shape.AddShapesAction
 import com.onyx.gallery.action.shape.RenderVarietyShapeAction
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.utils.ExpandShapeFactory
 import com.onyx.gallery.views.shape.MosaicShape
 
 /**
  * Created by Leung on 2020/7/8
  */
-class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : BackPressureTouchHandler(globalEditBundle) {
+class MosaicTouchHandler(editBundle: EditBundle) : BackPressureTouchHandler(editBundle) {
 
     private lateinit var mosaicShape: MosaicShape
 
@@ -41,12 +41,12 @@ class MosaicTouchHandler(globalEditBundle: GlobalEditBundle) : BackPressureTouch
     }
 
     private fun renderVarietyShape(shape: Shape) {
-        RenderVarietyShapeAction().addShape(shape).execute(null)
+        RenderVarietyShapeAction(editBundle).addShape(shape).execute(null)
     }
 
     private fun addShape(shape: Shape) {
         invertRenderStrokeWidth(shape)
-        AddShapesAction().setShape(shape).execute(null)
+        AddShapesAction(editBundle).setShape(shape).execute(null)
     }
 
     override fun onFloatButtonChanged(active: Boolean) {

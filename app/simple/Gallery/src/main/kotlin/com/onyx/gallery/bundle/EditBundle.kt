@@ -24,7 +24,7 @@ import java.io.File
 /**
  * Created by Leung on 2020/4/30
  */
-class GlobalEditBundle private constructor(context: Context) : BaseBundle(context) {
+class EditBundle constructor(context: Context) : BaseBundle(context) {
 
     var canFingerTouch = true
     var supportZoom = true
@@ -46,15 +46,13 @@ class GlobalEditBundle private constructor(context: Context) : BaseBundle(contex
     val touchHandlerManager = TouchHandlerManager(this)
 
     companion object {
-        val instance: GlobalEditBundle by lazy {
-            GlobalEditBundle(App.instance)
-        }
+        fun newSingleThreadManager() = RxManager.Builder.newSingleThreadManager()
     }
 
     fun parseIntent(host: Activity) {
         uri = parseImageUri(host)
         orgImagePath = imagePath
-        receiver.systemUIChangeListener = SystemUIChangeReceiver()
+        receiver.systemUIChangeListener = SystemUIChangeReceiver(eventBus)
         receiver.enable(App.instance, true)
     }
 

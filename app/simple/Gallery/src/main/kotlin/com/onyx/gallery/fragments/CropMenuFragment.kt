@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuCropBinding
 import com.onyx.gallery.event.result.SaveCropTransformResultEvent
+import com.onyx.gallery.viewmodel.BaseViewModel
 import com.onyx.gallery.viewmodel.CropMenuViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -21,7 +22,7 @@ class CropMenuFragment : BaseMenuFragment<FragmentEditMenuCropBinding, CropMenuV
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuCropBinding, rootView: View): CropMenuViewModel {
-        val cropMenuViewModel = ViewModelProvider(requireActivity()).get(CropMenuViewModel::class.java)
+        val cropMenuViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(CropMenuViewModel::class.java)
         binding.viewModel = cropMenuViewModel
         binding.lifecycleOwner = this
         return cropMenuViewModel

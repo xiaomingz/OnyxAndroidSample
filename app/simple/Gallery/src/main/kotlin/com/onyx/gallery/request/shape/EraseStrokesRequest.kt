@@ -3,6 +3,7 @@ package com.onyx.gallery.request.shape
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import java.util.*
@@ -10,7 +11,7 @@ import java.util.*
 /**
  * Created by Leung 2020/7/13 16:47
  **/
-class EraseStrokesRequest(private val touchPointList: TouchPointList, val eraseWidth: Float) : BaseRequest() {
+class EraseStrokesRequest(editBundle: EditBundle, private val touchPointList: TouchPointList, val eraseWidth: Float) : BaseRequest(editBundle) {
 
     override fun execute(drawHandler: DrawHandler) {
         val drawRadius = eraseWidth / 2

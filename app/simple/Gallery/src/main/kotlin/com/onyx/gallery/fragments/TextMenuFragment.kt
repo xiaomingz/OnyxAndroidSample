@@ -10,6 +10,7 @@ import com.onyx.gallery.event.ui.FontChangeEvent
 import com.onyx.gallery.event.ui.ShowFontSelectMenuEvent
 import com.onyx.gallery.extensions.addFragment
 import com.onyx.gallery.extensions.showFragment
+import com.onyx.gallery.viewmodel.BaseViewModel
 import com.onyx.gallery.viewmodel.TextMenuViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -27,7 +28,7 @@ class TextMenuFragment : BaseMenuFragment<FragmentEditMenuTextBinding, TextMenuV
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuTextBinding, rootView: View): TextMenuViewModel {
-        val textMenuViewModel = ViewModelProvider(requireActivity()).get(TextMenuViewModel::class.java)
+        val textMenuViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(TextMenuViewModel::class.java)
         binding.viewModel = textMenuViewModel
         binding.lifecycleOwner = this
         return textMenuViewModel
@@ -36,7 +37,7 @@ class TextMenuFragment : BaseMenuFragment<FragmentEditMenuTextBinding, TextMenuV
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.showContent()
-        globalEditBundle.insertTextHandler.saveTextShape(true)
+        editBundle.insertTextHandler.saveTextShape(true)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -5,6 +5,7 @@ import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.gallery.action.erase.EraseAction
 import com.onyx.gallery.action.erase.UpdateEraseAction
 import com.onyx.gallery.action.shape.ShapeChangeAction
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.handler.EraseModel
 import com.onyx.gallery.handler.EraseWidth
 import com.onyx.gallery.models.EraseArgs
@@ -14,14 +15,14 @@ import com.onyx.gallery.utils.ExpandShapeFactory
 /**
  * Created by Leung 2020/8/24 10:50
  **/
-class EraseMenuViewModel : BaseMenuViewModel() {
+class EraseMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) {
 
     val eraseModel = MutableLiveData(EraseModel.STROKES)
     val eraseWidth = MutableLiveData(EraseWidth.ERASER_WIDTH_2)
     val eraseWidthEnable = MutableLiveData(false)
 
     override fun updateTouchHandler() {
-        ShapeChangeAction(ExpandShapeFactory.ERASE).execute(null)
+        ShapeChangeAction(editBundle, ExpandShapeFactory.ERASE).execute(null)
     }
 
     fun onEraseWidthChange(eraseWidth: EraseWidth) {
@@ -59,13 +60,13 @@ class EraseMenuViewModel : BaseMenuViewModel() {
     }
 
     private fun updateEraseTouchHander() {
-        UpdateEraseAction(eraseModel.value!!, eraseWidth.value!!).execute(null)
-        ShapeChangeAction(ExpandShapeFactory.ERASE).execute(null)
+        UpdateEraseAction(editBundle, eraseModel.value!!, eraseWidth.value!!).execute(null)
+        ShapeChangeAction(editBundle, ExpandShapeFactory.ERASE).execute(null)
     }
 
     private fun eraseLayer() {
         val eraseArgs = EraseArgs(EraseArgs.DEFAULT_WIDTH, EraseModel.LAYER, TouchPointList())
-        EraseAction(eraseArgs).execute(null)
+        EraseAction(editBundle, eraseArgs).execute(null)
     }
 
 }

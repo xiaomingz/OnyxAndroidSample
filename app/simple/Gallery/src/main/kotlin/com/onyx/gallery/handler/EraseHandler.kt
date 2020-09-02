@@ -10,7 +10,7 @@ import com.onyx.gallery.R
 import com.onyx.gallery.action.erase.EraseAction
 import com.onyx.gallery.action.shape.AddShapesAction
 import com.onyx.gallery.action.shape.RenderVarietyShapeAction
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.models.EraseArgs
 import com.onyx.gallery.utils.ExpandShapeFactory
 import com.onyx.gallery.views.shape.ImageTrackShape
@@ -32,7 +32,7 @@ enum class EraseWidth(val width: Float) {
     ERASER_WIDTH_5(ResManager.getDimension(R.dimen.eraser_width_5))
 }
 
-class EraseHandler(val globalEditBundle: GlobalEditBundle) {
+class EraseHandler(val editBundle: EditBundle) {
 
     var eraseModel = EraseArgs.DEFAULT_MODEL
     var eraseWidth = EraseArgs.DEFAULT_WIDTH
@@ -40,7 +40,7 @@ class EraseHandler(val globalEditBundle: GlobalEditBundle) {
     private var eraseShape: Shape? = null
     private val selectionPath = Path()
 
-    private fun getDrawHandler(): DrawHandler = globalEditBundle.drawHandler
+    private fun getDrawHandler(): DrawHandler = editBundle.drawHandler
 
     fun isEraseLayer(): Boolean = eraseModel == EraseModel.LAYER
 
@@ -84,7 +84,7 @@ class EraseHandler(val globalEditBundle: GlobalEditBundle) {
         val normalPointList = getDrawHandler().getNormalTouchPointList(pointList)
         val eraserWidth = getDrawHandler().drawingArgs.eraserWidth / 2
         val eraseArgs = EraseArgs(eraserWidth, touchPointList = normalPointList)
-        EraseAction(eraseArgs).execute(null)
+        EraseAction(editBundle, eraseArgs).execute(null)
     }
 
     private fun createEraseShape(): Shape {
@@ -103,19 +103,19 @@ class EraseHandler(val globalEditBundle: GlobalEditBundle) {
 
     private fun renderVarietyEraseShape(shape: Shape) {
         if (isEraseOnMove()) {
-            RenderVarietyShapeAction().addShape(shape).execute(null)
+            RenderVarietyShapeAction(editBundle).addShape(shape).execute(null)
         }
     }
 
     private fun renderVarietyEraseRegion() {
         if (isEraseByRegion()) {
-            RenderVarietyShapeAction().setSelectionPath(selectionPath).execute(null)
+            RenderVarietyShapeAction(editBundle).setSelectionPath(selectionPath).execute(null)
         }
     }
 
     private fun addShape(shape: Shape) {
         getDrawHandler().invertRenderStrokeWidth(shape)
-        AddShapesAction().setShape(shape).execute(null)
+        AddShapesAction(editBundle).setShape(shape).execute(null)
     }
 
     fun release() {

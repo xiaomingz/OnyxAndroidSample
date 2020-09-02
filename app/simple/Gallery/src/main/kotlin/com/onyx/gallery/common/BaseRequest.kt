@@ -4,20 +4,19 @@ import androidx.annotation.WorkerThread
 import com.onyx.android.sdk.rx.RxRequest
 import com.onyx.android.sdk.utils.Benchmark
 import com.onyx.gallery.BuildConfig
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.handler.DrawHandler
 
 /**
  * Created by Leung on 2020/5/16
  */
-abstract class BaseRequest : RxRequest() {
+abstract class BaseRequest(protected val editBundle: EditBundle) : RxRequest() {
     private val reportLogTimeThreshold = 1500
 
-    protected val globalEditBundle = GlobalEditBundle.instance
-    val drawHandler = globalEditBundle.drawHandler
-    val cropHandler = globalEditBundle.cropHandler
-    val insertTextHandler = globalEditBundle.insertTextHandler
-    val undoRedoHandler = globalEditBundle.undoRedoHandler
+    val drawHandler = editBundle.drawHandler
+    val cropHandler = editBundle.cropHandler
+    val insertTextHandler = editBundle.insertTextHandler
+    val undoRedoHandler = editBundle.undoRedoHandler
 
     @Volatile
     var renderToScreen = false
@@ -72,7 +71,7 @@ abstract class BaseRequest : RxRequest() {
     }
 
     open fun canRawDrawingRenderEnabled(): Boolean {
-        val touchHandler = globalEditBundle.touchHandlerManager.activateHandler ?: return false
+        val touchHandler = editBundle.touchHandlerManager.activateHandler ?: return false
         return touchHandler.canRawDrawingRenderEnabled()
     }
 

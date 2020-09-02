@@ -1,9 +1,12 @@
 package com.onyx.gallery.action;
 
 import com.onyx.android.sdk.rx.RxCallback;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseEditAction;
 import com.onyx.gallery.event.result.GetFontsResultEvent;
 import com.onyx.gallery.request.GetFontsRequest;
+
+import org.jetbrains.annotations.NotNull;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -16,6 +19,10 @@ public class GetFontsAction extends BaseEditAction {
 
     private String currentFont;
 
+    public GetFontsAction(@NotNull EditBundle editBundle) {
+        super(editBundle);
+    }
+
     public GetFontsAction setCurrentFont(String currentFont) {
         this.currentFont = currentFont;
         return this;
@@ -23,8 +30,9 @@ public class GetFontsAction extends BaseEditAction {
 
     @Override
     public void execute(final RxCallback callback) {
-        GetFontsRequest request = new GetFontsRequest(currentFont);
-        getGlobalEditBundle().enqueue(request, new RxCallback<GetFontsRequest>() {
+        EditBundle editBundle = getEditBundle();
+        GetFontsRequest request = new GetFontsRequest(editBundle, currentFont);
+        editBundle.enqueue(request, new RxCallback<GetFontsRequest>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 super.onSubscribe(d);

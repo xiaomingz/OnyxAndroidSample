@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuMosaicBinding
+import com.onyx.gallery.viewmodel.BaseViewModel
 import com.onyx.gallery.viewmodel.MosaicMenuViewModel
 
 /**
@@ -16,7 +17,7 @@ class MosaicMenuFragment : BaseMenuFragment<FragmentEditMenuMosaicBinding, Mosai
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuMosaicBinding, rootView: View): MosaicMenuViewModel {
-        return ViewModelProvider(requireActivity()).get(MosaicMenuViewModel::class.java).apply {
+        return ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(MosaicMenuViewModel::class.java).apply {
             binding.viewModel = this
             binding.lifecycleOwner = this@MosaicMenuFragment
         }
