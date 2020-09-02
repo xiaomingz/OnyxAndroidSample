@@ -3,6 +3,7 @@ package com.onyx.gallery.viewmodel
 import android.os.Handler
 import androidx.lifecycle.MutableLiveData
 import com.onyx.gallery.action.shape.ShapeChangeAction
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.ui.ShowSaveCropMenuEvent
 import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.handler.MirrorModel
@@ -12,7 +13,7 @@ import com.onyx.gallery.utils.ExpandShapeFactory
 /**
  * Created by Leung on 2020/6/8
  */
-class CropMenuViewModel : BaseMenuViewModel() {
+class CropMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) {
 
     private val delayMillis = 300L
     val handler = Handler()
@@ -21,7 +22,7 @@ class CropMenuViewModel : BaseMenuViewModel() {
     var cropAction = MutableLiveData(MenuAction.CROP_CUSTOMIZE)
 
     override fun updateTouchHandler() {
-        ShapeChangeAction(ExpandShapeFactory.CROP).execute(null)
+        ShapeChangeAction(editBundle, ExpandShapeFactory.CROP).execute(null)
         if (cropAction.value == null) {
             cropAction.value = MenuAction.CROP_CUSTOMIZE
         }
@@ -32,7 +33,7 @@ class CropMenuViewModel : BaseMenuViewModel() {
         }
     }
 
-    fun getCropHandler(): CropHandler = globalEditBundle.cropHandler
+    fun getCropHandler(): CropHandler = editBundle.cropHandler
 
     override fun onCleared() {
         super.onCleared()

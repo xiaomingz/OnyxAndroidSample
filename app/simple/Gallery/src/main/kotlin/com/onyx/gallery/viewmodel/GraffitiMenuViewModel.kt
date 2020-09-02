@@ -6,13 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.action.shape.StrokeColorChangeAction
 import com.onyx.gallery.action.shape.StrokeWidthChangeAction
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.models.MenuAction
 
 /**
  * Created by Leung on 2020/5/6
  */
-class GraffitiMenuViewModel : BaseMenuViewModel() {
+class GraffitiMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) {
 
     private val stepStrokeWidth = DrawArgs.stepStrokeWidth
     val maxStrokeWidth = DrawArgs.maxStrokeWidth
@@ -29,7 +30,7 @@ class GraffitiMenuViewModel : BaseMenuViewModel() {
     private fun initOnSeekBarChangeListener(): OnSeekBarChangeListener = object : OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, strokeWidth: Int, fromUser: Boolean) {
             currStrokeWidth.value = strokeWidth
-            StrokeWidthChangeAction(strokeWidth.toFloat()).execute(null)
+            StrokeWidthChangeAction(editBundle, strokeWidth.toFloat()).execute(null)
         }
 
         override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -70,12 +71,12 @@ class GraffitiMenuViewModel : BaseMenuViewModel() {
 
     private fun onSelectColor(action: MenuAction) {
         selectColorAction.value = action
-        StrokeColorChangeAction(getColorFromNoteMenuAction(action)).execute(null)
+        StrokeColorChangeAction(editBundle, getColorFromNoteMenuAction(action)).execute(null)
     }
 
     private fun onSelectShape(action: MenuAction) {
         selectShapeAction.value = action
-        ShapeChangeAction(getShapeTypeFromNoteMenuAction(action)).execute(null)
+        ShapeChangeAction(editBundle, getShapeTypeFromNoteMenuAction(action)).execute(null)
     }
 
     private fun onStrokeWidthAdd() = currStrokeWidth.run { value = value?.plus(stepStrokeWidth)?.coerceAtMost(maxStrokeWidth) }

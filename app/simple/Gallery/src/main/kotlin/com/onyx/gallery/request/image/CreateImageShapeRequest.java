@@ -11,6 +11,7 @@ import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.android.sdk.scribble.shape.Shape;
 import com.onyx.android.sdk.scribble.utils.ShapeUtils;
 import com.onyx.android.sdk.utils.BitmapUtils;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.ExpandShapeFactory;
@@ -30,6 +31,10 @@ public class CreateImageShapeRequest extends BaseRequest {
     private String imageFilePath;
     private Shape imageShape;
     private Rect scribbleRect;
+
+    public CreateImageShapeRequest(@NotNull EditBundle editBundle) {
+        super(editBundle);
+    }
 
     public CreateImageShapeRequest setImageFilePath(String imageFilePath) {
         this.imageFilePath = imageFilePath;
@@ -56,9 +61,10 @@ public class CreateImageShapeRequest extends BaseRequest {
         drawHandler.addShape(imageShape);
         Rect rect = new Rect((int) dx, (int) dy, ((int) dx + imageSize.width), ((int) dy + imageSize.height));
         drawHandler.setOrgLimitRect(rect);
-        getGlobalEditBundle().setInitDx(dx);
-        getGlobalEditBundle().setInitDy(dy);
-        getGlobalEditBundle().setInitScaleFactor(scaleFactor);
+        EditBundle editBundle = getEditBundle();
+        editBundle.setInitDx(dx);
+        editBundle.setInitDy(dy);
+        editBundle.setInitScaleFactor(scaleFactor);
         drawHandler.updateLimitRect(true);
         setRenderToScreen(true);
     }
@@ -71,7 +77,7 @@ public class CreateImageShapeRequest extends BaseRequest {
     }
 
     private float calculatesSaleFactor(Size imageSize) {
-        return getGlobalEditBundle().scaleToContainer(imageSize);
+        return getEditBundle().scaleToContainer(imageSize);
     }
 
     private Shape createImageShape(TouchPoint downPoint, RenderContext renderContext, Size imageSize) {

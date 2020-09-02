@@ -3,6 +3,7 @@ package com.onyx.gallery.action.shape;
 import androidx.annotation.NonNull;
 
 import com.onyx.android.sdk.rx.RxCallback;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseEditAction;
 import com.onyx.gallery.request.shape.StrokeColorChangeRequest;
 
@@ -17,15 +18,17 @@ public class StrokeColorChangeAction extends BaseEditAction {
 
     private int color;
 
-    public StrokeColorChangeAction(int color) {
+    public StrokeColorChangeAction(EditBundle editBundle, int color) {
+        super(editBundle);
         this.color = color;
     }
 
     @Override
     public void execute(final RxCallback rxCallback) {
-        final StrokeColorChangeRequest request = new StrokeColorChangeRequest()
+        EditBundle editBundle = getEditBundle();
+        final StrokeColorChangeRequest request = new StrokeColorChangeRequest(editBundle)
                 .setColor(color);
-        getGlobalEditBundle().enqueue(request, new RxCallback<StrokeColorChangeRequest>() {
+        editBundle.enqueue(request, new RxCallback<StrokeColorChangeRequest>() {
             @Override
             public void onNext(@NonNull StrokeColorChangeRequest strokeColorChangeRequest) {
                 RxCallback.onNext(rxCallback, request);

@@ -2,6 +2,7 @@ package com.onyx.gallery.touch;
 
 import android.view.MotionEvent;
 
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.event.touch.TouchDownEvent;
 import com.onyx.gallery.event.touch.TouchMoveEvent;
 import com.onyx.gallery.event.touch.TouchUpEvent;
@@ -15,6 +16,10 @@ import com.onyx.gallery.event.touch.TouchUpEvent;
  * </pre>
  */
 public class ScribbleTouchDetector extends BaseTouchDetector {
+
+    public ScribbleTouchDetector(EditBundle editBundle) {
+        super(editBundle);
+    }
 
     public boolean onTouchEvent(MotionEvent event) {
         if (isMultiTouch(event)) {

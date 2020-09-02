@@ -14,7 +14,7 @@ import com.onyx.android.sdk.utils.Benchmark
 import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.android.sdk.utils.RectUtils
 import com.onyx.gallery.BuildConfig
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.utils.MosaicUtils
 import com.onyx.gallery.utils.RendererUtils
@@ -29,7 +29,7 @@ enum class MirrorModel {
     LEFT, TOP, RIGHT, BOTTOM
 }
 
-class RenderHandler(val globalEditBundle: GlobalEditBundle) {
+class RenderHandler(val editBundle: EditBundle) {
     val limitRect = Rect()
     val surfaceRect = Rect()
     private val selectionPath = Path()

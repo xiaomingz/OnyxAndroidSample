@@ -16,6 +16,7 @@ import com.onyx.android.sdk.utils.DimenUtils;
 import com.onyx.android.sdk.utils.RectUtils;
 import com.onyx.android.sdk.utils.ResManager;
 import com.onyx.gallery.R;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.helpers.DrawArgs;
@@ -40,7 +41,8 @@ public class HitTestTextShapeRequest extends BaseRequest {
     private InsertTextConfig insertTextConfig;
     private DrawArgs drawingArgs;
 
-    public HitTestTextShapeRequest(@NonNull DrawHandler drawHandler, TouchPoint touchPoint) {
+    public HitTestTextShapeRequest(@NonNull EditBundle editBundle, @NonNull DrawHandler drawHandler, TouchPoint touchPoint) {
+        super(editBundle);
         this.touchPoint = touchPoint;
         setPauseRawDraw(false);
     }

@@ -6,6 +6,7 @@ import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
 import com.onyx.gallery.action.shape.ShapeChangeAction
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.models.MenuAction
 import com.onyx.gallery.utils.ExpandShapeFactory
 
@@ -13,7 +14,7 @@ import com.onyx.gallery.utils.ExpandShapeFactory
  * Created by Leung on 2020/5/6
  */
 
-open class BaseMenuViewModel : BaseViewModel() {
+open class BaseMenuViewModel(editBundle: EditBundle) : BaseViewModel(editBundle) {
 
     var isSupportBrushPen = MutableLiveData(true)
     var selectShapeAction = MutableLiveData(MenuAction.SCRIBBLE_BRUSH)
@@ -75,7 +76,7 @@ open class BaseMenuViewModel : BaseViewModel() {
 
     open fun updateTouchHandler() {
         selectShapeAction.value?.let {
-            ShapeChangeAction(getShapeTypeFromNoteMenuAction(it)).execute(null)
+            ShapeChangeAction(editBundle, getShapeTypeFromNoteMenuAction(it)).execute(null)
         }
     }
 

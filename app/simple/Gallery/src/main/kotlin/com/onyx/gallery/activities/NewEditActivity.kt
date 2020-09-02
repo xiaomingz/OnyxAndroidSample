@@ -5,13 +5,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.R
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.databinding.ActivityNewEditBinding
 import com.onyx.gallery.event.result.SaveCropTransformResultEvent
 import com.onyx.gallery.event.result.SaveEditPictureResultEvent
@@ -36,17 +34,24 @@ import org.greenrobot.eventbus.ThreadMode
 class NewEditActivity : SimpleActivity() {
     private lateinit var binding: ActivityNewEditBinding
     private lateinit var appBarHandler: AppBarHandler
-    private var globalEditBundle: GlobalEditBundle? = null
+    val editBundle = EditBundle(this)
+
+    companion object {
+        @Volatile
+        var globalEditBundle: EditBundle? = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_edit)
+        globalEditBundle?.release()
+        globalEditBundle = editBundle
         configActionBar()
         showImageEditMenu()
         if (checkAppSideloading()) {
             return
         }
-        globalEditBundle = GlobalEditBundle.instance
-        globalEditBundle?.run {
+        editBundle.run {
             parseIntent(this@NewEditActivity)
             EventBusUtils.ensureRegister(eventBus, this@NewEditActivity)
             replaceLoadFragment(R.id.content_layout, EditContentFragment.instance(uri))
@@ -81,13 +86,12 @@ class NewEditActivity : SimpleActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBusUtils.ensureUnregister(globalEditBundle?.eventBus, this)
-        globalEditBundle = null
+        EventBusUtils.ensureUnregister(editBundle.eventBus, this)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        globalEditBundle?.eventBus?.post(ActivityWindowFocusChangedEvent(hasFocus))
+        editBundle.eventBus.post(ActivityWindowFocusChangedEvent(hasFocus))
     }
 
     private fun configActionBar() {
@@ -108,7 +112,7 @@ class NewEditActivity : SimpleActivity() {
     }
 
     private fun updateMenu() {
-        globalEditBundle?.run {
+        editBundle.run {
             val isShowCropMenu = touchHandlerManager.activateHandler is CropTouchHandler
             showCropMenu(isShowCropMenu)
         }

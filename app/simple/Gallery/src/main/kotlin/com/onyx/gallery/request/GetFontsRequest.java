@@ -4,6 +4,7 @@ import com.onyx.android.sdk.data.FontInfo;
 import com.onyx.android.sdk.utils.DeviceUtils;
 import com.onyx.android.sdk.utils.FileUtils;
 import com.onyx.android.sdk.utils.StringUtils;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 
@@ -33,7 +34,8 @@ public class GetFontsRequest extends BaseRequest {
     private List<FontInfo> customizeFontList;
     private boolean onyxSystemFontExist;
 
-    public GetFontsRequest(String currentFont) {
+    public GetFontsRequest(EditBundle editBundle, String currentFont) {
+        super(editBundle);
         this.currentFont = currentFont;
     }
 

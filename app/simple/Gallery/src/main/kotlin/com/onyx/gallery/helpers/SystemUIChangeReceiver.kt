@@ -2,13 +2,13 @@ package com.onyx.gallery.helpers
 
 import android.content.Intent
 import com.onyx.android.sdk.utils.DeviceReceiver.SystemUIChangeListener
-import com.onyx.gallery.bundle.GlobalEditBundle
 import com.onyx.gallery.event.ui.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Leung 2020/8/11 15:49
  **/
-class SystemUIChangeReceiver : SystemUIChangeListener() {
+class SystemUIChangeReceiver(val eventBus: EventBus) : SystemUIChangeListener() {
 
     override fun onFloatButtonChanged(active: Boolean) {
         postEvent(FloatButtonChangedEvent(active))
@@ -62,7 +62,7 @@ class SystemUIChangeReceiver : SystemUIChangeListener() {
     }
 
     private fun postEvent(event: Any) {
-        GlobalEditBundle.instance.eventBus.post(event)
+        eventBus.post(event)
     }
 
 }

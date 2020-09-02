@@ -5,7 +5,10 @@ import com.onyx.android.sdk.rx.RxCallback;
 import com.onyx.android.sdk.rx.RxUtils;
 import com.onyx.android.sdk.utils.Debug;
 import com.onyx.android.sdk.utils.TestUtils;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseEditAction;
+
+import org.jetbrains.annotations.NotNull;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -22,6 +25,10 @@ public class WaitForUpdateFinishedAction extends BaseEditAction {
     private static final long DEFAULT_WAIT_TIME = 150;
     private Disposable disposable;
     private long minWaitTime = 0;
+
+    public WaitForUpdateFinishedAction(@NotNull EditBundle editBundle) {
+        super(editBundle);
+    }
 
     public WaitForUpdateFinishedAction setMinWaitTime(long minWaitTime) {
         this.minWaitTime = minWaitTime;

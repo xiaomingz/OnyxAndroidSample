@@ -2,12 +2,12 @@ package com.onyx.gallery.handler.touch
 
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 
 /**
  * Created by Leung 2020/8/24 11:12
  **/
-class EraseTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
+class EraseTouchHandler(editBundle: EditBundle) : ErasableTouchHandler(editBundle) {
 
     override fun onBeforeBeginRawDraw(shortcutDrawing: Boolean, point: TouchPoint) {
         eraseHandler.onStartErase(shortcutDrawing, point)

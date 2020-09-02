@@ -2,10 +2,10 @@ package com.onyx.gallery.action;
 
 import com.onyx.android.sdk.data.CloudManager;
 import com.onyx.android.sdk.data.model.account.OnyxAccountModel;
+import com.onyx.android.sdk.rx.RxAction;
 import com.onyx.android.sdk.rx.RxCallback;
 import com.onyx.android.sdk.utils.ResManager;
-import com.onyx.gallery.bundle.GlobalEditBundle;
-import com.onyx.gallery.common.BaseEditAction;
+import com.onyx.gallery.common.BaseAction;
 import com.onyx.gallery.request.ShareToCloudRequest;
 
 /**
@@ -15,7 +15,7 @@ import com.onyx.gallery.request.ShareToCloudRequest;
  *     desc   :
  * </pre>
  */
-public class ShareToCloudAction extends BaseEditAction<ShareToCloudRequest> {
+public class ShareToCloudAction extends RxAction<ShareToCloudRequest> {
 
     private String filePath;
     private OnyxAccountModel accountModel;

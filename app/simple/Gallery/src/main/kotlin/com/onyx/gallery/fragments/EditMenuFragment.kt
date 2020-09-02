@@ -11,6 +11,7 @@ import com.onyx.gallery.event.ui.InitMenuEvent
 import com.onyx.gallery.event.ui.OpenCropEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.request.RestoreTransformRequest
+import com.onyx.gallery.viewmodel.BaseViewModel
 import com.onyx.gallery.viewmodel.EditMenuViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -31,7 +32,7 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuBinding, rootView: View): EditMenuViewModel {
-        val editMenuViewModel = ViewModelProvider(requireActivity()).get(EditMenuViewModel::class.java)
+        val editMenuViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(EditMenuViewModel::class.java)
         binding.viewModel = editMenuViewModel
         binding.lifecycleOwner = this
         editMenuViewModel.currItemMenuStyle.observe(this, this)
@@ -80,37 +81,37 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
             EditMenuViewModel.MenuStyle.MOSAIC -> onMosaicMenuClick()
             EditMenuViewModel.MenuStyle.ERASE -> onEraseMenuClick()
         }
-        globalEditBundle.enqueue(RestoreTransformRequest(), null)
+        editBundle.enqueue(RestoreTransformRequest(editBundle), null)
     }
 
     private fun onGraffitiMenuClick() {
         closeCropMenu()
-        globalEditBundle.supportZoom = true
-        globalEditBundle.canFingerTouch = true
+        editBundle.supportZoom = true
+        editBundle.canFingerTouch = true
     }
 
     private fun onTextMenuClick() {
         closeCropMenu()
-        globalEditBundle.supportZoom = false
-        globalEditBundle.canFingerTouch = false
+        editBundle.supportZoom = false
+        editBundle.canFingerTouch = false
     }
 
     private fun onCropMenuClick() {
         openCropMenu()
-        globalEditBundle.supportZoom = true
-        globalEditBundle.canFingerTouch = true
+        editBundle.supportZoom = true
+        editBundle.canFingerTouch = true
     }
 
     private fun onMosaicMenuClick() {
         closeCropMenu()
-        globalEditBundle.supportZoom = false
-        globalEditBundle.canFingerTouch = false
+        editBundle.supportZoom = false
+        editBundle.canFingerTouch = false
     }
 
     private fun onEraseMenuClick() {
         closeCropMenu()
-        globalEditBundle.supportZoom = false
-        globalEditBundle.canFingerTouch = false
+        editBundle.supportZoom = false
+        editBundle.canFingerTouch = false
     }
 
     private fun openCropMenu() {
