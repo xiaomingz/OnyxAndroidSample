@@ -23,4 +23,5 @@
     <color name="normal_black_alpha">#88000000</color>
     <color name="transparent_88">#88000000</color>
     <color name="press_status_color">#999999</color>
+    <color name="dash_line_color">#999999</color>
 </resources>
