@@ -19,8 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.onyxsdk_kui.R;
 import com.onyx.android.sdk.api.device.epd.EpdController;
+import com.onyx.android.sdk.kui.R;
 import com.onyx.android.sdk.utils.ObjectHolder;
 import com.onyx.android.sdk.utils.ResManager;
 import com.onyx.android.sdk.utils.StringUtils;

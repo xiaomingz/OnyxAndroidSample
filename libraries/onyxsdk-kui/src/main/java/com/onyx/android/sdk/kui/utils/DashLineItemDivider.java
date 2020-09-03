@@ -8,8 +8,8 @@ import android.graphics.PathEffect;
 import android.graphics.Rect;
 import android.view.View;
 
-import com.example.onyxsdk_kui.R;
 import com.onyx.android.sdk.data.GPaginator;
+import com.onyx.android.sdk.kui.R;
 import com.onyx.android.sdk.kui.view.PageRecyclerView;
 import com.onyx.android.sdk.utils.ResManager;
 

@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.onyxsdk_kui.R;
-import com.example.onyxsdk_kui.databinding.DialogTocBinding;
+import com.onyx.android.sdk.kui.R;
 import com.onyx.android.sdk.kui.data.TocEntry;
+import com.onyx.android.sdk.kui.databinding.DialogTocBinding;
 import com.onyx.android.sdk.kui.rxbinding.RxView;
 import com.onyx.android.sdk.kui.utils.DashLineItemDivider;
 import com.onyx.android.sdk.kui.view.PageRecyclerView;
