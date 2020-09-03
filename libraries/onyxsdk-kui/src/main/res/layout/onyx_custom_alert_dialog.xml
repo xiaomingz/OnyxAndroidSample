@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_dialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_bg"
+    android:padding="2dp">
+
+    <include
+        android:id="@+id/dialog_tittleBar"
+        layout="@layout/dialog_tittle_bar" />
+
+    <View
+        android:id="@+id/top_divider_line"
+        style="@style/single_line_X_axis_View"
+        android:layout_height="1dp"
+        android:layout_below="@id/dialog_tittleBar"
+        android:layout_marginLeft="@dimen/global_dialog_line_margin_left_right"
+        android:layout_marginRight="@dimen/global_dialog_line_margin_left_right" />
+
+    <TextView
+        android:id="@+id/alert_msg_text"
+        android:layout_below="@id/top_divider_line"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="@style/OnyxAppCompat.TextAppearance.Light"
+        style="@style/global_dialog_msg_textView"
+        android:ellipsize="middle"/>
+
+    <View
+        android:id="@+id/bottom_divider_line"
+        style="@style/single_line_X_axis_View"
+        android:layout_height="1dp"
+        android:layout_below="@id/alert_msg_text"
+        android:layout_marginLeft="@dimen/global_dialog_line_margin_left_right"
+        android:layout_marginRight="@dimen/global_dialog_line_margin_left_right" />
+
+    <include
+        android:id="@+id/dialog_button_bar"
+        layout="@layout/dialog_button_bar_layout" />
+</RelativeLayout>

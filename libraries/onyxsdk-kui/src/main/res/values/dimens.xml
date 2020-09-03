@@ -337,4 +337,7 @@
     <dimen name="button_widget_preference_padding_top_bottom">8dp</dimen>
     <dimen name="pop_fillet_radius">8dp</dimen>
     <dimen name="dragselect_hotspot_height">56dp</dimen>
+
+    <dimen name="dialog_toc_create_text_margin">10dp</dimen>
+    <dimen name="dialog_toc_content_height">347dp</dimen>
 </resources>
