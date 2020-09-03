@@ -120,8 +120,6 @@ class InsertTextHandler(val editBundle: EditBundle) : TextWatcherAdapter() {
             onSingleTapUp(point)
             updateCursorShapeByTouchPoint(point)
             textShape?.let { renderInputTextShape(it) }
-        } else {
-            hideSoftInput()
         }
     }
 

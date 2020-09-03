@@ -95,8 +95,12 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     override fun onDestroyView() {
         super.onDestroyView()
         ensureQuitFastMode()
-        editBundle.release()
         binding.surfaceView.holder.removeCallback(surfaceCallback)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        editBundle.release()
     }
 
     private fun initSurfaceView() {
