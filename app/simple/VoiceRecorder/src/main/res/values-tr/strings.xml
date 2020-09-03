@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">Ses Kaydedici</string>
+  <string name="app_launcher_name">Kaydedici</string>
+  <string name="recording_saved_successfully">Kayıt \n\"%s\" olarak başarıyla kaydedildi</string>
+  <string name="recording">Kaydediyor</string>
+  <string name="pause_recording">Kaydı duraklat</string>
+  <string name="current_the_first_recording">Bu ilk ses kaydıdır.</string>
+  <string name="current_the_last_recording">Bu son ses kaydıdır. </string>
+  <string name="try_hiding_notification">Kayıt bildirimlerini kapatmayı dene. </string>
+  <string name="audio_recorder">Ses kaydediliyor</string>
+  <string name="content_is_empty">İçerik boş</string>
+</resources>

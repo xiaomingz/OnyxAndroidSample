@@ -9,8 +9,11 @@ import com.onyx.gallery.databinding.FragmentEditMenuBinding
 import com.onyx.gallery.event.ui.CloseCropEvent
 import com.onyx.gallery.event.ui.InitMenuEvent
 import com.onyx.gallery.event.ui.OpenCropEvent
+import com.onyx.gallery.event.ui.UpdateTouchHandlerEvent
 import com.onyx.gallery.extensions.replaceLoadFragment
 import com.onyx.gallery.request.RestoreTransformRequest
+import com.onyx.gallery.viewmodel.BaseMenuViewModel
+import com.onyx.gallery.viewmodel.BaseViewModel
 import com.onyx.gallery.viewmodel.EditMenuViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -20,6 +23,8 @@ import java.util.*
  * Created by Leung on 2020/4/30
  */
 class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel>(), Observer<EditMenuViewModel.MenuStyle> {
+
+    private var activateFragment: BaseFragment<*, *>? = null
 
     override fun useEventBus(): Boolean = true
 
@@ -31,7 +36,7 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuBinding, rootView: View): EditMenuViewModel {
-        val editMenuViewModel = ViewModelProvider(requireActivity()).get(EditMenuViewModel::class.java)
+        val editMenuViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(EditMenuViewModel::class.java)
         binding.viewModel = editMenuViewModel
         binding.lifecycleOwner = this
         editMenuViewModel.currItemMenuStyle.observe(this, this)
@@ -49,6 +54,17 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
         viewModel.initMenu()
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpdateTouchHandlerEvent(event: UpdateTouchHandlerEvent) {
+        val activateFragment = activateFragment
+        if (activateFragment is BaseMenuFragment) {
+            val viewModel = activateFragment.viewModel
+            if (viewModel is BaseMenuViewModel) {
+                viewModel.updateTouchHandler()
+            }
+        }
+    }
+
     override fun onChanged(menuStyle: EditMenuViewModel.MenuStyle?) {
         menuStyle?.apply { updateSubMenuFragment(this) }
     }
@@ -59,6 +75,7 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
             fragment = createSubMenuFragment(menuStyle)
             menuFragmentMap[menuStyle] = fragment
         }
+        activateFragment = fragment
         handlerMenuChange(menuStyle)
         replaceLoadFragment(R.id.item_sub_menu_layout, fragment)
     }
@@ -80,37 +97,37 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
             EditMenuViewModel.MenuStyle.MOSAIC -> onMosaicMenuClick()
             EditMenuViewModel.MenuStyle.ERASE -> onEraseMenuClick()
         }
-        globalEditBundle.enqueue(RestoreTransformRequest(), null)
+        editBundle.enqueue(RestoreTransformRequest(editBundle), null)
     }
 
     private fun onGraffitiMenuClick() {
         closeCropMenu()
-        globalEditBundle.supportZoom = true
-        globalEditBundle.canFingerTouch = true
+        editBundle.supportZoom = true
+        editBundle.canFingerTouch = true
     }
 
     private fun onTextMenuClick() {
         closeCropMenu()
-        globalEditBundle.supportZoom = false
-        globalEditBundle.canFingerTouch = false
+        editBundle.supportZoom = false
+        editBundle.canFingerTouch = false
     }
 
     private fun onCropMenuClick() {
         openCropMenu()
-        globalEditBundle.supportZoom = true
-        globalEditBundle.canFingerTouch = true
+        editBundle.supportZoom = true
+        editBundle.canFingerTouch = true
     }
 
     private fun onMosaicMenuClick() {
         closeCropMenu()
-        globalEditBundle.supportZoom = false
-        globalEditBundle.canFingerTouch = false
+        editBundle.supportZoom = false
+        editBundle.canFingerTouch = false
     }
 
     private fun onEraseMenuClick() {
         closeCropMenu()
-        globalEditBundle.supportZoom = false
-        globalEditBundle.canFingerTouch = false
+        editBundle.supportZoom = false
+        editBundle.canFingerTouch = false
     }
 
     private fun openCropMenu() {

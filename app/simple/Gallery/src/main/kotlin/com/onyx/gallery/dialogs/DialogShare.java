@@ -16,7 +16,7 @@ import com.onyx.android.sdk.utils.NetworkUtil;
 import com.onyx.android.sdk.utils.ResManager;
 import com.onyx.gallery.R;
 import com.onyx.gallery.action.ShareToCloudAction;
-import com.onyx.gallery.bundle.GlobalEditBundle;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseNoteDialog;
 import com.onyx.gallery.databinding.DialogShareBinding;
 import com.onyx.gallery.request.MakeQRCodeRequest;
@@ -141,7 +141,7 @@ public class DialogShare extends BaseNoteDialog implements OnStatusChildClickLis
                 .setUrl(shareUrl)
                 .setWidth(qrSize)
                 .setHeight(qrSize);
-        GlobalEditBundle.Companion.getInstance().enqueue(request, new RxCallback<MakeQRCodeRequest>() {
+        EditBundle.Companion.newSingleThreadManager().enqueue(request, new RxCallback<MakeQRCodeRequest>() {
             @Override
             public void onNext(@NonNull MakeQRCodeRequest makeQRCodeRequest) {
                 binding.qrView.setImageBitmap(makeQRCodeRequest.getBitmap());
@@ -185,10 +185,6 @@ public class DialogShare extends BaseNoteDialog implements OnStatusChildClickLis
         viewModel.setFileTitle(ResManager.getString(R.string.file_name_des) + file.getName());
         viewModel.setFileSize(ResManager.getString(R.string.file_size_des) + size);
         viewModel.setFileTime(ResManager.getString(R.string.file_expired_time_des) + time);
-    }
-
-    private GlobalEditBundle getGlobalEditBundle() {
-        return GlobalEditBundle.Companion.getInstance();
     }
 
     @Override

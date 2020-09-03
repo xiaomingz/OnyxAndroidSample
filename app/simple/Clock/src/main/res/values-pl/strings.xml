@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Prosty Zegar</string>
-    <string name="app_launcher_name">Zegar</string>
-    <string name="time_zone">Strefa czasowa</string>
-    <string name="vibrate">Wibracje</string>
-    <string name="label">Etykieta</string>
-    <string name="no_days_selected">Nie wybrano dni</string>
-    <string name="timer">Minutnik</string>
-    <string name="stopwatch_stopped">Stoper został zatrzymany</string>
-    <string name="max_reminder_duration">Maksymalny okres przypominania</string>
-    <string name="time_expired">Koniec czasu</string>
-    <string name="clock_and_date">Czas i data</string>
-    <string name="use_text_shadow">Wycieniuj tekst</string>
-    <string name="swipe_right_to_dismiss">Przeciągnij w prawo, aby wyłączyć, lub w lewo, aby włączyć drzemkę.</string>
-
-    <!-- Settings -->
-    <string name="clock_tab">Zegar</string>
-    <string name="alarm_tab">Alarm</string>
-    <string name="stopwatch_tab">Stoper</string>
-    <string name="timer_tab">Minutnik</string>
-    <string name="show_seconds">Pokazuj sekundy</string>
-    <string name="increase_volume_gradually">Zwiększaj głośność stopniowo</string>
+  <string name="app_name">Prosty Zegar</string>
+  <string name="app_launcher_name">Zegar</string>
+  <string name="time_zone">Strefa czasowa</string>
+  <string name="vibrate">Wibracje</string>
+  <string name="label">Etykieta</string>
+  <string name="no_days_selected">Nie wybrano dni</string>
+  <string name="timer">Minutnik</string>
+  <string name="stopwatch_stopped">Stoper został zatrzymany</string>
+  <string name="max_reminder_duration">Maksymalny okres przypominania</string>
+  <string name="time_expired">Koniec czasu</string>
+  <string name="clock_and_date">Czas i data</string>
+  <string name="use_text_shadow">Wycieniuj tekst</string>
+  <string name="swipe_right_to_dismiss">Przeciągnij w prawo, aby wyłączyć, lub w lewo, aby włączyć drzemkę.</string>
+  <!-- Settings -->
+  <string name="clock_tab">Zegar</string>
+  <string name="alarm_tab">Alarm</string>
+  <string name="stopwatch_tab">Stoper</string>
+  <string name="timer_tab">Minutnik</string>
+  <string name="show_seconds">Pokazuj sekundy</string>
+  <string name="increase_volume_gradually">Zwiększaj głośność stopniowo</string>
+  <string name="clock">Zegar</string>
+  <string name="stopwatch">Stoper</string>
+  <string name="select_time_zone">Wybierz strefę czasową</string>
 </resources>

@@ -4,14 +4,14 @@ import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.rx.ObservableHolder
 import com.onyx.android.sdk.rx.SingleThreadScheduler
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import io.reactivex.functions.Consumer
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by Leung 2020/7/14 12:01
  **/
-open class ErasableTouchHandler(globalEditBundle: GlobalEditBundle) : BackPressureTouchHandler(globalEditBundle) {
+open class ErasableTouchHandler(editBundle: EditBundle) : BackPressureTouchHandler(editBundle) {
 
     companion object {
         const val ERASER_BUFFER = 100L

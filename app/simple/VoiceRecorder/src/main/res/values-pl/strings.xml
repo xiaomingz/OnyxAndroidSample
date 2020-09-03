@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">Dyktafon</string>
+  <string name="app_launcher_name">rejestrator</string>
+  <string name="recording_saved_successfully">Nagrywanie zostało pomyślnie zapisane jako \n\"%s\"</string>
+  <string name="recording">Nagranie</string>
+  <string name="pause_recording">Wstrzymaj nagrywanie</string>
+  <string name="current_the_first_recording">To jest pierwsze nagranie głosowe.</string>
+  <string name="current_the_last_recording">To jest ostatnie nagranie głosowe.</string>
+  <string name="try_hiding_notification">Spróbuj zamknąć powiadomienie o nagraniu</string>
+  <string name="audio_recorder">Nagrywanie głosu</string>
+  <string name="content_is_empty">Treść jest pusta</string>
+</resources>

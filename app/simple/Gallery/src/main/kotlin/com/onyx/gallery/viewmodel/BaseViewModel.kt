@@ -1,8 +1,9 @@
 package com.onyx.gallery.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.onyx.android.sdk.utils.EventBusUtils
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.touch.TouchChangeEvent
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -10,13 +11,12 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Created by Leung on 2020/5/6
  */
-abstract class BaseViewModel : ViewModel() {
-    protected val globalEditBundle = GlobalEditBundle.instance
-    protected val noteManage = globalEditBundle.drawHandler
+abstract class BaseViewModel(val editBundle: EditBundle) : ViewModel() {
+    protected val drawHandler = editBundle.drawHandler
     private var isTouching = false
 
     init {
-        EventBusUtils.ensureRegister(globalEditBundle.eventBus, this)
+        EventBusUtils.ensureRegister(editBundle.eventBus, this)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -27,7 +27,7 @@ abstract class BaseViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        EventBusUtils.ensureUnregister(globalEditBundle.eventBus, this)
+        EventBusUtils.ensureUnregister(editBundle.eventBus, this)
     }
 
     open fun onTouchChange(isTouching: Boolean) {
@@ -35,8 +35,15 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun postEvent(event: Any) {
-        globalEditBundle.eventBus.post(event)
+        editBundle.eventBus.post(event)
     }
 
-    fun isTouching(): Boolean = globalEditBundle.touchHandlerManager.isTouching() || isTouching
+    fun isTouching(): Boolean = editBundle.touchHandlerManager.isTouching() || isTouching
+
+    class ViewModeFactory(protected val editBundle: EditBundle) : ViewModelProvider.Factory {
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return modelClass.getConstructor(EditBundle::class.java).newInstance(editBundle)
+        }
+    }
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">Geluidsrecorder</string>
+  <string name="app_launcher_name">Recorder</string>
+  <string name="recording_saved_successfully">Opname succesvol opgeslagen als \n\"%s\"</string>
+  <string name="recording">Opnemen</string>
+  <string name="pause_recording">Opnemen pauzeren</string>
+  <string name="current_the_first_recording">Dit is de eerste geluidsopname</string>
+  <string name="current_the_last_recording">Dit is de laatste geluidsopname</string>
+  <string name="try_hiding_notification">Probeer de opnamemelding te sluiten</string>
+  <string name="audio_recorder">Stem opname</string>
+  <string name="content_is_empty">De inhoud is leeg</string>
+</resources>

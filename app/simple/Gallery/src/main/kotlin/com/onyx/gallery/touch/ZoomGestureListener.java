@@ -11,7 +11,7 @@ import com.onyx.android.sdk.utils.ResManager;
 import com.onyx.gallery.R;
 import com.onyx.gallery.action.zoom.ZoomBeginAction;
 import com.onyx.gallery.action.zoom.ZoomFinishAction;
-import com.onyx.gallery.bundle.GlobalEditBundle;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.helpers.ConstantsKt;
 import com.onyx.gallery.request.zoom.ZoomingRequest;
@@ -29,6 +29,7 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
 
     private static final float SCALE_FACTOR_INTERVAL_THRESHOLD = 0.03f;
     private static final int SCALE_INTERVAL_TIME_MS = 50;
+    private final EditBundle editBundle;
 
     private float preScale = NumberUtils.FLOAT_ONE;
     private float curScale = NumberUtils.FLOAT_ONE;
@@ -37,6 +38,10 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
     private long lastToastTime = System.currentTimeMillis();
     private long lastScaleTime = System.currentTimeMillis();
     private TouchPoint touchPoint = new TouchPoint();
+
+    public ZoomGestureListener(EditBundle editBundle) {
+        this.editBundle = editBundle;
+    }
 
     @Override
     public boolean onScale(ScaleGestureDetector detector) {
@@ -59,7 +64,7 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
         touchPoint.x = detector.getFocusX();
         touchPoint.y = detector.getFocusY();
         reset();
-        new ZoomBeginAction().execute(new RxCallback() {
+        new ZoomBeginAction(editBundle).execute(new RxCallback() {
             @Override
             public void onNext(@NonNull Object o) {
             }
@@ -110,7 +115,7 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
             curScale = scale;
         }
         preScale = curScale;
-        ZoomingRequest request = new ZoomingRequest(curScale, touchPoint);
+        ZoomingRequest request = new ZoomingRequest(editBundle, curScale, touchPoint);
         getGlobalEditBundle().enqueue(request, null);
     }
 
@@ -119,7 +124,7 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
         if (!supportZoom()) {
             return;
         }
-        new ZoomFinishAction(curScale, new TouchPoint(touchPoint)).execute(null);
+        new ZoomFinishAction(editBundle, curScale, new TouchPoint(touchPoint)).execute(null);
     }
 
     private boolean supportZoom() {
@@ -130,8 +135,8 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
         return getGlobalEditBundle().getDrawHandler();
     }
 
-    private GlobalEditBundle getGlobalEditBundle() {
-        return GlobalEditBundle.Companion.getInstance();
+    private EditBundle getGlobalEditBundle() {
+        return editBundle;
     }
 
 }

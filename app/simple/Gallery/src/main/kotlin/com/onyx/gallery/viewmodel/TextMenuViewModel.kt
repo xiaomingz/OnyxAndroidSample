@@ -8,6 +8,7 @@ import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.utils.ResManager
 import com.onyx.gallery.R
 import com.onyx.gallery.action.shape.ShapeChangeAction
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.ui.ShowFontSelectMenuEvent
 import com.onyx.gallery.handler.InsertTextHandler
 import com.onyx.gallery.models.MenuAction
@@ -17,7 +18,7 @@ import com.onyx.gallery.request.GetFontsRequest
 /**
  * Created by Leung on 2020/6/5
  */
-class TextMenuViewModel : BaseMenuViewModel() {
+class TextMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) {
 
     var showSubMenu = MutableLiveData(false)
 
@@ -34,7 +35,7 @@ class TextMenuViewModel : BaseMenuViewModel() {
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
 
     init {
-        globalEditBundle.enqueue(GetFontsRequest(""), object : RxCallback<GetFontsRequest>() {
+        editBundle.enqueue(GetFontsRequest(editBundle, ""), object : RxCallback<GetFontsRequest>() {
             override fun onNext(getFontsRequest: GetFontsRequest) {
                 getFontsRequest.detDefaultFont?.run {
                     currFont.value = name
@@ -49,7 +50,7 @@ class TextMenuViewModel : BaseMenuViewModel() {
     }
 
     override fun updateTouchHandler() {
-        ShapeChangeAction(ShapeFactory.SHAPE_EDIT_TEXT_SHAPE).execute(null)
+        ShapeChangeAction(editBundle, ShapeFactory.SHAPE_EDIT_TEXT_SHAPE).execute(null)
     }
 
     private fun initOnSeekBarChangeListener(): SeekBar.OnSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
@@ -126,7 +127,7 @@ class TextMenuViewModel : BaseMenuViewModel() {
         }
     }
 
-    private fun getInsertTextHandler(): InsertTextHandler = globalEditBundle.insertTextHandler
+    private fun getInsertTextHandler(): InsertTextHandler = editBundle.insertTextHandler
 
     fun showContent() {
         showSubMenu.value = false

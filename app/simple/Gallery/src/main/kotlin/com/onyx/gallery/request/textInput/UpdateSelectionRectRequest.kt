@@ -5,13 +5,14 @@ import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.EditTextShape
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.RectUtils
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 
 /**
  * Created by Leung on 2020/6/18
  */
-class UpdateSelectionRectRequest(private val textShape: EditTextShape) : BaseRequest() {
+class UpdateSelectionRectRequest(editBundle: EditBundle, private val textShape: EditTextShape) : BaseRequest(editBundle) {
 
     override fun execute(drawHandler: DrawHandler) {
         textShape.applyTransformMatrix()

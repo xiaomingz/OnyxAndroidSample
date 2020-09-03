@@ -6,7 +6,7 @@ import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.scribble.shape.EditTextShape
 import com.onyx.gallery.action.StartTransformAction
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.raw.SelectionBundleEvent
 import com.onyx.gallery.handler.InsertTextHandler
 import com.onyx.gallery.request.textInput.HitTestTextShapeRequest
@@ -16,8 +16,8 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Created by Leung on 2020/6/8
  */
-class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouchHandler(globalEditBundle) {
-    private val insertTextHandler: InsertTextHandler by lazy { globalEditBundle.insertTextHandler }
+class InsertTextTouchHandler(editBundle: EditBundle) : ErasableTouchHandler(editBundle) {
+    private val insertTextHandler: InsertTextHandler by lazy { editBundle.insertTextHandler }
 
     override fun onActivate() {
         super.onActivate()
@@ -35,7 +35,7 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouch
     }
 
     private fun showInitInputEdit() {
-        val limitRect = globalEditBundle.drawHandler.currLimitRect
+        val limitRect = editBundle.drawHandler.currLimitRect
         val point = TouchPoint(limitRect.centerX().toFloat(), limitRect.centerY().toFloat())
         hitTestTextShape(point)
     }
@@ -60,10 +60,10 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouch
     }
 
     private fun hitTestTextShape(point: TouchPoint) {
-        val request = HitTestTextShapeRequest(drawHandler, point)
+        val request = HitTestTextShapeRequest(editBundle,drawHandler, point)
                 .setInsertTextConfig(insertTextHandler.insertTextConfig)
                 .setDrawingArgs(drawHandler.drawingArgs)
-        globalEditBundle.enqueue(request, object : RxCallback<HitTestTextShapeRequest?>() {
+        editBundle.enqueue(request, object : RxCallback<HitTestTextShapeRequest?>() {
             override fun onNext(@NonNull hitTestTextShapeRequest: HitTestTextShapeRequest) {
                 startTransformAction(hitTestTextShapeRequest.hitTextShape as EditTextShape)
             }
@@ -72,7 +72,7 @@ class InsertTextTouchHandler(globalEditBundle: GlobalEditBundle) : ErasableTouch
 
     private fun startTransformAction(textShape: EditTextShape) {
         insertTextHandler.textShape = textShape as EditTextShape
-        StartTransformAction(mutableListOf(textShape)).execute(null)
+        StartTransformAction(editBundle,mutableListOf(textShape)).execute(null)
     }
 
     override fun onFloatButtonChanged(active: Boolean) {

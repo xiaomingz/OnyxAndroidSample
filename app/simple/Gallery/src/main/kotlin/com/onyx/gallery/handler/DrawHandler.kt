@@ -13,7 +13,7 @@ import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.android.sdk.utils.CollectionUtils
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.raw.SelectionBundleEvent
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
@@ -26,18 +26,21 @@ import org.greenrobot.eventbus.EventBus
 /**
  * Created by Leung on 2020/6/5
  */
-class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, val eventBus: EventBus) {
+class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus: EventBus) {
+    var isSurfaceCreated = false
     var orgLimitRect = Rect()
     val currLimitRect = Rect()
     val surfaceRect = Rect()
     val drawingArgs = DrawArgs()
     private var imageBitmap: Bitmap? = null
-    private val undoRedoHander = globalEditBundle.undoRedoHandler
-    private var readerHandler = RenderHandler(globalEditBundle)
+    private val undoRedoHander = editBundle.undoRedoHandler
+    var readerHandler = RenderHandler(editBundle)
     val renderContext = readerHandler.renderContext
 
     private lateinit var surfaceView: SurfaceView
     private var rawInputCallback = RawInputCallbackImp(eventBus)
+
+    @Volatile
     var touchHelper: TouchHelper? = null
 
     fun attachHostView(hostView: SurfaceView) {
@@ -63,6 +66,10 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
 
     private fun checkSizeIsZero(surfaceView: SurfaceView) {
         check(!(surfaceView.width == 0 && surfaceView.height == 0)) { "can not start when view width and height is 0" }
+    }
+
+    private fun checkSurfaceReady(): Boolean {
+        return isSurfaceCreated
     }
 
     private fun initDrawArgs() {
@@ -100,38 +107,62 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     }
 
     fun rotateScreen(angle: Float, centerPoint: PointF) {
+        if (!checkSurfaceReady()) {
+            return
+        }
         readerHandler.renderContext.matrix.run {
             postRotate(angle, centerPoint.x, centerPoint.y)
         }
     }
 
     fun renderMirror(mirrorModel: MirrorModel) {
+        if (!checkSurfaceReady()) {
+            return
+        }
         readerHandler.renderMirror(surfaceView, currLimitRect, mirrorModel)
     }
 
     fun renderToBitmap(shape: Shape) {
+        if (!checkSurfaceReady()) {
+            return
+        }
         val shapes = mutableListOf(shape)
         renderToBitmap(shapes)
     }
 
     fun renderToBitmap(shapes: List<Shape>) {
+        if (!checkSurfaceReady()) {
+            return
+        }
         readerHandler.renderToBitmap(shapes)
     }
 
     fun renderToScreen() {
+        if (!checkSurfaceReady()) {
+            return
+        }
         readerHandler.renderToSurfaceView(surfaceView)
     }
 
     fun partialRefreshScreen() {
+        if (!checkSurfaceReady()) {
+            return
+        }
         readerHandler.partialRefreshSurfaceView(surfaceView)
     }
 
     fun renderShapesToBitmap() {
+        if (!checkSurfaceReady()) {
+            return
+        }
         val shapes = getAllShapes()
         readerHandler.refreshBitmap(shapes)
     }
 
     fun renderVarietyShapesToScreen(shape: List<Shape>) {
+        if (!isSurfaceCreated) {
+            return
+        }
         readerHandler.renderVarietyShapesToSurfaceView(surfaceView, shape)
     }
 
@@ -190,6 +221,10 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
 
     fun setRawInputReaderEnable(enable: Boolean) {
         touchHelper?.setRawInputReaderEnable(enable)
+    }
+
+    fun setStrokeStyle(strokeStyle: Int) {
+        touchHelper?.setStrokeStyle(strokeStyle)
     }
 
     fun setStrokeColor(color: Int) {
@@ -278,14 +313,14 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
 
     fun makeCropSnapshot(path: String, imageShape: ImageShapeExpand) {
         val cropSnapshot = CropSnapshot(
-                globalEditBundle.initDx,
-                globalEditBundle.initDy,
-                globalEditBundle.initScaleFactor,
+                editBundle.initDx,
+                editBundle.initDy,
+                editBundle.initScaleFactor,
                 path,
                 Rect(orgLimitRect),
                 Rect(currLimitRect),
-                RectF(globalEditBundle.cropHandler.cropBoxRect),
-                globalEditBundle.cropHandler.currAngle,
+                RectF(editBundle.cropHandler.cropBoxRect),
+                editBundle.cropHandler.currAngle,
                 imageShape,
                 imageBitmap!!
         )
@@ -295,7 +330,7 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     fun saveHandwritingDataToCropSnapshot() {
         val cropSnapshot = undoRedoHander.getCurrCropSnapshot()
         val handwritingShape = getHandwritingShape()
-        val matrix = globalEditBundle.getNormalizedMatrix()
+        val matrix = editBundle.getNormalizedMatrix()
         val scaleFactor = matrix.values()[Matrix.MSCALE_X]
         handwritingShape.forEach { shape ->
             shape.strokeWidth /= scaleFactor
@@ -306,16 +341,16 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
     fun restoreCropSnapshot(cropSnapshot: CropSnapshot) {
         clearHandwritingData()
         cropSnapshot.run {
-            globalEditBundle.imagePath = imagePath
-            globalEditBundle.initDx = initDx
-            globalEditBundle.initDy = initDy
-            globalEditBundle.initScaleFactor = initScaleFactor
+            editBundle.imagePath = imagePath
+            editBundle.initDx = initDx
+            editBundle.initDy = initDy
+            editBundle.initScaleFactor = initScaleFactor
             updateImageShape(imageShape)
             updateLimitRect(orgLimitRect)
-            globalEditBundle.cropHandler.currAngle = rotateAngle
+            editBundle.cropHandler.currAngle = rotateAngle
             this@DrawHandler.imageBitmap = imageBitmap
             val restoreMosaicBitmap = readerHandler.restoreMosaicBitmap(imageShape)
-            val matrix = globalEditBundle.getInitMatrix()
+            val matrix = editBundle.getInitMatrix()
             val matrixValues = matrix.values()
             handwritingShape.forEach { shape ->
                 shape.matrix.setScale(matrixValues[Matrix.MSCALE_X], matrixValues[Matrix.MSCALE_Y])
@@ -353,8 +388,8 @@ class DrawHandler(val context: Context, val globalEditBundle: GlobalEditBundle, 
         clearSelectionRect()
         undoRedoHander.clearShapes()
         undoRedoHander.cleardCropSnapshot()
-        globalEditBundle.cropHandler.resetCropState()
-        globalEditBundle.insertTextHandler.clearTextShape()
+        editBundle.cropHandler.resetCropState()
+        editBundle.insertTextHandler.clearTextShape()
     }
 
     fun getSurfaceSize(): Size {

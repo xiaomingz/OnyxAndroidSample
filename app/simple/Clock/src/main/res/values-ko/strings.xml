@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="timer">타이머</string>
+  <string name="no_days_selected">선택된 날짜가 없습니다</string>
+  <string name="time_zone">타임 존</string>
+  <string name="stopwatch">스톱 워치</string>
+  <string name="show_seconds">초 보이기</string>
+  <string name="alarm_tab">알람</string>
+  <string name="timer_tab">타이머</string>
+  <string name="select_time_zone">타임 존 선택</string>
+  <string name="increase_volume_gradually">점점 볼륨 높이기</string>
+  <string name="stopwatch_stopped">스톱 워치가 멈췄습니다</string>
+  <string name="label">Tag</string>
+  <string name="stopwatch_tab">Stopwatch page</string>
+  <string name="app_name">시계</string>
+  <string name="app_launcher_name">시계</string>
+  <string name="clock">시계</string>
+  <string name="vibrate">Vibrate</string>
+  <string name="use_text_shadow">Use text-shadow</string>
+  <string name="clock_tab">시계</string>
+  <string name="swipe_right_to_dismiss">오른쪽 스와이프로 해제, 또는 왼쪽 스와이프로 스누즈</string>
+  <string name="max_reminder_duration">최대 다시알림 시간</string>
+  <string name="time_expired">시간 종료</string>
+  <string name="clock_and_date">시각과 날짜</string>
+</resources>

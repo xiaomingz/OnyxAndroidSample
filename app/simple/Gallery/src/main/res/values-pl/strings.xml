@@ -1,80 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Prosta Galeria</string>
-    <string name="app_launcher_name">Galeria</string>
-    <string name="edit">Edytuj</string>
-    <string name="hidden">(ukryty)</string>
-    <string name="unpin_folder">Odepnij folder</string>
-    <string name="pin_to_the_top">Przypnij na górze</string>
-    <string name="all_folders">Wszystkie foldery</string>
-    <string name="other_folder">Inny folder</string>
-    <string name="unknown_location">Nieznana lokalizacja</string>
-    <string name="change_cover_image">Zmień okładkę</string>
-    <string name="select_photo">Wybierz obraz</string>
-    <string name="volume">Głośność</string>
-    <string name="brightness">Jasność</string>
-    <string name="fix_date_taken">Napraw datę utworzenia</string>
-    <string name="fixing">Naprawiam…</string>
-    <string name="dates_fixed_successfully">Daty zostały naprawione</string>
-    <string name="no_date_takens_found">Nie znaleziono wartości dat utworzenia</string>
-    <string name="switch_to_file_search">Przełącz na przeszukiwanie plików we wszystkich widocznych folderach</string>
-
-    <!-- Filter -->
-    <string name="filter_media">Filtruj multimedia</string>
-    <string name="images">Obrazy</string>
-    <string name="videos">Filmy</string>
-    <string name="gifs">GIFy</string>
-    <string name="raw_images">Obrazy RAW</string>
-    <string name="svgs">Obrazy SVG</string>
-    <string name="portraits">Portrety</string>
-    <string name="no_media_with_filters">Nie znaleziono multimediów zgodnych z zastosowanymi filtrami.</string>
-    <string name="change_filters_underlined"><u>Zmień filtry</u></string>
-
-    <!-- Hide / Exclude -->
-    <string name="hide_folder_description">Ta funkcja ukrywa foldery, dodając do nich pusty plik \'.nomedia\'. Aby móc je zobaczyć, należy włączyć opcję \'Pokazuj ukryte foldery\' w ustawieniach. Kontynuować?</string>
-    <string name="exclude">Wyklucz</string>
-    <string name="excluded_folders">Wykluczone foldery</string>
-    <string name="exclude_folder_description">Działa na folderach galerii. Możesz zarządzać wykluczonymi folderami w ustawieniach aplikacji.</string>
-    <string name="exclude_folder_parent">Wykluczyć folder nadrzędny?</string>
-    <string name="hidden_folders">Ukryte foldery</string>
-
-    <!-- Include folders -->
-    <string name="include_folders">Dołączone foldery</string>
-    <string name="add_folder">Dodaj folder</string>
-    <string name="no_media_add_included">Nie znaleziono plików z multimediami. Możesz to naprawić poprzez dodanie folderów ręcznie.</string>
-
-    <!-- Resizing -->
-    <string name="width">Szerokość</string>
-    <string name="height">Wysokość</string>
-
-    <!-- Editor -->
-    <string name="editor">Edycja</string>
-    <string name="rotate">Obróć</string>
-    <string name="invalid_image_path">Nieprawidłowa ścieżka</string>
-    <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
-
-    <!-- Set wallpaper -->
-    <string name="simple_wallpaper">Tapeta</string>
-    <string name="setting_wallpaper">Ustawiam tapetę&#8230;</string>
-    <string name="wallpaper_set_successfully">Tapeta została ustawiona</string>
-
-    <!-- Slideshow -->
-    <string name="slideshow_ended">Pokaz slajdów zakończony</string>
-
-    <!-- View types -->
-    <string name="change_view_type">Zmień typ widoku</string>
-    <string name="grid">Siatka</string>
-    <string name="list">Lista</string>
-    <string name="group_direct_subfolders">Grupuj bezpośrednie podfoldery</string>
-
-    <!-- Grouping at media thumbnails -->
-
-    <!-- Widgets -->
-
-    <!-- Settings -->
-
-    <!-- Setting sections -->
-
-    <!-- Bottom actions -->
+  <string name="app_name">Prosta Galeria</string>
+  <string name="app_launcher_name">Galeria</string>
+  <string name="edit">Edytuj</string>
+  <string name="hidden">(ukryty)</string>
+  <string name="unpin_folder">Odepnij folder</string>
+  <string name="pin_to_the_top">Przypnij na górze</string>
+  <string name="all_folders">Wszystkie foldery</string>
+  <string name="other_folder">Inny folder</string>
+  <string name="unknown_location">Nieznana lokalizacja</string>
+  <string name="change_cover_image">Zmień okładkę</string>
+  <string name="select_photo">Wybierz obraz</string>
+  <string name="volume">Głośność</string>
+  <string name="brightness">Jasność</string>
+  <string name="fix_date_taken">Napraw datę utworzenia</string>
+  <string name="fixing">Naprawiam…</string>
+  <string name="dates_fixed_successfully">Daty zostały naprawione</string>
+  <string name="no_date_takens_found">Nie znaleziono wartości dat utworzenia</string>
+  <string name="switch_to_file_search">Przełącz na przeszukiwanie plików we wszystkich widocznych folderach</string>
+  <!-- Filter -->
+  <string name="filter_media">Filtruj multimedia</string>
+  <string name="images">Obrazy</string>
+  <string name="videos">Filmy</string>
+  <string name="gifs">GIFy</string>
+  <string name="raw_images">Obrazy RAW</string>
+  <string name="svgs">Obrazy SVG</string>
+  <string name="portraits">Portrety</string>
+  <string name="no_media_with_filters">Nie znaleziono multimediów zgodnych z zastosowanymi filtrami.</string>
+  <string name="change_filters_underlined"><u>Zmień filtry</u></string>
+  <!-- Hide / Exclude -->
+  <string name="hide_folder_description">Ta funkcja ukrywa foldery, dodając do nich pusty plik \'.nomedia\'. Aby móc je zobaczyć, należy włączyć opcję \'Pokazuj ukryte foldery\' w ustawieniach. Kontynuować?</string>
+  <string name="exclude">Wyklucz</string>
+  <string name="excluded_folders">Wykluczone foldery</string>
+  <string name="exclude_folder_description">Działa na folderach galerii. Możesz zarządzać wykluczonymi folderami w ustawieniach aplikacji.</string>
+  <string name="exclude_folder_parent">Wykluczyć folder nadrzędny?</string>
+  <string name="hidden_folders">Ukryte foldery</string>
+  <!-- Include folders -->
+  <string name="include_folders">Dołączone foldery</string>
+  <string name="add_folder">Dodaj folder</string>
+  <string name="no_media_add_included">Nie znaleziono plików z multimediami. Możesz to naprawić poprzez dodanie folderów ręcznie.</string>
+  <!-- Resizing -->
+  <string name="width">Szerokość</string>
+  <string name="height">Wysokość</string>
+  <!-- Editor -->
+  <string name="editor">Edycja</string>
+  <string name="rotate">Obróć</string>
+  <string name="invalid_image_path">Nieprawidłowa ścieżka</string>
+  <!-- Set wallpaper -->
+  <string name="simple_wallpaper">Tapeta</string>
+  <string name="setting_wallpaper">Ustawiam tapetę…</string>
+  <string name="wallpaper_set_successfully">Tapeta została ustawiona</string>
+  <!-- Slideshow -->
+  <string name="slideshow_ended">Pokaz slajdów zakończony</string>
+  <!-- View types -->
+  <string name="change_view_type">Zmień typ widoku</string>
+  <string name="grid">Siatka</string>
+  <string name="list">Lista</string>
+  <string name="group_direct_subfolders">Grupuj bezpośrednie podfoldery</string>
+  <!-- Bottom actions -->
+  <string name="graffiti">graffiti</string>
+  <string name="cropMenu">przyciąć</string>
+  <string name="mosaic">mozaika</string>
+  <string name="color">kolor</string>
+  <string name="scale_min_tips">Powiększony do wartości minimalnej</string>
+  <string name="scale_max_tips">Powiększony do wartości maksymalnej</string>
+  <string name="stroke_width">szerokość kreski</string>
+  <string name="typeface">styl pisma</string>
+  <string name="default_font">domyślna</string>
+  <string name="text_style_cn">CN</string>
+  <string name="text_style_en">EN</string>
+  <string name="text_style_customize">dostosować</string>
+  <string name="crop">przyciąć</string>
+  <string name="is_save_image_edit">Czy chcesz zapisać zmiany w obrazku？</string>
+  <string name="dialog_save_as">Zapisz jako</string>
+  <string name="share_tips">Zeskanuj kod QR, aby udostępnić</string>
+  <string name="scan_share">Zeskanuj kod QR, aby udostępnić</string>
+  <string name="loading">Ładowanie…</string>
+  <string name="empty_result">brak zawartości</string>
+  <string name="retry_underline">Spróbować ponownie</string>
+  <string name="network_or_server_error">Błąd sieci lub serwera. proszę spróbować później.</string>
+  <string name="network_not_connected">Sieć nie jest połączona</string>
+  <string name="open_wifi_underline">włącz Wi-Fi</string>
+  <string name="enable_wifi_tip">Łączenie z Wi-Fi. Proszę czekać.</string>
+  <string name="generating_qr_code">Generowanie kodu QR. Proszę czekać...</string>
+  <string name="file_name_des">Nazwa pliku:</string>
+  <string name="file_size_des">Rozmiar pliku</string>
+  <string name="file_expired_time_des">Data wygaśnięcia:</string>
+  <string name="network_exception_retry">Bieżący stan sieci jest nieprawidłowy. Spróbuj ponownie później!</string>
+  <string name="return_underline">Wróć</string>
+  <string name="share_with_no_account_tips">Przed udostępnieniem zaloguj się na swoje konto ONYX!</string>
 </resources>

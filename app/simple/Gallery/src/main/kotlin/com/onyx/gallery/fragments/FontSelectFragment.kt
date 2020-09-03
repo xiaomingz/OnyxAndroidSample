@@ -13,6 +13,7 @@ import com.onyx.gallery.databinding.FragmentEditMenuFontSelectBinding
 import com.onyx.gallery.databinding.ItemTextStyleOptionChoiceBinding
 import com.onyx.gallery.event.ui.FontChangeEvent
 import com.onyx.gallery.models.ItemTextStyleOptionChoiceViewModel
+import com.onyx.gallery.viewmodel.BaseViewModel
 import com.onyx.gallery.viewmodel.FontSelectViewModel
 import com.onyx.gallery.views.DisableScrollLinearManager
 import com.onyx.gallery.views.PageRecyclerView
@@ -34,7 +35,7 @@ class FontSelectFragment : BaseFragment<FragmentEditMenuFontSelectBinding, FontS
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuFontSelectBinding, rootView: View): FontSelectViewModel {
-        val fontSelectViewModel = ViewModelProvider(requireActivity()).get(FontSelectViewModel::class.java)
+        val fontSelectViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(FontSelectViewModel::class.java)
         binding.viewModel = fontSelectViewModel.apply {
             fontAdapter = binding.pageView.adapter as FontSelectAdapter
             prevPage.observe(this@FontSelectFragment, Observer { binding.pageView.prevPage() })

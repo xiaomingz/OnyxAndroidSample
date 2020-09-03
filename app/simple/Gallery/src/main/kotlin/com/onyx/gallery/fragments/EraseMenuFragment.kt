@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuEraseBinding
+import com.onyx.gallery.viewmodel.BaseViewModel
 import com.onyx.gallery.viewmodel.EraseMenuViewModel
 
 /**
@@ -16,7 +17,7 @@ class EraseMenuFragment : BaseMenuFragment<FragmentEditMenuEraseBinding, EraseMe
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuEraseBinding, rootView: View): EraseMenuViewModel {
-        return ViewModelProvider(requireActivity()).get(EraseMenuViewModel::class.java).apply {
+        return ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(EraseMenuViewModel::class.java).apply {
             binding.viewModel = this
             binding.lifecycleOwner = this@EraseMenuFragment
         }

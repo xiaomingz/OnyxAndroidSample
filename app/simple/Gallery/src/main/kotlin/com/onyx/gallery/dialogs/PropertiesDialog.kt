@@ -2,12 +2,12 @@ package com.onyx.gallery.dialogs
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.onyx.android.sdk.utils.DateTimeUtil
 import com.onyx.android.sdk.utils.DateTimeUtil.DATE_FORMAT_YYYYMMDD_HHMMSS
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.DialogPropertiesBinding
 import com.onyx.gallery.utils.FormatRootFilePathUtils
-import com.onyx.gallery.viewmodel.BaseViewModel
 import com.simplemobiletools.commons.extensions.formatAsResolution
 import com.simplemobiletools.commons.extensions.formatSize
 import com.simplemobiletools.commons.extensions.getFilenameFromPath
@@ -47,7 +47,7 @@ class PropertiesDialog(activity: AppCompatActivity, path: String) : BaseDialog<D
     }
 }
 
-class PropertiesDialogViewModel : BaseViewModel() {
+class PropertiesDialogViewModel : ViewModel() {
     val name = MutableLiveData<String>()
     val path = MutableLiveData<String>()
     val size = MutableLiveData<String>()

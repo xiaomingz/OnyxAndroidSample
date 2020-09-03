@@ -13,9 +13,12 @@ import com.onyx.android.sdk.scribble.shape.Shape;
 import com.onyx.android.sdk.scribble.utils.ShapeUtils;
 import com.onyx.android.sdk.scribble.utils.TextLayoutUtils;
 import com.onyx.android.sdk.utils.RectUtils;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseEditAction;
 import com.onyx.gallery.utils.StaticLayoutUtils;
 import com.onyx.gallery.views.shape.EditTextShapeExpand;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * <pre>
@@ -32,6 +35,10 @@ public class CreateCursorShapeByOffsetAction extends BaseEditAction<RxRequest> {
     private int cursorOffset;
 
     private Shape cursorShape;
+
+    public CreateCursorShapeByOffsetAction(@NotNull EditBundle editBundle) {
+        super(editBundle);
+    }
 
     public CreateCursorShapeByOffsetAction setTextShape(Shape textShape) {
         this.textShape = textShape;

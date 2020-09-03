@@ -1,6 +1,6 @@
 package com.onyx.gallery.handler.touch
 
-import com.onyx.gallery.bundle.GlobalEditBundle
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.ui.UpdateOptionsMenuEvent
 
 /**
@@ -11,18 +11,18 @@ enum class TouchHandlerType {
     EPD_SHAPE, NORMAL_SHAPE, TEXT_INSERTION, CROP, MOSAIC, ERASE
 }
 
-class TouchHandlerManager(private val globalEditBundle: GlobalEditBundle) {
+class TouchHandlerManager(private val editBundle: EditBundle) {
 
     var activateHandler: TouchHandler? = null
     private val touchHandlerMap = mutableMapOf<TouchHandlerType, TouchHandler>()
 
     init {
-        touchHandlerMap[TouchHandlerType.EPD_SHAPE] = EpdShapeTouchHandler(globalEditBundle)
-        touchHandlerMap[TouchHandlerType.NORMAL_SHAPE] = NormalShapeTouchHandler(globalEditBundle)
-        touchHandlerMap[TouchHandlerType.TEXT_INSERTION] = InsertTextTouchHandler(globalEditBundle)
-        touchHandlerMap[TouchHandlerType.CROP] = CropTouchHandler(globalEditBundle)
-        touchHandlerMap[TouchHandlerType.MOSAIC] = MosaicTouchHandler(globalEditBundle)
-        touchHandlerMap[TouchHandlerType.ERASE] = EraseTouchHandler(globalEditBundle)
+        touchHandlerMap[TouchHandlerType.EPD_SHAPE] = EpdShapeTouchHandler(editBundle)
+        touchHandlerMap[TouchHandlerType.NORMAL_SHAPE] = NormalShapeTouchHandler(editBundle)
+        touchHandlerMap[TouchHandlerType.TEXT_INSERTION] = InsertTextTouchHandler(editBundle)
+        touchHandlerMap[TouchHandlerType.CROP] = CropTouchHandler(editBundle)
+        touchHandlerMap[TouchHandlerType.MOSAIC] = MosaicTouchHandler(editBundle)
+        touchHandlerMap[TouchHandlerType.ERASE] = EraseTouchHandler(editBundle)
         activateHandler(TouchHandlerType.EPD_SHAPE)
     }
 
@@ -31,7 +31,7 @@ class TouchHandlerManager(private val globalEditBundle: GlobalEditBundle) {
     fun activateHandler(touchHandlerType: TouchHandlerType) {
         deactivateHandler()
         activateHandler = getTouchHandler(touchHandlerType)?.apply { onActivate() }
-        globalEditBundle.eventBus.post(UpdateOptionsMenuEvent())
+        editBundle.eventBus.post(UpdateOptionsMenuEvent())
     }
 
     fun deactivateHandler() {

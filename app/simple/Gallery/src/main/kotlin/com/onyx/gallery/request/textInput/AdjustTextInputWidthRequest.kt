@@ -4,6 +4,7 @@ import android.graphics.PointF
 import android.graphics.RectF
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.utils.RenderHandlerUtils
@@ -13,10 +14,11 @@ import com.onyx.gallery.views.shape.EditTextShapeExpand
 /**
  * Created by Leung on 2020/6/11
  */
-class AdjustTextInputWidthRequest(private val shape: Shape,
+class AdjustTextInputWidthRequest(editBundle: EditBundle,
+                                  private val shape: Shape,
                                   private val movedPoint: TouchPoint,
                                   private val cursorShape: Shape?,
-                                  private val lastPoint: TouchPoint) : BaseRequest() {
+                                  private val lastPoint: TouchPoint) : BaseRequest(editBundle) {
 
     override fun execute(drawHandler: DrawHandler) {
         val shapeRectF = shape.boundingRect

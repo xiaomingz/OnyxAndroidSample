@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.FragmentEditMenuGraffitiBinding
+import com.onyx.gallery.viewmodel.BaseViewModel
 import com.onyx.gallery.viewmodel.GraffitiMenuViewModel
 
 /**
@@ -18,7 +19,7 @@ class GraffitiMenuFragment : BaseMenuFragment<FragmentEditMenuGraffitiBinding, G
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuGraffitiBinding, rootView: View): GraffitiMenuViewModel {
-        val graffitiMenuViewModel = ViewModelProvider(requireActivity()).get(GraffitiMenuViewModel::class.java)
+        val graffitiMenuViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(GraffitiMenuViewModel::class.java)
         binding.viewModel = graffitiMenuViewModel
         binding.lifecycleOwner = this
         return graffitiMenuViewModel

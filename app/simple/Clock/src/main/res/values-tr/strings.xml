@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Basit Saat</string>
-    <string name="app_launcher_name">Saat</string>
-    <string name="time_zone">Saat dilimi</string>
-    <string name="vibrate">Titret</string>
-    <string name="label">Etiket</string>
-    <string name="no_days_selected">Hiçbir gün seçilmedi</string>
-    <string name="timer">Zamanlayıcı</string>
-    <string name="stopwatch_stopped">Kronometre durduruldu</string>
-    <string name="max_reminder_duration">Maksimum hatırlatma süresi</string>
-    <string name="time_expired">Zaman doldu</string>
-    <string name="clock_and_date">Saat ve tarih</string>
-    <string name="use_text_shadow">Metin gölgesi kullan</string>
-    <string name="swipe_right_to_dismiss">Swipe right to Dismiss, or left to Snooze.</string>
-
-    <!-- Settings -->
-    <string name="clock_tab">Saat sekmesi</string>
-    <string name="alarm_tab">Alarm sekmesi</string>
-    <string name="stopwatch_tab">Kronometre sekmesi</string>
-    <string name="timer_tab">Zamanlayıcı sekmesi</string>
-    <string name="show_seconds">Saniye göster</string>
-    <string name="increase_volume_gradually">Sesi kademeli olarak artır</string>
+  <string name="app_name">Saat</string>
+  <string name="app_launcher_name">Saat</string>
+  <string name="time_zone">Saat dilimi</string>
+  <string name="vibrate">Titret</string>
+  <string name="label">Etiket</string>
+  <string name="no_days_selected">Hiçbir gün seçilmedi</string>
+  <string name="timer">Zamanlayıcı</string>
+  <string name="stopwatch_stopped">Kronometre durduruldu</string>
+  <string name="max_reminder_duration">Maksimum hatırlatma süresi</string>
+  <string name="time_expired">Zaman doldu</string>
+  <string name="clock_and_date">Saat ve tarih</string>
+  <string name="use_text_shadow">Metin gölgesi kullan</string>
+  <string name="swipe_right_to_dismiss">Kapatmak için sağa veya ertelemek için sola kaydırın.</string>
+  <!-- Settings -->
+  <string name="clock_tab">Saat</string>
+  <string name="alarm_tab">Alarm</string>
+  <string name="stopwatch_tab">Kronometre sekmesi</string>
+  <string name="timer_tab">Zamanlayıcı</string>
+  <string name="show_seconds">Saniyeyi göster</string>
+  <string name="increase_volume_gradually">Sesi kademeli olarak artır</string>
+  <string name="stopwatch">Kronometre</string>
+  <string name="select_time_zone">Bir saat dilimi seçin</string>
+  <string name="clock">Saat</string>
 </resources>

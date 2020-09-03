@@ -6,6 +6,7 @@ import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.scribble.data.bean.ResourceType
 import com.onyx.android.sdk.scribble.data.bean.ShapeResource
 import com.onyx.android.sdk.utils.DateTimeUtil
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.handler.MirrorModel
@@ -18,7 +19,7 @@ import java.io.File
 /**
  * Created by Leung on 2020/6/29
  */
-class SaveCropTransformRequest : BaseRequest() {
+class SaveCropTransformRequest(editBundle: EditBundle) : BaseRequest(editBundle) {
 
     override fun execute(drawHandler: DrawHandler) {
         drawHandler.getImageShape() ?: return
@@ -28,11 +29,11 @@ class SaveCropTransformRequest : BaseRequest() {
         }
         drawHandler.saveHandwritingDataToCropSnapshot()
 
-        val filePath = globalEditBundle.imagePath
+        val filePath = editBundle.imagePath
         val cropBitmap = cropImage(filePath, cropRect)
 
         val imageSize = Size(cropBitmap.width, cropBitmap.height)
-        globalEditBundle.initScaleFactor = globalEditBundle.scaleToContainer(imageSize)
+        editBundle.initScaleFactor = editBundle.scaleToContainer(imageSize)
 
         val newPath = File(context.cacheDir, "crop_${DateTimeUtil.getCurrentTime()}.png").absolutePath
         val newImageShape = createImageShape(newPath, imageSize, cropBitmap)
@@ -41,7 +42,7 @@ class SaveCropTransformRequest : BaseRequest() {
 
         BitmapUtils.saveBitmapToFile(context, newPath, cropBitmap)
         drawHandler.makeCropSnapshot(newPath, newImageShape)
-        globalEditBundle.imagePath = newPath
+        editBundle.imagePath = newPath
 
         cropBitmap.recycle()
         cropHandler.resetCropState()
@@ -52,7 +53,7 @@ class SaveCropTransformRequest : BaseRequest() {
     }
 
     private fun cropImage(filePath: String, orgCropRect: RectF): Bitmap {
-        var imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, globalEditBundle.getNormalizedMatrix())
+        var imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, editBundle.getNormalizedMatrix())
         val cropRect = RectF(orgCropRect)
         if (cropHandler.hasRotateChange()) {
             imageBitmap = imageRotateChange(imageBitmap)
@@ -60,7 +61,7 @@ class SaveCropTransformRequest : BaseRequest() {
         if (cropHandler.hasMirrorChange()) {
             cropHandler.currMirrot?.let { imageBitmap = imageMirrorChange(imageBitmap, it) }
         }
-        globalEditBundle.getNormalizedMatrix().mapRect(cropRect)
+        editBundle.getNormalizedMatrix().mapRect(cropRect)
         return Bitmap.createBitmap(
                 imageBitmap,
                 cropRect.left.toInt(),
@@ -131,8 +132,8 @@ class SaveCropTransformRequest : BaseRequest() {
 
         val rect = Rect(dx.toInt(), dy.toInt(), (dx + imageSize.width).toInt(), (dy + imageSize.height).toInt())
         drawHandler.orgLimitRect = rect
-        globalEditBundle.initDx = dx
-        globalEditBundle.initDy = dy
+        editBundle.initDx = dx
+        editBundle.initDy = dy
 
         return imageShape
     }

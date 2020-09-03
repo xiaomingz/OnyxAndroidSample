@@ -11,9 +11,9 @@ import android.widget.AbsListView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.onyxsdk_kui.R
 import com.onyx.android.sdk.data.GPaginator
 import com.onyx.android.sdk.data.KeyAction
+import com.onyx.android.sdk.kui.R
 import com.onyx.android.sdk.kui.helper.OnyxLinearSnapHelper
 import java.util.*
 

@@ -6,6 +6,7 @@ import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.scribble.shape.Shape;
 import com.onyx.android.sdk.utils.ResManager;
 import com.onyx.gallery.R;
+import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseRequest;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.RenderHandlerUtils;
@@ -25,7 +26,8 @@ public class RenderInputTextShapeRequest extends BaseRequest {
     private boolean isPlaceHWR;
     private Shape cursorShape;
 
-    public RenderInputTextShapeRequest(Shape textShape) {
+    public RenderInputTextShapeRequest(EditBundle editBundle, Shape textShape) {
+        super(editBundle);
         this.textShape = textShape;
         setPauseRawDraw(false);
     }

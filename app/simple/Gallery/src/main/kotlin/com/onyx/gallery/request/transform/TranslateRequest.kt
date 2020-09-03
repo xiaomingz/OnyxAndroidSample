@@ -6,6 +6,7 @@ import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.android.sdk.utils.CollectionUtils
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.utils.RenderHandlerUtils
@@ -13,7 +14,7 @@ import com.onyx.gallery.utils.RenderHandlerUtils
 /**
  * Created by Leung on 2020/6/11
  */
-class TranslateRequest(private val shapes: MutableList<Shape>, private val movedPoint: TouchPoint, private val offsetPoint: PointF) : BaseRequest() {
+class TranslateRequest(editBundle: EditBundle, private val shapes: MutableList<Shape>, private val movedPoint: TouchPoint, private val offsetPoint: PointF) : BaseRequest(editBundle) {
 
     override fun execute(drawHandler: DrawHandler) {
         if (CollectionUtils.isNullOrEmpty(shapes)) {
