@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Clock</string>
-    <string name="app_launcher_name">時計</string>
-    <string name="time_zone">タイムゾーン</string>
-    <string name="vibrate">バイブレーション</string>
-    <string name="label">ラベル</string>
-    <string name="no_days_selected">曜日が選択されていません</string>
-    <string name="timer">タイマー</string>
-    <string name="stopwatch_stopped">ストップウォッチが停止しました</string>
-    <string name="max_reminder_duration">リマインダーの最大再生時間</string>
-    <string name="time_expired">期限切れ</string>
-    <string name="clock_and_date">時計と日付</string>
-    <string name="use_text_shadow">文字に影を付ける</string>
-    <string name="swipe_right_to_dismiss">右にスワイプして終了、または左にスワイプしてスヌーズ。</string>
-
-    <!-- Settings -->
-    <string name="clock_tab">時計</string>
-    <string name="alarm_tab">アラーム</string>
-    <string name="stopwatch_tab">ストップウォッチ</string>
-    <string name="timer_tab">タイマー</string>
-    <string name="show_seconds">秒を表示</string>
-    <string name="increase_volume_gradually">音量を徐々に大きくする</string>
+  <string name="app_name">時計</string>
+  <string name="app_launcher_name">時計</string>
+  <string name="time_zone">タイムゾーン</string>
+  <string name="vibrate">バイブレーション</string>
+  <string name="label">ラベル</string>
+  <string name="no_days_selected">曜日が選択されていません</string>
+  <string name="timer">タイマー</string>
+  <string name="stopwatch_stopped">ストップウォッチが停止しました</string>
+  <string name="max_reminder_duration">リマインダーの最大再生時間</string>
+  <string name="time_expired">期限切れ</string>
+  <string name="clock_and_date">時計と日付</string>
+  <string name="use_text_shadow">文字に影を付ける</string>
+  <string name="swipe_right_to_dismiss">右にスワイプして終了、または左にスワイプしてスヌーズ。</string>
+  <!-- Settings -->
+  <string name="clock_tab">時計</string>
+  <string name="alarm_tab">アラーム</string>
+  <string name="stopwatch_tab">ストップウォッチ</string>
+  <string name="timer_tab">タイマー</string>
+  <string name="show_seconds">秒を表示</string>
+  <string name="increase_volume_gradually">音量を徐々に大きくする</string>
+  <string name="clock">時計</string>
+  <string name="stopwatch">ストップウォッチ</string>
+  <string name="select_time_zone">タイムゾーンを選択</string>
 </resources>

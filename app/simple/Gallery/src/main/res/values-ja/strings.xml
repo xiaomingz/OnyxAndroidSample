@@ -1,80 +1,97 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">シンプル ギャラリー</string>
-    <string name="app_launcher_name">ギャラリー</string>
-    <string name="edit">編集</string>
-    <string name="hidden">(非表示)</string>
-    <string name="unpin_folder">フォルダのピン留めを外す</string>
-    <string name="pin_to_the_top">トップにピン留めする</string>
-    <string name="all_folders">すべてのフォルダ</string>
-    <string name="other_folder">その他のフォルダ</string>
-    <string name="unknown_location">位置情報がありません</string>
-    <string name="change_cover_image">カバー画像を変更</string>
-    <string name="select_photo">写真を選択</string>
-    <string name="volume">音量</string>
-    <string name="brightness">明るさ</string>
-    <string name="fix_date_taken">撮影日の値を修正</string>
-    <string name="fixing">修正中…</string>
-    <string name="dates_fixed_successfully">撮影日が正常に修正されました</string>
-    <string name="no_date_takens_found">No Date Taken values have been found</string>
-    <string name="switch_to_file_search">表示されているすべてのフォルダで検索 に切り替え</string>
-
-    <!-- Filter -->
-    <string name="filter_media">表示する形式</string>
-    <string name="images">画像</string>
-    <string name="videos">ビデオ</string>
-    <string name="gifs">GIF</string>
-    <string name="raw_images">RAW</string>
-    <string name="svgs">SVG</string>
-    <string name="portraits">ポートレイト</string>
-    <string name="no_media_with_filters">条件に該当するメディアがありません。</string>
-    <string name="change_filters_underlined"><u>絞り込み条件を変更</u></string>
-
-    <!-- Hide / Exclude -->
-    <string name="hide_folder_description">対象のフォルダに「.nomedia」ファイルを作成し、フォルダを非表示にします。そのフォルダの中にあるすべてのサブフォルダも非表示となります。非表示のフォルダを見るには、「設定」の中にある「非表示のフォルダを表示」で切り替えてください。このフォルダを非表示にしますか？</string>
-    <string name="exclude">除外する</string>
-    <string name="excluded_folders">除外フォルダ</string>
-    <string name="exclude_folder_description">選択したフォルダとそのサブフォルダを、Simple Galleyの一覧から除外します。除外したフォルダは「設定」で確認できます。</string>
-    <string name="exclude_folder_parent">親フォルダを選択して除外することもできます。</string>
-    <string name="hidden_folders">非表示フォルダ</string>
-
-    <!-- Include folders -->
-    <string name="include_folders">追加フォルダ</string>
-    <string name="add_folder">フォルダを追加</string>
-    <string name="no_media_add_included">No media files have been found. You can solve it by adding the folders containing media files manually.</string>
-
-    <!-- Resizing -->
-    <string name="width">幅</string>
-    <string name="height">高さ</string>
-
-    <!-- Editor -->
-    <string name="editor">画像編集</string>
-    <string name="rotate">回転</string>
-    <string name="invalid_image_path">無効な画像パス</string>
-    <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
-
-    <!-- Set wallpaper -->
-    <string name="simple_wallpaper">シンプル壁紙</string>
-    <string name="setting_wallpaper">壁紙に設定中&#8230;</string>
-    <string name="wallpaper_set_successfully">壁紙を正常に設定しました</string>
-
-    <!-- Slideshow -->
-    <string name="slideshow_ended">スライドショーが終了しました</string>
-
-    <!-- View types -->
-    <string name="change_view_type">表示形式の変更</string>
-    <string name="grid">グリッド</string>
-    <string name="list">リスト</string>
-    <string name="group_direct_subfolders">サブフォルダでグループ化</string>
-
-    <!-- Grouping at media thumbnails -->
-
-    <!-- Widgets -->
-
-    <!-- Settings -->
-
-    <!-- Setting sections -->
-
-    <!-- Bottom actions -->
+  <string name="app_name">ギャラリー</string>
+  <string name="app_launcher_name">ギャラリー</string>
+  <string name="edit">編集</string>
+  <string name="hidden">(非表示)</string>
+  <string name="unpin_folder">フォルダのピン留めを外す</string>
+  <string name="pin_to_the_top">トップにピン留めする</string>
+  <string name="all_folders">すべてのフォルダ</string>
+  <string name="other_folder">その他のフォルダ</string>
+  <string name="unknown_location">位置情報がありません</string>
+  <string name="change_cover_image">カバー画像を変更</string>
+  <string name="select_photo">写真を選択</string>
+  <string name="volume">音量</string>
+  <string name="brightness">明るさ</string>
+  <string name="fix_date_taken">撮影日の値を修正</string>
+  <string name="fixing">修正中…</string>
+  <string name="dates_fixed_successfully">撮影日が正常に修正されました</string>
+  <string name="no_date_takens_found">撮影日がないものがあります</string>
+  <string name="switch_to_file_search">表示されているすべてのフォルダで検索 に切り替え</string>
+  <!-- Filter -->
+  <string name="filter_media">表示する形式</string>
+  <string name="images">画像</string>
+  <string name="videos">ビデオ</string>
+  <string name="gifs">GIF</string>
+  <string name="raw_images">RAW</string>
+  <string name="svgs">SVG</string>
+  <string name="portraits">ポートレイト</string>
+  <string name="no_media_with_filters">条件に該当するメディアがありません。</string>
+  <string name="change_filters_underlined"><u>絞り込み条件を変更</u></string>
+  <!-- Hide / Exclude -->
+  <string name="hide_folder_description">対象のフォルダに「.nomedia」ファイルを作成し、フォルダを非表示にします。そのフォルダの中にあるすべてのサブフォルダも非表示となります。非表示のフォルダを見るには、「設定」の中にある「非表示のフォルダを表示」で切り替えてください。このフォルダを非表示にしますか？</string>
+  <string name="exclude">除外する</string>
+  <string name="excluded_folders">除外フォルダ</string>
+  <string name="exclude_folder_description">選択したフォルダとそのサブフォルダを、Simple Galleyの一覧から除外します。除外したフォルダは「設定」で確認できます。</string>
+  <string name="exclude_folder_parent">親フォルダを選択して除外することもできます。</string>
+  <string name="hidden_folders">非表示フォルダ</string>
+  <!-- Include folders -->
+  <string name="include_folders">追加フォルダ</string>
+  <string name="add_folder">フォルダを追加</string>
+  <string name="no_media_add_included">メディアファイルがありません。自分でメディアファイルが入っているフォルダを追加することができます。</string>
+  <!-- Resizing -->
+  <string name="width">幅</string>
+  <string name="height">高さ</string>
+  <!-- Editor -->
+  <string name="editor">画像編集</string>
+  <string name="rotate">回転</string>
+  <string name="invalid_image_path">無効な画像パス</string>
+  <!-- Set wallpaper -->
+  <string name="simple_wallpaper">シンプル壁紙</string>
+  <string name="setting_wallpaper">壁紙に設定中…</string>
+  <string name="wallpaper_set_successfully">壁紙を正常に設定しました</string>
+  <!-- Slideshow -->
+  <string name="slideshow_ended">スライドショーが終了しました</string>
+  <!-- View types -->
+  <string name="change_view_type">表示形式の変更</string>
+  <string name="grid">グリッド</string>
+  <string name="list">リスト</string>
+  <string name="group_direct_subfolders">サブフォルダでグループ化</string>
+  <!-- Bottom actions -->
+  <string name="share_with_no_account_tips">ONYXアカウントにログインしてから共有して下さい。</string>
+  <string name="return_underline">戻る</string>
+  <string name="network_exception_retry">接続しているネットワークが不安定です。時間を置いてもう一度お試し下さい。</string>
+  <string name="file_expired_time_des">有効期限：</string>
+  <string name="file_size_des">ファイルサイズ：</string>
+  <string name="file_name_des">ファイル名：</string>
+  <string name="generating_qr_code">QRコードを生成しています。お待ち下さい。</string>
+  <string name="enable_wifi_tip">Wi-Fiをオンにしています。お待ち下さい。</string>
+  <string name="open_wifi_underline">Wi-Fiをオンにする</string>
+  <string name="network_not_connected">端末がネットワークに接続されていません</string>
+  <string name="network_or_server_error">ネットワークまたはサーバーへの接続エラーです。時間を置いてもう一度お試し下さい。</string>
+  <string name="retry_underline">再試行</string>
+  <string name="empty_result">内容がありません</string>
+  <string name="loading">ロード中…</string>
+  <string name="scan_share">QRコードをスキャンして共有</string>
+  <string name="share_tips">QRコードをスキャンして共有</string>
+  <string name="dialog_save_as">別名保存</string>
+  <string name="is_save_image_edit">変更したファイルを保存しますか？</string>
+  <string name="crop">切り取り</string>
+  <string name="page_index">%d／%d</string>
+  <string name="total_count">合計：%d</string>
+  <string name="back">戻る</string>
+  <string name="text_style_customize">カスタマイズ</string>
+  <string name="text_style_en">英</string>
+  <string name="text_style_cn">中</string>
+  <string name="default_font">標準値</string>
+  <string name="typeface">フォント</string>
+  <string name="text_menu_font_size">フォントサイズ</string>
+  <string name="stroke_width">線幅</string>
+  <string name="scale_max_tips">これ以上拡大できません</string>
+  <string name="scale_min_tips">これ以上縮小できません</string>
+  <string name="color">色</string>
+  <string name="brush">ブラシ</string>
+  <string name="mosaic">モザイク</string>
+  <string name="cropMenu">切り取り</string>
+  <string name="graffiti">手書き</string>
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">음성 녹음기</string>
+  <string name="app_launcher_name">녹음기</string>
+  <string name="recording">녹음</string>
+  <string name="pause_recording">녹음 중지</string>
+  <string name="current_the_first_recording">첫번째 음성 녹음입니다.</string>
+  <string name="current_the_last_recording">마지막 음성 녹음입니다.</string>
+  <string name="audio_recorder">음성 녹음</string>
+  <string name="content_is_empty">내용이 없습니다</string>
+  <string name="try_hiding_notification">녹음 알림을 닫으십시오</string>
+  <string name="recording_saved_successfully">Recording saved successfully as \n\"%s\"</string>
+</resources>
