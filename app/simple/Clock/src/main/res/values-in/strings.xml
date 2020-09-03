@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Clock</string>
-    <string name="app_launcher_name">Jam</string>
-    <string name="time_zone">Zona waktu</string>
-    <string name="vibrate">Getar</string>
-    <string name="label">Label</string>
-    <string name="no_days_selected">Tidak ada hari yang dipilih</string>
-    <string name="timer">Timer</string>
-    <string name="stopwatch_stopped">Stopwatch telah berhenti</string>
-    <string name="max_reminder_duration">Durasi pengingat maksimum</string>
-    <string name="time_expired">Waktu habis</string>
-    <string name="clock_and_date">Jam dan tanggal</string>
-    <string name="use_text_shadow">Gunakan bayangan teks</string>
-    <string name="swipe_right_to_dismiss">Geser ke kanan untuk mengabaikan, atau ke kiri untuk Menunda.</string>
-
-    <!-- Settings -->
-    <string name="clock_tab">Tab jam</string>
-    <string name="alarm_tab">Tab alarm</string>
-    <string name="stopwatch_tab">Tab stopwatch</string>
-    <string name="timer_tab">Tab timer</string>
-    <string name="show_seconds">Tampilkan detik</string>
-    <string name="increase_volume_gradually">Keraskan volume secara bertahap</string>
+  <string name="app_name">Jam</string>
+  <string name="app_launcher_name">Jam</string>
+  <string name="time_zone">Zona waktu</string>
+  <string name="vibrate">Getar</string>
+  <string name="label">Tag</string>
+  <string name="no_days_selected">Tidak ada hari yang dipilih</string>
+  <string name="timer">Pewaktu</string>
+  <string name="stopwatch_stopped">Stopwatch telah berhenti</string>
+  <string name="max_reminder_duration">Durasi pengingat maksimum</string>
+  <string name="time_expired">Waktu habis</string>
+  <string name="clock_and_date">Jam dan tanggal</string>
+  <string name="use_text_shadow">Gunakan text-shadow</string>
+  <string name="swipe_right_to_dismiss">Geser ke kanan untuk mengabaikan, atau ke kiri untuk menunda.</string>
+  <!-- Settings -->
+  <string name="clock_tab">Jam</string>
+  <string name="alarm_tab">Alarm</string>
+  <string name="stopwatch_tab">Halaman stopwatch</string>
+  <string name="timer_tab">Pewaktu</string>
+  <string name="show_seconds">Tampilkan detik</string>
+  <string name="increase_volume_gradually">Tingkatkan volume secara bertahap</string>
+  <string name="select_time_zone">Pilih Zona Waktu</string>
+  <string name="clock">Jam</string>
+  <string name="stopwatch">Stopwatch</string>
 </resources>
