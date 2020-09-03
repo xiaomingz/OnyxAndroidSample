@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name"/>
+  <string name="app_launcher_name">錄音機</string>
+  <string name="audio_recorder">錄音記錄</string>
+  <string name="content_is_empty">內容為空</string>
+  <string name="current_the_first_recording">當前為第一個錄音</string>
+  <string name="current_the_last_recording">當前為最後一個錄音</string>
+  <string name="try_hiding_notification">嘗試關閉狀態欄錄音通知</string>
+  <string name="recording">正在錄音</string>
+  <string name="pause_recording">暫停錄音</string>
+  <string name="recording_saved_successfully">錄音成功保存到\n\"%s\"</string>
+</resources>

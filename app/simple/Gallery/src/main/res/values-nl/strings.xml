@@ -1,80 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Eenvoudige Galerij</string>
-    <string name="app_launcher_name">Galerij</string>
-    <string name="edit">Bewerken</string>
-    <string name="hidden">(verborgen)</string>
-    <string name="unpin_folder">Map losmaken</string>
-    <string name="pin_to_the_top">Bovenaan vastzetten</string>
-    <string name="all_folders">Alle mappen</string>
-    <string name="other_folder">Andere map</string>
-    <string name="unknown_location">Locatie onbekend</string>
-    <string name="change_cover_image">Afbeelding omslag wijzigen</string>
-    <string name="select_photo">Foto selecteren</string>
-    <string name="volume">Volume</string>
-    <string name="brightness">Helderheid</string>
-    <string name="fix_date_taken">Datum opname corrigeren</string>
-    <string name="fixing">Corrigeren…</string>
-    <string name="dates_fixed_successfully">Datums zijn gecorrigeerd</string>
-    <string name="no_date_takens_found">Geen opnamedatums gevonden</string>
-    <string name="switch_to_file_search">Zoeken in alle zichtbare mappen</string>
-
-    <!-- Filter -->
-    <string name="filter_media">Media filteren</string>
-    <string name="images">Afbeeldingen</string>
-    <string name="videos">Video’s</string>
-    <string name="gifs">GIF-bestanden</string>
-    <string name="raw_images">RAW-afbeeldingen</string>
-    <string name="svgs">SVG-vectorafbeeldingen</string>
-    <string name="portraits">Portretten</string>
-    <string name="no_media_with_filters">Er zijn geen bestanden gevonden met de huidige filters.</string>
-    <string name="change_filters_underlined"><u>Filters aanpassen</u></string>
-
-    <!-- Hide / Exclude -->
-    <string name="hide_folder_description">Deze functie verbergt de map door het bestand ’.nomedia’ toe te voegen. Alle submappen zullen ook worden verborgen. Kies ’Verborgen mappen tonen’ in de instellingen om toch verborgen mappen te kunnen inzien. Doorgaan?</string>
-    <string name="exclude">Uitsluiten</string>
-    <string name="excluded_folders">Uitgesloten mappen</string>
-    <string name="exclude_folder_description">De selectie en submappen uitsluiten van deze galerij. Uitgesloten mappen kunnen worden beheerd in de instellingen.</string>
-    <string name="exclude_folder_parent">De map met dit item uitsluiten?</string>
-    <string name="hidden_folders">Verborgen mappen</string>
-
-    <!-- Include folders -->
-    <string name="include_folders">Toegevoegde mappen</string>
-    <string name="add_folder">Map toevoegen</string>
-    <string name="no_media_add_included">Er zijn geen mediabestanden gevonden. Dit kan worden opgelost door de mappen met mediabestanden handmatig toe te voegen.</string>
-
-    <!-- Resizing -->
-    <string name="width">Breedte</string>
-    <string name="height">Hoogte</string>
-
-    <!-- Editor -->
-    <string name="editor">Bewerken</string>
-    <string name="rotate">Draaien</string>
-    <string name="invalid_image_path">Ongeldig pad naar afbeelding</string>
-    <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
-
-    <!-- Set wallpaper -->
-    <string name="simple_wallpaper">Achtergrond</string>
-    <string name="setting_wallpaper">Achtergrond instellen&#8230;</string>
-    <string name="wallpaper_set_successfully">Achtergrond is ingesteld</string>
-
-    <!-- Slideshow -->
-    <string name="slideshow_ended">De diavoorstelling is beëindigd</string>
-
-    <!-- View types -->
-    <string name="change_view_type">Weergave</string>
-    <string name="grid">Raster</string>
-    <string name="list">Lijst</string>
-    <string name="group_direct_subfolders">Directe submappen groeperen</string>
-
-    <!-- Grouping at media thumbnails -->
-
-    <!-- Widgets -->
-
-    <!-- Settings -->
-
-    <!-- Setting sections -->
-
-    <!-- Bottom actions -->
+  <string name="app_name">Galerij</string>
+  <string name="app_launcher_name">Galerij</string>
+  <string name="edit">Bewerken</string>
+  <string name="hidden">(verborgen)</string>
+  <string name="unpin_folder">Annuleer vaste map</string>
+  <string name="pin_to_the_top">Bovenaan vastzetten</string>
+  <string name="all_folders">Alle mappen</string>
+  <string name="other_folder">Andere map</string>
+  <string name="unknown_location">Locatie onbekend</string>
+  <string name="change_cover_image">Afbeelding omslag wijzigen</string>
+  <string name="select_photo">Foto selecteren</string>
+  <string name="volume">Volume</string>
+  <string name="brightness">Helderheid</string>
+  <string name="fix_date_taken">Datum opname corrigeren</string>
+  <string name="fixing">Corrigeren…</string>
+  <string name="dates_fixed_successfully">Datums zijn gecorrigeerd</string>
+  <string name="no_date_takens_found">Geen opnamedatums gevonden</string>
+  <string name="switch_to_file_search">Schakel over naar bestanden zoeken in alle zichtbare mappen</string>
+  <!-- Filter -->
+  <string name="filter_media">Media filteren</string>
+  <string name="images">Afbeeldingen</string>
+  <string name="videos">Video’s</string>
+  <string name="gifs">GIF-bestanden</string>
+  <string name="raw_images">RAW-afbeeldingen</string>
+  <string name="svgs">SVGs</string>
+  <string name="portraits">Portretten</string>
+  <string name="no_media_with_filters">Er zijn geen bestanden gevonden met de huidige filters.</string>
+  <string name="change_filters_underlined">
+    <u>Filters aanpassen</u>
+  </string>
+  <!-- Hide / Exclude -->
+  <string name="hide_folder_description">Deze functie verbergt de map door er een ".nomedia" -bestand aan toe te voegen. Het zal ook alle submappen verbergen. U kunt ze controleren door de optie \'Verborgen items weergeven\' in Instellingen in te schakelen. Wil je doorgaan?</string>
+  <string name="exclude">Uitsluiten</string>
+  <string name="excluded_folders">Uitgesloten mappen</string>
+  <string name="exclude_folder_description">Hierdoor wordt de selectie samen met de submappen alleen van Simple Gallery uitgesloten. U kunt uitgesloten mappen beheren in Instellingen.</string>
+  <string name="exclude_folder_parent">De map met dit item uitsluiten?</string>
+  <string name="hidden_folders">Verborgen mappen</string>
+  <!-- Include folders -->
+  <string name="include_folders">Toegevoegde mappen</string>
+  <string name="add_folder">Map toevoegen</string>
+  <string name="no_media_add_included">Er zijn geen mediabestanden gevonden. Dit kan worden opgelost door de Er zijn geen mediabestanden gevonden. U kunt het oplossen door de mappen met mediabestanden handmatig toe te voegen.met mediabestanden handmatig toe te voegen.</string>
+  <!-- Resizing -->
+  <string name="width">Breedte</string>
+  <string name="height">Hoogte</string>
+  <!-- Editor -->
+  <string name="editor">Bewerken</string>
+  <string name="rotate">Draaien</string>
+  <string name="invalid_image_path">Ongeldig pad naar afbeelding</string>
+  <!-- Set wallpaper -->
+  <string name="simple_wallpaper">Simpele achtergrond</string>
+  <string name="setting_wallpaper">Achtergrond instellen…</string>
+  <string name="wallpaper_set_successfully">Achtergrond is ingesteld</string>
+  <!-- Slideshow -->
+  <string name="slideshow_ended">De diavoorstelling is beëindigd</string>
+  <!-- View types -->
+  <string name="change_view_type">Wijzig het weergavetype</string>
+  <string name="grid">Raster</string>
+  <string name="list">Lijst</string>
+  <string name="group_direct_subfolders">Directe submappen groeperen</string>
+  <!-- Bottom actions -->
+  <string name="graffiti">graffiti</string>
+  <string name="cropMenu">Bijsnijden</string>
+  <string name="mosaic">mozaïek</string>
+  <string name="brush">Kwast</string>
+  <string name="color">Kleur</string>
+  <string name="scale_max_tips">Ingezoomd op de maximumwaarde</string>
+  <string name="text_menu_font_size">lettertypegrootte</string>
+  <string name="typeface">Lettertype</string>
+  <string name="default_font">Standaard</string>
+  <string name="text_style_cn">CN</string>
+  <string name="text_style_en">EN</string>
+  <string name="text_style_customize">Aanpassen</string>
+  <string name="back">Terug</string>
+  <string name="total_count">Totaal:%d	</string>
+  <string name="crop">Bijsnijden</string>
+  <string name="is_save_image_edit">Wilt u de wijzigingen aan de afbeelding opslaan？</string>
+  <string name="dialog_save_as">Opslaan als</string>
+  <string name="loading">Laden...</string>
+  <string name="empty_result">Geen inhoud</string>
+  <string name="retry_underline">Opnieuw proberen</string>
+  <string name="network_or_server_error">Netwerk- of serverfout. probeer het later opnieuw.</string>
+  <string name="open_wifi_underline">Zet WiFi aan</string>
+  <string name="enable_wifi_tip">WiFi aanzetten, wacht alstublieft.</string>
+  <string name="generating_qr_code">QR-code genereren. Wacht alsjeblieft...</string>
+  <string name="file_name_des">Bestandsnaam:</string>
+  <string name="file_size_des">Bestandsgrootte:</string>
+  <string name="file_expired_time_des">Vervaldatum:</string>
+  <string name="return_underline">Terug</string>
+  <string name="share_with_no_account_tips">Log in op uw ONYX-account voordat u deelt!</string>
+  <string name="share_tips">Scan de QR-code om te delen</string>
+  <string name="scan_share">Scan de QR-code om te delen</string>
+  <string name="page_index">%d/%d</string>
+  <string name="stroke_width">Breedte van de slag</string>
+  <string name="scale_min_tips">Zoom tot aan de minimumwaarde</string>
+  <string name="network_exception_retry">Huidige netwerkstatus is abnormaal.Probeer het later nog eens.</string>
+  <string name="network_not_connected">Het netwerk is niet verbonden</string>
 </resources>

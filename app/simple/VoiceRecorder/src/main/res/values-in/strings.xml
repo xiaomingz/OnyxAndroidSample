@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">Perekam Suara</string>
+  <string name="app_launcher_name">Perekam</string>
+  <string name="recording_saved_successfully">Rekaman berhasil disimpan sebagai \n\"%s\"</string>
+  <string name="recording">Sedang merekam</string>
+  <string name="pause_recording">Jeda perekaman</string>
+  <string name="current_the_first_recording">Ini rekaman suara pertama.</string>
+  <string name="current_the_last_recording">Ini rekaman suara terakhir.</string>
+  <string name="try_hiding_notification">Cobalah untuk menutup notifikasi rekaman</string>
+  <string name="audio_recorder">Rekaman suara</string>
+  <string name="content_is_empty">Isinya kosong</string>
+</resources>

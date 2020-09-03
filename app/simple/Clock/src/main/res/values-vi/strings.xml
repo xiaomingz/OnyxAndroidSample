@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">Đồng hồ</string>
+  <string name="stopwatch">Bấm giờ</string>
+  <string name="time_zone">Múi giờ</string>
+  <string name="vibrate">Rung</string>
+  <string name="label">Nhãn</string>
+  <string name="no_days_selected">Chưa chọn ngày</string>
+  <string name="timer">Đếm ngược</string>
+  <string name="stopwatch_stopped">Đồng hồ bấm giờ tạm dừng</string>
+  <string name="max_reminder_duration">Thời gian nhắc lại tối đa</string>
+  <string name="time_expired">Thời gian kết thúc</string>
+  <string name="clock_and_date">Đồng hồ và thời gian</string>
+  <string name="use_text_shadow">Đổ bóng chữ</string>
+  <string name="clock_tab">Đồng hồ</string>
+  <string name="alarm_tab">Báo thức</string>
+  <string name="swipe_right_to_dismiss">Trượt sang phải để tắt, sang trái để nhắc lại</string>
+  <string name="stopwatch_tab">Trang bấm giờ</string>
+  <string name="timer_tab">Đếm ngược</string>
+  <string name="show_seconds">Hiện giây</string>
+  <string name="increase_volume_gradually">Tăng âm lượng từ từ</string>
+  <string name="select_time_zone">Chọn múi giờ</string>
+</resources>

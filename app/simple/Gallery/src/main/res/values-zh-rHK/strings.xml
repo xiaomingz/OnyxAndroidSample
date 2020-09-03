@@ -1,80 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">相簿</string>
-    <string name="app_launcher_name">相簿</string>
-    <string name="edit">編輯</string>
-    <string name="hidden">(隱藏)</string>
-    <string name="unpin_folder">取消釘選資料夾</string>
-    <string name="pin_to_the_top">釘選在頂端</string>
-    <string name="all_folders">全部資料夾</string>
-    <string name="other_folder">其他資料夾</string>
-    <string name="unknown_location">未知的位置</string>
-    <string name="change_cover_image">更換封面圖片</string>
-    <string name="select_photo">選擇相片</string>
-    <string name="volume">音量</string>
-    <string name="brightness">亮度</string>
-    <string name="fix_date_taken">修復拍照日期數值</string>
-    <string name="fixing">修復中…</string>
-    <string name="dates_fixed_successfully">日期修復成功</string>
-    <string name="no_date_takens_found">No Date Taken values have been found</string>
-    <string name="switch_to_file_search">Switch to file search across all visible folders</string>
-
-    <!-- Filter -->
-    <string name="filter_media">篩選媒體檔案</string>
-    <string name="images">圖片</string>
-    <string name="videos">影片</string>
-    <string name="gifs">GIF</string>
-    <string name="raw_images">RAW圖檔</string>
-    <string name="svgs">SVG</string>
-    <string name="portraits">Portraits</string>
-    <string name="no_media_with_filters">選擇的篩選條件未發現媒體檔案。</string>
-    <string name="change_filters_underlined"><u>更改篩選條件</u></string>
-
-    <!-- Hide / Exclude -->
-    <string name="hide_folder_description">這功能藉由添加一個\".nomedia\"檔案，來隱藏資料夾和所有子資料夾。您可以透過[設定]中的\"顯示隱藏的項目\"選項來查看。\n是否繼續?</string>
-    <string name="exclude">排除</string>
-    <string name="excluded_folders">排除資料夾</string>
-    <string name="exclude_folder_description">此資料夾與子資料夾將只會都從簡易相簿中排除。您可以在設定中進行管理。</string>
-    <string name="exclude_folder_parent">是否排除上層資料夾?</string>
-    <string name="hidden_folders">隱藏資料夾</string>
-
-    <!-- Include folders -->
-    <string name="include_folders">包含資料夾</string>
-    <string name="add_folder">增加資料夾</string>
-    <string name="no_media_add_included">No media files have been found. You can solve it by adding the folders containing media files manually.</string>
-
-    <!-- Resizing -->
-    <string name="width">寬度</string>
-    <string name="height">高度</string>
-
-    <!-- Editor -->
-    <string name="editor">編輯器</string>
-    <string name="rotate">旋轉</string>
-    <string name="invalid_image_path">無效的圖片路徑</string>
-    <!-- available as an option: 1:1, 4:3, 16:9, free -->
-    <!-- available as an option: 1:1, 4:3, 16:9, free, other -->
-
-    <!-- Set wallpaper -->
-    <string name="simple_wallpaper">簡易桌布</string>
-    <string name="setting_wallpaper">桌布設定中&#8230;</string>
-    <string name="wallpaper_set_successfully">成功設為桌布</string>
-
-    <!-- Slideshow -->
-    <string name="slideshow_ended">投影片結束</string>
-
-    <!-- View types -->
-    <string name="change_view_type">改變瀏覽類型</string>
-    <string name="grid">格狀</string>
-    <string name="list">列表</string>
-    <string name="group_direct_subfolders">歸類子資料夾</string>
-
-    <!-- Grouping at media thumbnails -->
-
-    <!-- Widgets -->
-
-    <!-- Settings -->
-
-    <!-- Setting sections -->
-
-    <!-- Bottom actions -->
+  <string name="app_name">相簿</string>
+  <string name="app_launcher_name">相簿</string>
+  <string name="edit">編輯</string>
+  <string name="hidden">(隱藏)</string>
+  <string name="unpin_folder">取消釘選資料夾</string>
+  <string name="pin_to_the_top">釘選在頂端</string>
+  <string name="all_folders">全部資料夾</string>
+  <string name="other_folder">其他資料夾</string>
+  <string name="unknown_location">未知的位置</string>
+  <string name="change_cover_image">更換封面圖片</string>
+  <string name="select_photo">選擇相片</string>
+  <string name="volume">音量</string>
+  <string name="brightness">亮度</string>
+  <string name="fix_date_taken">修復拍照日期數值</string>
+  <string name="fixing">修復中…</string>
+  <string name="dates_fixed_successfully">日期修復成功</string>
+  <string name="no_date_takens_found">No Date Taken values have been found</string>
+  <string name="switch_to_file_search">Switch to file search across all visible folders</string>
+  <!-- Filter -->
+  <string name="filter_media">篩選媒體檔案</string>
+  <string name="images">圖片</string>
+  <string name="videos">影片</string>
+  <string name="gifs">GIF</string>
+  <string name="raw_images">RAW圖檔</string>
+  <string name="svgs">SVG</string>
+  <string name="portraits">Portraits</string>
+  <string name="no_media_with_filters">選擇的篩選條件未發現媒體檔案。</string>
+  <string name="change_filters_underlined"><u>更改篩選條件</u></string>
+  <!-- Hide / Exclude -->
+  <string name="hide_folder_description">這功能藉由添加一個\".nomedia\"檔案，來隱藏資料夾和所有子資料夾。您可以透過[設定]中的\"顯示隱藏的項目\"選項來查看。\n是否繼續?</string>
+  <string name="exclude">排除</string>
+  <string name="excluded_folders">排除資料夾</string>
+  <string name="exclude_folder_description">此資料夾與子資料夾將只會都從簡易相簿中排除。您可以在設定中進行管理。</string>
+  <string name="exclude_folder_parent">是否排除上層資料夾?</string>
+  <string name="hidden_folders">隱藏資料夾</string>
+  <!-- Include folders -->
+  <string name="include_folders">包含資料夾</string>
+  <string name="add_folder">增加資料夾</string>
+  <string name="no_media_add_included">沒有找到媒體文件。請手動添加包含媒體文件的文件夾。</string>
+  <!-- Resizing -->
+  <string name="width">寬度</string>
+  <string name="height">高度</string>
+  <!-- Editor -->
+  <string name="editor">編輯器</string>
+  <string name="rotate">旋轉</string>
+  <string name="invalid_image_path">無效的圖片路徑</string>
+  <!-- Set wallpaper -->
+  <string name="simple_wallpaper">簡易桌布</string>
+  <string name="setting_wallpaper">桌布設定中…</string>
+  <string name="wallpaper_set_successfully">成功設為桌布</string>
+  <!-- Slideshow -->
+  <string name="slideshow_ended">投影片結束</string>
+  <!-- View types -->
+  <string name="change_view_type">改變瀏覽類型</string>
+  <string name="grid">格狀</string>
+  <string name="list">列表</string>
+  <string name="group_direct_subfolders">歸類子資料夾</string>
+  <!-- Bottom actions -->
+  <string name="graffiti">塗鴉</string>
+  <string name="cropMenu">裁剪</string>
+  <string name="mosaic">馬賽克</string>
+  <string name="brush">筆刷</string>
+  <string name="color">顏色</string>
+  <string name="scale_min_tips">已縮放到最小值</string>
+  <string name="scale_max_tips">已縮放到最大值</string>
+  <string name="stroke_width">線寬</string>
+  <string name="text_menu_font_size">字號</string>
+  <string name="typeface">字體</string>
+  <string name="text_style_customize">自定義</string>
+  <string name="back">返回</string>
+  <string name="total_count">總數：%d</string>
+  <string name="page_index">%d/%d</string>
+  <string name="crop">裁剪</string>
+  <string name="is_save_image_edit">保存對圖片的修改？</string>
+  <string name="dialog_save_as">另存</string>
+  <string name="share_tips">掃描二維碼即可分享</string>
+  <string name="scan_share">掃碼分享</string>
+  <string name="loading">正在加載…</string>
+  <string name="retry_underline">重試</string>
+  <string name="network_or_server_error">網絡或者服務器出錯，稍等會再試</string>
+  <string name="network_not_connected">網絡未連接</string>
+  <string name="open_wifi_underline">要查看可用網絡，請打開Wi-Fi</string>
+  <string name="generating_qr_code">正在生成二維碼，請稍後...</string>
+  <string name="file_name_des">文件名：</string>
+  <string name="file_size_des">大　小：</string>
+  <string name="file_expired_time_des">有效期：截止</string>
+  <string name="return_underline">返回</string>
+  <string name="share_with_no_account_tips">請先登錄ONYX賬號再分享！</string>
 </resources>

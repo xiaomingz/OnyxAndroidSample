@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_launcher_name">レコーダー</string>
+  <string name="recording_saved_successfully">録音を正常に保存しました：\n\"%s\"</string>
+  <string name="recording">録音中</string>
+  <string name="current_the_first_recording">最初の録音音声です。</string>
+  <string name="current_the_last_recording">最後の録音音声です。</string>
+  <string name="content_is_empty">内容がありません</string>
+  <string name="audio_recorder">音声録音中</string>
+  <string name="try_hiding_notification">録音通知をクローズ</string>
+  <string name="app_name">ボイスレコーダー</string>
+</resources>

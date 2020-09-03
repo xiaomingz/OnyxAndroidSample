@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">Trình ghi âm</string>
+  <string name="app_launcher_name">Ghi âm</string>
+  <string name="recording_saved_successfully">Ghi âm được lưu lại ở \n\"%s\"</string>
+  <string name="recording">Đang ghi</string>
+  <string name="pause_recording">Tạm dừng ghi</string>
+  <string name="current_the_first_recording">Đây là bản ghi âm thanh đầu tiên</string>
+  <string name="current_the_last_recording">Đây là bản ghi âm thanh cuối cùng</string>
+  <string name="try_hiding_notification">Thử đóng thông báo ghi âm</string>
+  <string name="audio_recorder">Ghi âm</string>
+  <string name="content_is_empty">Nội dung trống</string>
+</resources>
