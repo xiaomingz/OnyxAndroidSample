@@ -330,11 +330,6 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
     fun saveHandwritingDataToCropSnapshot() {
         val cropSnapshot = undoRedoHander.getCurrCropSnapshot()
         val handwritingShape = getHandwritingShape()
-        val matrix = editBundle.getNormalizedMatrix()
-        val scaleFactor = matrix.values()[Matrix.MSCALE_X]
-        handwritingShape.forEach { shape ->
-            shape.strokeWidth /= scaleFactor
-        }
         cropSnapshot.handwritingShape.addAll(handwritingShape)
     }
 
@@ -350,12 +345,7 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
             editBundle.cropHandler.currAngle = rotateAngle
             this@DrawHandler.imageBitmap = imageBitmap
             val restoreMosaicBitmap = readerHandler.restoreMosaicBitmap(imageShape)
-            val matrix = editBundle.getInitMatrix()
-            val matrixValues = matrix.values()
             handwritingShape.forEach { shape ->
-                shape.matrix.setScale(matrixValues[Matrix.MSCALE_X], matrixValues[Matrix.MSCALE_Y])
-                shape.matrix.setTranslate(matrixValues[Matrix.MTRANS_X], matrixValues[Matrix.MTRANS_Y])
-                shape.strokeWidth * matrixValues[Matrix.MSCALE_X]
                 if (shape is MosaicShape) {
                     shape.backgroundBitmap = restoreMosaicBitmap
                 }
