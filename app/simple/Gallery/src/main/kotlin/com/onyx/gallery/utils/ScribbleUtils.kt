@@ -7,6 +7,7 @@ import com.onyx.android.sdk.scribble.data.RenderColorConfig
 import com.onyx.android.sdk.scribble.shape.EditTextShape
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.shape.Shape
+import com.onyx.android.sdk.scribble.shape.ShapeFactory
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.views.shape.MosaicShape
@@ -39,23 +40,23 @@ object ScribbleUtils {
 
     private fun createShapeBitmap(drawHandler: DrawHandler, normalizedMatrix: Matrix, imageBitmap: Bitmap): Bitmap {
         val renderContext = createRenderContext(imageBitmap.width, imageBitmap.height)
-        val handwritingShape = drawHandler.getHandwritingShape()
+        val cloneShapes = ShapeFactory.ShapeListClone(drawHandler.getHandwritingShape())
         if (drawHandler.hasMosaic()) {
             val scaleFactor = normalizedMatrix.values()[Matrix.MSCALE_X]
             val mosaicScaleFactor = scaleFactor * MosaicUtils.MOSAIC_SCALE_FACTOR
             val mosaicBitmap = MosaicUtils.getMosaicBitmap(imageBitmap, mosaicScaleFactor)
-            handwritingShape.forEach { shape ->
+            cloneShapes.forEach { shape ->
                 if (shape is MosaicShape) {
                     shape.backgroundBitmap = mosaicBitmap
                 }
             }
         }
-        handwritingShape.forEach { shape ->
+        cloneShapes.forEach { shape ->
             shape.postConcat(normalizedMatrix)
         }
-        updateShapeStrokeWidth(handwritingShape, normalizedMatrix)
-        updateEditTextShape(handwritingShape, normalizedMatrix)
-        ShapeUtils.renderShapes(handwritingShape, renderContext, false)
+        updateShapeStrokeWidth(cloneShapes, normalizedMatrix)
+        updateEditTextShape(cloneShapes, normalizedMatrix)
+        ShapeUtils.renderShapes(cloneShapes, renderContext, false)
         return renderContext.getBitmap()
     }
 
