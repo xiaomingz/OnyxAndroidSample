@@ -105,6 +105,7 @@ class FilePickerDialog(val activity: BaseSimpleActivity,
         }
 
         mDialog = builder.create().apply {
+            adjustLayoutMaxHeight(mDialogView)
             activity.setupDialogStuff(mDialogView, this, getTitle())
         }
 

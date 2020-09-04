@@ -2,6 +2,7 @@ package com.simplemobiletools.commons.extensions
 
 import android.app.AlertDialog
 import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
 
@@ -28,4 +29,17 @@ fun AlertDialog.getWindowPosition(): Int {
 
 fun AlertDialog.getWindowPositionScale(): Float {
     return if (context.isPortraitOrientation()) 3f else 4f
+}
+
+fun AlertDialog.adjustLayoutMaxHeight(contentView: View) {
+    contentView.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+        override fun onLayoutChange(v: View, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int,
+                                    oldRight: Int, oldBottom: Int) {
+            contentView.removeOnLayoutChangeListener(this)
+            val maxHeight = context.usableScreenSize.y * 0.8f;
+            if (v.height > maxHeight) {
+                window!!.setLayout(window!!.attributes.width, maxHeight.toInt())
+            }
+        }
+    })
 }
