@@ -132,4 +132,6 @@
 
     <dimen name="language_on_spacebar_horizontal_margin">1dp</dimen>
 
+    <dimen name="preference_check_box_size">20dp</dimen>
+
 </resources>

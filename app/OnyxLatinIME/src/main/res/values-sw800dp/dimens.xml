@@ -134,4 +134,6 @@
 
     <dimen name="item_title_bar_drawable_padding">10dp</dimen>
     <dimen name="title_bar_margin_top">20dp</dimen>
+
+    <dimen name="preference_check_box_size">20dp</dimen>
 </resources>
