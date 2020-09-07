@@ -126,6 +126,7 @@ class TimerFragment : Fragment() {
             }
         }
         clearTimerLabelFocus()
+        resetTimerState(savedInstanceState)
         return view
     }
 
@@ -190,5 +191,11 @@ class TimerFragment : Fragment() {
     private fun clearTimerLabelFocus() {
         view.timer_label.clearFocus()
         view.timer_label_layout.requestFocus()
+    }
+
+    private fun resetTimerState(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            requiredActivity.config.timerState = TimerState.Idle;
+        }
     }
 }
