@@ -1,4 +1,7 @@
 <resources>
+    <fraction name="dialog_gravity_top_y">33%p</fraction>
+    <fraction name="dialog_layout_max_height">80%p</fraction>
+
     <dimen name="social_logo">32dp</dimen>
     <dimen name="colorpicker_color_width">51dp</dimen>
     <dimen name="colorpicker_items_height">25.6dp</dimen>

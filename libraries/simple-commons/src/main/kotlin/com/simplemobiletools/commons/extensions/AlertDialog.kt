@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
+import com.simplemobiletools.commons.R
 
 fun AlertDialog.showKeyboard(editText: EditText) {
     window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
@@ -24,7 +25,7 @@ fun AlertDialog.hideKeyboard() {
 }
 
 fun AlertDialog.getWindowPosition(): Int {
-    return (context.realScreenSize.y / getWindowPositionScale()).toInt()
+    return context.resources.getFraction(R.fraction.dialog_gravity_top_y, context.realScreenSize.y, context.realScreenSize.y).toInt()
 }
 
 fun AlertDialog.getWindowPositionScale(): Float {
@@ -36,7 +37,7 @@ fun AlertDialog.adjustLayoutMaxHeight(contentView: View) {
         override fun onLayoutChange(v: View, left: Int, top: Int, right: Int, bottom: Int, oldLeft: Int, oldTop: Int,
                                     oldRight: Int, oldBottom: Int) {
             contentView.removeOnLayoutChangeListener(this)
-            val maxHeight = context.usableScreenSize.y * 0.8f;
+            val maxHeight = context.resources.getFraction(R.fraction.dialog_layout_max_height, context.usableScreenSize.y, context.usableScreenSize.y)
             if (v.height > maxHeight) {
                 window!!.setLayout(window!!.attributes.width, maxHeight.toInt())
             }
