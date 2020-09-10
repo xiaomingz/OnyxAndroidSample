@@ -100,8 +100,8 @@
 
     <ImageView
         android:id="@+id/stopwatch_reset"
-        android:layout_width="@dimen/stopwatch_button_small_size"
-        android:layout_height="@dimen/stopwatch_button_small_size"
+        android:layout_width="@dimen/stopwatch_button_size"
+        android:layout_height="@dimen/stopwatch_button_size"
         android:layout_toLeftOf="@+id/stopwatch_play_pause"
         android:src="@drawable/ic_reset_vector"
         android:visibility="gone"

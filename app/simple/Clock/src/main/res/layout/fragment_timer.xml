@@ -144,8 +144,8 @@
 
     <ImageView
         android:id="@+id/timer_reset"
-        android:layout_width="@dimen/stopwatch_button_small_size"
-        android:layout_height="@dimen/stopwatch_button_small_size"
+        android:layout_width="@dimen/stopwatch_button_size"
+        android:layout_height="@dimen/stopwatch_button_size"
         android:src="@drawable/ic_reset_vector"
         android:visibility="gone"
         tools:visibility="visible"
