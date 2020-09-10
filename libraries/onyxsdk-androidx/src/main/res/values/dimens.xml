@@ -64,4 +64,5 @@
     <dimen name="title_bar_item_back_width">15dp</dimen>
     <dimen name="title_bar_item_back_height">28dp</dimen>
     <dimen name="default_radius">8dp</dimen>
+    <dimen name="title_bar_icon_size">24dp</dimen>
 </resources>

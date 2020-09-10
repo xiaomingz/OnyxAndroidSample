@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.baseConfig
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.interfaces.MyActionModeCallback
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -295,6 +296,18 @@ abstract class MyRecyclerViewAdapter(val activity: BaseSimpleActivity, val recyc
         }
         finishActMode()
         fastScroller?.measureRecyclerView()
+    }
+
+    protected fun isSelectionEmpty(): Boolean {
+        return selectedKeys.isEmpty()
+    }
+
+    fun checkSelectionEmpty(): Boolean {
+        if (isSelectionEmpty()) {
+            activity.toast(R.string.no_files_selected)
+            return true
+        }
+        return false
     }
 
     open inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
