@@ -26,4 +26,6 @@
     <dimen name="smaller_margin">3.6dp</dimen>
     <dimen name="normal_margin">13.2dp</dimen>
     <dimen name="small_margin">2.8dp</dimen>
+    <fraction name="dialog_gravity_top_y">30%p</fraction>
+    <fraction name="dialog_layout_max_height">70%p</fraction>
 </resources>

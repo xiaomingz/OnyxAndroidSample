@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="top_art_height">180dp</dimen>
+    <dimen name="top_art_image_size">150dp</dimen>
+    <dimen name="button_size">42dp</dimen>
+</resources>
