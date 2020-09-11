@@ -8,10 +8,16 @@ import android.widget.EditText
 import com.simplemobiletools.commons.R
 
 fun AlertDialog.showKeyboard(editText: EditText) {
+    showKeyboard(editText, true)
+}
+
+fun AlertDialog.showKeyboard(editText: EditText, adjustWindowPosition : Boolean) {
     window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-    window!!.attributes.gravity = Gravity.TOP
-    window!!.attributes.y = getWindowPosition()
-    window!!.attributes = window!!.attributes
+    if (adjustWindowPosition) {
+        window!!.attributes.gravity = Gravity.TOP
+        window!!.attributes.y = getWindowPosition()
+        window!!.attributes = window!!.attributes
+    }
     editText.apply {
         requestFocus()
         onGlobalLayout {
