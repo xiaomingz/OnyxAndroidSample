@@ -39,6 +39,7 @@ class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val list
     init {
         setupDragListener(true)
         positionOffset = LIST_HEADERS_COUNT
+        finishWhenSelectionEmpty = false
     }
 
     override fun getActionMenuId() = R.menu.cab
@@ -60,21 +61,14 @@ class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val list
     private fun getItemWithKey(key: Int): Song? = songs.firstOrNull { it.path.hashCode() == key }
 
     override fun prepareActionMode(menu: Menu) {
-        menu.apply {
-            findItem(R.id.cab_rename).isVisible = isOneItemSelected()
-        }
     }
 
     override fun actionItemPressed(id: Int) {
-        if (selectedKeys.isEmpty()) {
-            return
-        }
-
         when (id) {
             R.id.cab_properties -> showProperties()
             R.id.cab_rename -> displayEditDialog()
             R.id.cab_share -> shareItems()
-            R.id.cab_select_all -> selectAll()
+            R.id.cab_select_all -> toggleSelectAll()
             R.id.cab_remove_from_playlist -> removeFromPlaylist()
             R.id.cab_delete -> askConfirmDelete()
         }
@@ -100,6 +94,9 @@ class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val list
     }
 
     private fun showProperties() {
+        if (checkSelectionEmpty()) {
+            return
+        }
         if (selectedKeys.size <= 1) {
             PropertiesDialog(activity, getFirstSelectedItemPath())
         } else {
@@ -109,6 +106,9 @@ class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val list
     }
 
     private fun displayEditDialog() {
+        if (checkSelectionEmpty()) {
+            return
+        }
         EditDialog(activity, getSelectedSongs().first()) {
             if (it == MusicService.mCurrSong) {
                 Intent(activity, MusicService::class.java).apply {
@@ -126,11 +126,17 @@ class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val list
     }
 
     private fun shareItems() {
+        if (checkSelectionEmpty()) {
+            return
+        }
         val paths = getSelectedSongs().map { it.path } as ArrayList<String>
         activity.sharePathsIntent(paths, BuildConfig.APPLICATION_ID)
     }
 
     private fun askConfirmDelete() {
+        if (checkSelectionEmpty()) {
+            return
+        }
         ConfirmationDialog(activity) {
             ensureBackgroundThread {
                 deleteSongs()
@@ -188,7 +194,7 @@ class SongAdapter(activity: SimpleActivity, var songs: ArrayList<Song>, val list
     }
 
     private fun removeFromPlaylist() {
-        if (selectedKeys.isEmpty()) {
+        if (checkSelectionEmpty()) {
             return
         }
 

@@ -31,7 +31,7 @@
     <string name="playlists">播放列表</string>
     <string name="create_playlist">建立播放列表</string>
     <string name="rename_playlist">重新命名播放列表</string>
-    <string name="playlist_name_exists">已经存在这名称的播放列表</string>
+    <string name="playlist_name_exists">已经存在同名称的播放列表</string>
     <string name="remove_playlist">移除播放列表</string>
     <string name="remove_playlist_description">这只会移除选择的播放列表，而不是实际档案。</string>
     <string name="remove_playlist_description_placeholder">这只会移除播放列表\"%s\"，而不是实际档案。</string>
