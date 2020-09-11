@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,25 +9,26 @@
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="@drawable/selector">
+    android:foreground="@drawable/selector"
+    android:orientation="horizontal">
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/time_zone_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:padding="@dimen/activity_margin"
+        android:singleLine="true"
+        android:textSize="@dimen/big_text_size"
+        tools:text="GMT-11:00 Midway" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/time_zone_holder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.simplemobiletools.commons.views.MyTextView
-            android:id="@+id/time_zone_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/time_zone_time"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:padding="@dimen/activity_margin"
-            android:textSize="@dimen/big_text_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="GMT-11:00 Midway"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/time_zone_time"
@@ -42,7 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:text="11:00"/>
+            tools:text="11:00" />
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/time_zone_date"
@@ -56,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/time_zone_time"
-            tools:text="Mon, 1 January"/>
+            tools:text="Mon, 1 January" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+</LinearLayout>
