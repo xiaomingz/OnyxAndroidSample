@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
+import kotlinx.android.synthetic.main.dialog_file_conflict.view.*
 import kotlinx.android.synthetic.main.dialog_rename_items.*
 import kotlinx.android.synthetic.main.dialog_rename_items.view.*
 import java.util.*
@@ -27,8 +28,7 @@ class RenameItemsDialog(val activity: BaseSimpleActivity, val paths: ArrayList<S
                             val valueToAdd = view.rename_items_value.value
 
                             if (valueToAdd.isEmpty()) {
-                                callback()
-                                dismiss()
+                                activity.toast(R.string.filename_cannot_be_empty)
                                 return@setOnClickListener
                             }
 
@@ -83,6 +83,10 @@ class RenameItemsDialog(val activity: BaseSimpleActivity, val paths: ArrayList<S
                                     val newPath = "${path.getParentPath()}/$newName"
 
                                     if (activity.getDoesFilePathExist(newPath)) {
+                                        if (totalCnt == 1) {
+                                            activity.toast(String.format(activity.getString(R.string.file_already_exists), newName))
+                                            dismiss()
+                                        }
                                         continue
                                     }
 
