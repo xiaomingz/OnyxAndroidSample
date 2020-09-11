@@ -58,7 +58,10 @@
             android:layout_marginTop="@dimen/normal_margin"
             android:clipToPadding="false"
             android:overScrollMode="ifContentScrolls"
-            android:scrollbars="none"
+            android:fadeScrollbars="false"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical"
             android:visibility="gone"
             android:layout_marginBottom="@dimen/clock_time_zone_list_bottom_margin"
             app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager"/>
