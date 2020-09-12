@@ -45,7 +45,8 @@
         <activity
             android:name=".activities.RecorderListActivity"
             android:label="@string/audio_recorder"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"
+            android:windowSoftInputMode="adjustNothing" />
 
         <service
             android:name=".services.RecorderService"
