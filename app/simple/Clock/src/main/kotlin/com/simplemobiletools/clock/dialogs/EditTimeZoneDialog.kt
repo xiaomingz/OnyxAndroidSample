@@ -27,7 +27,7 @@ class EditTimeZoneDialog(val activity: SimpleActivity, val myTimeZone: MyTimeZon
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
                     activity.setupDialogStuff(view, this) {
-                        showKeyboard(view.edit_time_zone_title)
+                        showKeyboard(view.edit_time_zone_title, false)
                     }
                 }
     }
