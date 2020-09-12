@@ -26,6 +26,7 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.view.KeyEvent
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.media.session.MediaButtonReceiver
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
@@ -167,7 +168,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         }
 
         MediaButtonReceiver.handleIntent(mMediaSession!!, intent)
-        setupNotification()
+        setupNotification(FINISH == action)
         return START_NOT_STICKY
     }
 
@@ -426,7 +427,11 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     }
 
     @SuppressLint("NewApi")
-    private fun setupNotification() {
+    private fun setupNotification(remove: Boolean = false) {
+        if (remove) {
+            removeNotification()
+            return
+        }
         val title = mCurrSong?.title ?: ""
         val artist = mCurrSong?.artist ?: ""
         val playPauseIcon = if (getIsPlaying()) R.drawable.ic_notification_pause else R.drawable.ic_notification_play
@@ -500,6 +505,15 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     private fun notify(notification: Notification) {
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
         notificationManager?.notify(NOTIFICATION_ID, notification)
+    }
+
+    private fun removeNotification() {
+        val manager = NotificationManagerCompat.from(applicationContext)
+        manager.cancel(NOTIFICATION_ID)
+        val channel = manager.getNotificationChannel(NOTIFICATION_CHANNEL)
+        if (channel != null) {
+            manager.deleteNotificationChannel(NOTIFICATION_CHANNEL)
+        }
     }
 
     private fun getContentIntent(): PendingIntent {
@@ -771,7 +785,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         mPlayer = null
 
         if (mBus != null) {
-            songStateChanged(false)
+            songStateChanged(false, true)
             songChanged(null)
             mBus!!.unregister(this)
         }
@@ -845,9 +859,9 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         resumeSong()
     }
 
-    private fun songStateChanged(isPlaying: Boolean) {
+    private fun songStateChanged(isPlaying: Boolean, isDestroy: Boolean = false) {
         handleProgressHandler(isPlaying)
-        setupNotification()
+        setupNotification(isDestroy)
         mMediaSession?.isActive = isPlaying
         Handler(Looper.getMainLooper()).post {
             mBus!!.post(Events.SongStateChanged(isPlaying))
