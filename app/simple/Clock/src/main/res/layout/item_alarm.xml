@@ -45,21 +45,23 @@
             android:id="@+id/alarm_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/alarm_days"
+            android:layout_alignBottom="@+id/alarm_time"
+            android:layout_marginLeft="@dimen/small_margin"
             android:layout_toLeftOf="@+id/alarm_switch"
+            android:layout_toRightOf="@+id/alarm_time"
             android:ellipsize="end"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:paddingLeft="@dimen/tiny_margin"
+            android:singleLine="true"
             android:textSize="@dimen/bigger_text_size"
-            tools:text="Good morning!"/>
+            tools:text="Good morning!" />
 
         <com.simplemobiletools.commons.views.StatusCheckBox
             android:id="@+id/alarm_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/alarm_time"
-            android:layout_alignBottom="@id/alarm_label"
+            android:layout_alignBottom="@id/alarm_days"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:button="@drawable/onyx_custom_switch"
