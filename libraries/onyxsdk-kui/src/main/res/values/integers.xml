@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="pop_width_include_space_dimens">2</integer>
+    <integer name="dialog_toc_tree_recycler_view_row">6</integer>
+    <item name="dialog_toc_create_btn_width_percent" type="dimen" format="float">0.6</item>
 </resources>

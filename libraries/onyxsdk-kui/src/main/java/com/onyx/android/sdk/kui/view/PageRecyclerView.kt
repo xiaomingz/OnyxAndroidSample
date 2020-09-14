@@ -17,7 +17,7 @@ import com.onyx.android.sdk.kui.R
 import com.onyx.android.sdk.kui.helper.OnyxLinearSnapHelper
 import java.util.*
 
-class PageRecyclerView : RecyclerView {
+open class PageRecyclerView : RecyclerView {
     var paginator: GPaginator? = null
 
     enum class TouchDirection {
@@ -452,8 +452,7 @@ class PageRecyclerView : RecyclerView {
     }
 
     abstract class PageAdapter<VH : ViewHolder?> : Adapter<VH>() {
-        var pageRecyclerView: PageRecyclerView? = null
-            protected set
+        protected var pageRecyclerView: PageRecyclerView? = null
         protected var onItemClickListener = null
         abstract val rowCount: Int
         abstract val columnCount: Int

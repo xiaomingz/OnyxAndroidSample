@@ -151,4 +151,5 @@
     <dimen name="button_min_width">150dp</dimen>
     <dimen name="button_min_height">68dp</dimen>
     <dimen name="pop_fillet_radius">10dp</dimen>
+    <dimen name="dialog_toc_content_height">660dp</dimen>
 </resources>

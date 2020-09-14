@@ -1,4 +1,7 @@
 <resources>
+    <fraction name="dialog_gravity_top_y">33%p</fraction>
+    <fraction name="dialog_layout_max_height">80%p</fraction>
+
     <dimen name="one_dp">1dp</dimen>
     <dimen name="tiny_margin">2dp</dimen>
     <dimen name="small_margin">4dp</dimen>

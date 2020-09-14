@@ -32,6 +32,7 @@ import androidx.loader.content.CursorLoader
 import com.github.ajalt.reprint.core.Reprint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.onyx.android.sdk.utils.FileUtils
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.helpers.MyContentProvider.Companion.COL_APP_ICON_COLOR
@@ -213,7 +214,7 @@ fun Context.getRealPathFromURI(uri: Uri): String {
             return path
         }
     }
-    return getDataColumn(uri) ?: ""
+    return getDataColumn(uri) ?: FileUtils.getRealFilePathFromUri(this, uri) ?: ""
 }
 
 fun Context.getDataColumn(uri: Uri, selection: String? = null, selectionArgs: Array<String>? = null): String? {

@@ -17,6 +17,9 @@ import android.widget.SeekBar
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.onyx.android.sdk.kui.data.TocEntry
+import com.onyx.android.sdk.kui.dialog.TocEntryDialog
+import com.onyx.android.sdk.kui.view.TocTreeRecyclerView
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
@@ -384,24 +387,46 @@ class MainActivity : SimpleActivity(), SongListListener {
     }
 
     private fun showPlaylists(playlists: ArrayList<Playlist>) {
-        val items = arrayListOf<RadioItem>()
-        playlists.mapTo(items) { RadioItem(it.id, it.title) }
-        items.add(RadioItem(-1, getString(R.string.create_playlist)))
-
-        RadioGroupDialog(this, items, config.currentPlaylist) {
-            if (it == -1) {
-                NewPlaylistDialog(this) {
-                    wasInitialPlaylistSet = false
-                    MusicService.mCurrSong = null
-                    playlistChanged(it, false)
-                    invalidateOptionsMenu()
+        val tocEntry = TocEntry<RadioItem>()
+        playlists.forEach {
+            val entry = object : TocEntry<RadioItem>() {
+                override fun getTitle(): String {
+                    return item.title
                 }
-            } else {
-                wasInitialPlaylistSet = false
-                playlistChanged(it as Int)
-                invalidateOptionsMenu()
             }
+            entry.item = RadioItem(it.id, it.title);
+            tocEntry.children.add(entry)
         }
+        TocEntryDialog(tocEntry, getString(R.string.playlists)).apply {
+            setCreateActionListener {
+                dismiss()
+                createNewPlayList()
+            }
+            setItemActionCallBack(object : TocTreeRecyclerView.Callback() {
+                override fun onItemCountChanged(position: Int, itemCount: Int) {
+                }
+
+                override fun onTreeNodeClicked(node: TocTreeRecyclerView.TocTreeNode) {
+                    dismiss()
+                    switchPlayList((node.tag as RadioItem).id)
+                }
+            })
+        }.show(supportFragmentManager)
+    }
+
+    private fun createNewPlayList() {
+        NewPlaylistDialog(this) {
+            wasInitialPlaylistSet = false
+            MusicService.mCurrSong = null
+            playlistChanged(it, false)
+            invalidateOptionsMenu()
+        }
+    }
+
+    private fun switchPlayList(pos: Int) {
+        wasInitialPlaylistSet = false
+        playlistChanged(pos)
+        invalidateOptionsMenu()
     }
 
     private fun addFolderToPlaylist() {

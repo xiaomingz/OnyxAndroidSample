@@ -14,12 +14,6 @@
      limitations under the License.
 -->
 <resources>
-    <dimen name="btn_digit_text_size">40sp</dimen>
-    <dimen name="btn_operation_text_size">40sp</dimen>
-    <dimen name="btn_function_text_size">30sp</dimen>
-    <dimen name="btn_clear_text_size">30sp</dimen>
-    <dimen name="display_text_size">30sp</dimen>
-
     <style name="button_style">
        <item name="android:textSize">40dp</item>
        <item name="android:layout_width">match_parent</item>
@@ -52,7 +46,7 @@
        <item name="android:paddingTop">8dp</item>
        <item name="android:paddingLeft">8dp</item>
        <item name="android:paddingRight">8dp</item>
-       <item name="android:paddingBottom">0dp</item>
+       <item name="android:paddingBottom">8dp</item>
     </style>
 
     <style name="btn_row_style">

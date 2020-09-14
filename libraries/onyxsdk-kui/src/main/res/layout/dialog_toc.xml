@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/dialog_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.onyx.android.sdk.kui.view.TocTreeRecyclerView
+            android:id="@+id/content_pageView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/dialog_file_details_padding"
+            android:paddingRight="@dimen/dialog_file_details_padding"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dialog_file_details_padding"
+            android:paddingRight="@dimen/dialog_file_details_padding">
+
+            <TextView
+                android:id="@+id/bottom_total_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="@android:color/primary_text_light"
+                android:textSize="@dimen/dialog_normal_font_size" />
+
+            <TextView
+                android:id="@+id/bottom_page_size_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@android:color/primary_text_light"
+                android:textSize="@dimen/dialog_normal_font_size" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/create_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/dialog_toc_create_text_margin"
+            android:background="@drawable/imagebtn_press_response_bg">
+
+            <TextView
+                android:id="@+id/create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dialog_toc_create_text_margin"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_new_folder_selector"
+                android:gravity="center"
+                android:text="@string/create_new"
+                android:textSize="@dimen/dialog_normal_font_size" />
+        </FrameLayout>
+    </LinearLayout>
+</layout>

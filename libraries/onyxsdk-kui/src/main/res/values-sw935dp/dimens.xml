@@ -140,4 +140,6 @@
     <dimen name="status_bar_height_portrait">56dp</dimen>
     <dimen name="button_min_width">100dp</dimen>
     <dimen name="button_min_height">53dp</dimen>
+
+    <dimen name="dialog_toc_content_height">530dp</dimen>
 </resources>
