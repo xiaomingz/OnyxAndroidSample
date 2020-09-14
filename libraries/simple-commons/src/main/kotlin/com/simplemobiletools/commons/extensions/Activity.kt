@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
+import com.onyx.android.sdk.utils.ReflectUtil
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.*
@@ -958,5 +959,14 @@ fun AppCompatActivity.isAppSideloaded(): Boolean {
 fun AppCompatActivity.showSideloadingDialog() {
     AppSideloadedDialog(this) {
         finish()
+    }
+}
+
+fun AppCompatActivity.setBackOfActionBarTitle() {
+    var bar = ReflectUtil.getDeclaredFieldSafely(supportActionBar?.javaClass, supportActionBar, "mDecorToolbar")
+    bar = ReflectUtil.getDeclaredFieldSafely(bar?.javaClass, bar, "mToolbar")
+    bar = ReflectUtil.getDeclaredFieldSafely(bar?.javaClass, bar, "mTitleTextView")
+    (bar as View).setOnClickListener {
+        onBackPressed()
     }
 }

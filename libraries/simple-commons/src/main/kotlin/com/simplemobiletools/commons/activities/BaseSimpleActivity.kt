@@ -56,6 +56,7 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
             setTheme(getThemeId())
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(displayHomeAsUp)
+        setBackOfActionBarTitle()
         super.onCreate(savedInstanceState)
     }
 
