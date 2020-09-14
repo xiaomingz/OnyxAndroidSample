@@ -13,6 +13,7 @@ import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
+import com.onyx.android.sdk.utils.BitmapUtils
 import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.raw.SelectionBundleEvent
@@ -49,12 +50,8 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
     fun attachHostView(hostView: SurfaceView, renderBitmapSize: Size) {
         checkSizeIsZero(hostView)
         surfaceView = hostView
-        touchHelper = if (touchHelper == null) {
-            TouchHelper.create(surfaceView, rawInputCallback)
-        } else {
-            touchHelper!!.bindHostView(surfaceView, rawInputCallback)
-        }
-        touchHelper?.run {
+        touchHelper = TouchHelper.create(surfaceView, rawInputCallback)
+        touchHelper!!.run {
             bindHostView(surfaceView, rawInputCallback)
             openRawDrawing()
             setRawDrawingEnabled(false)
@@ -406,7 +403,12 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
     }
 
     fun afterCreateImageShape() {
-        imageBitmap = Bitmap.createBitmap(renderContext.bitmap)
+        val renderImageSize = editBundle.renderImageSize
+        if (renderContext.bitmap != null) {
+            imageBitmap = Bitmap.createBitmap(renderContext.bitmap)
+            return
+        }
+        imageBitmap = BitmapUtils.decodeBitmap(editBundle.imagePath, renderImageSize.width, renderImageSize.height)
     }
 
     fun getImageBitmap(): Bitmap = imageBitmap!!

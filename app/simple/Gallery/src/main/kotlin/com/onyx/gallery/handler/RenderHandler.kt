@@ -290,6 +290,9 @@ class RenderHandler(val editBundle: EditBundle) {
     }
 
     private fun updateMosaicBitmap() {
+        if (renderContext.bitmap == null) {
+            return
+        }
         mosaicBitmap = MosaicUtils.getMosaicBitmap(renderContext.bitmap)
     }
 
