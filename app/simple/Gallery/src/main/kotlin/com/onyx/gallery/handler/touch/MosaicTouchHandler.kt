@@ -45,7 +45,10 @@ class MosaicTouchHandler(editBundle: EditBundle) : BackPressureTouchHandler(edit
     }
 
     private fun addShape(shape: Shape) {
-        invertRenderStrokeWidth(shape)
+        val pointList = shape.points
+        val normalTouchPointList = drawHandler.getNormalTouchPointList(pointList)
+        pointList.points = normalTouchPointList.points
+        shape.strokeWidth = getNormalStrokeWidth(drawHandler.getStrokeWidth())
         AddShapesAction(editBundle).setShape(shape).execute(null)
     }
 

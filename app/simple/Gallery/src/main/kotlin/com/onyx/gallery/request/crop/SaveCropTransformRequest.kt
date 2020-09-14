@@ -12,6 +12,7 @@ import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.handler.MirrorModel
 import com.onyx.gallery.utils.BitmapUtils
 import com.onyx.gallery.utils.ExpandShapeFactory
+import com.onyx.gallery.utils.ExpandShapeFactory.createShape
 import com.onyx.gallery.utils.ScribbleUtils
 import com.onyx.gallery.views.shape.ImageShapeExpand
 import java.io.File
@@ -31,14 +32,14 @@ class SaveCropTransformRequest(editBundle: EditBundle) : BaseRequest(editBundle)
 
         val filePath = editBundle.imagePath
         val cropBitmap = cropImage(filePath, cropRect)
-
         val imageSize = Size(cropBitmap.width, cropBitmap.height)
-        editBundle.initScaleFactor = editBundle.scaleToContainer(imageSize)
+
+        updateRenderMatrix(imageSize)
 
         val newPath = File(context.cacheDir, "crop_${DateTimeUtil.getCurrentTime()}.png").absolutePath
-        val newImageShape = createImageShape(newPath, imageSize, cropBitmap)
+        val newImageShape = createImageShape(newPath, imageSize)
         drawHandler.updateImageShape(newImageShape)
-        updateLimitRect(imageSize, newImageShape.downPoint)
+        updateLimitRect(editBundle.renderImageSize, drawHandler)
 
         BitmapUtils.saveBitmapToFile(context, newPath, cropBitmap)
         drawHandler.makeCropSnapshot(newPath, newImageShape)
@@ -55,13 +56,15 @@ class SaveCropTransformRequest(editBundle: EditBundle) : BaseRequest(editBundle)
     private fun cropImage(filePath: String, orgCropRect: RectF): Bitmap {
         var imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, editBundle.getNormalizedMatrix())
         val cropRect = RectF(orgCropRect)
+
+        val normalizedMatrix = drawHandler.getNormalizedMatrix()
         if (cropHandler.hasRotateChange()) {
-            imageBitmap = imageRotateChange(imageBitmap)
+            imageBitmap = imageRotateChange(imageBitmap, normalizedMatrix)
         }
         if (cropHandler.hasMirrorChange()) {
             cropHandler.currMirrot?.let { imageBitmap = imageMirrorChange(imageBitmap, it) }
         }
-        editBundle.getNormalizedMatrix().mapRect(cropRect)
+        normalizedMatrix.mapRect(cropRect)
         return Bitmap.createBitmap(
                 imageBitmap,
                 cropRect.left.toInt(),
@@ -71,7 +74,7 @@ class SaveCropTransformRequest(editBundle: EditBundle) : BaseRequest(editBundle)
         )
     }
 
-    private fun imageRotateChange(imageBitmap: Bitmap): Bitmap {
+    private fun imageRotateChange(imageBitmap: Bitmap, normalizedMatrix: Matrix): Bitmap {
         val width = imageBitmap.width
         val height = imageBitmap.height
         val newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -80,6 +83,7 @@ class SaveCropTransformRequest(editBundle: EditBundle) : BaseRequest(editBundle)
         matrix.postRotate(cropHandler.currAngle, (width / 2).toFloat(), (height / 2).toFloat())
         canvas.drawBitmap(imageBitmap, matrix, Paint())
         imageBitmap.recycle()
+        normalizedMatrix.postConcat(matrix)
         return newBitmap
     }
 
@@ -104,38 +108,50 @@ class SaveCropTransformRequest(editBundle: EditBundle) : BaseRequest(editBundle)
         return newBitmap
     }
 
-    private fun updateLimitRect(imageSize: Size, downPoint: TouchPoint) {
-        val newLimitRect = Rect(downPoint.x.toInt(), downPoint.y.toInt(),
-                (downPoint.x + imageSize.width).toInt(),
-                (downPoint.y + imageSize.height).toInt())
-        drawHandler.updateLimitRect(newLimitRect)
+    private fun updateRenderMatrix(imageSize: Size) {
+        editBundle.orgImageSize = Size(imageSize.width, imageSize.height)
+        editBundle.renderImageSize = Size(imageSize.width, imageSize.height)
+        val renderImageSize = editBundle.renderImageSize
+        val initScaleFactor = editBundle.scaleToContainer(renderImageSize)
+
+        val initMatrix = Matrix()
+        initMatrix.postScale(initScaleFactor, initScaleFactor)
+        val viewPortRect = drawHandler.renderContext.viewPortRect
+        val floatArrayOf = floatArrayOf(imageSize.width.toFloat(), imageSize.height.toFloat())
+        initMatrix.mapPoints(floatArrayOf)
+
+        val offsetX = Math.abs(viewPortRect.width() - floatArrayOf[0]) / 2
+        val offsetY = Math.abs(viewPortRect.height() - floatArrayOf[1]) / 2
+        initMatrix.postTranslate(offsetX, offsetY)
+
+        editBundle.offsetX = offsetX
+        editBundle.offsetY = offsetY
+        editBundle.initScaleFactor = initScaleFactor
+
+        drawHandler.setRenderContextMatrix(initMatrix)
     }
 
-    private fun createImageShape(path: String, imageSize: Size, cropBitmap: Bitmap): ImageShapeExpand {
-        val newBitmap = Bitmap.createScaledBitmap(cropBitmap, imageSize.width, imageSize.height, true)
-        val imageShape = ExpandShapeFactory.createShape(ExpandShapeFactory.IMAGE_SHAPE_EXPAND) as ImageShapeExpand
-        imageShape.setResourceBitmap(newBitmap)
-        imageShape.setResource(createImageResource(path))
+    private fun updateLimitRect(renderImageSize: Size, drawHandler: DrawHandler) {
         val surfaceRect = drawHandler.surfaceRect
-        val dx: Float = surfaceRect.width() / 2 - imageSize.width / 2.toFloat()
-        val dy: Float = surfaceRect.height() / 2 - imageSize.height / 2.toFloat()
-        val downPoint = TouchPoint(dx, dy)
-        imageShape.onDown(downPoint, downPoint)
+        val dx: Float = (surfaceRect.width() - renderImageSize.width) / 2.toFloat()
+        val dy: Float = (surfaceRect.height() - renderImageSize.height) / 2.toFloat()
 
+        val newLimitRect = Rect(dx.toInt(), dy.toInt(), dx.toInt() + renderImageSize.width, dy.toInt() + renderImageSize.height)
+        this.drawHandler.updateLimitRect(newLimitRect)
+    }
+
+    private fun createImageShape(imageFilePath: String, imageSize: Size): ImageShapeExpand {
+        val shape = createShape(ExpandShapeFactory.IMAGE_SHAPE_EXPAND) as ImageShapeExpand
+        val downPoint = TouchPoint(0f, 0f)
+        shape.onDown(downPoint, downPoint)
         val up = TouchPoint(downPoint)
         up.x = downPoint.x + imageSize.width
         up.y = downPoint.y + imageSize.height
-        imageShape.onUp(up, up)
-
-        imageShape.ensureShapeUniqueId()
-        imageShape.updateShapeRect()
-
-        val rect = Rect(dx.toInt(), dy.toInt(), (dx + imageSize.width).toInt(), (dy + imageSize.height).toInt())
-        drawHandler.orgLimitRect = rect
-        editBundle.initDx = dx
-        editBundle.initDy = dy
-
-        return imageShape
+        shape.onUp(up, up)
+        shape.ensureShapeUniqueId()
+        shape.updateShapeRect()
+        shape.resource = createImageResource(imageFilePath)
+        return shape
     }
 
     private fun createImageResource(localPath: String): ShapeResource {

@@ -130,9 +130,11 @@ class InsertTextHandler(val editBundle: EditBundle) : TextWatcherAdapter() {
     }
 
     private fun onSingleTapUp(up: TouchPoint) {
+        val up = editBundle.drawHandler.getInitMatrixTouchPoint(up)
+        val lastPoint = editBundle.drawHandler.getInitMatrixTouchPoint(lastPoint!!)
         val touchSlop = ViewConfiguration.get(ResManager.getAppContext()).scaledTouchSlop
-        val disX = abs(up.x - lastPoint!!.x).toInt()
-        val disY = abs(up.y - lastPoint!!.y).toInt()
+        val disX = abs(up.x - lastPoint.x).toInt()
+        val disY = abs(up.y - lastPoint.y).toInt()
         if (disX < touchSlop && disY < touchSlop) {
             showSoftInput()
         }
@@ -176,7 +178,8 @@ class InsertTextHandler(val editBundle: EditBundle) : TextWatcherAdapter() {
         shapes.add(shape).apply {
             cursorShape?.run { shapes.add(this) }
         }
-        val request = TranslateRequest(editBundle, shapes, movedPoint, PointF(dx, dy))
+
+        val request = TranslateRequest(editBundle, shapes, movedPoint, lastPoint!!, PointF(dx, dy))
         editBundle.enqueue(request, null)
     }
 
@@ -246,7 +249,7 @@ class InsertTextHandler(val editBundle: EditBundle) : TextWatcherAdapter() {
         }
         insertTextConfig.textSize = textSize
         val textStyle = textShape!!.textStyle
-        textStyle.textSize = DimenUtils.pt2px(ResManager.getAppContext(), textSize)
+        textStyle.textSize = DimenUtils.pt2px(ResManager.getAppContext(), textSize) * getNormalizedScale()
         updateCursorShapeByOffset(cursorOffset)
         renderInputTextShape(textShape!!)
     }
@@ -317,6 +320,10 @@ class InsertTextHandler(val editBundle: EditBundle) : TextWatcherAdapter() {
                 }
             }
         })
+    }
+
+    private fun getNormalizedScale(): Float {
+        return editBundle.drawHandler.getNormalizedScale()
     }
 
     fun release() {

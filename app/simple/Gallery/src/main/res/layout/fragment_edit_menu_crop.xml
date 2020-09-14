@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/edit_menu_crop_height_content"
+        android:layout_height="@dimen/edit_menu_graffiti_height_content"
         android:background="@color/white"
         android:orientation="vertical">
 

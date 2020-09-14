@@ -32,8 +32,11 @@ class EditBundle constructor(context: Context) : BaseBundle(context) {
     lateinit var orgImagePath: String
     lateinit var imagePath: String
 
-    var initDx = 0f
-    var initDy = 0f
+    var orgImageSize = Size(0, 0)
+    var renderImageSize = Size(0, 0)
+
+    var offsetX: Float = 0f
+    var offsetY: Float = 0f
     var initScaleFactor = 0f
 
     private val receiver = DeviceReceiver()
@@ -113,7 +116,7 @@ class EditBundle constructor(context: Context) : BaseBundle(context) {
     fun getInitMatrix(): Matrix {
         val matrix = Matrix()
         matrix.postScale(initScaleFactor, initScaleFactor)
-        matrix.postTranslate(initDx, initDy)
+        matrix.postTranslate(offsetX, offsetY)
         return matrix
     }
 
@@ -121,7 +124,7 @@ class EditBundle constructor(context: Context) : BaseBundle(context) {
         val matrix = Matrix()
         val normalizedMatrix = Matrix()
         matrix.postScale(initScaleFactor, initScaleFactor)
-        matrix.postTranslate(initDx, initDy)
+        matrix.postTranslate(offsetX, offsetY)
         matrix.invert(normalizedMatrix)
         return normalizedMatrix
     }
@@ -132,6 +135,14 @@ class EditBundle constructor(context: Context) : BaseBundle(context) {
 
     fun redo() {
         touchHandlerManager.activateHandler?.redo()
+    }
+
+    fun onAfterSaveImage() {
+        renderImageSize = Size(orgImageSize.width, orgImageSize.height)
+        initScaleFactor = 1f
+        offsetX = 0f
+        offsetX = 0f
+        drawHandler.resetRenderContextMatrix()
     }
 
 }

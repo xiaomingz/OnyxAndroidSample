@@ -3,6 +3,7 @@ package com.onyx.gallery.models
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.graphics.RectF
+import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.gallery.views.shape.ImageShapeExpand
 
@@ -11,8 +12,10 @@ import com.onyx.gallery.views.shape.ImageShapeExpand
  *
  **/
 data class CropSnapshot(
-        val initDx: Float,
-        val initDy: Float,
+        val orgImageSize: Size,
+        val renderImageSize: Size,
+        val offsetX: Float = 0f,
+        val offsetY: Float = 0f,
         val initScaleFactor: Float,
         val imagePath: String,
         val orgLimitRect: Rect,

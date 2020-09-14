@@ -1,5 +1,6 @@
 package com.onyx.gallery.request.textInput;
 
+import android.graphics.Matrix;
 import android.text.StaticLayout;
 
 import com.onyx.android.sdk.pen.data.TouchPoint;
@@ -50,13 +51,18 @@ public class RenderInputTextShapeRequest extends BaseRequest {
         StaticLayout layout = StaticLayoutUtils.createTextLayout((EditTextShapeExpand) textShape);
         TouchPoint down = textShape.getPoints().get(0);
         TouchPoint up = textShape.getPoints().get(1);
-        float deltaX = drawHandler.getRenderContext().getMatrixInvertValue(layout.getWidth());
-        float deltaY = drawHandler.getRenderContext().getMatrixInvertValue(layout.getHeight());
+        float deltaX = layout.getWidth();
+        float deltaY = layout.getHeight();
         int lineCount = layout.getLineCount();
         int minLineCount = ResManager.getInteger(R.integer.min_edit_text_shape_row);
         if (lineCount > 0 && lineCount < minLineCount && !isPlaceHWR) {
             deltaY = deltaY / lineCount * minLineCount;
         }
+        
+        float[] pointList = new float[]{deltaX, deltaY};
+        Matrix initMatrix = drawHandler.getInitMatrix();
+        initMatrix.mapPoints(pointList);
+
         up.x = down.x + deltaX;
         up.y = down.y + deltaY;
         textShape.updatePoints();

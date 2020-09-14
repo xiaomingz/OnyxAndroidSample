@@ -4,7 +4,6 @@ import android.graphics.RectF
 import androidx.annotation.CallSuper
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
-import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.EventBusUtils
 import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.raw.*
@@ -124,10 +123,6 @@ abstract class BaseTouchHandler(val editBundle: EditBundle) : TouchHandler {
 
     }
 
-    fun invertRenderStrokeWidth(shape: Shape) {
-        drawHandler.invertRenderStrokeWidth(shape)
-    }
-
     override fun undo() {
         postEvent(UndoShapeEvent())
     }
@@ -170,6 +165,14 @@ abstract class BaseTouchHandler(val editBundle: EditBundle) : TouchHandler {
 
     override fun onActivityWindowFocusChanged(hasFocus: Boolean) {
         editBundle.enqueue(RendererToScreenRequest(editBundle), null)
+    }
+
+    protected fun getNormalStrokeWidth(strokeWidth: Float): Float {
+        return strokeWidth * drawHandler.getNormalizedScale()
+    }
+
+    protected fun getNormalTouchPoint(touchPoint: TouchPoint): TouchPoint {
+        return drawHandler.getNormalTouchPoint(touchPoint)
     }
 
     protected fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {

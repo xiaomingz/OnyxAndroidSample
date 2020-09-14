@@ -6,12 +6,12 @@ import android.text.StaticLayout;
 
 import androidx.annotation.NonNull;
 
+import com.onyx.android.sdk.data.Size;
 import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.scribble.data.ShapeTextStyle;
 import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.android.sdk.scribble.shape.Shape;
 import com.onyx.android.sdk.scribble.shape.ShapeFactory;
-import com.onyx.android.sdk.scribble.utils.TextLayoutUtils;
 import com.onyx.android.sdk.utils.DimenUtils;
 import com.onyx.android.sdk.utils.RectUtils;
 import com.onyx.android.sdk.utils.ResManager;
@@ -22,6 +22,7 @@ import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.helpers.DrawArgs;
 import com.onyx.gallery.helpers.InsertTextConfig;
 import com.onyx.gallery.utils.ExpandShapeFactory;
+import com.onyx.gallery.utils.StaticLayoutUtils;
 import com.onyx.gallery.views.shape.EditTextShapeExpand;
 
 import java.util.ArrayList;
@@ -67,8 +68,9 @@ public class HitTestTextShapeRequest extends BaseRequest {
             return;
         }
         selectedShapes = new ArrayList<>();
-        for (Shape shape : shapes) {
-            if (shape.getType() != ShapeFactory.SHAPE_EDIT_TEXT_SHAPE) {
+        for (int i = 0; i < shapes.size(); i++) {
+            Shape shape = shapes.get(i);
+            if (shape.getType() != ShapeFactory.SHAPE_EDIT_TEXT_SHAPE && shape.getType() != ExpandShapeFactory.EDIT_TEXT_SHAPE_EXPAND) {
                 continue;
             }
             RectF rectF = shape.getBoundingRect();
@@ -90,20 +92,21 @@ public class HitTestTextShapeRequest extends BaseRequest {
     }
 
     private Shape createTextShape(TouchPoint point) {
-        DrawHandler drawHandler = getDrawHandler();
+        Size orgImageSize = getEditBundle().getOrgImageSize();
+        RectF container = new RectF(0, 0, orgImageSize.width, orgImageSize.height);
+
         EditTextShapeExpand shape = (EditTextShapeExpand) ExpandShapeFactory.createShape(ExpandShapeFactory.EDIT_TEXT_SHAPE_EXPAND);
         ShapeTextStyle textStyle = new ShapeTextStyle();
         InsertTextConfig insertTextConfig = getInsertTextConfig();
         shape.setIndentation(insertTextConfig.isIndentation());
         shape.setTraditional(insertTextConfig.isTraditional());
-        textStyle.setTextSize(DimenUtils.pt2px(ResManager.getAppContext(), insertTextConfig.getTextSize()))
+        float textSize = DimenUtils.pt2px(ResManager.getAppContext(), insertTextConfig.getTextSize());
+        textSize *= getDrawHandler().getNormalizedScale();
+        textStyle.setTextSize(textSize)
                 .setTextSpacing(insertTextConfig.getTextSpacing())
                 .setTextBold(insertTextConfig.getBold())
                 .setTextItalic(insertTextConfig.getItalic())
                 .setFontFace(insertTextConfig.getFontFace());
-        TouchPoint newPoint = point.clone();
-        newPoint.applyMatrix(drawHandler.getRenderContext().matrix);
-        RectF container = new RectF(drawHandler.getCurrLimitRect());
         int textWidth = (int) (container.width() / 2);
         textStyle.setTextWidth(textWidth);
         textStyle.setPointScale(drawingArgs.getNormalizeScale());
@@ -124,11 +127,12 @@ public class HitTestTextShapeRequest extends BaseRequest {
     }
 
     private RectF locationShapeRect(Shape shape, TouchPoint point, int textWidth) {
-        RenderContext renderContext = getRenderContext();
-        RectF container = new RectF(getDrawHandler().getCurrLimitRect());
-        StaticLayout layout = TextLayoutUtils.createTextLayout(shape);
-        final float height = renderContext.getMatrixInvertValue(layout.getHeight()) * ResManager.getInteger(R.integer.min_edit_text_shape_row);
-        RectF shapeRect = new RectF(point.x - textWidth / 2, point.y - height / 2, point.x + textWidth / 2, point.y + height);
+        EditBundle editBundle = getEditBundle();
+        Size orgImageSize = editBundle.getOrgImageSize();
+        RectF container = new RectF(0, 0, orgImageSize.width, orgImageSize.height);
+        StaticLayout layout = StaticLayoutUtils.createTextLayout((EditTextShapeExpand) shape);
+        final float height = layout.getHeight() * ResManager.getInteger(R.integer.min_edit_text_shape_row);
+        RectF shapeRect = new RectF(point.x, point.y, point.x + textWidth, point.y + height);
         if (!RectUtils.contains(container, shapeRect)) {
             Matrix matrix = new Matrix();
             float dx = 0, dy = 0;

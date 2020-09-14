@@ -29,6 +29,7 @@ open class ErasableTouchHandler(editBundle: EditBundle) : BackPressureTouchHandl
     }
 
     override fun onBeginRawErasing(shortcutErasing: Boolean, point: TouchPoint) {
+        val point = drawHandler.getNormalTouchPoint(point)
         onTouchChange(true)
         removeEraseObserver()
         eraseHandler.onStartErase(shortcutErasing, point)
@@ -48,10 +49,12 @@ open class ErasableTouchHandler(editBundle: EditBundle) : BackPressureTouchHandl
     }
 
     override fun onRawErasingTouchPointMoveReceived(point: TouchPoint) {
+        val point = drawHandler.getNormalTouchPoint(point)
         eraseObservable?.onNext(point)
     }
 
     override fun onEndRawErasing(outLimitRegion: Boolean, point: TouchPoint) {
+        val point = drawHandler.getNormalTouchPoint(point)
         onTouchChange(false)
         removeEraseObserver()
         eraseHandler.onEndErase(outLimitRegion, point)

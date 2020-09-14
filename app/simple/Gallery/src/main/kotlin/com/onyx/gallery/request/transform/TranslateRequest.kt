@@ -9,12 +9,12 @@ import com.onyx.android.sdk.utils.CollectionUtils
 import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
-import com.onyx.gallery.utils.RenderHandlerUtils
+import com.onyx.gallery.utils.ExpandShapeFactory
 
 /**
  * Created by Leung on 2020/6/11
  */
-class TranslateRequest(editBundle: EditBundle, private val shapes: MutableList<Shape>, private val movedPoint: TouchPoint, private val offsetPoint: PointF) : BaseRequest(editBundle) {
+class TranslateRequest(editBundle: EditBundle, private val shapes: MutableList<Shape>, private val movedPoint: TouchPoint, lastPoint: TouchPoint, private val offsetPoint: PointF) : BaseRequest(editBundle) {
 
     override fun execute(drawHandler: DrawHandler) {
         if (CollectionUtils.isNullOrEmpty(shapes)) {
@@ -22,12 +22,18 @@ class TranslateRequest(editBundle: EditBundle, private val shapes: MutableList<S
         }
         val renderContext: RenderContext = drawHandler.renderContext
         val selectionRect = renderContext.selectionRect ?: return
-        if (!drawHandler.currLimitRect.contains(movedPoint.x.toInt(), movedPoint.y.toInt())) {
-            return
-        }
-        val translatePoint: TouchPoint = RenderHandlerUtils.onTranslate(selectionRect, offsetPoint.x, offsetPoint.y)
+        val translatePoint: TouchPoint = selectionRect.onTranslate(offsetPoint.x, offsetPoint.y)
         ShapeUtils.translate(shapes, translatePoint.x, translatePoint.y)
-        drawHandler.renderVarietyShapesToScreen(shapes)
+
+        val initMatrix = drawHandler.getInitMatrix()
+        val renderShapes = mutableListOf<Shape>()
+        shapes.forEach { shape ->
+            val shapeClone = ExpandShapeFactory.ShapeClone(shape)
+            renderShapes.add(shapeClone)
+            shape.applyTransformMatrix()
+        }
+
+        drawHandler.renderVarietyShapesToScreen(renderShapes, initMatrix)
         drawHandler.postSelectionBundle()
     }
 

@@ -78,6 +78,11 @@ class RenderHandler(val editBundle: EditBundle) {
 
     @WorkerThread
     fun renderVarietyShapesToSurfaceView(surfaceView: SurfaceView, shapes: List<Shape>): Boolean {
+        return renderVarietyShapesToSurfaceView(surfaceView, shapes, Matrix())
+    }
+
+    @WorkerThread
+    fun renderVarietyShapesToSurfaceView(surfaceView: SurfaceView, shapes: List<Shape>, renderShapeMatrix: Matrix): Boolean {
         return renderToSurfaceViewImp(surfaceView) { canvas ->
             val rect = RendererUtils.checkSurfaceView(surfaceView)
             renderBackground(surfaceView.context, canvas, renderContext, rect)
@@ -86,7 +91,7 @@ class RenderHandler(val editBundle: EditBundle) {
             }
             canvas.drawBitmap(renderContext.bitmap, 0f, 0f, null)
             drawSelectionRect(canvas, renderContext)
-            renderShapeToCanvas(shapes, canvas)
+            renderShapeToCanvas(shapes, canvas, renderShapeMatrix)
             drawLimitRect(canvas)
             drawSelectionPath(canvas, renderContext)
             true
@@ -94,13 +99,18 @@ class RenderHandler(val editBundle: EditBundle) {
     }
 
     private fun renderShapeToCanvas(shapes: List<Shape>, canvas: Canvas): Boolean {
+        renderShapeToCanvas(shapes, canvas, Matrix())
+        return true
+    }
+
+    private fun renderShapeToCanvas(shapes: List<Shape>, canvas: Canvas, matrix: Matrix): Boolean {
         if (CollectionUtils.isNullOrEmpty(shapes)) {
             return false
         }
         val paint = Paint()
         paint.style = Paint.Style.FILL
         paint.color = Color.WHITE
-        val renderContext = RenderContext.create(canvas, paint, null)
+        val renderContext = RenderContext.create(canvas, paint, matrix)
         for (shape in shapes) {
             shape.render(renderContext)
         }
@@ -214,9 +224,6 @@ class RenderHandler(val editBundle: EditBundle) {
         if (selectionPath.isEmpty) {
             return
         }
-        if (renderContext.matrix != null) {
-            selectionPath.transform(renderContext.matrix)
-        }
         val intervals = DrawArgs.defaultSelectionPathIntervals
         val dashPathEffect = DashPathEffect(floatArrayOf(intervals, intervals), 0f)
         strokePaint.setPathEffect(dashPathEffect)
@@ -235,22 +242,25 @@ class RenderHandler(val editBundle: EditBundle) {
             path.transform(renderContext.matrix)
         }
         canvas.drawPath(path, strokePaint)
-        drawScalePoint(canvas, selectionRect)
+        val matrix = Matrix(selectionRect.getMatrix())
+        matrix.postConcat(renderContext.matrix)
+        drawScalePoint(canvas, selectionRect, matrix)
     }
 
-    private fun drawScalePoint(canvas: Canvas, selectionRect: SelectionRect) {
+    private fun drawScalePoint(canvas: Canvas, selectionRect: SelectionRect, matrix: Matrix) {
         val scalePointList = ArrayList<PointF>()
-        val originRect = selectionRect.originRect
+        val originRect = RectF(selectionRect.originRect)
+        matrix.mapRect(originRect)
         if (!selectionRect.isTextSelection) {
-            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.left, originRect.top))
-            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.centerX(), originRect.top))
-            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.right, originRect.top))
-            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.left, originRect.bottom))
-            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.centerX(), originRect.bottom))
-            scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.right, originRect.bottom))
+            scalePointList.add(PointF(originRect.left, originRect.top))
+            scalePointList.add(PointF(originRect.centerX(), originRect.top))
+            scalePointList.add(PointF(originRect.right, originRect.top))
+            scalePointList.add(PointF(originRect.left, originRect.bottom))
+            scalePointList.add(PointF(originRect.centerX(), originRect.bottom))
+            scalePointList.add(PointF(originRect.right, originRect.bottom))
         }
-        scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.left, originRect.centerY()))
-        scalePointList.add(selectionRect.getRenderMatrixPoint(originRect.right, originRect.centerY()))
+        scalePointList.add(PointF(originRect.left, originRect.centerY()))
+        scalePointList.add(PointF(originRect.right, originRect.centerY()))
         for (pointF in scalePointList) {
             canvas.drawCircle(pointF.x, pointF.y, SelectionRect.SELECTION_CIRCLE_RADIUS, fillPaint)
             canvas.drawCircle(pointF.x, pointF.y, SelectionRect.SELECTION_CIRCLE_RADIUS, strokePaint)

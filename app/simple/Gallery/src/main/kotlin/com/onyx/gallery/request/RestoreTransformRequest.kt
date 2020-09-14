@@ -3,6 +3,7 @@ package com.onyx.gallery.request
 import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
+import com.onyx.gallery.utils.NoteUtils
 
 /**
  * Created by Leung on 2020/6/15
@@ -12,8 +13,7 @@ class RestoreTransformRequest(editBundle: EditBundle, val refresh: Boolean = tru
     override fun execute(drawHandler: DrawHandler) {
         val renderContext = drawHandler.renderContext
         renderContext.selectionRect = null
-        renderContext.viewPortScale = 1.0f
-        renderContext.matrix.reset()
+        NoteUtils.resetZoom(renderContext, drawHandler.getInitMatrix())
         drawHandler.updateLimitRect(false)
         renderShapesToBitmap = refresh
         renderToScreen = refresh

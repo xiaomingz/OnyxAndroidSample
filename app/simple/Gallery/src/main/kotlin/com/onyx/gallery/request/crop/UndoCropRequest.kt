@@ -26,7 +26,6 @@ class UndoCropRequest(editBundle: EditBundle) : BaseRequest(editBundle) {
             return
         }
         drawHandler.clearScreen()
-        drawHandler.renderContext.matrix.reset()
         drawHandler.rotateScreen(undoAngle, editBundle.getContainerCenterPoint())
         drawHandler.renderShapesToBitmap()
         drawHandler.renderToScreen()
