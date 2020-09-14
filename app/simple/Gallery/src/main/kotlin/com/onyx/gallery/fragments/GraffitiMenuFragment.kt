@@ -19,7 +19,7 @@ class GraffitiMenuFragment : BaseMenuFragment<FragmentEditMenuGraffitiBinding, G
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuGraffitiBinding, rootView: View): GraffitiMenuViewModel {
-        val graffitiMenuViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(GraffitiMenuViewModel::class.java)
+        val graffitiMenuViewModel = ViewModelProvider(this, BaseViewModel.ViewModeFactory(editBundle)).get(GraffitiMenuViewModel::class.java)
         binding.viewModel = graffitiMenuViewModel
         binding.lifecycleOwner = this
         return graffitiMenuViewModel

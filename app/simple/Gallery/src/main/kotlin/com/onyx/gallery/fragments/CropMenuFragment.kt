@@ -22,7 +22,7 @@ class CropMenuFragment : BaseMenuFragment<FragmentEditMenuCropBinding, CropMenuV
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuCropBinding, rootView: View): CropMenuViewModel {
-        val cropMenuViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(CropMenuViewModel::class.java)
+        val cropMenuViewModel = ViewModelProvider(this, BaseViewModel.ViewModeFactory(editBundle)).get(CropMenuViewModel::class.java)
         binding.viewModel = cropMenuViewModel
         binding.lifecycleOwner = this
         return cropMenuViewModel

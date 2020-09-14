@@ -17,7 +17,7 @@ class MosaicMenuFragment : BaseMenuFragment<FragmentEditMenuMosaicBinding, Mosai
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuMosaicBinding, rootView: View): MosaicMenuViewModel {
-        return ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(MosaicMenuViewModel::class.java).apply {
+        return ViewModelProvider(this, BaseViewModel.ViewModeFactory(editBundle)).get(MosaicMenuViewModel::class.java).apply {
             binding.viewModel = this
             binding.lifecycleOwner = this@MosaicMenuFragment
         }

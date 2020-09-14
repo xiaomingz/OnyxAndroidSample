@@ -28,7 +28,7 @@ class TextMenuFragment : BaseMenuFragment<FragmentEditMenuTextBinding, TextMenuV
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuTextBinding, rootView: View): TextMenuViewModel {
-        val textMenuViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(TextMenuViewModel::class.java)
+        val textMenuViewModel = ViewModelProvider(this, BaseViewModel.ViewModeFactory(editBundle)).get(TextMenuViewModel::class.java)
         binding.viewModel = textMenuViewModel
         binding.lifecycleOwner = this
         return textMenuViewModel

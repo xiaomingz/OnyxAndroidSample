@@ -21,6 +21,7 @@ import com.onyx.gallery.fragments.EditContentFragment
 import com.onyx.gallery.fragments.EditMenuFragment
 import com.onyx.gallery.handler.ActionType
 import com.onyx.gallery.handler.AppBarHandler
+import com.onyx.gallery.handler.CacheHandler
 import com.onyx.gallery.handler.touch.CropTouchHandler
 import com.simplemobiletools.commons.extensions.checkAppSideloading
 import kotlinx.android.synthetic.main.view_action_bar.*
@@ -57,6 +58,11 @@ class NewEditActivity : SimpleActivity() {
             replaceLoadFragment(R.id.content_layout, EditContentFragment.instance(uri))
             replaceLoadFragment(R.id.menu_layout, EditMenuFragment())
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        CacheHandler.instance.cacheHandwritingShape(editBundle)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

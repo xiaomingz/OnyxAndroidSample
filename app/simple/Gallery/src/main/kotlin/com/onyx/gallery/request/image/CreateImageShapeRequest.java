@@ -3,7 +3,6 @@ package com.onyx.gallery.request.image;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.util.Log;
 
 import com.onyx.android.sdk.data.Size;
 import com.onyx.android.sdk.pen.data.TouchPoint;
@@ -12,6 +11,7 @@ import com.onyx.android.sdk.scribble.data.bean.ShapeResource;
 import com.onyx.android.sdk.scribble.shape.RenderContext;
 import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseRequest;
+import com.onyx.gallery.handler.CacheHandler;
 import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.ExpandShapeFactory;
 import com.onyx.gallery.views.shape.ImageShapeExpand;
@@ -84,6 +84,11 @@ public class CreateImageShapeRequest extends BaseRequest {
         drawHandler.renderToBitmap(imageShape);
         drawHandler.addShape(imageShape);
 
+        CacheHandler cacheHandler = CacheHandler.Companion.getInstance();
+        if (cacheHandler.hasCacheHandwritingShape(imageFilePath)) {
+            cacheHandler.restoreHandwritingShape(imageFilePath, drawHandler);
+            drawHandler.renderShapesToBitmap();
+        }
         setRenderToScreen(true);
     }
 

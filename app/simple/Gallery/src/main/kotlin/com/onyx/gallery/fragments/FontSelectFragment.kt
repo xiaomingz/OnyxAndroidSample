@@ -35,7 +35,7 @@ class FontSelectFragment : BaseFragment<FragmentEditMenuFontSelectBinding, FontS
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuFontSelectBinding, rootView: View): FontSelectViewModel {
-        val fontSelectViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(FontSelectViewModel::class.java)
+        val fontSelectViewModel = ViewModelProvider(this, BaseViewModel.ViewModeFactory(editBundle)).get(FontSelectViewModel::class.java)
         binding.viewModel = fontSelectViewModel.apply {
             fontAdapter = binding.pageView.adapter as FontSelectAdapter
             prevPage.observe(this@FontSelectFragment, Observer { binding.pageView.prevPage() })

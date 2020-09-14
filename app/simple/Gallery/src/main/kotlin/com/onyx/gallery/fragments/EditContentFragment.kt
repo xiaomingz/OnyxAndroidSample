@@ -79,7 +79,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditContentBinding, rootView: View): EditContentViewModel {
-        val editContentViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(EditContentViewModel::class.java)
+        val editContentViewModel = ViewModelProvider(this, BaseViewModel.ViewModeFactory(editBundle)).get(EditContentViewModel::class.java)
         binding.run {
             viewModel = editContentViewModel
             lifecycleOwner = this@EditContentFragment
@@ -128,6 +128,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         override fun surfaceDestroyed(holder: SurfaceHolder) {
             Debug.d(javaClass, "surfaceDestroyed")
             drawHandler.isSurfaceCreated = false
+            isAttachHostView = false
         }
     }
 
