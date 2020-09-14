@@ -3,12 +3,13 @@ package com.onyx.gallery.utils
 import android.graphics.*
 import androidx.annotation.WorkerThread
 import androidx.core.graphics.values
+import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.scribble.data.RenderColorConfig
-import com.onyx.android.sdk.scribble.shape.EditTextShape
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.handler.DrawHandler
+import com.onyx.gallery.views.shape.ImageTrackShape
 import com.onyx.gallery.views.shape.MosaicShape
 
 /**
@@ -38,37 +39,24 @@ object ScribbleUtils {
     }
 
     private fun createShapeBitmap(drawHandler: DrawHandler, normalizedMatrix: Matrix, imageBitmap: Bitmap): Bitmap {
-        val renderContext = createRenderContext(imageBitmap.width, imageBitmap.height)
-        val handwritingShape = drawHandler.getHandwritingShape()
-        if (drawHandler.hasMosaic()) {
-            val scaleFactor = normalizedMatrix.values()[Matrix.MSCALE_X]
-            val mosaicScaleFactor = scaleFactor * MosaicUtils.MOSAIC_SCALE_FACTOR
-            val mosaicBitmap = MosaicUtils.getMosaicBitmap(imageBitmap, mosaicScaleFactor)
-            handwritingShape.forEach { shape ->
-                if (shape is MosaicShape) {
-                    shape.backgroundBitmap = mosaicBitmap
-                }
-            }
-        }
+        val imageSize = Size(imageBitmap.width, imageBitmap.height)
+        val renderContext = createRenderContext(imageSize.width, imageSize.height)
+        val handwritingShape = ExpandShapeFactory.ShapeListClone(drawHandler.getHandwritingShape())
+        val scaleFactor = normalizedMatrix.values()[Matrix.MSCALE_X]
+        val mosaicScaleFactor = scaleFactor * MosaicUtils.MOSAIC_SCALE_FACTOR
+        val mosaicBitmap = MosaicUtils.getMosaicBitmap(imageBitmap, mosaicScaleFactor)
         handwritingShape.forEach { shape ->
-            shape.postConcat(normalizedMatrix)
+            if (shape is MosaicShape) {
+                shape.backgroundBitmap = mosaicBitmap
+                shape.imageSize = imageSize
+            } else if (shape is ImageTrackShape) {
+                shape.backgroundBitmap = imageBitmap
+                shape.imageSize = imageSize
+            }
         }
         updateShapeStrokeWidth(handwritingShape, normalizedMatrix)
-        updateEditTextShape(handwritingShape, normalizedMatrix)
         ShapeUtils.renderShapes(handwritingShape, renderContext, false)
         return renderContext.getBitmap()
-    }
-
-    private fun updateEditTextShape(shapes: MutableList<Shape>, normalizedMatrix: Matrix) {
-        val actualScale = normalizedMatrix.values()[Matrix.MSCALE_X]
-        shapes.filter { it is EditTextShape }.forEach { shape ->
-            if (shape is EditTextShape) {
-                val textStyle = shape.textStyle
-                textStyle.textSize = textStyle.textSize * actualScale
-                val targetRenderTextWidth = textStyle.textWidth.toFloat()
-                textStyle.textWidth = (targetRenderTextWidth * actualScale).toInt()
-            }
-        }
     }
 
     private fun updateShapeStrokeWidth(shapes: List<Shape>, normalizedMatrix: Matrix) {

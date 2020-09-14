@@ -13,7 +13,7 @@ class RestoreTransformRequest(editBundle: EditBundle, val refresh: Boolean = tru
         val renderContext = drawHandler.renderContext
         renderContext.selectionRect = null
         renderContext.viewPortScale = 1.0f
-        renderContext.matrix.reset()
+        renderContext.matrix.set(drawHandler.getInitMatrix())
         drawHandler.updateLimitRect(false)
         renderShapesToBitmap = refresh
         renderToScreen = refresh

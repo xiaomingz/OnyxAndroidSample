@@ -1,5 +1,6 @@
 package com.onyx.gallery.handler.touch
 
+import android.graphics.Rect
 import android.text.TextUtils
 import androidx.annotation.NonNull
 import com.onyx.android.sdk.pen.data.TouchPoint
@@ -43,23 +44,27 @@ class InsertTextTouchHandler(editBundle: EditBundle) : ErasableTouchHandler(edit
     }
 
     private fun showInitInputEdit() {
-        val limitRect = editBundle.drawHandler.currLimitRect
-        val point = TouchPoint(limitRect.centerX().toFloat(), limitRect.centerY().toFloat())
+        val orgImageSize = editBundle.orgImageSize
+        val limitRect = Rect(0, 0, orgImageSize.width, orgImageSize.height)
+        val point = TouchPoint(limitRect.centerX() / 2.toFloat(), limitRect.centerY().toFloat())
         hitTestTextShape(point)
     }
 
     override fun onTouchDown(touchPoint: TouchPoint) {
         super.onTouchDown(touchPoint)
+        val touchPoint = drawHandler.getNormalTouchPoint(touchPoint)
         insertTextHandler.onTouchDown(touchPoint)
     }
 
     override fun onTouchMove(touchPoint: TouchPoint) {
         super.onTouchMove(touchPoint)
+        val touchPoint = drawHandler.getNormalTouchPoint(touchPoint)
         insertTextHandler.onTouchMove(touchPoint)
     }
 
     override fun onTouchUp(touchPoint: TouchPoint) {
         super.onTouchUp(touchPoint)
+        val touchPoint = drawHandler.getNormalTouchPoint(touchPoint)
         if (insertTextHandler.isUndefinedTransform()) {
             insertTextHandler.saveTextShape(false)
             hitTestTextShape(touchPoint)
@@ -81,7 +86,7 @@ class InsertTextTouchHandler(editBundle: EditBundle) : ErasableTouchHandler(edit
 
     private fun startTransformAction(textShape: EditTextShape) {
         insertTextHandler.textShape = textShape as EditTextShape
-        StartTransformAction(editBundle, mutableListOf(textShape)).execute(null)
+        StartTransformAction(editBundle, textShape).execute(null)
     }
 
     override fun onFloatButtonChanged(active: Boolean) {

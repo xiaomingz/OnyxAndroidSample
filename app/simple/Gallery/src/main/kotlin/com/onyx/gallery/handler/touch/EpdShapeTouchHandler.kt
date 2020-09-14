@@ -48,22 +48,21 @@ class EpdShapeTouchHandler(editBundle: EditBundle) : ErasableTouchHandler(editBu
     }
 
     override fun onRawDrawingTouchPointListReceived(touchPointList: TouchPointList) {
-        val normalTouchPointList = getNormalTouchPointList(touchPointList)
-        val shape = createEpdShape(normalTouchPointList)
+        val touchPointList = getNormalTouchPointList(touchPointList)
+        val shape = createEpdShape(touchPointList)
         addShapeInBackground(shape)
     }
 
     private fun createEpdShape(touchPointList: TouchPointList): Shape {
         val shape = ShapeFactory.createShape(drawHandler.getCurrShapeType())
         shape.layoutType = ShapeFactory.LayoutType.FREE.ordinal
-        shape.strokeWidth = drawHandler.getStrokeWidth()
+        shape.strokeWidth = getNormalStrokeWidth(drawHandler.getStrokeWidth())
         shape.color = drawHandler.getStrokeColor()
         shape.addPoints(touchPointList)
         return shape
     }
 
     private fun addShapeInBackground(shape: Shape) {
-        invertRenderStrokeWidth(shape)
         AddShapesInBackgroundAction(editBundle, mutableListOf(shape)).execute(null)
     }
 

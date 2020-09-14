@@ -1,8 +1,11 @@
 package com.onyx.gallery.request.textInput
 
+import android.graphics.Matrix
+import android.graphics.Paint
 import android.graphics.RectF
 import com.onyx.android.sdk.scribble.data.SelectionRect
 import com.onyx.android.sdk.scribble.shape.EditTextShape
+import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.RectUtils
 import com.onyx.gallery.bundle.EditBundle
@@ -20,9 +23,9 @@ class UpdateSelectionRectRequest(editBundle: EditBundle, private val textShape: 
         renderContext.clearSelectionRect()
         val shapes = mutableListOf<Shape>(textShape)
         val normalizeScale = drawHandler.drawingArgs.normalizeScale
-        val limitRect = RectF(drawHandler.currLimitRect)
+        val limitRect = RectF(renderContext.viewPortRect)
         RectUtils.scale(limitRect, normalizeScale, normalizeScale)
-        renderContext.selectionRect = SelectionRect.buildSelectionRect(shapes, renderContext, limitRect)?.apply {
+        renderContext.selectionRect = SelectionRect.buildSelectionRect(shapes, RenderContext.create(Paint(), Matrix()), limitRect)?.apply {
             isTextSelection = true
         }
     }

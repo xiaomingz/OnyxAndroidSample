@@ -1,8 +1,8 @@
 package com.onyx.gallery.request.textInput
 
 import com.onyx.android.sdk.scribble.shape.Shape
-import com.onyx.gallery.bundle.EditBundle
 import com.onyx.android.sdk.utils.StringUtils
+import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseRequest
 import com.onyx.gallery.handler.DrawHandler
 
@@ -18,7 +18,6 @@ class SaveTextShapesRequest(editBundle: EditBundle, private val shape: Shape) : 
                 return
             }
         }
-        shape.applyTransformMatrix()
         drawHandler.addShape(shape)
         drawHandler.renderToBitmap(shape)
         renderToScreen = true

@@ -6,6 +6,7 @@ import android.view.SurfaceView
 import androidx.core.graphics.values
 import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.pen.TouchHelper
+import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.data.SelectionBundle
 import com.onyx.android.sdk.scribble.data.SelectionRect
@@ -18,6 +19,7 @@ import com.onyx.gallery.event.raw.SelectionBundleEvent
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.helpers.RawInputCallbackImp
 import com.onyx.gallery.models.CropSnapshot
+import com.onyx.gallery.utils.ExpandShapeFactory
 import com.onyx.gallery.views.shape.ImageShapeExpand
 import com.onyx.gallery.views.shape.ImageTrackShape
 import com.onyx.gallery.views.shape.MosaicShape
@@ -29,7 +31,8 @@ import org.greenrobot.eventbus.EventBus
 class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus: EventBus) {
     var isSurfaceCreated = false
     var orgLimitRect = Rect()
-    val currLimitRect = Rect()
+    var currLimitRect = Rect()
+    internal val lastZoomLimitRect = Rect()
     val surfaceRect = Rect()
     val drawingArgs = DrawArgs()
     private var imageBitmap: Bitmap? = null
@@ -43,7 +46,7 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
     @Volatile
     var touchHelper: TouchHelper? = null
 
-    fun attachHostView(hostView: SurfaceView) {
+    fun attachHostView(hostView: SurfaceView, renderBitmapSize: Size) {
         checkSizeIsZero(hostView)
         surfaceView = hostView
         touchHelper = if (touchHelper == null) {
@@ -77,19 +80,29 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
         setStrokeWidth(DrawArgs.defaultStrokeWidth.toFloat())
     }
 
+    fun getLastZoomLimitRect(): Rect {
+        if (lastZoomLimitRect.isEmpty) {
+            lastZoomLimitRect.set(currLimitRect)
+        }
+        return lastZoomLimitRect;
+    }
+
     fun updateLimitRect(newLimitRect: Rect) {
         orgLimitRect.set(newLimitRect)
         currLimitRect.set(newLimitRect)
         updateLimitRect()
+        lastZoomLimitRect.set(newLimitRect)
+    }
+
+    fun zoomLimitRect(newLimitRect: Rect) {
+        currLimitRect.set(newLimitRect)
+        updateLimitRect()
+        lastZoomLimitRect.set(newLimitRect)
     }
 
     fun updateLimitRect(rawDrawingEnabled: Boolean = true) {
         touchHelper?.run {
-            val dstLimitRect = RectF()
-            val srcLimitRect = RectF(orgLimitRect)
-            readerHandler.renderContext.matrix.mapRect(dstLimitRect, srcLimitRect)
-            val newLimit = Rect()
-            dstLimitRect.round(newLimit)
+            val newLimit = Rect(currLimitRect)
             if (newLimit.intersect(surfaceRect)) {
                 currLimitRect.set(newLimit)
                 readerHandler.limitRect.set(currLimitRect)
@@ -160,10 +173,17 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
     }
 
     fun renderVarietyShapesToScreen(shape: List<Shape>) {
-        if (!isSurfaceCreated) {
+        if (!checkSurfaceReady()) {
             return
         }
         readerHandler.renderVarietyShapesToSurfaceView(surfaceView, shape)
+    }
+
+    fun renderVarietyShapesToScreen(shape: List<Shape>, renderShapeMatrix: Matrix) {
+        if (!checkSurfaceReady()) {
+            return
+        }
+        readerHandler.renderVarietyShapesToSurfaceView(surfaceView, shape, renderShapeMatrix)
     }
 
     fun release() {
@@ -304,17 +324,14 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
         }
     }
 
-    fun invertRenderStrokeWidth(shape: Shape) {
-        val matrix = Matrix()
-        renderContext.matrix.invert(matrix)
-        val scaleFactor = matrix.values()[Matrix.MSCALE_X]
-        shape.strokeWidth *= scaleFactor
-    }
-
     fun makeCropSnapshot(path: String, imageShape: ImageShapeExpand) {
+        val orgImageSize = editBundle.orgImageSize
+        val renderImageSize = editBundle.renderImageSize
         val cropSnapshot = CropSnapshot(
-                editBundle.initDx,
-                editBundle.initDy,
+                Size(orgImageSize.width, orgImageSize.height),
+                Size(renderImageSize.width, renderImageSize.height),
+                editBundle.offsetX,
+                editBundle.offsetY,
                 editBundle.initScaleFactor,
                 path,
                 Rect(orgLimitRect),
@@ -329,41 +346,33 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
 
     fun saveHandwritingDataToCropSnapshot() {
         val cropSnapshot = undoRedoHander.getCurrCropSnapshot()
-        val handwritingShape = getHandwritingShape()
-        val matrix = editBundle.getNormalizedMatrix()
-        val scaleFactor = matrix.values()[Matrix.MSCALE_X]
-        handwritingShape.forEach { shape ->
-            shape.strokeWidth /= scaleFactor
-        }
+        val handwritingShape = ExpandShapeFactory.ShapeListClone(getHandwritingShape())
         cropSnapshot.handwritingShape.addAll(handwritingShape)
     }
 
     fun restoreCropSnapshot(cropSnapshot: CropSnapshot) {
         clearHandwritingData()
         cropSnapshot.run {
+            editBundle.orgImageSize = Size(orgImageSize.width, orgImageSize.height)
+            editBundle.renderImageSize = Size(renderImageSize.width, renderImageSize.height)
             editBundle.imagePath = imagePath
-            editBundle.initDx = initDx
-            editBundle.initDy = initDy
+            editBundle.offsetX = offsetX
+            editBundle.offsetY = offsetY
             editBundle.initScaleFactor = initScaleFactor
             updateImageShape(imageShape)
             updateLimitRect(orgLimitRect)
             editBundle.cropHandler.currAngle = rotateAngle
             this@DrawHandler.imageBitmap = imageBitmap
             val restoreMosaicBitmap = readerHandler.restoreMosaicBitmap(imageShape)
-            val matrix = editBundle.getInitMatrix()
-            val matrixValues = matrix.values()
             handwritingShape.forEach { shape ->
-                shape.matrix.setScale(matrixValues[Matrix.MSCALE_X], matrixValues[Matrix.MSCALE_Y])
-                shape.matrix.setTranslate(matrixValues[Matrix.MTRANS_X], matrixValues[Matrix.MTRANS_Y])
-                shape.strokeWidth * matrixValues[Matrix.MSCALE_X]
                 if (shape is MosaicShape) {
                     shape.backgroundBitmap = restoreMosaicBitmap
-                }
-                if (shape is ImageTrackShape) {
+                } else if (shape is ImageTrackShape) {
                     shape.backgroundBitmap = imageBitmap
                 }
             }
             addShapes(handwritingShape)
+            setRenderContextMatrix(getInitMatrix())
         }
         setRawDrawingRenderEnabled(false)
     }
@@ -406,15 +415,56 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
         readerHandler.updateSelectionPath(path)
     }
 
+    fun getNormalTouchPoint(touchPoint: TouchPoint): TouchPoint {
+        val normalizedMatrix = getNormalizedMatrix()
+        val normalPoint = ShapeUtils.matrixTouchPoint(touchPoint, normalizedMatrix)
+        return normalPoint
+    }
+
+    fun getInitMatrixTouchPoint(touchPoint: TouchPoint): TouchPoint {
+        return ShapeUtils.matrixTouchPoint(touchPoint, getInitMatrix())
+    }
+
     fun getNormalTouchPointList(touchPointList: TouchPointList): TouchPointList {
-        val normalizedMatrix = Matrix()
-        renderContext.matrix.invert(normalizedMatrix)
+        val normalizedMatrix = getNormalizedMatrix()
         val newTouchPointList = TouchPointList()
         touchPointList.points.forEach {
             val normalPoint = ShapeUtils.matrixTouchPoint(it, normalizedMatrix)
             newTouchPointList.add(normalPoint)
         }
         return newTouchPointList
+    }
+
+    fun getInitMatrix(): Matrix {
+        return editBundle.getInitMatrix()
+    }
+
+    fun getNormalizedMatrix(): Matrix {
+        val normalizedMatrix = Matrix()
+        val matrix = Matrix(renderContext.matrix)
+        matrix.invert(normalizedMatrix)
+        return normalizedMatrix
+    }
+
+    fun getRenderContextScale(): Float {
+        return renderContext.matrix.values()[Matrix.MSCALE_X]
+    }
+
+    fun getNormalizedScale(): Float {
+        return getNormalizedMatrix().values()[Matrix.MSCALE_X]
+    }
+
+    fun getRenderViewPortScale(): Float {
+        return renderContext.viewPortScale
+    }
+
+    fun resetRenderContextMatrix() {
+        renderContext.matrix.reset()
+    }
+
+    fun setRenderContextMatrix(matrix: Matrix) {
+        resetRenderContextMatrix()
+        renderContext.matrix = Matrix(matrix)
     }
 
 }

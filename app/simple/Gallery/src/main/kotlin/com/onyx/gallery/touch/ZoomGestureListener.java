@@ -105,7 +105,7 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
     private void onScalingImpl(ScaleGestureDetector detector) {
         float scale = detector.getScaleFactor() * preScale;
         float scaleResult = viewScale * scale;
-        if (scaleResult < ConstantsKt.MIN_VIEW_SCALE) {
+        if (scaleResult <= ConstantsKt.MIN_VIEW_SCALE) {
             curScale = ConstantsKt.MIN_VIEW_SCALE / viewScale;
             showScaleToast(R.string.scale_min_tips);
         } else if (scaleResult > ConstantsKt.MAX_VIEW_SCALE) {
@@ -116,7 +116,7 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
         }
         preScale = curScale;
         ZoomingRequest request = new ZoomingRequest(editBundle, curScale, touchPoint);
-        getGlobalEditBundle().enqueue(request, null);
+        getEditBundle().enqueue(request, null);
     }
 
     @Override
@@ -128,14 +128,14 @@ public class ZoomGestureListener implements ScaleGestureDetector.OnScaleGestureL
     }
 
     private boolean supportZoom() {
-        return getGlobalEditBundle().getSupportZoom();
+        return getEditBundle().getSupportZoom();
     }
 
     private DrawHandler getDrawHandler() {
-        return getGlobalEditBundle().getDrawHandler();
+        return getEditBundle().getDrawHandler();
     }
 
-    private EditBundle getGlobalEditBundle() {
+    private EditBundle getEditBundle() {
         return editBundle;
     }
 

@@ -120,8 +120,6 @@ class InsertTextHandler(val editBundle: EditBundle) : TextWatcherAdapter() {
             onSingleTapUp(point)
             updateCursorShapeByTouchPoint(point)
             textShape?.let { renderInputTextShape(it) }
-        } else {
-            hideSoftInput()
         }
     }
 
@@ -132,9 +130,11 @@ class InsertTextHandler(val editBundle: EditBundle) : TextWatcherAdapter() {
     }
 
     private fun onSingleTapUp(up: TouchPoint) {
+        val up = editBundle.drawHandler.getInitMatrixTouchPoint(up)
+        val lastPoint = editBundle.drawHandler.getInitMatrixTouchPoint(lastPoint!!)
         val touchSlop = ViewConfiguration.get(ResManager.getAppContext()).scaledTouchSlop
-        val disX = abs(up.x - lastPoint!!.x).toInt()
-        val disY = abs(up.y - lastPoint!!.y).toInt()
+        val disX = abs(up.x - lastPoint.x).toInt()
+        val disY = abs(up.y - lastPoint.y).toInt()
         if (disX < touchSlop && disY < touchSlop) {
             showSoftInput()
         }
@@ -178,7 +178,8 @@ class InsertTextHandler(val editBundle: EditBundle) : TextWatcherAdapter() {
         shapes.add(shape).apply {
             cursorShape?.run { shapes.add(this) }
         }
-        val request = TranslateRequest(editBundle, shapes, movedPoint, PointF(dx, dy))
+
+        val request = TranslateRequest(editBundle, shapes, movedPoint, lastPoint!!, PointF(dx, dy))
         editBundle.enqueue(request, null)
     }
 

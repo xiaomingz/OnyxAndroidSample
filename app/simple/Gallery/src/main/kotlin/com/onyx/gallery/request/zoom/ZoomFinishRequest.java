@@ -1,11 +1,12 @@
 package com.onyx.gallery.request.zoom;
 
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.graphics.RectF;
 
 import com.onyx.android.sdk.pen.data.TouchPoint;
 import com.onyx.android.sdk.scribble.shape.RenderContext;
-import com.onyx.android.sdk.utils.NumberUtils;
 import com.onyx.android.sdk.utils.RectUtils;
 import com.onyx.gallery.bundle.EditBundle;
 import com.onyx.gallery.common.BaseRequest;
@@ -13,6 +14,8 @@ import com.onyx.gallery.handler.DrawHandler;
 import com.onyx.gallery.utils.NoteUtils;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 /**
  * <pre>
@@ -35,20 +38,30 @@ public class ZoomFinishRequest extends BaseRequest {
 
     @Override
     public void execute(DrawHandler drawHandler) throws Exception {
+        float initScale = getInitScale();
         RenderContext renderContext = drawHandler.getRenderContext();
-        if ((renderContext.getViewPortScale() * scale) <= NumberUtils.FLOAT_ONE) {
-            NoteUtils.resetZoom(renderContext);
+
+        Matrix initMatrix = drawHandler.getInitMatrix();
+        RectF limitRectF = new RectF(drawHandler.getLastZoomLimitRect());
+        if ((drawHandler.getRenderContextScale() * scale) <= initScale) {
+            NoteUtils.resetZoom(renderContext, initMatrix);
+            drawHandler.updateLimitRect(drawHandler.getOrgLimitRect());
         } else {
             renderContext.matrix.postScale(scale, scale, scalePoint.x, scalePoint.y);
             RectUtils.scale(renderContext.getZoomRect(), scale, scale);
             renderContext.setViewPortScale(scale * renderContext.getViewPortScale());
             NoteUtils.updateDrawRectWhenScale(getDrawRect(), scale, scalePoint);
+
+            renderContext.scalingMatrix.mapRect(limitRectF);
+            Rect newLimitRect = new Rect();
+            limitRectF.round(newLimitRect);
+            drawHandler.zoomLimitRect(newLimitRect);
         }
-        renderContext.setScalingMatrix(null);
         renderContext.canvas.drawColor(Color.WHITE);
-        setRenderShapesToBitmap(true);
         isViewScaling = renderContext.isViewScaling();
-        drawHandler.updateLimitRect(false);
+
+        renderContext.setScalingMatrix(null);
+        setRenderShapesToBitmap(true);
         setRenderToScreen(true);
     }
 
@@ -66,4 +79,9 @@ public class ZoomFinishRequest extends BaseRequest {
     public boolean isViewScaling() {
         return isViewScaling;
     }
+
+    private float getInitScale() {
+        return getEditBundle().getInitScaleFactor();
+    }
+
 }

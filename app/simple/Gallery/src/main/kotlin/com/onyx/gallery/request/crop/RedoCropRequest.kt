@@ -26,7 +26,6 @@ class RedoCropRequest(editBundle: EditBundle) : BaseRequest(editBundle) {
             return
         }
         drawHandler.clearScreen()
-        drawHandler.renderContext.matrix.reset()
         drawHandler.rotateScreen(redoAngle, editBundle.getContainerCenterPoint())
         drawHandler.renderShapesToBitmap()
         drawHandler.renderToScreen()

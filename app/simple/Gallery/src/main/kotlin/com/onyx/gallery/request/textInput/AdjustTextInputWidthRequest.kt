@@ -34,7 +34,7 @@ class AdjustTextInputWidthRequest(editBundle: EditBundle,
 
         calculatePoint(shapeRectF, up, down)
         updateTextShape(down, up)
-        textStyle.textWidth = RenderHandlerUtils.getMatrixNormalValue(drawHandler.renderContext, up.x - down.x).toInt()
+        textStyle.textWidth = (up.x - down.x).toInt()
         RenderHandlerUtils.renderSelectionRect(drawHandler, shape, cursorShape)
     }
 

@@ -114,7 +114,10 @@ class EraseHandler(val editBundle: EditBundle) {
     }
 
     private fun addShape(shape: Shape) {
-        getDrawHandler().invertRenderStrokeWidth(shape)
+        val pointList = shape.points
+        val normalTouchPointList = getDrawHandler().getNormalTouchPointList(pointList)
+        pointList.points = normalTouchPointList.points
+        shape.updatePoints()
         AddShapesAction(editBundle).setShape(shape).execute(null)
     }
 

@@ -18,33 +18,19 @@ import com.onyx.gallery.helpers.ConstantsKt;
 
 public class NoteUtils {
 
-    public static void updateShape(Shape shape, NoteDrawingArgs drawingArgs) {
-        shape.setStrokeWidth(drawingArgs.strokeWidth);
-        shape.setColor(drawingArgs.getStrokeColor());
-    }
-
     public static Shape createShape(int shapeType, int layoutType) {
         Shape shape = ShapeFactory.createShape(shapeType);
         shape.setLayoutType(layoutType);
         return shape;
     }
 
-    public static void resetZoom(RenderContext renderContext) {
+    public static void resetZoom(RenderContext renderContext, Matrix initMatrix) {
         float noteWidth = renderContext.getViewPortRect().width();
         float noteHeight = renderContext.getViewPortRect().height();
         renderContext.setViewPortScale(NumberUtils.FLOAT_ONE);
         renderContext.setViewPortRect(new RectF(0, 0, noteWidth, noteHeight));
         renderContext.setZoomRect(new RectF(0, 0, noteWidth, noteHeight));
-        float renderScale = ConstantsKt.FLOAT_ONE;
-        Matrix matrix = new Matrix();
-        matrix.setScale(renderScale, renderScale);
-        renderContext.setMatrix(matrix);
-    }
-
-    public static float createNormalizeScale(float width, float height) {
-        float widthScale = ConstantsKt.FLOAT_ONE / width;
-        float heightScale = ConstantsKt.FLOAT_ONE / height;
-        return Math.min(widthScale, heightScale);
+        renderContext.setMatrix(initMatrix);
     }
 
     public static void updateDrawRectWhenScale(RectF drawRect, float scale, TouchPoint scalePoint) {

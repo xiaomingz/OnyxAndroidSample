@@ -50,6 +50,7 @@ class SaveEditPictureAction(editBundle: EditBundle, private val hostActivity: Ap
             override fun beforeExecute(request: RxRequest?) {
                 super.beforeExecute(request)
                 if (request is CreateImageShapeRequest) {
+                    editBundle.onAfterSaveImage()
                     request.setImageFilePath(saveEditPictureRequest.imagePath)
                     request.setScribbleRect(drawHandler.surfaceRect)
                 }

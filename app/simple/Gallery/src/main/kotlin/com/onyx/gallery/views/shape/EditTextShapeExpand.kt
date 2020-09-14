@@ -6,6 +6,7 @@ import com.onyx.android.sdk.scribble.shape.EditTextShape
 import com.onyx.android.sdk.scribble.shape.RenderContext
 import com.onyx.android.sdk.scribble.utils.TextLayoutUtils
 import com.onyx.gallery.utils.ChineseConvertorUtils
+import com.onyx.gallery.utils.ExpandShapeFactory
 import com.onyx.gallery.utils.StaticLayoutUtils
 
 /**
@@ -20,6 +21,8 @@ class EditTextShapeExpand : EditTextShape() {
     var isIndentation = false
     var isTraditional = false
 
+    override fun getType(): Int = ExpandShapeFactory.EDIT_TEXT_SHAPE_EXPAND
+    
     fun getIndentationOffset(): Float {
         val textStyle = textStyle ?: return 0f
         return textStyle.textSize * INDENTATION_COUNT

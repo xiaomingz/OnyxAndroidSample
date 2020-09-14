@@ -1,6 +1,5 @@
 package com.onyx.gallery.handler.touch
 
-import android.graphics.Matrix
 import com.onyx.android.sdk.pen.data.TouchPoint
 import com.onyx.android.sdk.pen.data.TouchPointList
 import com.onyx.android.sdk.scribble.shape.Shape
@@ -29,7 +28,7 @@ class NormalShapeTouchHandler(editBundle: EditBundle) : ErasableTouchHandler(edi
         super.onReceivedBufferPoint(pointList)
         val shape = createShape(downPoint)
         for (point in pointList) {
-            shape.onMove(point, point)
+            point?.let { shape.onMove(it, it) }
         }
         renderVarietyShape(shape)
     }
@@ -44,14 +43,12 @@ class NormalShapeTouchHandler(editBundle: EditBundle) : ErasableTouchHandler(edi
     }
 
     private fun normalMatrixMapPoint(downPoint: TouchPoint, upPoint: TouchPoint) {
-        val normalizedMatrix = Matrix()
-        drawHandler.renderContext.matrix.invert(normalizedMatrix)
+        val normalizedMatrix = drawHandler.getNormalizedMatrix()
         downPoint.set(ShapeUtils.matrixTouchPoint(downPoint, normalizedMatrix))
         upPoint.set(ShapeUtils.matrixTouchPoint(upPoint, normalizedMatrix))
     }
 
     private fun addShape(shape: Shape) {
-        invertRenderStrokeWidth(shape)
         AddShapesAction(editBundle).setShape(shape).execute(null)
     }
 
