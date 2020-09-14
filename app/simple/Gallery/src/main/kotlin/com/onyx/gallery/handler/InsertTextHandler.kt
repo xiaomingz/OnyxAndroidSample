@@ -249,7 +249,7 @@ class InsertTextHandler(val editBundle: EditBundle) : TextWatcherAdapter() {
         }
         insertTextConfig.textSize = textSize
         val textStyle = textShape!!.textStyle
-        textStyle.textSize = DimenUtils.pt2px(ResManager.getAppContext(), textSize)
+        textStyle.textSize = DimenUtils.pt2px(ResManager.getAppContext(), textSize) * getNormalizedScale()
         updateCursorShapeByOffset(cursorOffset)
         renderInputTextShape(textShape!!)
     }
@@ -320,6 +320,10 @@ class InsertTextHandler(val editBundle: EditBundle) : TextWatcherAdapter() {
                 }
             }
         })
+    }
+
+    private fun getNormalizedScale(): Float {
+        return editBundle.drawHandler.getNormalizedScale()
     }
 
     fun release() {

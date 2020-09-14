@@ -6,7 +6,6 @@ import androidx.core.graphics.values
 import com.onyx.android.sdk.data.Size
 import com.onyx.android.sdk.scribble.data.RenderColorConfig
 import com.onyx.android.sdk.scribble.shape.RenderContext
-import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.scribble.utils.ShapeUtils
 import com.onyx.gallery.handler.DrawHandler
 import com.onyx.gallery.views.shape.ImageTrackShape
@@ -54,16 +53,8 @@ object ScribbleUtils {
                 shape.imageSize = imageSize
             }
         }
-        updateShapeStrokeWidth(handwritingShape, normalizedMatrix)
         ShapeUtils.renderShapes(handwritingShape, renderContext, false)
         return renderContext.getBitmap()
-    }
-
-    private fun updateShapeStrokeWidth(shapes: List<Shape>, normalizedMatrix: Matrix) {
-        val scaleFactor = normalizedMatrix.values()[Matrix.MSCALE_X]
-        for (shape in shapes) {
-            shape.strokeWidth *= scaleFactor
-        }
     }
 
     private fun createRenderContext(width: Int, height: Int): RenderContext {

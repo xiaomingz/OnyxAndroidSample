@@ -118,6 +118,7 @@ class EraseHandler(val editBundle: EditBundle) {
         val normalTouchPointList = getDrawHandler().getNormalTouchPointList(pointList)
         pointList.points = normalTouchPointList.points
         shape.updatePoints()
+        shape.strokeWidth = eraseWidth * getDrawHandler().getNormalizedScale()
         AddShapesAction(editBundle).setShape(shape).execute(null)
     }
 

@@ -168,7 +168,7 @@ abstract class BaseTouchHandler(val editBundle: EditBundle) : TouchHandler {
     }
 
     protected fun getNormalStrokeWidth(strokeWidth: Float): Float {
-        return strokeWidth / drawHandler.getRenderViewPortScale()
+        return strokeWidth * drawHandler.getNormalizedScale()
     }
 
     protected fun getNormalTouchPoint(touchPoint: TouchPoint): TouchPoint {
