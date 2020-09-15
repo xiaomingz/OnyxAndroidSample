@@ -5,4 +5,5 @@
     <dimen name="stopwatch_button_size">43dp</dimen>
     <dimen name="clock_text_size">48sp</dimen>
     <dimen name="big_text_size">18sp</dimen>
+    <dimen name="edit_alarm_dialog_window_y_offset">-17dp</dimen>
 </resources>

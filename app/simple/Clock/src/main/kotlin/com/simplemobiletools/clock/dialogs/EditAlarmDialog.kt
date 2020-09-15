@@ -90,6 +90,7 @@ class EditAlarmDialog(val activity: SimpleActivity, val alarm: Alarm, val callba
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
+                    setWindowYPosOffset(context.resources.getDimensionPixelOffset(R.dimen.edit_alarm_dialog_window_y_offset))
                     activity.setupDialogStuff(view, this) {
                         getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                             if (alarm.days == 0) {
