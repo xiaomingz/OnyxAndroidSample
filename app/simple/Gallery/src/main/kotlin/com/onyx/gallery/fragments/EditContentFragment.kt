@@ -291,7 +291,7 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         this.maintainAspectRatio = event.maintainAspectRatio
         binding.cropImageView.run {
             visibility = View.VISIBLE
-            val imageRect = getCropHandler().getImageRect()
+            val imageRect = Rect(drawHandler.currLimitRect)
             val highlightView = makeCropBorder(imageRect, event.cropRect, maintainAspectRatio)
             highlightViews.clear()
             highlightViews.add(highlightView)

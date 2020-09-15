@@ -11,6 +11,7 @@ abstract class BaseEditAction<T : RxRequest>(editBundle: EditBundle) : BaseActio
 
     val drawHandler = editBundle.drawHandler
     val eraseHandler = editBundle.eraseHandler
+    val cropHandler = editBundle.cropHandler
     val eventBus: EventBus = editBundle.eventBus
 
 }

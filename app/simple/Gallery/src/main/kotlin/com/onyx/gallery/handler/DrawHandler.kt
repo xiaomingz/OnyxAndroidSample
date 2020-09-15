@@ -33,7 +33,8 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
     var isSurfaceCreated = false
     var orgLimitRect = Rect()
     var currLimitRect = Rect()
-    internal val lastZoomLimitRect = Rect()
+    private val lastZoomLimitRect = Rect()
+    private val lastRotateLimitRect = Rect()
     val surfaceRect = Rect()
     val drawingArgs = DrawArgs()
     private var imageBitmap: Bitmap? = null
@@ -97,6 +98,12 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
         lastZoomLimitRect.set(newLimitRect)
     }
 
+    fun rotateLimitRect(newLimitRect: Rect) {
+        currLimitRect.set(newLimitRect)
+        updateLimitRect(false)
+        lastRotateLimitRect.set(orgLimitRect)
+    }
+
     fun updateLimitRect(rawDrawingEnabled: Boolean = true) {
         touchHelper?.run {
             val newLimit = Rect(currLimitRect)
@@ -110,6 +117,12 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
             }
             setExcludeRect(mutableListOf(Rect(0, 0, 0, 0)))
         }
+    }
+
+    fun resetLimitRect() {
+        lastZoomLimitRect.setEmpty()
+        lastRotateLimitRect.setEmpty()
+        updateLimitRect(orgLimitRect)
     }
 
     fun clearScreen() {

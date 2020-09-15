@@ -23,6 +23,7 @@ abstract class BaseTouchHandler(val editBundle: EditBundle) : TouchHandler {
     private val eventBus by lazy { editBundle.eventBus }
     protected val drawHandler by lazy { editBundle.drawHandler }
     protected val eraseHandler by lazy { editBundle.eraseHandler }
+    protected val cropHandler by lazy { editBundle.cropHandler }
 
     protected var isTouch = false
 

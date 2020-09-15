@@ -9,6 +9,11 @@ import com.onyx.gallery.event.ui.UndoCropEvent
  */
 class CropTouchHandler(editBundle: EditBundle) : BaseTouchHandler(editBundle) {
 
+    override fun onDeactivate() {
+        super.onDeactivate()
+        cropHandler.release()
+    }
+
     override fun undo() {
         postEvent(UndoCropEvent())
     }

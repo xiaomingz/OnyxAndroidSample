@@ -1,11 +1,13 @@
 package com.onyx.gallery.handler
 
-import android.graphics.*
+import android.graphics.Matrix
+import android.graphics.Point
+import android.graphics.PointF
+import android.graphics.RectF
+import com.onyx.gallery.action.RotateAction
 import com.onyx.gallery.bundle.EditBundle
-import com.onyx.gallery.event.ui.StartRotateEvent
 import com.onyx.gallery.event.ui.UpdateCropRectEvent
 import com.onyx.gallery.request.transform.MirrorRequest
-import com.onyx.gallery.request.transform.RotateRequest
 import com.onyx.gallery.views.crop.CropImageView
 
 /**
@@ -29,12 +31,13 @@ class CropHandler(val editBundle: EditBundle) : CropImageView.OnCropRectChange {
     }
 
     fun onCropChangeToCustomize() {
-        val surfaceRect = editBundle.drawHandler.surfaceRect
-        val imageBitmap = getImageBitmap()
-        val width: Int = surfaceRect.width()
-        val height: Int = surfaceRect.height()
-        val centerPoint = Point(width / 2, height / 2)
-        val offset = Math.min(imageBitmap.width / 4, imageBitmap.height / 4).toFloat()
+        val drawHandler = editBundle.drawHandler
+        val surfaceRect = drawHandler.surfaceRect
+        val limitRect = drawHandler.currLimitRect
+        val width = limitRect.width()
+        val height = limitRect.height()
+        val centerPoint = Point(surfaceRect.centerX(), surfaceRect.centerY())
+        val offset = Math.min(width / 4, height / 4).toFloat()
         cropBoxRect.set(centerPoint.x - offset, centerPoint.y - offset, centerPoint.x + offset, centerPoint.y + offset)
         postEvent(UpdateCropRectEvent(cropBoxRect, false))
     }
@@ -146,36 +149,23 @@ class CropHandler(val editBundle: EditBundle) : CropImageView.OnCropRectChange {
         return Pair(newCropHeight, newCropWidth)
     }
 
-    private fun getImageBitmap(): Bitmap = editBundle.drawHandler.getImageShapeBitmap()
-
     fun onRotateToLeft() {
         currAngle -= SINGLE_ROTATE_ANGLE
-        postEvent(StartRotateEvent(currAngle, getRotatedCropBox()))
-        editBundle.enqueue(RotateRequest(editBundle, -SINGLE_ROTATE_ANGLE), null)
+        RotateAction(editBundle, currAngle, -SINGLE_ROTATE_ANGLE).execute(null)
     }
 
     fun onRotateToRight() {
         currAngle += SINGLE_ROTATE_ANGLE
-        postEvent(StartRotateEvent(currAngle, getRotatedCropBox()))
-        editBundle.enqueue(RotateRequest(editBundle, SINGLE_ROTATE_ANGLE), null)
+        RotateAction(editBundle, currAngle, SINGLE_ROTATE_ANGLE).execute(null)
     }
 
-    private fun getRotatedCropBox(): RectF {
+    fun getRotatedCropBox(): RectF {
         return RectF(cropBoxRect).apply {
             getRotateMatrix().mapRect(this)
         }
     }
 
-    fun getImageRect(): Rect {
-        val rectF = RectF(editBundle.drawHandler.currLimitRect).apply {
-            getRotateMatrix().mapRect(this)
-        }
-        return Rect().apply {
-            rectF.round(this)
-        }
-    }
-
-    private fun getRotateMatrix(): Matrix {
+    fun getRotateMatrix(): Matrix {
         val centerPoint = editBundle.getContainerCenterPoint()
         return Matrix().apply {
             postRotate(currAngle, centerPoint.x, centerPoint.y)
@@ -228,6 +218,7 @@ class CropHandler(val editBundle: EditBundle) : CropImageView.OnCropRectChange {
 
     fun resetCropState() {
         currAngle = 0f
+        currMirrot = null
         cropBoxRect.setEmpty()
     }
 
