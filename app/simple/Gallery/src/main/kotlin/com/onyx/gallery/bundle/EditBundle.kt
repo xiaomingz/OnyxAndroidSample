@@ -14,6 +14,7 @@ import com.onyx.gallery.App
 import com.onyx.gallery.R
 import com.onyx.gallery.handler.*
 import com.onyx.gallery.handler.touch.TouchHandlerManager
+import com.onyx.gallery.helpers.DeviceConfig
 import com.onyx.gallery.helpers.SystemUIChangeReceiver
 import com.simplemobiletools.commons.extensions.getRealPathFromURI
 import com.simplemobiletools.commons.extensions.isPathOnOTG
@@ -144,5 +145,9 @@ class EditBundle constructor(context: Context) : BaseBundle(context) {
         offsetX = 0f
         drawHandler.resetRenderContextMatrix()
     }
+
+    fun isSupportHandwriting() = getDeviceConfig().isSupportHandwriting()
+
+    private fun getDeviceConfig(): DeviceConfig = DeviceConfig.sharedInstance(context)
 
 }

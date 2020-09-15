@@ -13,6 +13,11 @@ class EditMenuViewModel(editBundle: EditBundle) : BaseViewModel(editBundle) {
     }
 
     var currItemMenuStyle = MutableLiveData<MenuStyle>()
+    var isSupportHandwriting = MutableLiveData(false)
+
+    init {
+        isSupportHandwriting.value = editBundle.isSupportHandwriting()
+    }
 
     fun onClickMenu(menuStyle: MenuStyle) = updateItemMenuLayout(menuStyle)
 
@@ -24,7 +29,11 @@ class EditMenuViewModel(editBundle: EditBundle) : BaseViewModel(editBundle) {
     }
 
     fun initMenu() {
-        currItemMenuStyle.value = MenuStyle.GRAFFITI
+        var initMenuStyle = MenuStyle.GRAFFITI
+        if (!isSupportHandwriting.value!!) {
+            initMenuStyle = MenuStyle.TEXT
+        }
+        currItemMenuStyle.value = initMenuStyle
     }
 
 }
