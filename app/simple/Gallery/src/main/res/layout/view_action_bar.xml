@@ -5,15 +5,17 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:onClick="onBlackClick"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/view_action_bar_title_margin"
         android:paddingRight="@dimen/view_action_bar_title_margin">
 
         <ImageView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_button_click_solid"
             android:onClick="onBlackClick"
@@ -21,7 +23,7 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="@dimen/title_width"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/view_action_bar_title_tv_margin"
             android:ellipsize="middle"
@@ -31,10 +33,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/view_action_bar_title_margin"
-        android:layout_weight="1"
         android:gravity="center_vertical|right"
         android:orientation="horizontal">
 
