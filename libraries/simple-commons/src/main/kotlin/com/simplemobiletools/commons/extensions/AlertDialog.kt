@@ -50,3 +50,8 @@ fun AlertDialog.adjustLayoutMaxHeight(contentView: View) {
         }
     })
 }
+
+fun AlertDialog.setWindowYPosOffset(offset: Int) {
+    window?.attributes?.y = offset
+    window?.setAttributes(window?.attributes)
+}
