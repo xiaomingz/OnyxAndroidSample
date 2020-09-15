@@ -50,6 +50,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                visibleOrGone="@{viewModel.isSupportHandwriting}"
                 style="@style/main_menu_bottom_progress_light_layout"
                 setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.GRAFFITI}"
                 android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.GRAFFITI)}">
@@ -80,7 +81,6 @@
             </LinearLayout>
 
             <LinearLayout
-
                 style="@style/main_menu_bottom_progress_light_layout"
                 setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.CROP}"
                 android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.CROP)}">
@@ -96,6 +96,7 @@
             </LinearLayout>
 
             <LinearLayout
+                visibleOrGone="@{viewModel.isSupportHandwriting}"
                 style="@style/main_menu_bottom_progress_light_layout"
                 setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.MOSAIC}"
                 android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.MOSAIC)}">
@@ -112,6 +113,7 @@
 
 
             <LinearLayout
+                visibleOrGone="@{viewModel.isSupportHandwriting}"
                 style="@style/main_menu_bottom_progress_light_layout"
                 setViewActivated="@{viewModel.currItemMenuStyle == itemMenuStyle.ERASE}"
                 android:onClick="@{()->viewModel.onClickMenu(itemMenuStyle.ERASE)}">

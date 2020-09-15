@@ -19,7 +19,7 @@ class Config(context: Context) : BaseConfig(context) {
     init {
         if (deviceConfig == null) {
             deviceConfig = context.objectFromRawResource(Build.MODEL, DeviceConfig::class.java)
-                    ?: DeviceConfig()
+                    ?: DeviceConfig.sharedInstance(context)
         }
     }
 
