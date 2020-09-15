@@ -966,7 +966,7 @@ fun AppCompatActivity.setBackOfActionBarTitle() {
     var bar = ReflectUtil.getDeclaredFieldSafely(supportActionBar?.javaClass, supportActionBar, "mDecorToolbar")
     bar = ReflectUtil.getDeclaredFieldSafely(bar?.javaClass, bar, "mToolbar")
     bar = ReflectUtil.getDeclaredFieldSafely(bar?.javaClass, bar, "mTitleTextView")
-    (bar as View).setOnClickListener {
+    (bar as View?)?.setOnClickListener {
         onBackPressed()
     }
 }
