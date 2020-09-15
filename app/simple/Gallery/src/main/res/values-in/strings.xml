@@ -94,4 +94,9 @@
   <string name="network_exception_retry">Status Jaringan saat ini tidak normal. Silakan coba lagi nanti!</string>
   <string name="return_underline">Kembali</string>
   <string name="share_with_no_account_tips">Silakan masuk ke akun ONYX Anda sebelum dibagikan!</string>
+  <string name="exit_image_edit">Simpan perubahan pada gambar dan keluar dari pengeditan?</string>
+  <string name="erase">Hapus</string>
+  <string name="thickness">ketebalan</string>
+  <string name="save_success">Berhasil disimpan</string>
+  <string name="save_as_success">Berhasil disimpan sebagai</string>
 </resources>

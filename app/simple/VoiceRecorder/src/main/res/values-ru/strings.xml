@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">Диктофон</string>
+  <string name="app_launcher_name">Диктофон</string>
+  <string name="recording_saved_successfully">Запись сохранена как \n\"%s\" </string>
+  <string name="recording">Запись</string>
+  <string name="pause_recording">Пауза</string>
+  <string name="current_the_first_recording">Это первая запись</string>
+  <string name="current_the_last_recording">Это последняя запись</string>
+  <string name="try_hiding_notification">Попробуйте закрыть уведомление о записи</string>
+  <string name="audio_recorder">Запись</string>
+  <string name="content_is_empty">Содержимое отсутствует</string>
+</resources>

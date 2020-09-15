@@ -96,4 +96,9 @@
   <string name="scale_min_tips">Zoom tot aan de minimumwaarde</string>
   <string name="network_exception_retry">Huidige netwerkstatus is abnormaal.Probeer het later nog eens.</string>
   <string name="network_not_connected">Het netwerk is niet verbonden</string>
+  <string name="exit_image_edit">De wijzigingen in de afbeelding opslaan en de bewerking verlaten?</string>
+  <string name="erase">wissen</string>
+  <string name="thickness">dikte</string>
+  <string name="save_success">Gered met succes</string>
+  <string name="save_as_success">Opslaan als succesvol</string>
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">שעון</string>
+  <string name="app_launcher_name">שעון</string>
+  <string name="clock">שעון</string>
+  <string name="stopwatch">סטופר</string>
+  <string name="time_zone">אזור זמן</string>
+  <string name="vibrate">לנדנד</string>
+  <string name="label">תג</string>
+  <string name="no_days_selected">לא נבחרו ימים</string>
+  <string name="timer">שעון עצר</string>
+  <string name="stopwatch_stopped">שעון עצר הופסק</string>
+  <string name="max_reminder_duration">משך תזכורת מקסימלי</string>
+  <string name="time_expired">הזמן מסתיים</string>
+  <string name="clock_and_date">שעון ותאריך</string>
+  <string name="use_text_shadow">השתמש בטקסט-צל</string>
+  <string name="swipe_right_to_dismiss">החלק ימינה כדי לבטל, או החלק שמאלה כדי לנמנם.</string>
+  <string name="clock_tab">שעון</string>
+  <string name="alarm_tab">אזעקה</string>
+  <string name="stopwatch_tab">דף סטופר</string>
+  <string name="timer_tab">שעון עצר</string>
+  <string name="show_seconds">הראה שניות</string>
+  <string name="increase_volume_gradually">הגדל את עוצמת הקול בהדרגה</string>
+  <string name="select_time_zone">בחר אזור זמן</string>
+</resources>

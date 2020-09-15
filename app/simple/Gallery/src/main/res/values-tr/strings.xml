@@ -94,4 +94,8 @@
   <string name="network_exception_retry">Mevcut ağ durumu anormal. Lütfen daha sonra tekrar deneyiniz!</string>
   <string name="return_underline">Geri dön</string>
   <string name="share_with_no_account_tips">Lütfen paylaşmadan önce ONYX hesabınıza giriş yapınız!</string>
+  <string name="erase">Sil</string>
+  <string name="thickness">Kalınlık</string>
+  <string name="save_success">Başarıyla kaydedildi</string>
+  <string name="save_as_success">Başarıyla farklı kaydedildi</string>
 </resources>

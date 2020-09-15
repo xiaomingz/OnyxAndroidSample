@@ -6,7 +6,7 @@
   <string name="hidden">(ẩn)</string>
   <string name="unpin_folder">Bỏ ghim thư mục</string>
   <string name="pin_to_the_top">Ghim lên đầu</string>
-  <string name="all_folders">Tất cả các thư mục</string>
+  <string name="all_folders">Mọi thư mục</string>
   <string name="other_folder">Thư mục khác</string>
   <string name="unknown_location">Vị trí không xác định</string>
   <string name="change_cover_image">Thay đổi ảnh bìa</string>
@@ -86,8 +86,15 @@
   <string name="generating_qr_code">Đang tạo mã QR...</string>
   <string name="file_name_des">Tên tệp:</string>
   <string name="file_size_des">Kích thước file:</string>
-  <string name="file_expired_time_des">Ngày kết hạn:</string>
+  <string name="file_expired_time_des">Ngày hết hạn:</string>
   <string name="network_exception_retry">Trạng thái mạng không ổn định. Xin thử lại sau.</string>
   <string name="return_underline">Quay lại</string>
   <string name="share_with_no_account_tips">Đăng nhập vào tài khoản Onyx trước khi chia sẻ</string>
+  <string name="scan_share">Quét mã QR để chia sẻ</string>
+  <string name="page_index">%d/%d</string>
+  <string name="exit_image_edit">Lưu ảnh và thoát chỉnh sửa</string>
+  <string name="erase">Xóa</string>
+  <string name="thickness">Độ đậm</string>
+  <string name="save_success">Lưu thành công</string>
+  <string name="save_as_success">Lưu mới thành công</string>
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">מקליט קול</string>
+  <string name="app_launcher_name">מקליט</string>
+  <string name="recording_saved_successfully">Recording saved successfully as \n\"%s\"</string>
+  <string name="recording">הקלטה</string>
+  <string name="pause_recording">השהה את ההקלטה</string>
+  <string name="current_the_first_recording">זו ההקלטה הקולית הראשונה.</string>
+  <string name="current_the_last_recording">זו ההקלטה הקולית האחרונה.</string>
+  <string name="try_hiding_notification">נסה לסגור את הודעת ההקלטה</string>
+  <string name="audio_recorder">הקלטת קול</string>
+  <string name="content_is_empty">התוכן ריק</string>
+</resources>
