@@ -85,10 +85,10 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
         return lastZoomLimitRect;
     }
 
-    fun updateLimitRect(newLimitRect: Rect) {
+    fun updateLimitRect(newLimitRect: Rect, rawDrawingEnabled: Boolean = false) {
         orgLimitRect.set(newLimitRect)
         currLimitRect.set(newLimitRect)
-        updateLimitRect()
+        updateLimitRect(rawDrawingEnabled)
         lastZoomLimitRect.set(newLimitRect)
     }
 
@@ -119,10 +119,10 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
         }
     }
 
-    fun resetLimitRect() {
+    fun resetLimitRect(rawDrawingEnabled: Boolean) {
         lastZoomLimitRect.setEmpty()
         lastRotateLimitRect.setEmpty()
-        updateLimitRect(orgLimitRect)
+        updateLimitRect(orgLimitRect, rawDrawingEnabled)
     }
 
     fun clearScreen() {

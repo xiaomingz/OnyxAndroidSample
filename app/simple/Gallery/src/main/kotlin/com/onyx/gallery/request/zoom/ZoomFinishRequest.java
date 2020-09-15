@@ -15,8 +15,6 @@ import com.onyx.gallery.utils.NoteUtils;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-
 /**
  * <pre>
  *     author : lxw
@@ -40,12 +38,13 @@ public class ZoomFinishRequest extends BaseRequest {
     public void execute(DrawHandler drawHandler) throws Exception {
         float initScale = getInitScale();
         RenderContext renderContext = drawHandler.getRenderContext();
+        boolean canRawDrawingRenderEnabled = getEditBundle().getTouchHandlerManager().canRawDrawingRenderEnabled();
 
         Matrix initMatrix = drawHandler.getInitMatrix();
         RectF limitRectF = new RectF(drawHandler.getLastZoomLimitRect());
         if ((drawHandler.getRenderContextScale() * scale) <= initScale) {
             NoteUtils.resetZoom(renderContext, initMatrix);
-            drawHandler.updateLimitRect(drawHandler.getOrgLimitRect());
+            drawHandler.updateLimitRect(drawHandler.getOrgLimitRect(), canRawDrawingRenderEnabled);
         } else {
             renderContext.matrix.postScale(scale, scale, scalePoint.x, scalePoint.y);
             RectUtils.scale(renderContext.getZoomRect(), scale, scale);
