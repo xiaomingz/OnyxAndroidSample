@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.onyx.music">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.onyx.music">
 
     <original-package android:name="com.onyx.music" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -13,6 +15,7 @@
 
     <application android:icon="@drawable/app_music"
         android:label="@string/musicbrowserlabel"
+        tools:replace="android:label"
         android:theme="@style/OnyxAppCompat"
         android:taskAffinity="android.task.music"
         android:allowTaskReparenting="true">

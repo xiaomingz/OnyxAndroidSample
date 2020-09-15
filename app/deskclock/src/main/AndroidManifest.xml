@@ -16,8 +16,8 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.onyx.deskclock"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.onyx.deskclock">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -30,6 +30,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application android:label="@string/app_label"
+        tools:replace="android:label"
         android:name="com.onyx.deskclock.deskclock.DeskClockApplication"
         android:theme="@style/OnyxAppCompat"
         android:allowBackup="true"
