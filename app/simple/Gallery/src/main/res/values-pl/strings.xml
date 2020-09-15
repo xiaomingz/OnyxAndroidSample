@@ -89,4 +89,11 @@
   <string name="network_exception_retry">Bieżący stan sieci jest nieprawidłowy. Spróbuj ponownie później!</string>
   <string name="return_underline">Wróć</string>
   <string name="share_with_no_account_tips">Przed udostępnieniem zaloguj się na swoje konto ONYX!</string>
+  <string name="exit_image_edit">Zapisać zmiany w obrazie i wyjść z edycji?</string>
+  <string name="erase">wymazać</string>
+  <string name="thickness">grubość</string>
+  <string name="save_success">Zapisano pomyślnie</string>
+  <string name="save_as_success">Zapisz jako pomyślnie</string>
+  <string name="text_menu_font_size">rozmiar czcionki</string>
+  <string name="brush">szczotka</string>
 </resources>
