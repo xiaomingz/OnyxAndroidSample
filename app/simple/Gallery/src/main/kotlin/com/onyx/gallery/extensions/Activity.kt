@@ -59,13 +59,6 @@ fun Activity.sharePaths(paths: ArrayList<String>) {
     sharePathsIntent(paths, BuildConfig.APPLICATION_ID)
 }
 
-fun Activity.shareToCloud(filePath: String, accountModel: OnyxAccountModel) {
-    DialogShare(this)
-            .setShareFilePath(filePath)
-            .setAccountModel(accountModel)
-            .show()
-}
-
 fun Activity.shareMediumPath(path: String) {
     sharePath(path)
 }
