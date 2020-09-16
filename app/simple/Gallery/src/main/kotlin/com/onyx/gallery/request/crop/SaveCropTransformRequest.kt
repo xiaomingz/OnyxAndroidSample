@@ -137,7 +137,7 @@ class SaveCropTransformRequest(editBundle: EditBundle) : BaseRequest(editBundle)
         val dy: Float = (surfaceRect.height() - renderImageSize.height) / 2.toFloat()
 
         val newLimitRect = Rect(dx.toInt(), dy.toInt(), dx.toInt() + renderImageSize.width, dy.toInt() + renderImageSize.height)
-        this.drawHandler.updateLimitRect(newLimitRect)
+        this.drawHandler.updateLimitRectDisableRawDrawing(newLimitRect)
     }
 
     private fun createImageShape(imageFilePath: String, imageSize: Size): ImageShapeExpand {

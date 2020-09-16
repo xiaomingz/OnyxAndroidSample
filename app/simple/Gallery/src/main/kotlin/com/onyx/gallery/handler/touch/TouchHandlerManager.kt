@@ -45,4 +45,11 @@ class TouchHandlerManager(private val editBundle: EditBundle) {
         return false
     }
 
+    fun canRawDrawingRenderEnabled(): Boolean {
+        activateHandler?.let { touchHandler ->
+            return touchHandler.canRawDrawingRenderEnabled()
+        }
+        return false
+    }
+
 }

@@ -14,7 +14,8 @@ class RestoreTransformRequest(editBundle: EditBundle, val refresh: Boolean = tru
         val renderContext = drawHandler.renderContext
         renderContext.selectionRect = null
         NoteUtils.resetZoom(renderContext, drawHandler.getInitMatrix())
-        drawHandler.resetLimitRect()
+        val canRawDrawingRenderEnabled = editBundle.touchHandlerManager.canRawDrawingRenderEnabled()
+        drawHandler.resetLimitRect(canRawDrawingRenderEnabled)
         renderShapesToBitmap = refresh
         renderToScreen = refresh
     }
