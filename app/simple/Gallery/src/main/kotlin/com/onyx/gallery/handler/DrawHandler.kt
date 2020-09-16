@@ -85,10 +85,17 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
         return lastZoomLimitRect;
     }
 
-    fun updateLimitRect(newLimitRect: Rect, rawDrawingEnabled: Boolean = false) {
+    fun updateLimitRectEnableRawDrawing(newLimitRect: Rect) {
         orgLimitRect.set(newLimitRect)
         currLimitRect.set(newLimitRect)
-        updateLimitRect(rawDrawingEnabled)
+        updateLimitRect(true)
+        lastZoomLimitRect.set(newLimitRect)
+    }
+
+    fun updateLimitRectDisableRawDrawing(newLimitRect: Rect) {
+        orgLimitRect.set(newLimitRect)
+        currLimitRect.set(newLimitRect)
+        updateLimitRect(false)
         lastZoomLimitRect.set(newLimitRect)
     }
 
@@ -122,7 +129,11 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
     fun resetLimitRect(rawDrawingEnabled: Boolean) {
         lastZoomLimitRect.setEmpty()
         lastRotateLimitRect.setEmpty()
-        updateLimitRect(orgLimitRect, rawDrawingEnabled)
+        if (rawDrawingEnabled) {
+            updateLimitRectEnableRawDrawing(orgLimitRect)
+            return
+        }
+        updateLimitRectDisableRawDrawing(orgLimitRect)
     }
 
     fun clearScreen() {
@@ -370,7 +381,7 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
             editBundle.offsetY = offsetY
             editBundle.initScaleFactor = initScaleFactor
             updateImageShape(imageShape)
-            updateLimitRect(orgLimitRect)
+            updateLimitRectDisableRawDrawing(orgLimitRect)
             editBundle.cropHandler.currAngle = rotateAngle
             this@DrawHandler.imageBitmap = imageBitmap
             val restoreMosaicBitmap = readerHandler.restoreMosaicBitmap(imageShape)

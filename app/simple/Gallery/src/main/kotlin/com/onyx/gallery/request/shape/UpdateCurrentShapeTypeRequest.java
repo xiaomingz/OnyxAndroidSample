@@ -56,7 +56,11 @@ public class UpdateCurrentShapeTypeRequest extends BaseRequest {
                 break;
             default:
                 drawHandler.setStrokeStyle(DrawArgs.defaultStrokeType);
-                drawHandler.updateLimitRect(drawHandler.getCurrLimitRect(), touchHandlerManager.canRawDrawingRenderEnabled());
+                if (touchHandlerManager.canRawDrawingRenderEnabled()) {
+                    drawHandler.updateLimitRectEnableRawDrawing(drawHandler.getCurrLimitRect());
+                } else {
+                    drawHandler.updateLimitRectDisableRawDrawing(drawHandler.getCurrLimitRect());
+                }
                 DrawArgs drawingArgs = drawHandler.getDrawingArgs();
                 drawHandler.setStrokeColor(drawingArgs.getStrokeColor());
                 drawHandler.setStrokeWidth(drawingArgs.getStrokeWidth());

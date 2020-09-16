@@ -44,7 +44,11 @@ public class ZoomFinishRequest extends BaseRequest {
         RectF limitRectF = new RectF(drawHandler.getLastZoomLimitRect());
         if ((drawHandler.getRenderContextScale() * scale) <= initScale) {
             NoteUtils.resetZoom(renderContext, initMatrix);
-            drawHandler.updateLimitRect(drawHandler.getOrgLimitRect(), canRawDrawingRenderEnabled);
+            if (canRawDrawingRenderEnabled) {
+                drawHandler.updateLimitRectEnableRawDrawing(drawHandler.getOrgLimitRect());
+            } else {
+                drawHandler.updateLimitRectDisableRawDrawing(drawHandler.getOrgLimitRect());
+            }
         } else {
             renderContext.matrix.postScale(scale, scale, scalePoint.x, scalePoint.y);
             RectUtils.scale(renderContext.getZoomRect(), scale, scale);
