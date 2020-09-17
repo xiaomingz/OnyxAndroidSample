@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+  <string name="app_name">Sprachaufzeichnungsgerät </string>
+  <string name="app_launcher_name">Blockflöte </string>
+  <string name="recording_saved_successfully">Aufzeichnung erfolgreich gespeichert als \n\"%s\" </string>
+  <string name="recording">Aufzeichnung </string>
+  <string name="pause_recording">Aufzeichnung pausieren </string>
+  <string name="current_the_first_recording">Dies ist die erste Sprachaufnahme. </string>
+  <string name="current_the_last_recording">Dies ist die letzte Sprachaufzeichnung. </string>
+  <string name="try_hiding_notification">Versuchen Sie, die Aufnahmebenachrichtigung zu schließen. </string>
+  <string name="audio_recorder">Sprachaufzeichnung </string>
+  <string name="content_is_empty">Der Inhalt ist leer</string>
+</resources>
