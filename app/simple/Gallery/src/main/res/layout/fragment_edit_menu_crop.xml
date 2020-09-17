@@ -34,9 +34,9 @@
                 android:text="@string/crop" />
 
             <ImageView
-                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
                 style="@style/dialog_text_style_radio_button"
                 setViewActivated="@{viewModel.cropAction == MenuAction.CROP_CUSTOMIZE}"
+                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.CROP_CUSTOMIZE)}"
                 app:srcCompat="@drawable/ic_crop_customize" />
 
@@ -84,8 +84,8 @@
                 android:text="@string/rotate" />
 
             <ImageView
-                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
                 style="@style/dialog_text_style_radio_button"
+                android:layout_marginLeft="@dimen/sub_menu_item_margini_left"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.ROTATE_LEFT)}"
                 app:srcCompat="@drawable/ic_rotate_left" />
 
@@ -96,27 +96,25 @@
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                visibleOrGone="@{viewModel.XAxisMirror==MirrorModel.LEFT}"
+                visibleOrGone="@{viewModel.XAxisMirror==MirrorModel.RIGHT || viewModel.XAxisMirror==null}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_LEFT)}"
                 app:srcCompat="@drawable/ic_mirror_right" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                setViewActivated="@{viewModel.XAxisMirror == MirrorModel.RIGHT}"
-                visibleOrGone="@{viewModel.XAxisMirror==MirrorModel.RIGHT}"
+                visibleOrGone="@{viewModel.XAxisMirror==MirrorModel.LEFT || viewModel.XAxisMirror==null}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_RIGHT)}"
                 app:srcCompat="@drawable/ic_mirror_left" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                setViewActivated="@{viewModel.YAxisMirror == MirrorModel.BOTTOM}"
-                visibleOrGone="@{viewModel.YAxisMirror==MirrorModel.BOTTOM}"
+                visibleOrGone="@{viewModel.YAxisMirror==MirrorModel.TOP || viewModel.YAxisMirror==null}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_BOTTOM)}"
                 app:srcCompat="@drawable/ic_mirror_top" />
 
             <ImageView
                 style="@style/dialog_text_style_radio_button"
-                visibleOrGone="@{viewModel.YAxisMirror==MirrorModel.TOP}"
+                visibleOrGone="@{viewModel.YAxisMirror==MirrorModel.BOTTOM}"
                 android:onClick="@{()->viewModel.onHandleMenu(MenuAction.MIRROR_TOP)}"
                 app:srcCompat="@drawable/ic_mirror_bottom" />
 

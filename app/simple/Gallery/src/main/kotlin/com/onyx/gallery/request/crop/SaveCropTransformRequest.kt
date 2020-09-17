@@ -55,35 +55,51 @@ class SaveCropTransformRequest(editBundle: EditBundle) : BaseRequest(editBundle)
 
     private fun cropImage(filePath: String, orgCropRect: RectF): Bitmap {
         var imageBitmap = ScribbleUtils.drawScribbleToImage(drawHandler, filePath, editBundle.getNormalizedMatrix())
+        val invertInitmatrix = drawHandler.getInvertInitmatrix()
         val cropRect = RectF(orgCropRect)
-
-        val normalizedMatrix = drawHandler.getNormalizedMatrix()
         if (cropHandler.hasRotateChange()) {
-            imageBitmap = imageRotateChange(imageBitmap, normalizedMatrix)
+            invertRotateCropRect(cropRect)
         }
         if (cropHandler.hasMirrorChange()) {
             cropHandler.currMirrot?.let { imageBitmap = imageMirrorChange(imageBitmap, it) }
         }
-        normalizedMatrix.mapRect(cropRect)
-        return Bitmap.createBitmap(
+        invertInitmatrix.mapRect(cropRect)
+        var cropBitmap = Bitmap.createBitmap(
                 imageBitmap,
                 cropRect.left.toInt(),
                 cropRect.top.toInt(),
                 cropRect.width().toInt(),
                 cropRect.height().toInt()
         )
+        if (cropHandler.hasRotateChange()) {
+            cropBitmap = imageRotateChange(cropBitmap)
+        }
+        return cropBitmap
     }
 
-    private fun imageRotateChange(imageBitmap: Bitmap, normalizedMatrix: Matrix): Bitmap {
+    private fun invertRotateCropRect(cropRect: RectF) {
+        val matrix = Matrix()
+        val centerPoint = editBundle.getContainerCenterPoint()
+        matrix.postRotate(cropHandler.currAngle, centerPoint.x, centerPoint.y)
+        val invertMatrix = Matrix()
+        matrix.invert(invertMatrix)
+        invertMatrix.mapRect(cropRect)
+    }
+
+    private fun imageRotateChange(imageBitmap: Bitmap): Bitmap {
         val width = imageBitmap.width
         val height = imageBitmap.height
-        val newBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(newBitmap)
+        val imageRect = RectF(0f, 0f, width.toFloat(), height.toFloat())
+
         val matrix = Matrix()
         matrix.postRotate(cropHandler.currAngle, (width / 2).toFloat(), (height / 2).toFloat())
+        matrix.mapRect(imageRect)
+        matrix.postTranslate(-imageRect.left, -imageRect.top)
+
+        val newBitmap = Bitmap.createBitmap(imageRect.width().toInt(), imageRect.height().toInt(), Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(newBitmap)
         canvas.drawBitmap(imageBitmap, matrix, Paint())
         imageBitmap.recycle()
-        normalizedMatrix.postConcat(matrix)
         return newBitmap
     }
 

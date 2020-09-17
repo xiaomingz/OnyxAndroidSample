@@ -4,7 +4,6 @@ import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.rx.RxRequest
 import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseEditAction
-import com.onyx.gallery.event.ui.StartRotateEvent
 import com.onyx.gallery.request.transform.RotateRequest
 
 /**
@@ -13,9 +12,9 @@ import com.onyx.gallery.request.transform.RotateRequest
 class RotateAction(editBundle: EditBundle, val currAngle: Float, val singleRotateAngle: Float) : BaseEditAction<RxRequest>(editBundle) {
 
     override fun execute(rxCallback: RxCallback<RxRequest>?) {
-        editBundle.enqueue(RotateRequest(editBundle, singleRotateAngle), object : RxCallback<RxRequest>() {
-            override fun onNext(rxRequest: RxRequest) {
-                editBundle.postEvent(StartRotateEvent(currAngle, cropHandler.getRotatedCropBox()))
+        editBundle.enqueue(RotateRequest(editBundle, currAngle, singleRotateAngle), object : RxCallback<RotateRequest>() {
+            override fun onNext(rxRequest: RotateRequest) {
+                rxCallback?.onNext(rxRequest)
             }
         })
     }
