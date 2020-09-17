@@ -161,16 +161,16 @@ class CropHandler(val editBundle: EditBundle) : CropImageView.OnCropRectChange {
 
     fun onRotateToLeft() {
         currAngle -= SINGLE_ROTATE_ANGLE
-        RotateAction(editBundle, currAngle, -SINGLE_ROTATE_ANGLE).execute(object : RxCallback<RxRequest>() {
-            override fun onNext(rxRequest: RxRequest) {
-                resetCropBox()
-            }
-        })
+        onRotateImp(currAngle, -SINGLE_ROTATE_ANGLE)
     }
 
     fun onRotateToRight() {
         currAngle += SINGLE_ROTATE_ANGLE
-        RotateAction(editBundle, currAngle, SINGLE_ROTATE_ANGLE).execute(object : RxCallback<RxRequest>() {
+        onRotateImp(currAngle, SINGLE_ROTATE_ANGLE)
+    }
+
+    private fun onRotateImp(angle: Float, singleRotateAngle: Float) {
+        RotateAction(editBundle, angle, singleRotateAngle).execute(object : RxCallback<RxRequest>() {
             override fun onNext(rxRequest: RxRequest) {
                 resetCropBox()
             }
