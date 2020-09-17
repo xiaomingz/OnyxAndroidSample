@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.onyx.gallery.R
 import com.onyx.gallery.databinding.DialogViewStyleChangeBinding
-import com.onyx.gallery.viewmodel.BaseViewModel
 
 /**
  * Created by Leung 2020/7/30 15:24
@@ -17,10 +16,15 @@ enum class ViewStyleChangeDialogType {
     WITH_GROUP_BY_DIRECTORY, WITH_USE_FOR_THIS_FOLDER
 }
 
-class ViewStyleChangeDialog(private val dialogType: ViewStyleChangeDialogType, viewStyle: ViewStyle, isGroupByDirectory: Boolean = false, isUseForThisFolder: Boolean = false,
-                            private val onConfirmCallback: (viewStyle: ViewStyle, isGroupByDirectory: Boolean, isUseForThisFolder: Boolean) -> Unit) : BaseDialog<DialogViewStyleChangeBinding>() {
+class ViewStyleChangeDialog : BaseDialog<DialogViewStyleChangeBinding>() {
 
-    private val viewModel = ViewStyleChangeDialogViewModel(viewStyle, isGroupByDirectory, isUseForThisFolder)
+    lateinit var dialogType: ViewStyleChangeDialogType
+    lateinit var viewStyle: ViewStyle
+    var isGroupByDirectory: Boolean = false
+    var isUseForThisFolder: Boolean = false
+    lateinit var onConfirmCallback: (viewStyle: ViewStyle, isGroupByDirectory: Boolean, isUseForThisFolder: Boolean) -> Unit
+
+    private val viewModel by lazy { ViewStyleChangeDialogViewModel(viewStyle, isGroupByDirectory, isUseForThisFolder) }
 
     override fun getLayoutRes(): Int = R.layout.dialog_view_style_change
 

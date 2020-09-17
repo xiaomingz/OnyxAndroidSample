@@ -38,6 +38,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_RANDOM
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_media.*
 import kotlinx.android.synthetic.main.view_action_bar.*
 import java.io.File
@@ -601,19 +602,29 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         if (currViewType == VIEW_TYPE_LIST) {
             viewStyle = ViewStyle.LIST
         }
-        ViewStyleChangeDialog(ViewStyleChangeDialogType.WITH_USE_FOR_THIS_FOLDER, viewStyle, isUseForThisFolder = config.hasCustomViewType(mPath)) { viewStyle, isGroupByDirectory, isUseForThisFolder ->
-            val viewType = if (viewStyle == ViewStyle.GRID) VIEW_TYPE_GRID else VIEW_TYPE_LIST
-            if (isUseForThisFolder) {
-                config.saveFolderViewType(mPath, viewType)
-            } else {
-                config.removeFolderViewType(mPath)
+        ViewStyleChangeDialog().apply {
+            this.viewStyle = viewStyle
+            this.dialogType = ViewStyleChangeDialogType.WITH_USE_FOR_THIS_FOLDER
+            this.isUseForThisFolder = config.hasCustomViewType(mPath)
+        }.apply {
+            this.onConfirmCallback = { viewStyle, isGroupByDirectory, isUseForThisFolder ->
+                onViewStyleChangeCallback(viewStyle, isGroupByDirectory, isUseForThisFolder)
             }
-            config.viewTypeFiles = viewType
-            invalidateOptionsMenu()
-            setupLayoutManager()
-            media_grid.adapter = null
-            setupAdapter()
         }.show(supportFragmentManager, ViewStyleChangeDialog::class.java.simpleName)
+    }
+
+    private fun onViewStyleChangeCallback(viewStyle: ViewStyle, isGroupByDirectory: Boolean, isUseForThisFolder: Boolean) {
+        val viewType = if (viewStyle == ViewStyle.GRID) VIEW_TYPE_GRID else VIEW_TYPE_LIST
+        if (isUseForThisFolder) {
+            config.saveFolderViewType(mPath, viewType)
+        } else {
+            config.removeFolderViewType(mPath)
+        }
+        config.viewTypeFiles = viewType
+        invalidateOptionsMenu()
+        setupLayoutManager()
+        media_grid.adapter = null
+        setupAdapter()
     }
 
 }

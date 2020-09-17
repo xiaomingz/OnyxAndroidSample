@@ -31,7 +31,10 @@ import java.util.*
 /**
  * Created by Leung 2020/9/15 10:35
  **/
-class DialogShare(val shareFilePath: String, val accountModel: OnyxAccountModel) : BaseDialog<DialogShareBinding>(), OnStatusChildClickListener {
+class DialogShare : BaseDialog<DialogShareBinding>(), OnStatusChildClickListener {
+
+    lateinit var shareFilePath: String
+    lateinit var accountModel: OnyxAccountModel
 
     private var statusLayoutManager: StatusLayoutManager? = null
     private var viewModel: ShareViewModel? = null
