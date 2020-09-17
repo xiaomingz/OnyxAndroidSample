@@ -14,6 +14,11 @@ class ConfirmDialog(private val message: String, private val onConfirmCallback: 
         binding.message = message
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dismiss()
+    }
+
     fun onConfirmClick() {
         dialog.dismiss()
         onConfirmCallback()

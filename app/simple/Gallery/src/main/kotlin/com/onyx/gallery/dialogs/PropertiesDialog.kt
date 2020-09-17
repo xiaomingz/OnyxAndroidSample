@@ -42,6 +42,11 @@ class PropertiesDialog(activity: AppCompatActivity, path: String) : BaseDialog<D
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dismiss()
+    }
+
     fun onConfirmClick() {
         dialog.dismiss()
     }

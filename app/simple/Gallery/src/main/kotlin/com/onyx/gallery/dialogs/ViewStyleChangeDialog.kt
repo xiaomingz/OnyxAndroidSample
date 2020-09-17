@@ -32,6 +32,11 @@ class ViewStyleChangeDialog(private val dialogType: ViewStyleChangeDialogType, v
         viewModel.showUseForThisFolder(false)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dismiss()
+    }
+
     fun onConfirmClick() {
         dialog.dismiss()
         onConfirmCallback(viewModel.viewStyle.value!!, viewModel.isGroupByDirectory.value!!, viewModel.isUseForThisFolder.value!!)

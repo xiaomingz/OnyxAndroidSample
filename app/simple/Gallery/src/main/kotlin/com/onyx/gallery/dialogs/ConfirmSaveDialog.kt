@@ -16,6 +16,11 @@ class ConfirmSaveDialog(private val messageRes: Int, private val onConfirmCallba
         binding.message = ResManager.getString(messageRes)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dismiss()
+    }
+
     override fun onCancelClick() {
         super.onCancelClick()
         dialog.dismiss()

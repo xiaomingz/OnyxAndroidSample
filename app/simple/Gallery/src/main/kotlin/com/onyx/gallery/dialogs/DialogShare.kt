@@ -39,6 +39,11 @@ class DialogShare(val shareFilePath: String, val accountModel: OnyxAccountModel)
 
     override fun getLayoutRes(): Int = R.layout.dialog_share
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dismiss()
+    }
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         resetUiSize()
