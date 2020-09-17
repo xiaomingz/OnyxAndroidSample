@@ -2,6 +2,7 @@ package com.onyx.gallery.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.onyx.gallery.bundle.EditBundle
+import com.onyx.gallery.models.MenuState
 
 /**
  * Created by Leung on 2020/5/6
@@ -34,6 +35,16 @@ class EditMenuViewModel(editBundle: EditBundle) : BaseViewModel(editBundle) {
             initMenuStyle = MenuStyle.TEXT
         }
         currItemMenuStyle.value = initMenuStyle
+    }
+
+    override fun updateTouchHandler() {
+    }
+
+    override fun onSaveMenuState(menuState: MenuState) {
+
+    }
+
+    override fun onUpdateMenuState(menuState: MenuState) {
     }
 
 }

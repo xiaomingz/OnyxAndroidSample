@@ -278,11 +278,11 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
     }
 
     fun setStrokeWidth(penWidth: Float) {
-        drawingArgs.strokeWidth = penWidth.toInt()
+        drawingArgs.strokeWidth = penWidth
         touchHelper?.setStrokeWidth(penWidth)
     }
 
-    fun getStrokeWidth(): Float = drawingArgs.strokeWidth.toFloat()
+    fun getStrokeWidth(): Float = drawingArgs.strokeWidth
 
     fun updateCurrShapeType(newShape: Int) {
         drawingArgs.currShapeType = newShape

@@ -15,6 +15,7 @@ import com.onyx.gallery.event.ui.DismissFontSelectMenuEvent
 import com.onyx.gallery.fragments.FontSelectAdapter
 import com.onyx.gallery.models.ItemTextStyleOptionChoiceViewModel
 import com.onyx.gallery.models.MenuAction
+import com.onyx.gallery.models.MenuState
 import com.onyx.gallery.request.GetFontsRequest
 
 /**
@@ -36,7 +37,7 @@ class FontSelectViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle
     val pageIndicator = MutableLiveData<String>()
     val nextPage = MutableLiveData(0)
     val prevPage = MutableLiveData(0)
-    val currentTab = MutableLiveData(TAB_FONT_CN)
+    val currentTab = MutableLiveData<Int>(getFontTabIndex())
 
     private var cnFonts = listOf<FontInfo>()
     private var enFonts = listOf<FontInfo>()
@@ -45,6 +46,14 @@ class FontSelectViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle
     override fun onCleared() {
         super.onCleared()
         handler.removeCallbacksAndMessages(null)
+    }
+
+    override fun onSaveMenuState(menuState: MenuState) {
+        menuState.fontTabIndex = currentTab.value!!
+    }
+
+    override fun onUpdateMenuState(menuState: MenuState) {
+        currentTab.value = menuState.fontTabIndex
     }
 
     fun onTypeChecked(type: Int) {

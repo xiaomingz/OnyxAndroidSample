@@ -8,6 +8,7 @@ import com.onyx.android.sdk.rx.RxRequest
 import com.onyx.gallery.action.shape.CreateImageShapeAction
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.bundle.EditBundle
+import com.onyx.gallery.models.MenuState
 
 /**
  * Created by Leung on 2020/5/7
@@ -22,6 +23,16 @@ class EditContentViewModel(editBundle: EditBundle) : BaseViewModel(editBundle) {
     val textInputSelection = MutableLiveData(0)
 
     private val handler = Handler()
+
+    override fun updateTouchHandler() {
+    }
+
+    override fun onSaveMenuState(menuState: MenuState) {
+
+    }
+
+    override fun onUpdateMenuState(menuState: MenuState) {
+    }
 
     override fun onCleared() {
         super.onCleared()

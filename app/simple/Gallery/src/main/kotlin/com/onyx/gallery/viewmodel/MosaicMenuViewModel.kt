@@ -7,6 +7,7 @@ import com.onyx.gallery.action.shape.StrokeWidthChangeAction
 import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.models.MenuAction
+import com.onyx.gallery.models.MenuState
 import com.onyx.gallery.utils.ExpandShapeFactory
 
 /**
@@ -16,13 +17,21 @@ class MosaicMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle
     private val stepStrokeWidth = DrawArgs.stepStrokeWidth
     val maxStrokeWidth = DrawArgs.maxStrokeWidth
     val minStrokeWidth = DrawArgs.minStrokeWidth
-    val currStrokeWidth: MutableLiveData<Int> = MutableLiveData(DrawArgs.defaultStrokeWidth)
+    val currStrokeWidth = MutableLiveData<Int>(getStrokeWidth().toInt())
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
     val isSeekBarEnable = MutableLiveData(true)
 
     override fun onTouchChange(isTouching: Boolean) {
         super.onTouchChange(isTouching)
         isSeekBarEnable.value = !isTouching
+    }
+
+    override fun onUpdateMenuState(menuState: MenuState) {
+        currStrokeWidth.value = menuState.storeWidth.toInt()
+    }
+
+    override fun onSaveMenuState(menuState: MenuState) {
+        menuState.storeWidth = currStrokeWidth.value!!.toFloat()
     }
 
     override fun updateTouchHandler() {

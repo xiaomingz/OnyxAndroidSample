@@ -1,10 +1,7 @@
 package com.onyx.gallery.fragments
 
 import androidx.databinding.ViewDataBinding
-import com.onyx.gallery.event.ui.UpdateTouchHandlerEvent
 import com.onyx.gallery.viewmodel.BaseMenuViewModel
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by Leung on 2020/5/6
@@ -14,7 +11,12 @@ abstract class BaseMenuFragment<T : ViewDataBinding, V : BaseMenuViewModel> : Ba
 
     override fun onResume() {
         super.onResume()
-        viewModel.updateTouchHandler()
+        viewModel.onResume()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.onDestroyView()
     }
 
 }

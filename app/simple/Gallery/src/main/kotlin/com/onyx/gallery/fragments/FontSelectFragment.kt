@@ -22,7 +22,7 @@ import com.onyx.gallery.views.RecyclerViewBindingViewHolder
 /**
  * Created by Leung on 2020/6/13
  */
-class FontSelectFragment : BaseFragment<FragmentEditMenuFontSelectBinding, FontSelectViewModel>() {
+class FontSelectFragment : BaseMenuFragment<FragmentEditMenuFontSelectBinding, FontSelectViewModel>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_edit_menu_font_select
 
