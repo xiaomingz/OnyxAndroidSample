@@ -1,23 +1,16 @@
 package com.onyx.gallery.activities
 
 import android.app.Activity
-import android.app.SearchManager
 import android.content.ClipData
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
-import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.onyx.android.sdk.kui.dialog.ContextPopMenuView
 import com.onyx.android.sdk.utils.ResManager
@@ -982,12 +975,23 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
         if (config.viewTypeFolders == VIEW_TYPE_LIST) {
             viewStyle = ViewStyle.LIST
         }
-        ViewStyleChangeDialog(ViewStyleChangeDialogType.WITH_GROUP_BY_DIRECTORY, viewStyle, config.groupDirectSubfolders) { viewStyle, isGroupByDirectory, isUseForThisFolder ->
-            config.groupDirectSubfolders = isGroupByDirectory
-            config.viewTypeFolders = if (viewStyle == ViewStyle.GRID) VIEW_TYPE_GRID else VIEW_TYPE_LIST
-            setupLayoutManager()
-            directories_grid.adapter = null
-            setupAdapter(mDirs)
+        ViewStyleChangeDialog().apply {
+            this.viewStyle = viewStyle
+            this.dialogType = ViewStyleChangeDialogType.WITH_GROUP_BY_DIRECTORY
+            this.isGroupByDirectory = config.groupDirectSubfolders
+        }.apply {
+            onConfirmCallback = { viewStyle, isGroupByDirectory, isUseForThisFolder ->
+                onViewStyleChangeCallback(viewStyle, isGroupByDirectory, isUseForThisFolder)
+            }
         }.show(supportFragmentManager, ViewStyleChangeDialog::class.java.simpleName)
     }
+
+    private fun onViewStyleChangeCallback(viewStyle: ViewStyle, isGroupByDirectory: Boolean, isUseForThisFolder: Boolean) {
+        config.groupDirectSubfolders = isGroupByDirectory
+        config.viewTypeFolders = if (viewStyle == ViewStyle.GRID) VIEW_TYPE_GRID else VIEW_TYPE_LIST
+        setupLayoutManager()
+        directories_grid.adapter = null
+        setupAdapter(mDirs)
+    }
+
 }

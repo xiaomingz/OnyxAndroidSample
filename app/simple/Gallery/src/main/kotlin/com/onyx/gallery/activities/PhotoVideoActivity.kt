@@ -339,7 +339,12 @@ open class PhotoVideoActivity : SimpleActivity(), ViewPagerFragment.FragmentList
     }
 
     private fun showProperties() {
-        mMedium?.path?.let { PropertiesDialog(this, it).show(supportFragmentManager, PropertiesDialog::class.java.simpleName) }
+        mMedium?.path?.let {
+            PropertiesDialog().apply {
+                path = it
+                activity = this@PhotoVideoActivity
+            }.show(supportFragmentManager, PropertiesDialog::class.java.simpleName)
+        }
     }
 
     private fun isFileTypeVisible(path: String): Boolean {

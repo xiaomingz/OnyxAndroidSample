@@ -19,11 +19,15 @@ import java.util.*
 /**
  * Created by Leung 2020/8/8 17:40
  **/
-class PropertiesDialog(activity: AppCompatActivity, path: String) : BaseDialog<DialogPropertiesBinding>() {
+class PropertiesDialog : BaseDialog<DialogPropertiesBinding>() {
 
-    private val viewModel = PropertiesDialogViewModel()
+    lateinit var activity: AppCompatActivity
+    lateinit var path: String
 
-    init {
+    private val viewModel by lazy { initViewModel() }
+
+    private fun initViewModel(): PropertiesDialogViewModel {
+        val viewModel = PropertiesDialogViewModel()
         val fileDirItem = FileDirItem(path, path.getFilenameFromPath(), activity.getIsPathDirectory(path))
         viewModel.name.value = fileDirItem.name
         viewModel.path.value = FormatRootFilePathUtils.formatPath(File(path), activity)
@@ -32,6 +36,7 @@ class PropertiesDialog(activity: AppCompatActivity, path: String) : BaseDialog<D
             viewModel.resolution.value = it.formatAsResolution()
         }
         viewModel.lastModified.value = DateTimeUtil.formatDate(Date(fileDirItem.getLastModified(activity)), DATE_FORMAT_YYYYMMDD_HHMMSS)
+        return viewModel
     }
 
     override fun getLayoutRes(): Int = R.layout.dialog_properties
@@ -40,6 +45,11 @@ class PropertiesDialog(activity: AppCompatActivity, path: String) : BaseDialog<D
         binding.dialog = this
         binding.viewModel = viewModel
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        dismiss()
     }
 
     fun onConfirmClick() {

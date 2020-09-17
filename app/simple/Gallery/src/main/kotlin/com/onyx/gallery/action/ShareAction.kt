@@ -22,7 +22,10 @@ class ShareAction(private val activity: FragmentActivity, private val filePath: 
                     ToastUtils.showScreenCenterToast(activity, R.string.share_with_no_account_tips)
                     return
                 }
-                DialogShare(filePath, request.accountModel!!).show(activity.supportFragmentManager, DialogShare::class.java.simpleName)
+                DialogShare().apply {
+                    shareFilePath = filePath
+                    accountModel = request.accountModel!!
+                }.show(activity.supportFragmentManager, DialogShare::class.java.simpleName)
             }
         })
     }

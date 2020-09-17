@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.onyx.android.sdk.rx.RequestChain
 import com.onyx.android.sdk.rx.RxCallback
 import com.onyx.android.sdk.rx.RxRequest
-import com.onyx.android.sdk.utils.MultiWindowUtils
 import com.onyx.gallery.R
 import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.common.BaseEditAction
@@ -30,12 +29,14 @@ class SaveEditPictureAction(editBundle: EditBundle, private val hostActivity: Ap
             return
         }
         drawHandler.setRawDrawingEnabled(false)
-        var messageRes = R.string.is_save_image_edit
+        var messageResId = R.string.is_save_image_edit
         if (isExit) {
-            messageRes = R.string.exit_image_edit
+            messageResId = R.string.exit_image_edit
         }
-        ConfirmSaveDialog(messageRes) { isSaveAs -> saveImage(isSaveAs, rxCallback) }
-                .apply { onCancelCallback = this@SaveEditPictureAction.onCancelCallback }
+        ConfirmSaveDialog().apply {
+            messageRes = messageResId
+            onConfirmCallback = { isSaveAs -> saveImage(isSaveAs, rxCallback) }
+        }.apply { onCancelCallback = this@SaveEditPictureAction.onCancelCallback }
                 .apply { show(hostActivity.supportFragmentManager, ConfirmSaveDialog::class.java.simpleName) }
     }
 

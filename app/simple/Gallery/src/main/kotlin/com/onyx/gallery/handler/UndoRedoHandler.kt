@@ -1,8 +1,10 @@
 package com.onyx.gallery.handler
 
+import android.util.Log
 import com.onyx.android.sdk.scribble.shape.ImageShape
 import com.onyx.android.sdk.scribble.shape.Shape
 import com.onyx.android.sdk.utils.FileUtils
+import com.onyx.android.sdk.utils.StringUtils
 import com.onyx.gallery.models.CropSnapshot
 import com.onyx.gallery.views.shape.ImageShapeExpand
 
@@ -46,7 +48,16 @@ class UndoRedoHandler {
 
     fun addCropSnapshot(cropSnapshot: CropSnapshot) {
         currCropSnapshotIndex += 1
-        cropSnapshotList.add(currCropSnapshotIndex, cropSnapshot)
+        var isAdded = false
+        cropSnapshotList.forEach {
+            if (StringUtils.isEquals(it.imagePath, cropSnapshot.imagePath)) {
+                isAdded = true
+                return@forEach
+            }
+        }
+        if (!isAdded) {
+            cropSnapshotList.add(currCropSnapshotIndex, cropSnapshot)
+        }
     }
 
     fun undoCrop(): CropSnapshot? {

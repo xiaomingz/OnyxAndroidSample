@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import android.text.Html
+import android.text.TextUtils
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.onyx.android.sdk.api.device.epd.EpdController
@@ -372,8 +373,12 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
     private fun getCurrentFragment() = (view_pager.adapter as? MyPagerAdapter)?.getCurrentFragment(view_pager.currentItem)
 
     private fun showProperties() {
-        if (getCurrentMedium() != null) {
-            PropertiesDialog(this, getCurrentPath()).show(supportFragmentManager, PropertiesDialog::class.java.simpleName)
+        val currentPath = getCurrentPath()
+        if (getCurrentMedium() != null && !TextUtils.isEmpty(currentPath)) {
+            PropertiesDialog().apply {
+                activity = this@ViewPagerActivity
+                path = currentPath
+            }.show(supportFragmentManager, PropertiesDialog::class.java.simpleName)
         }
     }
 
@@ -389,10 +394,13 @@ class ViewPagerActivity : SimpleActivity(), ViewPager.OnPageChangeListener, View
 
         val baseString = R.string.deletion_confirmation
 
-        val message = String.format(resources.getString(baseString), filename)
-        ConfirmDialog(message) {
-            config.tempSkipDeleteConfirmation = false
-            deleteConfirmed()
+        val messageStr = String.format(resources.getString(baseString), filename)
+        ConfirmDialog().apply {
+            message = messageStr
+            onConfirmCallback = {
+                config.tempSkipDeleteConfirmation = false
+                deleteConfirmed()
+            }
         }.show(supportFragmentManager, ConfirmDialog::class.java.simpleName)
     }
 
