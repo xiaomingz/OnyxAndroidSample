@@ -79,10 +79,8 @@ class UndoRedoHandler {
     }
 
     fun cleardCropSnapshot() {
-        Log.d("leung", "UndoRedoHandler cleardCropSnapshot  cropSnapshotList.size=${cropSnapshotList.size}")
         cropSnapshotList.forEachIndexed { index, cropSnapshot ->
             if (index != 0) {
-                Log.d("leung", "UndoRedoHandler cleardCropSnapshot  deleteFile=${cropSnapshot.imagePath}")
                 FileUtils.deleteFile(cropSnapshot.imagePath)
             }
         }
