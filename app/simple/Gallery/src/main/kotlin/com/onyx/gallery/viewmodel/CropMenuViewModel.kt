@@ -9,6 +9,7 @@ import com.onyx.gallery.event.ui.ShowSaveCropMenuEvent
 import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.handler.MirrorModel
 import com.onyx.gallery.models.MenuAction
+import com.onyx.gallery.models.MenuState
 import com.onyx.gallery.utils.ExpandShapeFactory
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -22,7 +23,11 @@ class CropMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) 
     val handler = Handler()
     val xAxisMirror = MutableLiveData(MirrorModel.LEFT)
     val yAxisMirror = MutableLiveData(MirrorModel.TOP)
-    var cropAction = MutableLiveData(MenuAction.CROP_CUSTOMIZE)
+    var cropAction = MutableLiveData<MenuAction>(getCropRectType())
+
+    override fun onUpdateMenuState(menuState: MenuState) {
+        cropAction.value = menuState.cropRectType
+    }
 
     override fun updateTouchHandler() {
         ShapeChangeAction(editBundle, ExpandShapeFactory.CROP).execute(null)
@@ -34,6 +39,10 @@ class CropMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) 
                 onHandleMenu(it)
             }, delayMillis)
         }
+    }
+
+    override fun onSaveMenuState(menuState: MenuState) {
+        setCropRectType(cropAction.value!!)
     }
 
     fun getCropHandler(): CropHandler = editBundle.cropHandler

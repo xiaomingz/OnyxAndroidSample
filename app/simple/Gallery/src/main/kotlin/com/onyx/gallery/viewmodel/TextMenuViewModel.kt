@@ -12,6 +12,7 @@ import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.event.ui.ShowFontSelectMenuEvent
 import com.onyx.gallery.handler.InsertTextHandler
 import com.onyx.gallery.models.MenuAction
+import com.onyx.gallery.models.MenuState
 import com.onyx.gallery.request.GetFontsRequest
 
 
@@ -22,23 +23,54 @@ class TextMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) 
 
     var showSubMenu = MutableLiveData(false)
 
-    var bold = MutableLiveData(false)
-    var indentation = MutableLiveData(false)
-    var traditional = MutableLiveData(false)
+    var bold = MutableLiveData(getTextBold())
+    var indentation = MutableLiveData(getTextIndentation())
+    var traditional = MutableLiveData(getTextTraditional())
 
     var currFont = MutableLiveData(ResManager.getString(R.string.loading))
+    var currFontInfo: FontInfo? = null
 
     private val stepFontSize = ResManager.getAppContext().resources.getDimension(R.dimen.edit_text_shape_text_size_step).toInt()
     val maxFontSize = ResManager.getAppContext().resources.getDimension(R.dimen.edit_text_shape_text_size_max).toInt()
     val minFontSize = ResManager.getAppContext().resources.getDimension(R.dimen.edit_text_shape_text_size_min).toInt()
-    val currFontSize = MutableLiveData(ResManager.getAppContext().resources.getDimension(R.dimen.edit_text_shape_text_size).toInt())
+    val currFontSize = MutableLiveData<Int>(getTextSize().toInt())
     val onChangeListener: SeekBar.OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
 
-    init {
-        editBundle.enqueue(GetFontsRequest(editBundle, ""), object : RxCallback<GetFontsRequest>() {
+    override fun onUpdateMenuState(menuState: MenuState) {
+        currFontSize.value = menuState.textSize.toInt()
+        onSelectColor(getMenuActionByColor(menuState.storecColor))
+        menuState.typeface?.run {
+            currFont.value = name
+            currFontInfo = this
+        }
+        bold.value = menuState.bold
+        indentation.value = menuState.indentation
+        traditional.value = menuState.traditional
+        loadFontList(currFont.value!!)
+    }
+
+    override fun onSaveMenuState(menuState: MenuState) {
+        menuState.textSize = currFontSize.value!!.toFloat()
+        menuState.typeface = currFontInfo
+        menuState.textColor = getColorFromNoteMenuAction(selectColorAction.value!!)
+        menuState.bold = bold.value!!
+        menuState.indentation = indentation.value!!
+        menuState.traditional = traditional.value!!
+    }
+
+    override fun updateTouchHandler() {
+        ShapeChangeAction(editBundle, ShapeFactory.SHAPE_EDIT_TEXT_SHAPE).execute(null)
+    }
+
+    private fun loadFontList(currFontName: String) {
+        editBundle.enqueue(GetFontsRequest(editBundle, currFontName), object : RxCallback<GetFontsRequest>() {
             override fun onNext(getFontsRequest: GetFontsRequest) {
+                if (currFontInfo != null) {
+                    return
+                }
                 getFontsRequest.detDefaultFont?.run {
                     currFont.value = name
+                    currFontInfo = this
                 }
             }
 
@@ -47,10 +79,6 @@ class TextMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) 
                 currFont.value = ResManager.getString(R.string.default_font)
             }
         })
-    }
-
-    override fun updateTouchHandler() {
-        ShapeChangeAction(editBundle, ShapeFactory.SHAPE_EDIT_TEXT_SHAPE).execute(null)
     }
 
     private fun initOnSeekBarChangeListener(): SeekBar.OnSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
@@ -134,6 +162,7 @@ class TextMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) 
     }
 
     fun onFontChange(fontInfo: FontInfo) {
+        currFontInfo = fontInfo
         currFont.value = fontInfo.name
         getInsertTextHandler().onTextFontFaceEvent(fontInfo)
     }

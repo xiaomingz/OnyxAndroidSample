@@ -36,7 +36,7 @@ class EditMenuFragment : BaseFragment<FragmentEditMenuBinding, EditMenuViewModel
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuBinding, rootView: View): EditMenuViewModel {
-        val editMenuViewModel = ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(EditMenuViewModel::class.java)
+        val editMenuViewModel = ViewModelProvider(this, BaseViewModel.ViewModeFactory(editBundle)).get(EditMenuViewModel::class.java)
         binding.viewModel = editMenuViewModel
         binding.lifecycleOwner = this
         editMenuViewModel.currItemMenuStyle.observe(this, this)

@@ -17,7 +17,7 @@ class EraseMenuFragment : BaseMenuFragment<FragmentEditMenuEraseBinding, EraseMe
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuEraseBinding, rootView: View): EraseMenuViewModel {
-        return ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(EraseMenuViewModel::class.java).apply {
+        return ViewModelProvider(this, BaseViewModel.ViewModeFactory(editBundle)).get(EraseMenuViewModel::class.java).apply {
             binding.viewModel = this
             binding.lifecycleOwner = this@EraseMenuFragment
         }

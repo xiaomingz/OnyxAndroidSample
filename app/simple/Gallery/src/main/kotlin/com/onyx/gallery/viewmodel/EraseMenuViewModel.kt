@@ -10,6 +10,7 @@ import com.onyx.gallery.handler.EraseModel
 import com.onyx.gallery.handler.EraseWidth
 import com.onyx.gallery.models.EraseArgs
 import com.onyx.gallery.models.MenuAction
+import com.onyx.gallery.models.MenuState
 import com.onyx.gallery.utils.ExpandShapeFactory
 
 /**
@@ -17,12 +18,24 @@ import com.onyx.gallery.utils.ExpandShapeFactory
  **/
 class EraseMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) {
 
-    val eraseModel = MutableLiveData(EraseModel.STROKES)
-    val eraseWidth = MutableLiveData(EraseWidth.ERASER_WIDTH_2)
-    val eraseWidthEnable = MutableLiveData(false)
+    val eraseModel = MutableLiveData<EraseModel>()
+    val eraseWidth = MutableLiveData<EraseWidth>()
+    val eraseWidthEnable = MutableLiveData<Boolean>()
+
+    override fun onUpdateMenuState(menuState: MenuState) {
+        eraseModel.value = menuState.eraseModel
+        eraseWidth.value = menuState.eraseWidth
+        eraseWidthEnable.value = menuState.eraseWidthEnable
+    }
 
     override fun updateTouchHandler() {
         ShapeChangeAction(editBundle, ExpandShapeFactory.ERASE).execute(null)
+    }
+
+    override fun onSaveMenuState(menuState: MenuState) {
+        menuState.eraseModel = eraseModel.value!!
+        menuState.eraseWidth = eraseWidth.value!!
+        menuState.eraseWidthEnable = eraseWidthEnable.value!!
     }
 
     fun onEraseWidthChange(eraseWidth: EraseWidth) {

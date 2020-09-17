@@ -48,6 +48,7 @@ class EditBundle constructor(context: Context) : BaseBundle(context) {
     val cropHandler = CropHandler(this)
     val eraseHandler = EraseHandler(this)
     val touchHandlerManager = TouchHandlerManager(this)
+    val menuStateHandler by lazy { MenuStateHandler(this) }
 
     companion object {
         fun newSingleThreadManager() = RxManager.Builder.newSingleThreadManager()

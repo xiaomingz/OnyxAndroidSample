@@ -14,7 +14,7 @@ import com.onyx.gallery.utils.ExpandShapeFactory
  * Created by Leung on 2020/5/6
  */
 
-open class BaseMenuViewModel(editBundle: EditBundle) : BaseViewModel(editBundle) {
+abstract class BaseMenuViewModel(editBundle: EditBundle) : BaseViewModel(editBundle) {
 
     var isSupportBrushPen = MutableLiveData(true)
     var selectShapeAction = MutableLiveData(MenuAction.SCRIBBLE_BRUSH)
@@ -74,10 +74,32 @@ open class BaseMenuViewModel(editBundle: EditBundle) : BaseViewModel(editBundle)
                 else -> defaultShape()
             }
 
-    open fun updateTouchHandler() {
+    override fun updateTouchHandler() {
         selectShapeAction.value?.let {
             ShapeChangeAction(editBundle, getShapeTypeFromNoteMenuAction(it)).execute(null)
         }
+    }
+
+    fun getMenuActionByColor(storecColor: Int): MenuAction {
+        val map: Map<Int, MenuAction> = getColorMapping()
+        for ((key, value) in map) {
+            if (key === storecColor) {
+                return value
+            }
+        }
+        return MenuAction.NOTE_COLOR_BLACK
+    }
+
+    fun getMenuActionByShapeType(shapeType: Int): MenuAction = when (shapeType) {
+        ShapeFactory.SHAPE_PENCIL_SCRIBBLE -> MenuAction.SCRIBBLE_BRUSH
+        ShapeFactory.SHAPE_LINE -> MenuAction.SCRIBBLE_LINE
+        ShapeFactory.SHAPE_TRIANGLE -> MenuAction.SCRIBBLE_TRIANGLE
+        ShapeFactory.SHAPE_CIRCLE -> MenuAction.SCRIBBLE_CIRCLE
+        ShapeFactory.SHAPE_RECTANGLE -> MenuAction.SCRIBBLE_RECTANGLE
+        ExpandShapeFactory.SHAPE_DASH_LINE -> MenuAction.SCRIBBLE_DASH_LINE
+        ExpandShapeFactory.SHAPE_WAVE_LINE -> MenuAction.SCRIBBLE_WAVE_LINE
+        ExpandShapeFactory.SHAPE_ARROW_LINE -> MenuAction.SCRIBBLE_ARROW_LINE
+        else -> MenuAction.SCRIBBLE_BRUSH
     }
 
 }

@@ -18,7 +18,7 @@ class NoneMenuFragment : BaseMenuFragment<FragmentEditMenuNoneBinding, NoneMenuV
     }
 
     override fun onInitViewModel(context: Context, binding: FragmentEditMenuNoneBinding, rootView: View): NoneMenuViewModel {
-        return ViewModelProvider(requireActivity(), BaseViewModel.ViewModeFactory(editBundle)).get(NoneMenuViewModel::class.java)
+        return ViewModelProvider(this, BaseViewModel.ViewModeFactory(editBundle)).get(NoneMenuViewModel::class.java)
     }
 
 }

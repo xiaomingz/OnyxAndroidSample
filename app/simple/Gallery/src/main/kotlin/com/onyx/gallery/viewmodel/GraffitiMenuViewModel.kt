@@ -9,6 +9,7 @@ import com.onyx.gallery.action.shape.StrokeWidthChangeAction
 import com.onyx.gallery.bundle.EditBundle
 import com.onyx.gallery.helpers.DrawArgs
 import com.onyx.gallery.models.MenuAction
+import com.onyx.gallery.models.MenuState
 
 /**
  * Created by Leung on 2020/5/6
@@ -18,9 +19,22 @@ class GraffitiMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBund
     private val stepStrokeWidth = DrawArgs.stepStrokeWidth
     val maxStrokeWidth = DrawArgs.maxStrokeWidth
     val minStrokeWidth = DrawArgs.minStrokeWidth
-    val currStrokeWidth: MutableLiveData<Int> = MutableLiveData(DrawArgs.defaultStrokeWidth)
+    var currStrokeWidth = MutableLiveData<Int>(getStrokeWidth().toInt())
+
     val onChangeListener: OnSeekBarChangeListener by lazy { initOnSeekBarChangeListener() }
     val isSeekBarEnable = MutableLiveData(true)
+
+    override fun onUpdateMenuState(menuState: MenuState) {
+        currStrokeWidth.value = menuState.storeWidth.toInt()
+        onSelectColor(getMenuActionByColor(menuState.storecColor))
+        onSelectShape(getMenuActionByShapeType(menuState.shapeType))
+    }
+
+    override fun onSaveMenuState(menuState: MenuState) {
+        menuState.storeWidth = currStrokeWidth.value!!.toFloat()
+        menuState.storecColor = getColorFromNoteMenuAction(selectColorAction.value!!)
+        menuState.shapeType = getShapeTypeFromNoteMenuAction(selectShapeAction.value!!)
+    }
 
     override fun onTouchChange(isTouching: Boolean) {
         super.onTouchChange(isTouching)
@@ -30,6 +44,7 @@ class GraffitiMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBund
     private fun initOnSeekBarChangeListener(): OnSeekBarChangeListener = object : OnSeekBarChangeListener {
         override fun onProgressChanged(seekBar: SeekBar, strokeWidth: Int, fromUser: Boolean) {
             currStrokeWidth.value = strokeWidth
+            setStrokeWidth(strokeWidth.toFloat())
             StrokeWidthChangeAction(editBundle, strokeWidth.toFloat()).execute(null)
         }
 
@@ -79,7 +94,12 @@ class GraffitiMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBund
         ShapeChangeAction(editBundle, getShapeTypeFromNoteMenuAction(action)).execute(null)
     }
 
-    private fun onStrokeWidthAdd() = currStrokeWidth.run { value = value?.plus(stepStrokeWidth)?.coerceAtMost(maxStrokeWidth) }
+    private fun onStrokeWidthAdd() {
+        currStrokeWidth.run {
+            value = value?.plus(stepStrokeWidth)?.coerceAtMost(maxStrokeWidth)
+            setStrokeWidth(value!!.toFloat())
+        }
+    }
 
     private fun onStrokeWidthSub() = currStrokeWidth.run { value = value?.minus(stepStrokeWidth)?.coerceAtLeast(minStrokeWidth) }
 
