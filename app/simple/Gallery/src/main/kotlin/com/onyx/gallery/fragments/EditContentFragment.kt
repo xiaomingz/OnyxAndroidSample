@@ -300,13 +300,6 @@ class EditContentFragment : BaseFragment<FragmentEditContentBinding, EditContent
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onStartRotateEvent(event: StartRotateEvent) {
-        binding.cropImageView.run {
-            onUpdateCropRectEvent(UpdateCropRectEvent(event.cropRect, maintainAspectRatio))
-        }
-    }
-
     private fun makeCropBorder(imageRect: Rect, cropRect: RectF, maintainAspectRatio: Boolean): HighlightView? {
         val imageBitmap = editBundle.drawHandler.getImageShapeBitmap()
         val rotateBitmap = RotateBitmap(imageBitmap, 0)

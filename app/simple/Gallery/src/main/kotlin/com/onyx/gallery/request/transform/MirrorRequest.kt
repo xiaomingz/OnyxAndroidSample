@@ -10,7 +10,14 @@ import com.onyx.gallery.handler.MirrorModel
  */
 class MirrorRequest(editBundle: EditBundle, private val mirrorModel: MirrorModel) : BaseRequest(editBundle) {
     override fun execute(drawHandler: DrawHandler) {
-        drawHandler.renderMirror(mirrorModel)
+        val canRawDrawingRenderEnabled = editBundle.touchHandlerManager.canRawDrawingRenderEnabled()
+        drawHandler.run {
+            clearScreen()
+            renderContext.matrix.set(drawHandler.getInitMatrix())
+            resetLimitRect(canRawDrawingRenderEnabled)
+            renderShapesToBitmap()
+            renderMirror(mirrorModel)
+        }
     }
 
 }

@@ -465,6 +465,12 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
         return editBundle.getInitMatrix()
     }
 
+    fun getInvertInitmatrix(): Matrix {
+        val invertInitmatrix = Matrix()
+        getInitMatrix().invert(invertInitmatrix)
+        return invertInitmatrix
+    }
+
     fun getNormalizedMatrix(): Matrix {
         val normalizedMatrix = Matrix()
         val matrix = Matrix(renderContext.matrix)

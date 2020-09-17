@@ -4,11 +4,14 @@ import android.os.Handler
 import androidx.lifecycle.MutableLiveData
 import com.onyx.gallery.action.shape.ShapeChangeAction
 import com.onyx.gallery.bundle.EditBundle
+import com.onyx.gallery.event.ui.ResetCropBoxEvent
 import com.onyx.gallery.event.ui.ShowSaveCropMenuEvent
 import com.onyx.gallery.handler.CropHandler
 import com.onyx.gallery.handler.MirrorModel
 import com.onyx.gallery.models.MenuAction
 import com.onyx.gallery.utils.ExpandShapeFactory
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by Leung on 2020/6/8
@@ -38,6 +41,11 @@ class CropMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) 
     override fun onCleared() {
         super.onCleared()
         handler.removeCallbacksAndMessages(null)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onResetCropBoxEvent(event: ResetCropBoxEvent) {
+        onHandleMenu(event.cropRectType)
     }
 
     override fun onHandleMenu(action: MenuAction): Boolean {
@@ -95,23 +103,41 @@ class CropMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) 
     }
 
     private fun onRotateToLeft() {
-        getCropHandler().onRotateToLeft()
+        val cropHandler = getCropHandler()
+        cropHandler.onRotateToLeft()
+        resetMirror()
     }
 
     private fun onRotateToRight() {
-        getCropHandler().onRotateToRight()
+        val cropHandler = getCropHandler()
+        cropHandler.onRotateToRight()
+        resetMirror()
     }
 
     private fun onXAxisChange() {
-        xAxisMirror.value = getCropHandler().onXAxisChange()
+        val cropHandler = getCropHandler()
+        xAxisMirror.value = cropHandler.onXAxisChange()
+        resetRotate()
     }
 
     private fun onYAxisChange() {
-        yAxisMirror.value = getCropHandler().onYAxisChange()
+        val cropHandler = getCropHandler()
+        yAxisMirror.value = cropHandler.onYAxisChange()
+        resetRotate()
     }
 
     fun resetCropState() {
+        resetRotate()
+    }
+
+    private fun resetRotate() {
         cropAction.value = null
+        getCropHandler().resetRotate()
+    }
+
+    private fun resetMirror() {
+        yAxisMirror.value = null
+        getCropHandler().resetMirror()
     }
 
 }

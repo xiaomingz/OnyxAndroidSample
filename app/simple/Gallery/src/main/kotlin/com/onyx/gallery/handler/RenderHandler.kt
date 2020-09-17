@@ -177,6 +177,7 @@ class RenderHandler(val editBundle: EditBundle) {
             }
         }
         canvas.drawBitmap(renderContext.getBitmap(), matrix, Paint())
+        drawLimitRect(canvas)
         true
     }
 
