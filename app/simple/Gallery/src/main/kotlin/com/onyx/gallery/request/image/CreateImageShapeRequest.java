@@ -84,11 +84,6 @@ public class CreateImageShapeRequest extends BaseRequest {
         drawHandler.renderToBitmap(imageShape);
         drawHandler.addShape(imageShape);
 
-        CacheHandler cacheHandler = CacheHandler.Companion.getInstance();
-        if (cacheHandler.hasCacheHandwritingShape(imageFilePath)) {
-            cacheHandler.restoreHandwritingShape(imageFilePath, drawHandler);
-            drawHandler.renderShapesToBitmap();
-        }
         setRenderToScreen(true);
     }
 
@@ -96,6 +91,12 @@ public class CreateImageShapeRequest extends BaseRequest {
     public void afterExecute(@NotNull DrawHandler drawHandler) {
         super.afterExecute(drawHandler);
         drawHandler.afterCreateImageShape();
+        CacheHandler cacheHandler = CacheHandler.Companion.getInstance();
+        if (cacheHandler.hasCacheHandwritingShape(imageFilePath)) {
+            cacheHandler.restoreHandwritingShape(imageFilePath, drawHandler);
+            drawHandler.renderShapesToBitmap();
+            drawHandler.renderToScreen();
+        }
         drawHandler.makeCropSnapshot(imageFilePath, (ImageShapeExpand) imageShape);
     }
 

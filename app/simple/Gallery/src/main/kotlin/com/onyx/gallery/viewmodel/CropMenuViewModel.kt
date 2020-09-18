@@ -42,7 +42,7 @@ class CropMenuViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle) 
     }
 
     override fun onSaveMenuState(menuState: MenuState) {
-        setCropRectType(cropAction.value!!)
+        cropAction.value?.let { setCropRectType(it) }
     }
 
     fun getCropHandler(): CropHandler = editBundle.cropHandler
