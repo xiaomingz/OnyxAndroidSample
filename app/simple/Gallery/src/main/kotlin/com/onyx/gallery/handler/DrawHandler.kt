@@ -400,16 +400,6 @@ class DrawHandler(val context: Context, val editBundle: EditBundle, val eventBus
 
     fun getMosaicBitmap(): Bitmap = readerHandler.getMosaicBitmap()
 
-    fun hasMosaic(): Boolean {
-        val handwritingShape = getHandwritingShape()
-        handwritingShape.forEach { shape ->
-            if (shape is MosaicShape) {
-                return true
-            }
-        }
-        return false
-    }
-
     fun hasModify(): Boolean {
         return !getHandwritingShape().isEmpty() || undoRedoHander.hasCropModify()
     }
