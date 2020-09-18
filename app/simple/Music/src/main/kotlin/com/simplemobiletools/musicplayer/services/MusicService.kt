@@ -429,6 +429,7 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
     @SuppressLint("NewApi")
     private fun setupNotification(remove: Boolean = false) {
         if (remove) {
+            updatePlaybackState()
             removeNotification()
             return
         }
@@ -493,12 +494,8 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
             notify(notification.build())
         }, 200L)
 
-        val playbackState = if (getIsPlaying()) PlaybackStateCompat.STATE_PLAYING else PlaybackStateCompat.STATE_PAUSED
-        try {
-            mMediaSession!!.setPlaybackState(PlaybackStateCompat.Builder()
-                    .setState(playbackState, PLAYBACK_POSITION_UNKNOWN, 1.0f)
-                    .build())
-        } catch (ignored: IllegalStateException) {
+        if (!mIsThirdPartyIntent) {
+            updatePlaybackState()
         }
     }
 
@@ -513,6 +510,16 @@ class MusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnEr
         val channel = manager.getNotificationChannel(NOTIFICATION_CHANNEL)
         if (channel != null) {
             manager.deleteNotificationChannel(NOTIFICATION_CHANNEL)
+        }
+    }
+
+    private fun updatePlaybackState() {
+        val playbackState = if (getIsPlaying()) PlaybackStateCompat.STATE_PLAYING else PlaybackStateCompat.STATE_PAUSED
+        try {
+            mMediaSession?.setPlaybackState(PlaybackStateCompat.Builder()
+                    .setState(playbackState, PLAYBACK_POSITION_UNKNOWN, 1.0f)
+                    .build())
+        } catch (ignored: IllegalStateException) {
         }
     }
 
