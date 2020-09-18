@@ -75,10 +75,14 @@ abstract class BaseMenuViewModel(editBundle: EditBundle) : BaseViewModel(editBun
             }
 
     override fun updateTouchHandler() {
-        selectShapeAction.value?.let {
-            ShapeChangeAction(editBundle, getShapeTypeFromNoteMenuAction(it)).execute(null)
+        if (supportTouchHandler()) {
+            selectShapeAction.value?.let {
+                ShapeChangeAction(editBundle, getShapeTypeFromNoteMenuAction(it)).execute(null)
+            }
         }
     }
+
+    open fun supportTouchHandler() = true
 
     fun getMenuActionByColor(storecColor: Int): MenuAction {
         val map: Map<Int, MenuAction> = getColorMapping()

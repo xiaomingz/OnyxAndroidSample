@@ -56,6 +56,8 @@ class FontSelectViewModel(editBundle: EditBundle) : BaseMenuViewModel(editBundle
         currentTab.value = menuState.fontTabIndex
     }
 
+    override fun supportTouchHandler() = false
+
     fun onTypeChecked(type: Int) {
         if (currentTab.value === type) {
             return
