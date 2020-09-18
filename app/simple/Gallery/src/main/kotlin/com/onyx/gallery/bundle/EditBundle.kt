@@ -98,6 +98,7 @@ class EditBundle constructor(context: Context) : BaseBundle(context) {
         insertTextHandler.release()
         eraseHandler.release()
         touchHandlerManager.deactivateHandler()
+        menuStateHandler.release()
     }
 
     fun getContainerCenterPoint(): PointF {

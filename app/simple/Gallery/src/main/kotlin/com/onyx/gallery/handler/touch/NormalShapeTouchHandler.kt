@@ -38,6 +38,7 @@ class NormalShapeTouchHandler(editBundle: EditBundle) : ErasableTouchHandler(edi
         normalMatrixMapPoint(downPoint!!, point)
 
         val renderShape = createShape(downPoint)
+        renderShape.strokeWidth = getNormalStrokeWidth(drawHandler.getStrokeWidth())
         renderShape.onUp(point, point)
         addShape(renderShape)
     }
