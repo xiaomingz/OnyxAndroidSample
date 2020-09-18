@@ -55,9 +55,13 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
         if (useDynamicTheme) {
             setTheme(getThemeId())
         }
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(displayHomeAsUp)
         setBackOfActionBarTitle()
-        super.onCreate(savedInstanceState)
     }
 
     override fun onResume() {
