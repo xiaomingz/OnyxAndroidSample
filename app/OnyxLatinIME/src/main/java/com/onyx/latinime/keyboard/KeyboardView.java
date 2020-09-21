@@ -360,6 +360,9 @@ public class KeyboardView extends View {
         final int keyHeight = key.getHeight();
         final float centerX = keyWidth * 0.5f;
         final float centerY = keyHeight * 0.5f;
+        if (centerX < 0) {
+            return;
+        }
 
         if (LatinImeLogger.sVISUALDEBUG) {
             drawRectangle(canvas, 0.0f, 0.0f, keyWidth, keyHeight, 0x800000c0, new Paint());
